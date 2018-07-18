@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { BeiduAPIService } from '../../servers/baiduApi';
 import { BeiduMAPService } from '../../servers/baiduMap';
 import { DEVICEMAP } from '../../data/device-map';
@@ -6,6 +7,7 @@ import { CircleOverlarService } from './circle-overlay.server';
 import { REGIONLIST } from '../../data/region-list';
 import { BLOCKLIST } from '../../data/block-list';
 import { COMMUNITYLIST } from '../../data/community-list';
+import { CITYLIST } from '../../data/city-list';
 import { Point } from '../../data/point.type';
 import { MonitorService } from '../../service/monitor.server';
 // baidu map
@@ -26,15 +28,18 @@ export class MonitorComponent implements OnInit {
   @ViewChild('map3') map_container: ElementRef;
   map: any; // 地图对象
   marker: any; // 标记
+  cityList: any; // 城市列表
+  deviceList: any; // 城市列表
   deviceMap = DEVICEMAP;
   zoom: any; // 地图级数
   SouthWest: Point;
   NorthEast: Point;
 
   constructor(private beiduAPIService: BeiduAPIService, private beiduMAPService: BeiduMAPService,
-    private monitorService: MonitorService
+    private monitorService: MonitorService, config: NgbDropdownConfig
     ) {
     this.zoom = 12; // 默认
+    config.placement = 'bottom-left';
 
   }
 
@@ -42,6 +47,8 @@ export class MonitorComponent implements OnInit {
   ngOnInit() {
     this.addBeiduMap(); // 创建地图
     this.addMarker(); // 添加标注
+    this.getCity(); // 获取城市列表
+    this.getDevice(); // 获取设备列表
 
   }
 
@@ -105,6 +112,43 @@ export class MonitorComponent implements OnInit {
   }
 
   // 获取数据
+  // 获取城市列表
+  getCity() {
+    const that = this;
+
+    this.monitorService.getCity().subscribe({
+      next: function (val) {
+        that.cityList = val;
+
+      },
+      complete: function () {
+
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  // 获取设备列表
+  getDevice() {
+    const that = this;
+
+    this.monitorService.getDevice().subscribe({
+      next: function (val) {
+        that.deviceList = val;
+
+      },
+      complete: function () {
+
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  // 获取区域
   getRegion(sw: Point, ne: Point, zoom: Number,  length, color, mouseoverColor) {
     const that = this;
     let value;
@@ -123,6 +167,7 @@ export class MonitorComponent implements OnInit {
     });
   }
 
+  // 获取街道
   getBlock(sw: Point, ne: Point, zoom: Number, length, color, mouseoverColor) {
     const that = this;
     let value;
@@ -139,6 +184,7 @@ export class MonitorComponent implements OnInit {
     });
   }
 
+  // 获取详情
   getCommunity(sw: Point, ne: Point, zoom: Number) {
     const that = this;
     let value;
@@ -331,8 +377,8 @@ export class MonitorComponent implements OnInit {
 
   // 获取当前位置坐标 // 设置中心和地图显示级别
   getGeolocation(baidumap) {
-  const geolocation = new BMap.Geolocation(); // 获取当前位置坐标
-  geolocation.getCurrentPosition(function (r) {
+    const geolocation = new BMap.Geolocation(); // 获取当前位置坐标
+    geolocation.getCurrentPosition(function (r) {
 
     if (this.getStatus() === BMAP_STATUS_SUCCESS) {
       // fun(r);
