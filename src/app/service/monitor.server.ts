@@ -25,6 +25,19 @@ export class MonitorService {
 
     }
 
+    getDefaultZone(): Observable<any> {
+        // console.log(sw, ne, zoom);
+        return of(CITYLIST)
+            .pipe(
+                delay(1000),
+                tap(val => {
+                    console.log(val);
+                    return val;
+                })
+            );
+
+    }
+
     getCity(): Observable<any> {
         // console.log(sw, ne, zoom);
         return of(CITYLIST)
