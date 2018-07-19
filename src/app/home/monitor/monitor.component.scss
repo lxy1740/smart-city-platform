@@ -6,6 +6,10 @@
 .dropdown-menu{
     top: 29px !important;
     min-width: 90px!important;
+    .dropdown-item{
+        font-size: 14px!important;
+    }
+
 }
 
 // 城市列表
@@ -157,4 +161,7 @@
     overflow-y: auto;
     text-indent: 15px;
     font-size: 12px;
+}
+.blocklist li:hover {
+    color: #f60;
 }

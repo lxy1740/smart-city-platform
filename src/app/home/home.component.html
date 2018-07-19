@@ -50,9 +50,9 @@
       
       <aside class="sidebar-dark-primary main-sidebar">
       
-        <ul>
+        <ul class="first-menu">
           <!-- 一级菜单 -->
-          <li *ngFor="let routes of routeTree " class="cur-pointer nav-item b-bottom">
+          <li *ngFor="let routes of routeTree " class="cur-pointer nav-item ">
             <!-- 没有字菜单 -->
             <a *ngIf="!routes.children" [routerLink]="[routes.routeLink]" routerLinkActive="active" class="nav-link">
               <i class={{routes.icon}}></i>
@@ -64,8 +64,8 @@
               <p>{{routes.routeTitel}}</p>
             </a>
             <!-- 二级菜单 -->
-            <ul [ngbCollapse]="routes.isCollapsed" *ngIf="routes.children" >
-              <li *ngFor="let children of routes.children" class="cur-pointer nav-item b-top">
+            <ul [ngbCollapse]="routes.isCollapsed" *ngIf="routes.children" class="sec-menu">
+              <li *ngFor="let children of routes.children" class="cur-pointer nav-item ">
                 <a [routerLink]="[children.routeLink]" routerLinkActive="active" class="nav-link">
                   <i class={{children.icon}}></i>
                   <p class="p-left">{{children.routeTitel}}</p>
