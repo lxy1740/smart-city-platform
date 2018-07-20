@@ -54,6 +54,10 @@
 
         }
     }
+    dd a:hover, .moreCity:hover {
+    color: #f60;
+    text-decoration: underline;
+}
 }
 .device-panel {
     width: 150px;
@@ -68,6 +72,10 @@
             padding: 0 11px 0 0;
             white-space: nowrap;
 
+        }
+        a:hover{
+            color: #f60;
+            text-decoration: underline;
         }
     }
 
@@ -110,7 +118,7 @@
     margin: 0px;
     // width: 90px;
     // width: 212px;
-    top: 33px;
+    top: 31px;
     left: -1px;
     z-index: 99;
 }

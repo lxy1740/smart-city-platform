@@ -27,11 +27,11 @@
         box-shadow: 0px 6px 18px #e5e5e5;
     }
     .login-nav {
-    height: 78px;
-    line-height: 78px;
+    height: 80px;
+    line-height: 80px;
     color: #fff;
     position: fixed;
-    z-index: 100;
+    z-index: 15000;
     width: 100vw;
     .push-menu{
         padding-right: 1rem;
@@ -42,7 +42,7 @@
         position: relative;
         // logo
         img {
-            height: 85px;
+            height: 78px;
         }
     }
 
@@ -61,19 +61,49 @@
             width: 80px;
             text-align: center;
         }
+            // 信息
+        .message{
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border: 1px solid #e60012;
+            background: #e60012;
+            border-radius: 50%;
+            font-size: 8px;
+            color: #fff;
+            position: relative;
+            left: 50px;
+            top: -12px;
+            z-index: 10;
+        }
+        .dropdown-menu-list {
+            color: #87a2b7;
+            font-size:12px;
+        }
+
+        .nav-icon {
+            text-align: center;
+            width: 1.6rem;
+            font-size: 1.4rem;
+            margin-right: .2rem;
+        }
+
     }
+
     .push-menu-parent {
         display: inline-block;
     }
     // 下拉框
+    .dropdown-menu-si{
+        // top: 50px !important;
+    }
     .dropdown-item{
         height: 50px;
         line-height: 50px;
     }
-    .i-dropdown-menu{
-        left: none;
-        right: 0px !important;
-    }
+
+
+
 
 
 
@@ -85,7 +115,7 @@
 
 
     .header-margin {
-        margin-top: 78px;
+        margin-top: 80px;
         margin-left: 250px;
         padding-left:0px;
     }
@@ -97,23 +127,40 @@
         box-shadow: 0px 6px 18px #e5e5e5;
         background-color: #fff;
         height: 100vh;
-        // padding-right: 20px;
-        // padding-left: 20px;
-        // border-right: 1px solid #dee2e6;
-
+        padding-top: 60px;
         position: fixed;
-        top:78px;
+        top:80px;
         z-index: 4000;
         .nav-link {
             display: block;
-            padding-left: 25px;
-            padding-top: 15px;
+            position: relative;
+            height: 56px;
+            line-height: 56px;
         }
+        .angle{
+            position: absolute;
+            right: 34px;
+
+        }
+        // 一级菜单图片
         .nav-icon{
             text-align: center;
             width: 1.6rem;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-right: .2rem;
+            position: relative;
+            left: 20px;
+            // top: 11px;
+        }
+        // 二级菜单图片
+        .nav-icon-s{
+            text-align: center;
+            width: 1.6rem;
+            font-size: 1rem;
+            margin-right: .2rem;
+            position: relative;
+            left: 20px;
+            // top: 11px;
         }
         .b-bottom{
             border-bottom: 1px solid #dee2e6;
@@ -122,7 +169,7 @@
             border-top:1px solid #dee2e6;
         }
         .p-left{
-            padding-left: 16px;
+            padding-left: 36px;
         }
 
 
@@ -135,6 +182,10 @@
             padding-left: 0;
             white-space: nowrap;
             overflow: hidden;
+            li {
+                // height: 56px;
+                // line-height: 56px;
+            }
 
 
         }
@@ -202,20 +253,20 @@
     // hover
     @media (min-width: 992px){
         .sidebar-collapse .main-sidebar:hover {
-            width: 201px;
+            width: 275px;
             .nav-link {
-                width: 201px;
+                width: 275px;
             }
             li {
-                 width: 201px;
+                 width: 275px;
             }
             p{
                 opacity: 1;
             }
+            .angle{
+             opacity: 1;
 
-            // img {
-            //     width: 230px;
-            // }
+            }
 
         }
 
@@ -224,7 +275,7 @@
 
 
     .header-margin.sidebar-collapse {
-        margin-left: 76px;
+        margin-left: 100px;
     }
 
     // collapse
@@ -232,17 +283,21 @@
 
         .login-nav-paren {
             img {
-                    width: 76px;
+                    width: 100px;
             }
         }
         .sidebar-dark-primary{
             margin-left: 0;
-            width: 76px;
+            width: 100px;
 
     
 
             p{
                 opacity: 0;
+            }
+            .angle{
+             opacity: 0;
+
             }
  
         }
@@ -265,11 +320,5 @@
     }
 
    
-    .nav-icon {
-        text-align: center;
-        width: 1.6rem;
-        font-size: 1.2rem;
-        margin-right: .2rem;
-    }
 
 }
