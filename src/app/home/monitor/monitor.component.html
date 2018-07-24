@@ -34,14 +34,14 @@
       <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
         <em>不限</em>
       </li>
-      <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)" >
+      <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)" (click)="selecteblock(node)">
         <em>{{node.name}}</em>
       </li>
 
     </ul>
     <ul class="blocklist" data-type="block" *ngIf="currentBlock" >
       <li data-val="0">不限</li>
-      <li *ngFor="let node of currentBlock" >{{node.name}}</li>
+      <li *ngFor="let block of currentBlock" (click)="selecteblock(block)">{{block.name}}</li>
 
     </ul>
 
@@ -81,3 +81,11 @@
   
 </div> -->
   <div #map3 id="map_container3" class="map_container"></div>
+  <div>
+    <ul>
+      <li class="cur-pointer"><a>灯</a> </li>
+      <li class="cur-pointer"><a>井盖</a></li>
+      <li class="cur-pointer"><a>环境箱</a></li>
+      <li class="cur-pointer"><a>气象箱</a></li>
+    </ul>
+  </div>
