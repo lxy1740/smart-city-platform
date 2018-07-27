@@ -73,19 +73,49 @@
   </div>
 
 </div>
-<!-- <div class="d-inline-block">
-  <select [(ngModel)]='cityList'>
-    <option value="">请选择</option> //此处用的是value，而不是[value]
-    <option *ngFor="let item of cityList" [value]='item'>{{item.name}}</option>
-  </select>
-  
-</div> -->
+ <!-- 数据标签 -->
+<div class="d-inline-block" style="margin-left: 21px;">
+  <div class="tag-bule d-inline-block"></div>
+  <div class=" d-inline-block" style="padding: 0 10px;">正常</div>
+  <div class="tag-grad d-inline-block"></div>
+  <div class="d-inline-block" style="padding: 0 10px;">掉线</div>
+  <div class="tag-red d-inline-block"></div>
+  <div class=" d-inline-block" style="padding: 0 10px;">数据异常</div>
+</div>
+
+<div class="map_warp">
+  <!-- 地图 -->
   <div #map3 id="map_container3" class="map_container"></div>
-  <div>
-    <ul>
-      <li class="cur-pointer"><a>灯</a> </li>
-      <li class="cur-pointer"><a>井盖</a></li>
-      <li class="cur-pointer"><a>环境箱</a></li>
-      <li class="cur-pointer"><a>气象箱</a></li>
-    </ul>
+
+
+  <div class="device-detail" *ngIf="deviceChild">
+    <div class="device-title">
+      <span class="device-close float-right">X</span>
+    </div>
+    <p>
+      <span>设备名称:</span>
+      <span>{{deviceChild.name}}</span>
+    </p>
+    <p>
+      <span>设备ID:</span>
+      <span>{{deviceChild.id}}</span>
+    </p>
+    <table class="table">
+      <tr>
+        <th>参数</th>
+        <th>值</th>
+        <th>单位</th>
+
+      </tr>
+      <tr>
+        <td class="active">...</td>
+        <td class="success">...</td>
+        <td class="warning">...</td>
+        <!-- <td class="danger">...</td>
+                <td class="info">...</td> -->
+      </tr>
+    </table>
   </div>
+</div>
+
+

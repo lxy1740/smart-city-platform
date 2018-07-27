@@ -1,234 +1,2742 @@
 export const COMMUNITYLIST = {
-    "code": 0,
-    "msg": "ok",
-    "val": {
-        "community_list": [
+    'code': 0,
+    'msg': 'ok',
+    'val': {
+        'community_list' : [
             {
-                "id": 323631,
-                "name": "\u82f1\u4f26\u540d\u82d1(\u4e00\u671f)",
-                "address": "\u6c99\u6cb3\u897f\u8def2025",
-                "build_date": "2003\u5e74",
-                "lat": "22.554285",
-                "lng": "113.962989",
-                "prop_num": 2
+               'id': '300001',
+               'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+               'build_date': '2003\u5e74',
+                'lat': '22.496739',
+                'lng': '113.920522',
+                'parameters': [], // 设备参数
+               'prop_num': 2,
+               'is_active': 1, // 激活
+               'is_online': 1, // 在线
+               'is_disabled': 0, // 禁用
+               'is_exception': 0, // 异常
+               'exception_Information': [], // 异常信息
+               'has_child': 1,
+               'children': [
+                   {
+                       'id': '310001',
+                       'name': '灯',
+                       'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                       'build_date': '2003\u5e74',
+                       'lat': '22.496739',
+                       'lng': '113.920522',
+                       'prop_num': 2,
+                       'is_active': 1, // 激活
+                       'is_online': 1, // 在线
+                       'is_disabled': 1, // 禁用
+                       'is_exception': 0, // 异常
+                       'exception_Information': '', // 异常信息
+                       'has_child': 0,
+                       'parameters': [// 设备参数
+                           {
+                               'name': '二氧化碳浓度',
+                               'value': 2,
+                               'Unit': '百分率ppm' // 单位
+                           },
+                           {
+                               'name': '一氧化碳浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           },
+                           {
+                               'name': '二氧化硫浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           }
+                       ],
+                   },
+                   {
+                       'id': '310002',
+                       'name': '井盖',
+                       'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                       'build_date': '2003\u5e74',
+                       'lat': '22.496739',
+                       'lng': '113.920522',
+                       'prop_num': 2,
+                       'is_active': 1, // 激活
+                       'is_online': 1, // 在线
+                       'is_disabled': 1, // 禁用
+                       'is_exception': 0, // 异常
+                       'exception_Information': '', // 异常信息
+                       'has_child': 0,
+                       'parameters': [// 设备参数
+                           {
+                               'name': '二氧化碳浓度',
+                               'value': 2,
+                               'Unit': '百分率ppm' // 单位
+                           },
+                           {
+                               'name': '一氧化碳浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           },
+                           {
+                               'name': '二氧化硫浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           }
+                       ],
+                   },
+                    {
+                       'id': '310003',
+                       'name': '环境箱',
+                       'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                       'build_date': '2003\u5e74',
+                       'lat': '22.496739',
+                       'lng': '113.920522',
+                       'prop_num': 2,
+                       'is_active': 1, // 激活
+                       'is_online': 1, // 在线
+                       'is_disabled': 1, // 禁用
+                       'is_exception': 0, // 异常
+                       'exception_Information': '', // 异常信息
+                       'has_child': 0,
+                       'parameters': [// 设备参数
+                           {
+                               'name': '二氧化碳浓度',
+                               'value': 2,
+                               'Unit': '百分率ppm' // 单位
+                           },
+                           {
+                               'name': '一氧化碳浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           },
+                           {
+                               'name': '二氧化硫浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           }
+                       ],
+                    },
+                   {
+                       'id': '310004',
+                       'name': '气象箱',
+                       'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                       'build_date': '2003\u5e74',
+                       'lat': '22.496739',
+                       'lng': '113.920522',
+                       'prop_num': 2,
+                       'is_active': 1, // 激活
+                       'is_online': 1, // 在线
+                       'is_disabled': 1, // 禁用
+                       'is_exception': 0, // 异常
+                       'exception_Information': '', // 异常信息
+                       'has_child': 0,
+                       'parameters': [// 设备参数
+                           {
+                               'name': '二氧化碳浓度',
+                               'value': 2,
+                               'Unit': '百分率ppm' // 单位
+                           },
+                           {
+                               'name': '一氧化碳浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           },
+                           {
+                               'name': '二氧化硫浓度',
+                               'value': 2,
+                               'Unit': '微克每立方米' // 单位
+                           }
+                       ],
+                   }
+               ]
             },
             {
-                "id": 867991,
-                "name": "\u5927\u51b2\u65b0\u57ce\u82b1\u56ed",
-                "address": "\u79d1\u53d1\u8def",
-                "build_date": "2015\u5e74",
-                "lat": "22.548016",
-                "lng": "113.958769",
-                "prop_num": 999
+                'id': '300002',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业四路, 4号',
+                'build_date': '2003\u5e74',
+                'lat': '22.496113',
+                'lng': '113.920913',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 0, // 禁用
+                'is_exception': 0, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310011',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310012',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310013',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310014',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 97672,
-                "name": "\u6df1\u5357\u82b1\u56ed",
-                "address": "\u79d1\u5174\u8def11\u53f7",
-                "build_date": "1996\u5e74",
-                "lat": "22.546531",
-                "lng": "113.950846",
-                "prop_num": 283
+                'id': '300003',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 沿山路, 21-1号',
+                'build_date': '2003\u5e74',
+                'lat': '22.49757',
+                'lng': '113.920122',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 0, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 0, // 正常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310021',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310022',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310023',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310024',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 1034006,
-                "name": "\u534e\u6da6\u57ce\u6da6\u5e9c\u4e8c\u671f",
-                "address": "\u94dc\u9f13\u8def",
-                "build_date": "2017\u5e74",
-                "lat": "22.549787",
-                "lng": "113.961116",
-                "prop_num": 386
+                'id': '300004',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 沿山路, 17号',
+                'build_date': '2003\u5e74',
+                'lat': '22.496885',
+                'lng': '113.919952',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 0, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 0, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310031',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310032',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310033',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310034',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 95504,
-                "name": "\u6c47\u666f\u8c6a\u82d1",
-                "address": "\u79d1\u5174\u8def10\u53f7",
-                "build_date": "2000\u5e74",
-                "lat": "22.546839",
-                "lng": "113.94946",
-                "prop_num": 249
+                'id': '300005',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 沿山路, 11号',
+                'build_date': '2003\u5e74',
+                'lat': '22.496393',
+                'lng': '113.919781',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 0, // 禁用
+                'is_exception': 0, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310051',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310052',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310053',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0 , // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310054',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 864188,
-                "name": "\u79d1\u6280\u56ed\u4e09\u5341\u516d\u533a",
-                "address": "\u79d1\u534e\u8def2\u53f7",
-                "build_date": "1995\u5e74",
-                "lat": "22.552004",
-                "lng": "113.955856",
-                "prop_num": 13
+                'id': '300006',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 2号',
+                'build_date': '2003\u5e74',
+                'lat': '22.497361',
+                'lng': '113.923235',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310061',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310062',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310063',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310064',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 95674,
-                "name": "\u82f1\u4f26\u540d\u82d1(\u4e8c\u671f)",
-                "address": "\u6c99\u6cb3\u897f\u8def2021\u53f7",
-                "build_date": "2003\u5e74",
-                "lat": "22.553588",
-                "lng": "113.96402",
-                "prop_num": 4
+                'id': '300007',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 2号',
+                'build_date': '2003\u5e74',
+                'lat': '22.497632',
+                'lng': '113.922642',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310071',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310072',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310073',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310074',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 724900,
-                "name": "\u5927\u51b2\u57ce\u5e02\u82b1\u56ed",
-                "address": "\u5927\u51b2\u4e8c\u8def",
-                "build_date": "2014\u5e74",
-                "lat": "22.54992",
-                "lng": "113.963342",
-                "prop_num": 690
+                'id': '300008',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 4号',
+                'build_date': '2003\u5e74',
+                'lat': '22.497987',
+                'lng': '113.921852',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310081',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310082',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310083',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310084',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 790585,
-                "name": "\u5927\u51b2\u90fd\u5e02\u82b1\u56ed",
-                "address": "\u94dc\u9f13\u8def",
-                "build_date": "",
-                "lat": "22.549515",
-                "lng": "113.959772",
-                "prop_num": 335
+                'id': '300009',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 10号',
+                'build_date': '2003\u5e74',
+                'lat': '22.498279',
+                'lng': '113.921151',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310091',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310092',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310093',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310094',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 95483,
-                "name": "\u51ef\u4e3d\u82b1\u56ed",
-                "address": "\u9ad8\u65b0\u4e2d\u56db\u90536\u53f7",
-                "build_date": "1996\u5e74",
-                "lat": "22.54864",
-                "lng": "113.946335",
-                "prop_num": 140
+                'id': '300010',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 沿山路, 27号',
+                'build_date': '2003\u5e74',
+                'lat': '22.49853',
+                'lng': '113.920378',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310101',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310102',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310103',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310104',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 189413,
-                "name": "\u79d1\u6280\u56ed\u5c0f\u533a",
-                "address": "\u7fe0\u6eaa\u8def1\u53f7",
-                "build_date": "1991\u5e74",
-                "lat": "22.551422",
-                "lng": "113.956737",
-                "prop_num": 137
+                'id': '300011',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 南海大道, 1518号',
+                'build_date': '2003\u5e74',
+                'lat': '22.49557',
+                'lng': '113.922229',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310111',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310112',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310113',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310114',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 349209,
-                "name": "\u79d1\u82d1\u5c45",
-                "address": "\u7fe0\u6eaa\u8def",
-                "build_date": "1995\u5e74",
-                "lat": "22.54861",
-                "lng": "113.950228",
-                "prop_num": 91
+                'id': '300012',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业四路, 2号',
+                'build_date': '2003\u5e74',
+                'lat': '22.495863',
+                'lng': '113.921515',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310121',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310122',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310123',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310124',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 843328,
-                "name": "\u79d1\u6280\u56ed\u4f4f\u5b85\u5c0f\u533a",
-                "address": "\u9752\u68a7\u8def1\u53f7",
-                "build_date": "1998\u5e74",
-                "lat": "22.551398",
-                "lng": "113.956724",
-                "prop_num": 1
+                'id': '300013',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业四路, 6号',
+                'build_date': '2003\u5e74',
+                'lat': '22.496388',
+                'lng': '113.920419',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310131',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310132',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310133',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310134',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 652107,
-                "name": "\u7ea2\u6811\u522b\u9662",
-                "address": "\u6c99\u6cb3\u897f\u8def2015\u53f7",
-                "build_date": "2014\u5e74",
-                "lat": "22.552059",
-                "lng": "113.963485",
-                "prop_num": 12
+                'id': '300014',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 30号',
+                'build_date': '2003\u5e74',
+                'lat': '22.498012',
+                'lng': '113.922485',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310141',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310142',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310143',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310144',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 843275,
-                "name": "\u8b66\u5bdf\u82b1\u56ed",
-                "address": "\u9ad8\u65b0\u4e2d\u56db\u905311\u53f7",
-                "build_date": "1995\u5e74",
-                "lat": "22.547957",
-                "lng": "113.944307",
-                "prop_num": 27
+                'id': '300015',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 30号',
+                'build_date': '2003\u5e74',
+                'lat': '22.498288',
+                'lng': '113.92262',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310151',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310152',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310153',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310154',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 864187,
-                "name": "\u79d1\u6280\u56ed\u4e94\u5341\u516b\u533a",
-                "address": "\u6587\u534e\u8def",
-                "build_date": "2009\u5e74",
-                "lat": "22.554039",
-                "lng": "113.957801",
-                "prop_num": 4
+                'id': '300016',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 1055号',
+                'build_date': '2003\u5e74',
+                'lat': '22.499206',
+                'lng': '113.923118',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310161',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310162',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310163',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310164',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 98229,
-                "name": "\u82f1\u4f26\u540d\u82d1(\u4e09\u671f)",
-                "address": "\u6c99\u6cb3\u897f\u8def2023\u53f7",
-                "build_date": "2005\u5e74",
-                "lat": "22.553472",
-                "lng": "113.96218",
-                "prop_num": 6
+                'id': '300017',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 8号',
+                'build_date': '2003\u5e74',
+                'lat': '22.498755',
+                'lng': '113.922853',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 0, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 0, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310171',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310172',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310173',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310174',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 843329,
-                "name": "\u79d1\u82d1\u897f\u4f4f\u5b85\u5c0f\u533a",
-                "address": "\u79d1\u5174\u8def6\u53f7",
-                "build_date": "",
-                "lat": "22.548008",
-                "lng": "113.950783",
-                "prop_num": 25
+                'id': '300018',
+                'name': '井盖',
+                'address': '广东省, 深圳市, 南山区, 沿山路, 15号',
+                'build_date': '2003\u5e74',
+                'lat': '22.496681',
+                'lng': '113.919238',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 0, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 0, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+
+                    {
+                        'id': '310181',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 沿山路, 15号',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496681',
+                        'lng': '113.919238',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+
+                ]
             },
             {
-                "id": 287791,
-                "name": "\u79d1\u82d1\u5c71\u5e84",
-                "address": "\u6587\u534e\u8def4\u53f7",
-                "build_date": "2003\u5e74",
-                "lat": "22.553977",
-                "lng": "113.955825",
-                "prop_num": 9
+                'id': '300019',
+                'name': '井盖',
+                'address': '广东省, 深圳市, 南山区, 沿山路, 9-3号',
+                'build_date': '2003\u5e74',
+                'lat': '22.495395',
+                'lng': '113.919166',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 0, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 0, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+
+                    {
+                        'id': '310191',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 沿山路, 9-3号',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.495395',
+                        'lng': '113.919166',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 1, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
             {
-                "id": 843330,
-                "name": "\u79d1\u82d1\u5c0f\u533a",
-                "address": "\u79d1\u4f1f\u8def8\u53f7",
-                "build_date": "1998\u5e74",
-                "lat": "22.55486",
-                "lng": "113.953328",
-                "prop_num": 30
+                'id': '300020',
+                'name': '灯柱',
+                'address': '广东省, 深圳市, 南山区, 工业五路, 14号',
+                'build_date': '2003\u5e74',
+                'lat': '22.498847',
+                'lng': '113.9197',
+                'parameters': [], // 设备参数
+                'prop_num': 2,
+                'is_active': 1, // 激活
+                'is_online': 1, // 在线
+                'is_disabled': 1, // 禁用
+                'is_exception': 1, // 异常
+                'exception_Information': [], // 异常信息
+                'has_child': 1,
+                'children': [
+                    {
+                        'id': '310201',
+                        'name': '灯',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310202',
+                        'name': '井盖',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310203',
+                        'name': '环境箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 1, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    },
+                    {
+                        'id': '310204',
+                        'name': '气象箱',
+                        'address': '广东省, 深圳市, 南山区, 工业四路, 6',
+                        'build_date': '2003\u5e74',
+                        'lat': '22.496739',
+                        'lng': '113.920522',
+                        'prop_num': 2,
+                        'is_active': 1, // 激活
+                        'is_online': 0, // 在线
+                        'is_disabled': 1, // 禁用
+                        'is_exception': 0, // 异常
+                        'exception_Information': '', // 异常信息
+                        'has_child': 0,
+                        'parameters': [// 设备参数
+                            {
+                                'name': '二氧化碳浓度',
+                                'value': 2,
+                                'Unit': '百分率ppm' // 单位
+                            },
+                            {
+                                'name': '一氧化碳浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            },
+                            {
+                                'name': '二氧化硫浓度',
+                                'value': 2,
+                                'Unit': '微克每立方米' // 单位
+                            }
+                        ],
+                    }
+                ]
             },
-            {
-                "id": 1032936,
-                "name": "\u79d1\u6280\u56ed\u56db\u5341\u516b\u533a",
-                "address": "\u79d1\u4f1f\u8def",
-                "build_date": "1993\u5e74",
-                "lat": "22.554224",
-                "lng": "113.953389",
-                "prop_num": 1
-            },
-            {
-                "id": 95496,
-                "name": "\u6717\u666f\u56ed",
-                "address": "\u79d1\u6280\u8def2\u53f7",
-                "build_date": "2001\u5e74",
-                "lat": "22.546673",
-                "lng": "113.957081",
-                "prop_num": 62
-            },
-            {
-                "id": 907366,
-                "name": "\u534e\u6da6\u57ce\u6da6\u5e9c\u4e00\u671f",
-                "address": "\u6df1\u5357\u5927\u90539672\u53f7",
-                "build_date": "2018\u5e74",
-                "lat": "22.54672",
-                "lng": "113.959844",
-                "prop_num": 535
-            },
-            {
-                "id": 288065,
-                "name": "\u535a\u5ba2\u516c\u5bd3",
-                "address": "\u79d1\u4f1f\u8def2\u53f7",
-                "build_date": "2009\u5e74",
-                "lat": "22.552825",
-                "lng": "113.953534",
-                "prop_num": 12
-            },
-            {
-                "id": 170178,
-                "name": "\u83b1\u8335\u82b1\u56ed",
-                "address": "\u6c99\u6cb3\u897f\u8def2017\u53f7",
-                "build_date": "2003\u5e74",
-                "lat": "22.55284",
-                "lng": "113.962731",
-                "prop_num": 1
-            }
+
         ],
-        "match_data": []
+
     }
+
 };
