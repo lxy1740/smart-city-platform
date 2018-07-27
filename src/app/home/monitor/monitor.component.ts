@@ -67,8 +67,8 @@ export class MonitorComponent implements OnInit {
     this.subscription = messService.Status$.subscribe(message => {
       this.queryPoint = message;
       this.isqueryPoint = true;
-      console.log('this.queryPoint');
-      console.log(this.queryPoint);
+      // console.log('this.queryPoint');
+      // console.log(this.queryPoint);
       this.goTothePoint(this.map);
     });
 
@@ -129,9 +129,13 @@ export class MonitorComponent implements OnInit {
     const mk = new BMap.Marker(pt);
     const message = this.queryPoint.message;
 
-    baiduMap.setZoom(18); // 放大地图
+    baiduMap.setZoom(19); // 放大地图
     baiduMap.panTo(pt); // 地图中心移动到这个点
-    this.remove_overlay(baiduMap); // 清除覆盖物
+    const zoom = baiduMap.getZoom();
+    if (this.zoom !== zoom) {
+      this.remove_overlay(baiduMap); // 清除覆盖物
+    }
+
 
     // baiduMap.addOverlay(mk); // 添加标注
 
@@ -143,8 +147,14 @@ export class MonitorComponent implements OnInit {
 
     this.overMessage( baiduMap, pt, message);
     // this.openMessage(mk, baiduMap);
-    this.openMessage(mySquare, baiduMap);
-
+    // this.openMessage(mySquare, baiduMap, pt);
+    // console.log(this.queryPoint);
+    const parent = this.queryPoint.parent;
+    this.openSideBar(mySquare, baiduMap, parent, pt);
+    setTimeout(() => {
+      $(`#${parent.id}`).click();
+      console.log($(`#${parent.id}`));
+    }, 1);
 
   }
 
@@ -168,7 +178,7 @@ export class MonitorComponent implements OnInit {
   }
 
   // 信息窗口
-  openMessage(marker, baiduMap) {
+  openMessage(marker, baiduMap, pt) {
     const that = this;
     // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
     const opts = {
@@ -186,7 +196,7 @@ export class MonitorComponent implements OnInit {
     </ul>
     `;
     const infoWindow = new BMap.InfoWindow(txt, opts);
-    marker.openInfoWindow(infoWindow);
+    baiduMap.openInfoWindow(infoWindow, pt);
 
   }
 
@@ -537,6 +547,7 @@ export class MonitorComponent implements OnInit {
     // 点击点标注事件
     for (let index = 0; index < markers.length; index++) {
       const marker = markers[index];
+      // console.log(val[index]);
       that.openSideBar(marker, that.map, val[index], points[index]);
     }
   }

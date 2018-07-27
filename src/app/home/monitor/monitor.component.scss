@@ -185,7 +185,7 @@
     z-index: 2000;
     position: absolute;
     right: 85px;
-    top: 0;
+    top: 80px;
     padding: 0px 15px;
 }
 .device-close{
@@ -225,6 +225,7 @@
 }
 .info-text {
         margin-left: 130px;
+        font-size: 16px;
 }
 // 蒙板
 .mask-zt{
@@ -255,7 +256,7 @@
 }
 .info{
     font-size: 3rem;
-    color: #fe9001;
+    color: #f44336;
 }
 
 //
@@ -268,4 +269,9 @@
         right: 80px;
         bottom: 10px;
     }
+}
+
+.info-border{
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
 }
