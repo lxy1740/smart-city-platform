@@ -36,6 +36,7 @@ import { BeiduMAPService } from './service/servers/baiduMap';
 import { MonitorService } from './service/monitor.service';
 import { MessageService } from './service/message.service';
 import { MessService } from './service/mess.service';
+import { UrlService } from './service/url.service';
 
 import { PageNotFoundComponent } from './not-found.component';
 
@@ -72,7 +73,7 @@ import { PageNotFoundComponent } from './not-found.component';
   exports: [
   ],
   providers: [AuthGuard, AuthService, WindowRef, BeiduAPIService, BeiduMAPService, MonitorService,
-    MessService, MessageService],
+    MessService, MessageService, UrlService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

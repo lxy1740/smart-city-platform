@@ -7,6 +7,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ROUTETREE } from '../data/route-tree';
 import { MessageService } from '../service/message.service';
 import { MessService } from '../service/mess.service';
+import { UrlService } from '../service/url.service';
 declare let $: any;
 
 @Component({
@@ -22,15 +23,19 @@ export class HomeComponent implements OnInit {
   open = false;
   messageList: any; // 消息列表
   queryPoint: any;
+  visible = true; // 控制可视区域
 
 
   constructor(public authService: AuthService, public router: Router, private _cookieService: CookieService,
-    private messageService: MessageService, public messService: MessService,
+    private messageService: MessageService, public messService: MessService, public urlService: UrlService,
     config: NgbDropdownConfig) {
     this.routeTree = ROUTETREE;
     // customize default values of dropdowns used by this component tree
     config.placement = 'bottom-right';
     // config.autoClose = false;
+
+    this.visible = urlService.getURLParam('visible') === '' ? true : false;
+    console.log(this.visible);
   }
 
   ngOnInit() {

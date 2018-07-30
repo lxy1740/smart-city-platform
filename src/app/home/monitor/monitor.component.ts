@@ -2,12 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/';
-// import { BeiduAPIService } from '../../service/servers/baiduApi';
-// import { BeiduMAPService } from '../../service/servers/baiduMap';
-// import { DEVICEMAP } from '../../data/device-map';
+
 import { CircleOverlarService } from '../../service/circle-overlay.server';
 import { GradOverlar } from '../../service/grad.overlay';
 import { RedOverlar } from '../../service/red-overlay';
+import { UrlService } from '../../service/url.service';
 
 
 import { Point } from '../../data/point.type';
@@ -56,19 +55,26 @@ export class MonitorComponent implements OnInit {
   isqueryPoint = false; // 是否从路由点的异常信息点的数据
   subscription: Subscription; // 用于订阅事件
   meteorology = METEOROLOGY; // 气象
+  visible = true; // 控制可视区域
 
   constructor(
     private monitorService: MonitorService, config: NgbDropdownConfig, private activatedRoute: ActivatedRoute,
-    public messService: MessService,
+    public messService: MessService, public router: Router, public urlService: UrlService,
     ) {
     this.zoom = 12; // 默认
     config.placement = 'bottom-left';
+    this.visible = urlService.getURLParam('visible') === '' ? true : false;
+    console.log(this.visible);
+    // if (this.visible === false) {
+    //   this.enterFullScreen();
+    // }
 
-    this.subscription = messService.Status$.subscribe(message => {
+    this.subscription = this.messService.Status$.subscribe(message => {
       this.queryPoint = message;
       this.isqueryPoint = true;
       // console.log('this.queryPoint');
-      // console.log(this.queryPoint);
+      // console.log(this.map);
+      // console.log(this.markers);
       this.goTothePoint(this.map);
     });
 
@@ -79,6 +85,7 @@ export class MonitorComponent implements OnInit {
 
     this.getCity(); // 获取城市列表
     this.getDevice(); // 获取设备列表
+
 
   }
 
@@ -99,12 +106,13 @@ export class MonitorComponent implements OnInit {
 
     // 地图类型控件
     map.addControl(new BMap.MapTypeControl());
-    // map.setCurrentCity("广州");
+    // map.setCurrentCity('广州');
 
     // 添加控件缩放
+    const offset = this.visible === true ? new BMap.Size(20, 140) : new BMap.Size(20, 15);
     map.addControl(new BMap.NavigationControl({
       anchor: BMAP_ANCHOR_TOP_LEFT,
-      offset: new BMap.Size(20, 140),
+      offset: offset,
     }));
 
     const top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT, offset: new BMap.Size(20, 85) }); // 左上角，添加比例尺
@@ -116,6 +124,8 @@ export class MonitorComponent implements OnInit {
     this.dragendOff(map);
     this.zoomendOff(map);
     this.mapClickOff(map);
+
+
 
   }
 
@@ -157,8 +167,10 @@ export class MonitorComponent implements OnInit {
     // this.overMessage( baiduMap, pt, message); // 添加文字
 
     this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
-    console.log(this.markers);
+    // console.log(this.markers);
     setTimeout(() => {
+      console.log('click');
+      console.log(mySquare.V);
       mySquare.V.click();
     }, 50);
 
@@ -196,10 +208,10 @@ export class MonitorComponent implements OnInit {
     };
     const txt = `
     <ul device-mes>
-      <li class="cur-pointer "><a>灯</a> </li>
-      <li class="cur-pointer "><a>井盖</a></li>
-      <li class="cur-pointer "><a>环境箱</a></li>
-      <li class="cur-pointer "><a>气象箱</a></li>
+      <li class='cur-pointer '><a>灯</a> </li>
+      <li class='cur-pointer '><a>井盖</a></li>
+      <li class='cur-pointer '><a>环境箱</a></li>
+      <li class='cur-pointer '><a>气象箱</a></li>
     </ul>
     `;
     const infoWindow = new BMap.InfoWindow(txt, opts);
@@ -248,8 +260,8 @@ export class MonitorComponent implements OnInit {
   mapClickOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
-      console.log('click');
-      console.log(e.point);
+      // console.log('click');
+      // console.log(e.point);
       that.deviceChild = null;
   });
   }
@@ -472,7 +484,7 @@ export class MonitorComponent implements OnInit {
 
   // 根据级别获取数据-锚点
   addMarker() {
-
+    console.log('获取数据');
     this.getBounds(this.map); // 获取可视区域
     const that = this;
     const zoom = this.zoom;
@@ -519,6 +531,8 @@ export class MonitorComponent implements OnInit {
 
   // 添加点标注
   addPoint(val) {
+    console.log('标注');
+    console.log(this.markers);
     this.markers = [];
     const points: any[] = [];
     const that = this;
@@ -542,7 +556,7 @@ export class MonitorComponent implements OnInit {
         // console.log('正常');
 
       }
-      // console.log(item.is_online);
+
 
       that.map.addOverlay(mySquare);
 
@@ -639,9 +653,9 @@ export class MonitorComponent implements OnInit {
     for (let index = 0; index < val.children.length; index++) {
       if (val.children[index].is_online === 0 || val.children[index].is_exception === 1) {
         // 离线或异常
-        txt = txt + `<p  class="cur-pointer" style="color:red;"  id="${val.children[index].id}"> ${val.children[index].name}</p>`;
+        txt = txt + `<p  class='cur-pointer' style='color:red;'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
       } else {
-        txt = txt + `<p  class="cur-pointer"  id="${val.children[index].id}"> ${val.children[index].name}</p>`;
+        txt = txt + `<p  class='cur-pointer'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
       }
 
     }
@@ -793,6 +807,46 @@ export class MonitorComponent implements OnInit {
     // };
     return that.node && that.node.children ;
   }
+  // 路由跳转-传递参数-这是在html中绑定的click跳转事件
+  jumpHandle() {
+    this.router.navigate([`home/video`]);
+
+  }
+
+  // 打开新页面
+  openBlackWin() {
+    console.log(window.location.href);
+    // const href = window.location.href;
+    const href = this.urlService.addURLParam('visible', 'false');
+    localStorage.setItem('visible', 'false');
+    window.open(href, '_blank');
+  }
+
+ // 进入全屏
+  enterFullScreen() {
+    const de = document.documentElement;
+    if (de.requestFullscreen) {
+      de.requestFullscreen();
+    } else if (de.mozRequestFullScreen) {
+      de.mozRequestFullScreen();
+    } else if (de.webkitRequestFullScreen) {
+    de.webkitRequestFullScreen();
+    }
+
+  }
+ // 退出全屏
+    exitFullScreen() {
+      const de = document;
+      if (de.exitFullscreen) {
+        de.exitFullscreen();
+      } else if (de.mozCancelFullScreen) {
+        de.mozCancelFullScreen();
+      } else if (de.webkitCancelFullScreen) {
+        de.webkitCancelFullScreen();
+      }
+
+}
+
 
 
 
