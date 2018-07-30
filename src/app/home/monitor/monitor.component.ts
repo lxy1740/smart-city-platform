@@ -35,7 +35,7 @@ export class MonitorComponent implements OnInit {
   @ViewChild('map3') map_container: ElementRef;
 
   map: any; // 地图对象
-  marker: any; // 标记
+  markers: any[] = []; // 标记
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
   defaultZone: any; // 默认城市
@@ -124,37 +124,44 @@ export class MonitorComponent implements OnInit {
 
   // 跳到控制台地图的具体的点
   goTothePoint(baiduMap) {
-
-    const pt = new BMap.Point(this.queryPoint.lng, this.queryPoint.lat);
-    const mk = new BMap.Marker(pt);
-    const message = this.queryPoint.message;
+    const that = this;
+    const pt = new BMap.Point(this.queryPoint.lng, this.queryPoint.lat); // 选择的点的坐标
+    // const mk = new BMap.Marker(pt);
+    const message = this.queryPoint.message; // 异常信息
+    const parent = this.queryPoint.parent; // 父亲信息
+    const zoom = baiduMap.getZoom(); // 当前地图级别
+    let mySquare; // 自定义标注
 
     baiduMap.setZoom(19); // 放大地图
     baiduMap.panTo(pt); // 地图中心移动到这个点
-    const zoom = baiduMap.getZoom();
+
+
     if (this.zoom !== zoom) {
       this.remove_overlay(baiduMap); // 清除覆盖物
     }
 
+    if (parent.is_exception && parent.is_exception === 1) { // 异常
+      mySquare = new GradOverlar(pt, 50, 'tag-red');
+      // console.log('异常');
+    } else if (parent.is_online === 0) { // 掉线
+      mySquare = new GradOverlar(pt, 50, 'tag-grad');
+      // console.log('掉线');
+    } else { // 正常
+      mySquare = new GradOverlar(pt, 50, 'tag-bule');
+      // console.log('正常');
 
-    // baiduMap.addOverlay(mk); // 添加标注
+    }
 
-    const mySquare = new GradOverlar(pt, 50, 'tag-red');
     this.map.addOverlay(mySquare);
 
-    // mk.setAnimation(BMAP_ANIMATION_BOUNCE); // 跳动的动画
-    // mySquare.setAnimation(BMAP_ANIMATION_BOUNCE); // 跳动的动画
+    // this.overMessage( baiduMap, pt, message); // 添加文字
 
-    this.overMessage( baiduMap, pt, message);
-    // this.openMessage(mk, baiduMap);
-    // this.openMessage(mySquare, baiduMap, pt);
-    // console.log(this.queryPoint);
-    const parent = this.queryPoint.parent;
-    this.openSideBar(mySquare, baiduMap, parent, pt);
+    this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
+    console.log(this.markers);
     setTimeout(() => {
-      $(`#${parent.id}`).click();
-      console.log($(`#${parent.id}`));
-    }, 1);
+      mySquare.V.click();
+    }, 50);
+
 
   }
 
@@ -512,7 +519,7 @@ export class MonitorComponent implements OnInit {
 
   // 添加点标注
   addPoint(val) {
-    const markers: any[] = [];
+    this.markers = [];
     const points: any[] = [];
     const that = this;
     val.map((item, i) => {
@@ -539,14 +546,14 @@ export class MonitorComponent implements OnInit {
 
       that.map.addOverlay(mySquare);
 
-      markers.push(mySquare); // 聚合
+      that.markers.push(mySquare); // 聚合
       points.push(pt); // 聚合
 
     });
 
     // 点击点标注事件
-    for (let index = 0; index < markers.length; index++) {
-      const marker = markers[index];
+    for (let index = 0; index < that.markers.length; index++) {
+      const marker = that.markers[index];
       // console.log(val[index]);
       that.openSideBar(marker, that.map, val[index], points[index]);
     }
@@ -554,8 +561,9 @@ export class MonitorComponent implements OnInit {
 
   // 添加圆形标注
   addCirCle(val, length, color, mouseoverColor) {
+    this.markers = [];
     const that = this;
-    const markers: any[] = [];
+    // const markers: any[] = [];
     val.map((item, i) => {
 
       const pt = new BMap.Point(item.lng, item.lat);
@@ -569,15 +577,15 @@ export class MonitorComponent implements OnInit {
       const mySquare = new CircleOverlarService(pt, name, length, color, mouseoverColor);
       that.map.addOverlay(mySquare);
 
-      markers.push(mySquare); // 聚合
+      that.markers.push(mySquare); // 聚合
 
 
     });
 
     // 点击圆形标注事件
 
-    for (let index = 0; index < markers.length; index++) {
-      const marker = markers[index];
+    for (let index = 0; index < that.markers.length; index++) {
+      const marker = that.markers[index];
       this.setZoom(marker, this.map);
     }
   }
@@ -658,6 +666,7 @@ export class MonitorComponent implements OnInit {
       const device = $(`#${this.device.children[index].id}`);
       device.on('click', function () {
         console.log('click');
+        console.log(device);
         that.deviceChild = that.device.children[index];
       });
     }
