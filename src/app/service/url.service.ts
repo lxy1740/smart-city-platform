@@ -35,7 +35,20 @@ export class UrlService {
         }
     }
 
+    // 在当前浏览器url添加参数
     addURLParam(key, value) {
+        let url = window.location.href; // 获取当前url
+        // let href;
+        if (url.indexOf('?') > 0) {
+            url = url.split('?')[0];
+        }
+        window.location.href = url + this.setURLParam(key, value);
+        // href = url + this.setURLParam(key, value);
+        // return href;
+    }
+
+    // 打开新的窗口并url添加参数
+    addURLParamAddOpen(key, value) {
         let url = window.location.href; // 获取当前url
         let href;
         if (url.indexOf('?') > 0) {
@@ -43,8 +56,11 @@ export class UrlService {
         }
         // window.location.href = url + this.setParam(key, value);
         href = url + this.setURLParam(key, value);
-        return href;
+        // return href;
+        window.open(href, '_blank');
     }
+
+    // 获取参数
 
     getURLParam(paraName) {
         const url = document.location.toString();

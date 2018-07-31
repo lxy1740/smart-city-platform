@@ -8,6 +8,7 @@ import { ROUTETREE } from '../data/route-tree';
 import { MessageService } from '../service/message.service';
 import { MessService } from '../service/mess.service';
 import { UrlService } from '../service/url.service';
+import { CommunicateService } from '../service/communicate.service';
 declare let $: any;
 
 @Component({
@@ -28,14 +29,27 @@ export class HomeComponent implements OnInit {
 
   constructor(public authService: AuthService, public router: Router, private _cookieService: CookieService,
     private messageService: MessageService, public messService: MessService, public urlService: UrlService,
-    config: NgbDropdownConfig) {
+    private config: NgbDropdownConfig, private communicateService: CommunicateService) {
     this.routeTree = ROUTETREE;
     // customize default values of dropdowns used by this component tree
     config.placement = 'bottom-right';
     // config.autoClose = false;
 
     this.visible = urlService.getURLParam('visible') === '' ? true : false;
-    console.log(this.visible);
+
+
+    this.communicateService.getMessage().subscribe((message: any) => {
+      // console.log(message); // send a message
+
+      if (message.mess === false) {
+        // this.messageList = null;
+        this.visible = message.mess;
+      } else {
+        this.visible = message.mess;
+        this.getMessage();
+      }
+
+    });
   }
 
   ngOnInit() {
@@ -49,12 +63,8 @@ export class HomeComponent implements OnInit {
   jumpHandle(item) {
     this.queryPoint = item;
     this.messService.StatusMission(this.queryPoint);
+    // this.communicateService.sendMessage(this.queryPoint);
     this.router.navigate([`home/monitor`]);
-    // this.router.navigate([`home/monitor`], {
-    //   queryParams: {
-    //     item: item
-    //   }
-    // });
 
   }
 
@@ -96,6 +106,7 @@ export class HomeComponent implements OnInit {
 
   // 字幕动画
   marquee() {
+
     $('.marquee').marquee({
       // duration in milliseconds of the marquee
       duration: 3000,

@@ -13,6 +13,8 @@ import { Point } from '../../data/point.type';
 import { METEOROLOGY } from '../../data/meteorology-list';
 import { MonitorService } from '../../service/monitor.service';
 import { MessService } from '../../service/mess.service';
+import { FullScreenService } from '../../service/full-screen.service';
+import { CommunicateService } from '../../service/communicate.service';
 
 // baidu map
 declare let BMap;
@@ -56,25 +58,24 @@ export class MonitorComponent implements OnInit {
   subscription: Subscription; // 用于订阅事件
   meteorology = METEOROLOGY; // 气象
   visible = true; // 控制可视区域
+  navigationControl: any; // 缩放控件
 
   constructor(
-    private monitorService: MonitorService, config: NgbDropdownConfig, private activatedRoute: ActivatedRoute,
+    private monitorService: MonitorService, private config: NgbDropdownConfig, private activatedRoute: ActivatedRoute,
     public messService: MessService, public router: Router, public urlService: UrlService,
+    public fullScreenService: FullScreenService, private communicateService: CommunicateService
     ) {
     this.zoom = 12; // 默认
-    config.placement = 'bottom-left';
+    // config.placement = 'bottom-left';
+
     this.visible = urlService.getURLParam('visible') === '' ? true : false;
-    console.log(this.visible);
-    // if (this.visible === false) {
-    //   this.enterFullScreen();
-    // }
+
+
 
     this.subscription = this.messService.Status$.subscribe(message => {
       this.queryPoint = message;
       this.isqueryPoint = true;
-      // console.log('this.queryPoint');
-      // console.log(this.map);
-      // console.log(this.markers);
+
       this.goTothePoint(this.map);
     });
 
@@ -85,8 +86,27 @@ export class MonitorComponent implements OnInit {
 
     this.getCity(); // 获取城市列表
     this.getDevice(); // 获取设备列表
+    const that = this;
 
+    window.onresize = function () {
+      if (!that.checkFull()) {
+        // 要执行的动作
+        console.log('你按下了Esc');
+        that.exitFullScreen();
+      }
+    };
 
+  }
+
+  checkFull() {
+    let isFull: any;
+    // isFull = document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled;
+    isFull = document.fullscreenEnabled || document.webkitIsFullScreen;
+
+    if (isFull === undefined) {
+      isFull = false;
+    }
+    return isFull;
   }
 
   // 百度地图API功能
@@ -110,10 +130,11 @@ export class MonitorComponent implements OnInit {
 
     // 添加控件缩放
     const offset = this.visible === true ? new BMap.Size(20, 140) : new BMap.Size(20, 15);
-    map.addControl(new BMap.NavigationControl({
+    const navigationControl = this.navigationControl = new BMap.NavigationControl({
       anchor: BMAP_ANCHOR_TOP_LEFT,
       offset: offset,
-    }));
+    });
+    map.addControl(navigationControl);
 
     const top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT, offset: new BMap.Size(20, 85) }); // 左上角，添加比例尺
     map.addControl(top_left_control);
@@ -227,9 +248,7 @@ export class MonitorComponent implements OnInit {
     const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
     const name = city.name;
-    // console.log(city.name);
-    // console.log(zoom);
-    // console.log(that.currentCity);
+
     let pt;
 
     // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
@@ -239,12 +258,12 @@ export class MonitorComponent implements OnInit {
         baiduMap.centerAndZoom(p, zoom);
         // baiduMap.centerAndZoom(point, zoom);
         pt = point;
-        myGeo.getLocation(pt, function (rs) {
-          const addComp = rs.addressComponents;
-          console.log(addComp.province + ', ' + addComp.city +
-           ', ' + addComp.district + ', ' + addComp.street + ', ' + addComp.streetNumber);
-        });
-        // baiduMap.addOverlay(new BMap.Marker(point));
+        // myGeo.getLocation(pt, function (rs) {
+        //   const addComp = rs.addressComponents;
+        //   console.log(addComp.province + ', ' + addComp.city +
+        //    ', ' + addComp.district + ', ' + addComp.street + ', ' + addComp.streetNumber);
+        // });
+
         that.addMarker(); // 获取数据-添加标注
       } else {
         console.log('您选择地址没有解析到结果!');
@@ -260,10 +279,8 @@ export class MonitorComponent implements OnInit {
   mapClickOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
-      // console.log('click');
-      // console.log(e.point);
       that.deviceChild = null;
-  });
+    });
   }
 
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
@@ -531,8 +548,8 @@ export class MonitorComponent implements OnInit {
 
   // 添加点标注
   addPoint(val) {
-    console.log('标注');
-    console.log(this.markers);
+    // console.log('标注');
+    // console.log(this.markers);
     this.markers = [];
     const points: any[] = [];
     const that = this;
@@ -680,7 +697,7 @@ export class MonitorComponent implements OnInit {
       const device = $(`#${this.device.children[index].id}`);
       device.on('click', function () {
         console.log('click');
-        console.log(device);
+        // console.log(device);
         that.deviceChild = that.device.children[index];
       });
     }
@@ -814,38 +831,50 @@ export class MonitorComponent implements OnInit {
   }
 
   // 打开新页面
-  openBlackWin() {
+  addURLParamAddOpen() {
     console.log(window.location.href);
     // const href = window.location.href;
-    const href = this.urlService.addURLParam('visible', 'false');
+    this.urlService.addURLParamAddOpen('visible', 'false');
     localStorage.setItem('visible', 'false');
-    window.open(href, '_blank');
+
   }
 
- // 进入全屏
+
+
+  // 进入全屏
   enterFullScreen() {
-    const de = document.documentElement;
-    if (de.requestFullscreen) {
-      de.requestFullscreen();
-    } else if (de.mozRequestFullScreen) {
-      de.mozRequestFullScreen();
-    } else if (de.webkitRequestFullScreen) {
-    de.webkitRequestFullScreen();
-    }
+    // this.urlService.addURLParam('visible', 'false');
+    this.visible = false;
+    localStorage.setItem('visible', 'false');
+    console.log('全屏');
+    // 设置缩放控件偏移量
+    const offset = new BMap.Size(20, 15);
+    this.navigationControl.setOffset(offset);
+
+    this.communicateService.sendMessage(this.visible); // 发布一条消息
+    this.fullScreenService.enterFullScreen();
 
   }
- // 退出全屏
-    exitFullScreen() {
-      const de = document;
-      if (de.exitFullscreen) {
-        de.exitFullscreen();
-      } else if (de.mozCancelFullScreen) {
-        de.mozCancelFullScreen();
-      } else if (de.webkitCancelFullScreen) {
-        de.webkitCancelFullScreen();
-      }
 
-}
+
+  // 退出全屏
+  exitFullScreen() {
+    // this.urlService.addURLParam('visible', 'false');
+    this.visible = true;
+    localStorage.setItem('visible', 'true');
+    console.log('全屏');
+    // 设置缩放控件偏移量
+    const offset = new BMap.Size(20, 140);
+    this.navigationControl.setOffset(offset);
+
+    this.communicateService.sendMessage(this.visible); // 发布一条消息
+    // this.fullScreenService.exitFullScreen();
+
+  }
+
+
+
+
 
 
 
