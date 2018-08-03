@@ -97,3 +97,10 @@
 .video-active{
     border-color: #57c5ff !important;
 }
+.bg-img {
+    background-image: url('../../../assets/imgs/video.png');
+    width: 100%;
+    height: 100%;
+    background-repeat:no-repeat;
+    background-size: cover;//这条一定要
+}
