@@ -143,7 +143,7 @@ export class MonitorComponent implements OnInit {
     const top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT, offset: new BMap.Size(20, 85) }); // 左上角，添加比例尺
     map.addControl(top_left_control);
 
-    // map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
+    map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
     // map.enableContinuousZoom(true); // 连续缩放效果，默认禁用
 
     this.dragendOff(map);
@@ -251,7 +251,8 @@ export class MonitorComponent implements OnInit {
     // 创建地址解析器实例
     const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
-    const fullName = city.fullName;
+    const fullName = city.full_name;
+    console.log(city);
 
     let pt;
 
@@ -284,19 +285,11 @@ export class MonitorComponent implements OnInit {
   dragendOff(baiduMap ) {
     baiduMap.addEventListener('dragend', function () {
       const center = baiduMap.getCenter();
-      console.log('地图中心点变更为：' + center.lng + ', ' + center.lat);
     });
   }
   // 监控-地图缩放事件-地图缩放后的级别。
   zoomendOff(baiduMap) {
     const that =  this;
-
-    // baiduMap.addEventListener('zoomend', function () {
-    //   that.zoom = baiduMap.getZoom();
-    //   that.remove_overlay(baiduMap);
-    //   that.addMarker(); // 添加标注
-    //   console.log('地图缩放至：' + baiduMap.getZoom() + '级');
-    // });
 
     baiduMap.addEventListener('zoomend', function () {
       if (that.isqueryPoint === true) {

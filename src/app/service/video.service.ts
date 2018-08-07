@@ -12,7 +12,7 @@ export class VideoService {
     constructor(private http: Http) {
 
     }
-    //  政策新闻
+    // 城市列表
     getZoneDefault(): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
@@ -35,6 +35,9 @@ export class VideoService {
                 }
             }));
     }
+
+
+
 
 
 

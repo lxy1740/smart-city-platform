@@ -14,7 +14,7 @@ import { COMMUNITYLIST } from '../data/community-list';
 import { CITYLIST } from '../data/city-list';
 import { DEVICELIIST } from '../data/device-list';
 import { Point } from '../data/point.type';
-// baidu map
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -22,6 +22,20 @@ export class MonitorService {
 
     constructor(private http: Http) {
 
+
+    }
+    // 设备列表
+    getDevice(): Observable<any> {
+        return this.http.get('/api/device/type/all')
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
 
     }
 
@@ -51,18 +65,7 @@ export class MonitorService {
 
     }
 
-    getDevice(): Observable<any> {
-        // console.log(sw, ne, zoom);
-        return of(DEVICELIIST)
-            .pipe(
-                delay(1000),
-                tap(val => {
-                    // console.log(val);
-                    return val;
-                })
-            );
 
-    }
 
     getRegion(sw: Point, ne: Point, zoom: Number): Observable<any> {
         // console.log(sw, ne, zoom);
