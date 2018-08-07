@@ -107,6 +107,48 @@ export class MonitorComponent implements OnInit {
 
   }
 
+  // 百度地图API功能
+  addBeiduMap() {
+    const city = this.currentCity;
+    const map = this.map = new BMap.Map(this.map_container.nativeElement, {
+      enableMapClick: true,
+      minZoom: 11,
+      // maxZoom : 11
+    }); // 创建地图实例
+
+
+    // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
+    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
+    map.centerAndZoom(point, this.zoom); // 设置中心和地图显示级别
+    this.getPoint(map, city); // 坐标可以通过百度地图坐标拾取器获取
+
+    // 地图类型控件
+    map.addControl(new BMap.MapTypeControl());
+    // map.setCurrentCity('广州');
+
+    // 添加控件缩放
+    // const offset = this.visible === true ? new BMap.Size(20, 140) : new BMap.Size(20, 15);
+    const offset = new BMap.Size(20, 60);
+    const navigationControl = this.navigationControl = new BMap.NavigationControl({
+      anchor: BMAP_ANCHOR_TOP_LEFT,
+      offset: offset,
+    });
+    map.addControl(navigationControl);
+
+    const top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT, offset: new BMap.Size(20, 85) }); // 左上角，添加比例尺
+    map.addControl(top_left_control);
+
+    map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
+    // map.enableContinuousZoom(true); // 连续缩放效果，默认禁用
+
+    this.dragendOff(map);
+    this.zoomendOff(map);
+    this.mapClickOff(map);
+
+
+
+  }
+
   // 监控-点击地图事件
   mapClickOff(baiduMap) {
     const that = this;
@@ -155,47 +197,7 @@ export class MonitorComponent implements OnInit {
     return isFull;
   }
 
-  // 百度地图API功能
-  addBeiduMap() {
-    const city = this.currentCity;
-    const map = this.map = new BMap.Map(this.map_container.nativeElement, {
-      enableMapClick: true,
-      minZoom: 11,
-      // maxZoom : 11
-    }); // 创建地图实例
 
-
-    // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
-    map.centerAndZoom(point, this.zoom); // 设置中心和地图显示级别
-    this.getPoint(map, city); // 坐标可以通过百度地图坐标拾取器获取
-
-    // 地图类型控件
-    map.addControl(new BMap.MapTypeControl());
-    // map.setCurrentCity('广州');
-
-    // 添加控件缩放
-    // const offset = this.visible === true ? new BMap.Size(20, 140) : new BMap.Size(20, 15);
-    const offset =  new BMap.Size(20, 60);
-    const navigationControl = this.navigationControl = new BMap.NavigationControl({
-      anchor: BMAP_ANCHOR_TOP_LEFT,
-      offset: offset,
-    });
-    map.addControl(navigationControl);
-
-    const top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT, offset: new BMap.Size(20, 85) }); // 左上角，添加比例尺
-    map.addControl(top_left_control);
-
-    map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
-    // map.enableContinuousZoom(true); // 连续缩放效果，默认禁用
-
-    this.dragendOff(map);
-    this.zoomendOff(map);
-    this.mapClickOff(map);
-
-
-
-  }
 
 
   // 具体的点

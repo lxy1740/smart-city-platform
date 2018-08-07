@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { CITYTREE } from '../../data/city-tree';
+
 import { GridsterModule } from 'angular-gridster2';
 import { VideoService } from '../../service/video.service';
 import { CompactType, DisplayGrid, GridsterConfig, GridsterItem, GridsterItemComponentInterface, GridType } from 'angular-gridster2';
