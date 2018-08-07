@@ -1,11 +1,5 @@
 {
     "/api": {
-        "target": "http://172.18.1.133:10002/api"
-    },
-    "/media-repo": {
-        "target": "http://172.18.8.11:8080",
-      "pathRewrite": {
-        "^/media-repo": ""
-      }
+        "target": "http://172.18.1.133:10002"
     }
 }

@@ -16,7 +16,7 @@ declare let BMapLib;
 })
 export class VideoComponent implements OnInit {
   @ViewChild('map3') map_container: ElementRef;
-  model: any;
+  model: any = {}; // 存储数据
 
   map: any; // 地图对象
   city = '广州市'; // 当前选中城市
@@ -27,7 +27,7 @@ export class VideoComponent implements OnInit {
   zTreeObj: any;
 
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-  zNodes = CITYTREE;
+  zNodes: any;
   isActive: number; // 被选中的视频
 
   videoNum = 1;
@@ -58,8 +58,8 @@ export class VideoComponent implements OnInit {
     const that = this;
     this.zTreeOnClick = (event, treeId, treeNode) => {
       const index = this.isActive;
-      this.city = treeNode.name;
-      console.log(treeNode.tId + ', ' + treeNode.name);
+      this.city = treeNode.fullName;
+      console.log(treeNode.tId + ', ' + treeNode.fullName);
       this.getPoint(that.map, that.city);
 
       if (this.isActive !== null && this.isActive !== undefined) {
@@ -72,12 +72,8 @@ export class VideoComponent implements OnInit {
 
 
   ngOnInit() {
-    const setting = {// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-      callback: {
-        onClick: this.zTreeOnClick
-      }
-    };
-    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, this.zNodes);
+
+
     this.addBeiduMap();
 
     // this.options = {
@@ -115,13 +111,21 @@ export class VideoComponent implements OnInit {
 
   getZoneDefault () {
     const that = this;
+    const setting = {// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+      callback: {
+        onClick: this.zTreeOnClick
+      }
+    };
     this.videoService.getZoneDefault()
       .subscribe({
         next: function (res) {
           that.model.ZoneDefault = res;
+          that.zNodes = res.regions;
+          that.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, that.zNodes);
         },
         complete: function () {
-          // console.log('complete!');
+          console.log('that.zNodes!');
+          console.log(that.zNodes);
         },
         error: function (error) {
           console.log(error);
