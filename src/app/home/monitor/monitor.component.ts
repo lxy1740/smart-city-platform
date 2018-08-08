@@ -477,15 +477,15 @@ export class MonitorComponent implements OnInit {
     if (zoom <= 13) {
       console.log('region_list');
       length = 90;
-      color = '#56c5ff';
-      mouseoverColor = '#f60';
+      color = '#87a2b7';
+      mouseoverColor = '#9bd9dd';
       that.getRegion(length, color, mouseoverColor);
 
     } else if (zoom <= 16 && zoom > 13) {
       console.log('block_list');
       length = 90;
-      color = '#618d99';
-      mouseoverColor = '#f60';
+      color = '#87a2b7';
+      mouseoverColor = '#9bd9dd';
       that.getRegion(length, color, mouseoverColor);
     } else {
       console.log('community_list');
