@@ -9,7 +9,7 @@ export const ROUTETREE = [
     },
     {
         id: 4,
-        icon: 'fa fa-th-large nav-icon',
+        icon: 'fa  fa-camera-retro nav-icon',
         routeLink: 'application',
         routeTitel: '智慧城市',
         isCollapsed: true,
