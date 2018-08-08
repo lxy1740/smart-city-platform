@@ -50,11 +50,12 @@ export class TrafficComponent implements OnInit {
     map.addControl(navigationControl);
 
     const ctrl = new BMapLib.TrafficControl({
-      showPanel: true // 是否显示路况提示面板
+      showPanel: true , // 是否显示路况提示面板
     });
     map.addControl(ctrl);
     ctrl.showTraffic({ predictDate: { hour: 15, weekday: 5 } });
-    ctrl.setAnchor(BMAP_ANCHOR_BOTTOM_RIGHT);
+    ctrl.setAnchor(BMAP_ANCHOR_TOP_LEFT);
+    ctrl.setOffset(new BMap.Size(85, 27);
 
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
 
