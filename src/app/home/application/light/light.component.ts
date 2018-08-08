@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Point } from '../../../data/point.type';
+import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 // baidu map
 declare let BMap;
@@ -42,6 +43,8 @@ export class LightComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
+  light_list = LIGHTLIST.val.light_list; // 数据模拟
+
   constructor(private monitorService: MonitorService, ) { }
 
   ngOnInit() {
@@ -62,168 +65,60 @@ export class LightComponent implements OnInit {
 
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
 
-    const point = new BMap.Point(113.926677, 22.494381); // 坐标可以通过百度地图坐标拾取器获取 --水湾
-    map.centerAndZoom(point, 15); // 设置中心和地图显示级别
-    // map.centerAndZoom(new BMap.Point(105.403119, 38.028658), 5);  // 初始化地图,设置中心点坐标和地图级别
+    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
+
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
 
-    // 地图自定义样式
-    map.setMapStyle({
-      styleJson: [{
-        'featureType': 'water',
-        'elementType': 'all',
-        'stylers': {
-          'color': '#044161'
-        }
-      }, {
-        'featureType': 'land',
-        'elementType': 'all',
-        'stylers': {
-          'color': '#091934'
-        }
-      }, {
-        'featureType': 'boundary',
-        'elementType': 'geometry',
-        'stylers': {
-          'color': '#064f85'
-        }
-      }, {
-        'featureType': 'railway',
-        'elementType': 'all',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }, {
-        'featureType': 'highway',
-        'elementType': 'geometry',
-        'stylers': {
-          'color': '#004981'
-        }
-      }, {
-        'featureType': 'highway',
-        'elementType': 'geometry.fill',
-        'stylers': {
-          'color': '#005b96',
-          'lightness': 1
-        }
-      }, {
-        'featureType': 'highway',
-        'elementType': 'labels',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }, {
-        'featureType': 'arterial',
-        'elementType': 'geometry',
-        'stylers': {
-          'color': '#004981',
-          'lightness': -39
-        }
-      }, {
-        'featureType': 'arterial',
-        'elementType': 'geometry.fill',
-        'stylers': {
-          'color': '#00508b'
-        }
-      }, {
-        'featureType': 'poi',
-        'elementType': 'all',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }, {
-        'featureType': 'green',
-        'elementType': 'all',
-        'stylers': {
-          'color': '#056197',
-          'visibility': 'off'
-        }
-      }, {
-        'featureType': 'subway',
-        'elementType': 'all',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }, {
-        'featureType': 'manmade',
-        'elementType': 'all',
-        'stylers': {
-          'visibility': 'off'
-        }
-      }, {
-        'featureType': 'local',
-        'elementType': 'all',
-        'stylers': {
-          'visibility': 'off'
-        }
-      }, {
-        'featureType': 'arterial',
-        'elementType': 'labels',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }, {
-        'featureType': 'boundary',
-        'elementType': 'geometry.fill',
-        'stylers': {
-          'color': '#029fd4'
-        }
-      }, {
-        'featureType': 'building',
-        'elementType': 'all',
-        'stylers': {
-          'color': '#1a5787'
-        }
-      }, {
-        'featureType': 'label',
-        'elementType': 'all',
-        'stylers': {
-          'visibility': 'off'
-        }
-      }, {
-        'featureType': 'poi',
-        'elementType': 'labels.text.fill',
-        'stylers': {
-          'color': '#ffffff'
-        }
-      }, {
-        'featureType': 'poi',
-        'elementType': 'labels.text.stroke',
-        'stylers': {
-          'color': '#1e1c1c'
-        }
-      }, {
-        'featureType': 'administrative',
-        'elementType': 'labels',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }, {
-        'featureType': 'road',
-        'elementType': 'labels',
-        'stylers': {
-          'visibility': 'on'
-        }
-      }]
-    });
-    map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
+
+
+    map.setMapStyle({ style: 'dark' });
+
 
     // 添加控件缩放
 
-    // const offset = new BMap.Size(20, 55);
-    // const navigationControl = new BMap.NavigationControl({
-    //   anchor: BMAP_ANCHOR_TOP_LEFT,
-    //   offset: offset,
-    // });
-    // map.addControl(navigationControl);
-
-    const ctrl = new BMapLib.TrafficControl({
-      showPanel: true, // 是否显示路况提示面板
+    const offset = new BMap.Size(20, 55);
+    const navigationControl = new BMap.NavigationControl({
+      anchor: BMAP_ANCHOR_TOP_LEFT,
+      offset: offset,
     });
+    map.addControl(navigationControl);
+
+
 
     // const marker = new BMap.Marker(point);  // 创建标注
     // map.addOverlay(marker);               // 将标注添加到地图中
 
+    // const myIcon = new BMap.Icon('../../../../assets/imgs/light-up.png', new BMap.Size(300, 157));
+    // myIcon.setAnchor(new BMap.Size(16, 38));
+    // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+    // this.map.addOverlay(marker2);
+
+    this.addMarker();
+
+  }
+
+  addMarker() {
+    for (let index = 0; index < this.light_list.length; index++) {
+      const item = this.light_list[index];
+      const point = new BMap.Point(item.lng, item.lat);
+
+      let myIcon;
+      if (item.is_exception && item.is_exception === 1) { // 异常
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
+        // console.log('异常');
+      } else if (item.is_online === 0) { // 灯亮
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-up.png', new BMap.Size(300, 157));
+        // console.log('掉线');
+      } else { // 正常
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
+        // console.log('正常');
+
+      }
+      myIcon.setAnchor(new BMap.Size(16, 38));
+      const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      this.map.addOverlay(marker2);
+    }
   }
 
   // 解析地址- 设置中心和地图显示级别

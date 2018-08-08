@@ -68,19 +68,6 @@ export class SecurityComponent implements OnInit {
       if (this.isActive !== null && this.isActive !== undefined) {
         this.addImg[index] = 0;
         let id;
-        // if (this.videoNum === 1) {
-        //   id = this.dashboardO[this.index].id;
-        //   this.dashboardO[this.index].hasAdd = true;
-        //   console.log(this.dashboardO);
-        // } else if (this.videoNum === 4) {
-        //   id = this.dashboardF[this.index].id;
-        //   this.dashboardF[this.index].hasAdd = true;
-        //   console.log(this.dashboardF);
-        // } else if (this.videoNum === 9) {
-        //   id = this.dashboardN[this.index].id;
-        //   this.dashboardN[this.index].hasAdd = true;
-        //   console.log(this.dashboardN);
-        // }
         id = this.dashboard[this.index].id;
         this.dashboard[this.index].hasAdd = true;
         console.log(this.dashboard);
