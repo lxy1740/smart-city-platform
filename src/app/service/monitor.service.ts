@@ -8,8 +8,6 @@ import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { WindowRef } from '../windowserver';
 
-import { REGIONLIST } from '../data/region-list';
-import { BLOCKLIST } from '../data/block-list';
 import { COMMUNITYLIST } from '../data/community-list';
 
 
@@ -82,33 +80,6 @@ export class MonitorService {
                 }
             }));
 
-    }
-
-
-
-    getRegion(sw: Point, ne: Point, zoom: Number): Observable<any> {
-        // console.log(sw, ne, zoom);
-        return of(REGIONLIST.val.region_list)
-        .pipe(
-            delay(1000),
-            tap(val => {
-                // console.log(val);
-                return val;
-            })
-        );
-
-    }
-
-    getBlock(sw: Point, ne: Point, zoom: Number): Observable<any> {
-        // console.log(sw, ne, zoom);
-        return of(BLOCKLIST.val.block_list)
-        .pipe(
-            delay(1000),
-            tap(val => {
-                // console.log(val);
-                return val;
-            })
-        );
     }
 
     getCommunity(sw: Point, ne: Point, zoom: Number): Observable<any> {

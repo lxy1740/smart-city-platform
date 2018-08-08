@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/';
 
 import { CircleOverlarService } from '../../service/circle-overlay.server';
 import { GradOverlar } from '../../service/grad.overlay';
-import { RedOverlar } from '../../service/red-overlay';
+
 import { UrlService } from '../../service/url.service';
 
 

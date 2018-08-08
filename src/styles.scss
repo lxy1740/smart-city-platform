@@ -25,6 +25,7 @@ address, cite, code, em, th, i, strong {
      background-color:#56c5ff !important;
      color: #fff !important;
 }
+// 地图区域标注
 .i-circle{
     border-radius: 50%;
     color: white;
@@ -37,6 +38,19 @@ address, cite, code, em, th, i, strong {
     background: #56c5ff;
     padding: 24px 0;
 
+}
+// 地图
+.map_warp {
+    position: relative;
+}
+
+.no-fulls-map {
+    height: calc(100vh - 80px);
+    margin-top: 80px;
+}
+// 隐藏百度地图logo
+.BMap_cpyCtrl, .anchorBL{
+    display: none;
 }
 
 // 头部导航
