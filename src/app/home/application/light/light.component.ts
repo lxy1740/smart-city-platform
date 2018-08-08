@@ -55,33 +55,174 @@ export class LightComponent implements OnInit {
 
     const map = this.map = new BMap.Map(this.map_container.nativeElement, {
       enableMapClick: true,
-      minZoom: 11,
+      // minZoom: 11,
       // maxZoom : 11
     }); // 创建地图实例
 
 
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
-    map.centerAndZoom(point, 15); // 设置中心和地图显示级别
-    map.setMapStyle({ style: 'dark' });
 
+    const point = new BMap.Point(113.926677, 22.494381); // 坐标可以通过百度地图坐标拾取器获取 --水湾
+    map.centerAndZoom(point, 15); // 设置中心和地图显示级别
+    // map.centerAndZoom(new BMap.Point(105.403119, 38.028658), 5);  // 初始化地图,设置中心点坐标和地图级别
+    map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+
+    // 地图自定义样式
+    map.setMapStyle({
+      styleJson: [{
+        'featureType': 'water',
+        'elementType': 'all',
+        'stylers': {
+          'color': '#044161'
+        }
+      }, {
+        'featureType': 'land',
+        'elementType': 'all',
+        'stylers': {
+          'color': '#091934'
+        }
+      }, {
+        'featureType': 'boundary',
+        'elementType': 'geometry',
+        'stylers': {
+          'color': '#064f85'
+        }
+      }, {
+        'featureType': 'railway',
+        'elementType': 'all',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }, {
+        'featureType': 'highway',
+        'elementType': 'geometry',
+        'stylers': {
+          'color': '#004981'
+        }
+      }, {
+        'featureType': 'highway',
+        'elementType': 'geometry.fill',
+        'stylers': {
+          'color': '#005b96',
+          'lightness': 1
+        }
+      }, {
+        'featureType': 'highway',
+        'elementType': 'labels',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }, {
+        'featureType': 'arterial',
+        'elementType': 'geometry',
+        'stylers': {
+          'color': '#004981',
+          'lightness': -39
+        }
+      }, {
+        'featureType': 'arterial',
+        'elementType': 'geometry.fill',
+        'stylers': {
+          'color': '#00508b'
+        }
+      }, {
+        'featureType': 'poi',
+        'elementType': 'all',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }, {
+        'featureType': 'green',
+        'elementType': 'all',
+        'stylers': {
+          'color': '#056197',
+          'visibility': 'off'
+        }
+      }, {
+        'featureType': 'subway',
+        'elementType': 'all',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }, {
+        'featureType': 'manmade',
+        'elementType': 'all',
+        'stylers': {
+          'visibility': 'off'
+        }
+      }, {
+        'featureType': 'local',
+        'elementType': 'all',
+        'stylers': {
+          'visibility': 'off'
+        }
+      }, {
+        'featureType': 'arterial',
+        'elementType': 'labels',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }, {
+        'featureType': 'boundary',
+        'elementType': 'geometry.fill',
+        'stylers': {
+          'color': '#029fd4'
+        }
+      }, {
+        'featureType': 'building',
+        'elementType': 'all',
+        'stylers': {
+          'color': '#1a5787'
+        }
+      }, {
+        'featureType': 'label',
+        'elementType': 'all',
+        'stylers': {
+          'visibility': 'off'
+        }
+      }, {
+        'featureType': 'poi',
+        'elementType': 'labels.text.fill',
+        'stylers': {
+          'color': '#ffffff'
+        }
+      }, {
+        'featureType': 'poi',
+        'elementType': 'labels.text.stroke',
+        'stylers': {
+          'color': '#1e1c1c'
+        }
+      }, {
+        'featureType': 'administrative',
+        'elementType': 'labels',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }, {
+        'featureType': 'road',
+        'elementType': 'labels',
+        'stylers': {
+          'visibility': 'on'
+        }
+      }]
+    });
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
 
     // 添加控件缩放
 
-    const offset = new BMap.Size(20, 55);
-    const navigationControl = new BMap.NavigationControl({
-      anchor: BMAP_ANCHOR_TOP_LEFT,
-      offset: offset,
-    });
-    map.addControl(navigationControl);
+    // const offset = new BMap.Size(20, 55);
+    // const navigationControl = new BMap.NavigationControl({
+    //   anchor: BMAP_ANCHOR_TOP_LEFT,
+    //   offset: offset,
+    // });
+    // map.addControl(navigationControl);
 
     const ctrl = new BMapLib.TrafficControl({
       showPanel: true, // 是否显示路况提示面板
     });
 
-    const marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
+    // const marker = new BMap.Marker(point);  // 创建标注
+    // map.addOverlay(marker);               // 将标注添加到地图中
 
   }
 
