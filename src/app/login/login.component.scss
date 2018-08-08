@@ -13,6 +13,11 @@
 .btn.focus, .btn:focus {
     box-shadow: 0 0 0 0.2rem rgba(59, 64, 70, 0.25)
 }
+
+.form-control:focus {
+    border-color: #ced4da;
+    box-shadow: 0 0 0 0.2rem rgb(255, 255, 255);
+}
 .btn-login:visited, .btn-login:hover, .btn-login:focus, .btn-login:active {
     background-color: #506173;
     border-color: #506173;
