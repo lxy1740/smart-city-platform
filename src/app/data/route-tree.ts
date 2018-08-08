@@ -91,53 +91,53 @@ export const ROUTETREE = [
 
         ]
     },
-    {
-        id: 1,
-        icon: 'fa fa-cogs nav-icon ',
-        routeLink: 'rule',
-        routeTitel: '规则设置',
-        isCollapsed: true,
-        hasRight: false,
-        children: [
-            {
-                id: 21,
-                icon: 'fa fa-bullhorn nav-icon-s',
-                routeLink: 'rule/alert',
-                routeTitel: '报警规则设置',
-            },
-            {
-                id: 1,
-                icon: 'fa fa-sliders nav-icon-s ',
-                routeLink: 'rule/control',
-                routeTitel: '控制策略设置',
-                isCollapsed: false,
-                hasRight: false,
-            },
-        ]
-    },
+    // {
+    //     id: 1,
+    //     icon: 'fa fa-cogs nav-icon ',
+    //     routeLink: 'rule',
+    //     routeTitel: '规则设置',
+    //     isCollapsed: true,
+    //     hasRight: false,
+    //     children: [
+    //         {
+    //             id: 21,
+    //             icon: 'fa fa-bullhorn nav-icon-s',
+    //             routeLink: 'rule/alert',
+    //             routeTitel: '报警规则设置',
+    //         },
+    //         {
+    //             id: 1,
+    //             icon: 'fa fa-sliders nav-icon-s ',
+    //             routeLink: 'rule/control',
+    //             routeTitel: '控制策略设置',
+    //             isCollapsed: false,
+    //             hasRight: false,
+    //         },
+    //     ]
+    // },
 
-    {
-        id: 1,
-        icon: 'fa fa-bar-chart nav-icon',
-        routeLink: 'energy',
-        routeTitel: '能源管理',
-        isCollapsed: true,
-        hasRight: false,
-        children: [
-            {
-                id: 21,
-                icon: 'fa fa-line-chart nav-icon-s',
-                routeLink: 'energy/report',
-                routeTitel: '报表',
-            },
-            {
-                id: 21,
-                icon: 'fa fa-th-list nav-icon-s',
-                routeLink: 'energy/survey',
-                routeTitel: '概览',
-            },
-        ]
-    },
+    // {
+    //     id: 1,
+    //     icon: 'fa fa-bar-chart nav-icon',
+    //     routeLink: 'energy',
+    //     routeTitel: '能源管理',
+    //     isCollapsed: true,
+    //     hasRight: false,
+    //     children: [
+    //         {
+    //             id: 21,
+    //             icon: 'fa fa-line-chart nav-icon-s',
+    //             routeLink: 'energy/report',
+    //             routeTitel: '报表',
+    //         },
+    //         {
+    //             id: 21,
+    //             icon: 'fa fa-th-list nav-icon-s',
+    //             routeLink: 'energy/survey',
+    //             routeTitel: '概览',
+    //         },
+    //     ]
+    // },
 
 
     {

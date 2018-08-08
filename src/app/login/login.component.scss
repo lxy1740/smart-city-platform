@@ -1,13 +1,67 @@
+.help-block{
+    color: red;
+}
+.login-form{
+    width: 280px;
+}
 .btn-login {
     display: inline-block;
+    background-color: #434f5c;
+    border-color: #434f5c;
+    color: #fff;
+}
+.btn.focus, .btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(59, 64, 70, 0.25)
+}
+.btn-login:visited, .btn-login:hover, .btn-login:focus, .btn-login:active {
+    background-color: #506173;
+    border-color: #506173;
 }
 .middle {
     float: none;
     display: inline-block;
     vertical-align: middle;
 }
+//右侧定位：登录
+.login-right {
+    position: absolute;
+    background: #fff;
+    float: right;
+    width: 300px;
+    padding: 15px;
+    top: 36px;
+    right: 48px;
+    height: 90vh;
+}
+//左侧定位：产品、系统名称
+.login-left {
+    position: absolute;
+    width: calc(100vw - 300px);
+    background: rgba(226, 226, 219, 0.253);
+    top: 36px;
+    left: 30px;
+    height: 90vh;
+    color: #fff;
+    font-size: 40px;
+    .product-name {
+        position: absolute;
+        top: 20px;
+        left: 40px;
+    }
+    .product-title {
+        position: absolute;
+        // float: right;
+        text-align: right;
+        bottom: 100px;
+        right: 56px;
+    }
+}
 .login-center {
  height: 100vh;
+ background-image: url(../../assets/imgs/login-bg.png);
+ background-repeat: no-repeat;
+ background-size: cover;
+ position: relative;
 }
 .login-titel {
     margin-bottom: 40px;
@@ -18,4 +72,5 @@
 }
 .login-input{
     padding-left: 32px;
+    font-size: 14px;
 }
