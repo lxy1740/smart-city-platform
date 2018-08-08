@@ -55,7 +55,7 @@ export class TrafficComponent implements OnInit {
     map.addControl(ctrl);
     ctrl.showTraffic({ predictDate: { hour: 15, weekday: 5 } });
     ctrl.setAnchor(BMAP_ANCHOR_TOP_LEFT);
-    ctrl.setOffset(new BMap.Size(85, 27);
+    ctrl.setOffset(new BMap.Size(85, 27));
 
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
 

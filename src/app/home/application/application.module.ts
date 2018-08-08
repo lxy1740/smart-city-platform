@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CoverComponent } from './cover/cover.component';
 import { CalamityComponent } from './calamity/calamity.component';
@@ -8,7 +9,7 @@ import { TrafficComponent } from './traffic/traffic.component';
 
 
 @NgModule({
-    imports: [
+    imports: [BrowserModule
     ],
     declarations: [
         CoverComponent, CalamityComponent, EnvironmentComponent,
