@@ -75,7 +75,7 @@ export class SecurityComponent implements OnInit {
         setTimeout(() => {
           player = new Aliplayer({
             'id': id,
-            'source': 'rtmp://live-play.2inno.cn/apptest/streamtest?auth_key=1533712387-0-0-1b1a59f7bbf89050089d6a8cd47febd0',
+            'source': `rtmp://live-play.2inno.cn/apptest/streamtest${index + 1}?auth_key=1533712387-0-0-1b1a59f7bbf89050089d6a8cd47febd0`,
             'width': '100%',
             'height': '500px',
             'autoplay': true,
@@ -238,7 +238,7 @@ export class SecurityComponent implements OnInit {
         setTimeout(() => {
           player = new Aliplayer({
             'id': id,
-            'source': 'rtmp://live-play.2inno.cn/apptest/streamtest?auth_key=1533712387-0-0-1b1a59f7bbf89050089d6a8cd47febd0',
+            'source': `rtmp://live-play.2inno.cn/apptest/streamtest${ind + 1}?auth_key=1533712387-0-0-1b1a59f7bbf89050089d6a8cd47febd0`,
             'width': '100%',
             'height': '500px',
             'autoplay': true,
