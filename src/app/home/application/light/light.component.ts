@@ -65,6 +65,8 @@ export class LightComponent implements OnInit {
     map.centerAndZoom(point, 15); // 设置中心和地图显示级别
     map.setMapStyle({ style: 'dark' });
 
+    map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
+
     // 添加控件缩放
 
     const offset = new BMap.Size(20, 55);

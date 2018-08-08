@@ -120,6 +120,7 @@ export class MonitorComponent implements OnInit {
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
     const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
     map.centerAndZoom(point, this.zoom); // 设置中心和地图显示级别
+    map.setMapStyle({ style: 'grayscale' });
     this.getPoint(map, city); // 坐标可以通过百度地图坐标拾取器获取
 
     // 地图类型控件
