@@ -73,6 +73,7 @@
         border: 2px solid #e5e5e5;
         box-shadow: 0px 0px 18px #e5e5e5;
         padding: 0px;
+        position: relative;
 
     }
 
@@ -100,6 +101,14 @@
 
 .video-active{
     border-color: #57c5ff !important;
+}
+
+.video-play{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100% !important;
 }
 .bg-img {
     background-image: url('../../../../assets/imgs/video.png');

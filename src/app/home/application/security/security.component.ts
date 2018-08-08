@@ -6,6 +6,7 @@ import { CompactType, DisplayGrid, GridsterConfig, GridsterItem, GridsterItemCom
 
 // baidu map
 declare let BMap;
+declare let Aliplayer;
 declare let $: any;
 declare let BMapLib;
 
@@ -29,8 +30,10 @@ export class SecurityComponent implements OnInit {
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
   zNodes: any;
   isActive: number; // 被选中的视频
+  index: number; // 视频索引
+  hasVideo = []; // 有视频的
 
-  videoNum = 1;
+  videoNum = 1; // 哪种宫格
   that = this;
 
   options: GridsterConfig;
@@ -64,6 +67,43 @@ export class SecurityComponent implements OnInit {
 
       if (this.isActive !== null && this.isActive !== undefined) {
         this.addImg[index] = 0;
+        let id;
+        // if (this.videoNum === 1) {
+        //   id = this.dashboardO[this.index].id;
+        //   this.dashboardO[this.index].hasAdd = true;
+        //   console.log(this.dashboardO);
+        // } else if (this.videoNum === 4) {
+        //   id = this.dashboardF[this.index].id;
+        //   this.dashboardF[this.index].hasAdd = true;
+        //   console.log(this.dashboardF);
+        // } else if (this.videoNum === 9) {
+        //   id = this.dashboardN[this.index].id;
+        //   this.dashboardN[this.index].hasAdd = true;
+        //   console.log(this.dashboardN);
+        // }
+        id = this.dashboard[this.index].id;
+        this.dashboard[this.index].hasAdd = true;
+        console.log(this.dashboard);
+        let player;
+        setTimeout(() => {
+          player = new Aliplayer({
+            'id': id,
+            'source': 'rtmp://live-play.2inno.cn/apptest/streamtest?auth_key=1533712387-0-0-1b1a59f7bbf89050089d6a8cd47febd0',
+            'width': '100%',
+            'height': '500px',
+            'autoplay': true,
+            'isLive': false,
+            'rePlay': false,
+            'playsinline': true,
+            'preload': true,
+            'controlBarVisibility': 'hover',
+            'useH5Prism': true
+          }, function (play) {
+            console.log('播放器创建了。');
+          }
+          );
+        }, 2);
+
       }
     };
 
@@ -82,26 +122,24 @@ export class SecurityComponent implements OnInit {
     // };
 
     this.dashboardO = [
-      { cols: 2, rows: 1, y: 0, x: 0, isActive: false },
+      { cols: 2, rows: 1, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-0'},
 
     ];
     this.dashboardF = [
-      { cols: 6, rows: 6, y: 0, x: 0, isActive: false },
-      { cols: 6, rows: 6, y: 0, x: 0, isActive: false },
-      { cols: 6, rows: 6, y: 0, x: 0, isActive: false },
-      { cols: 6, rows: 6, y: 0, x: 0, isActive: false },
+      { cols: 6, rows: 6, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-1' },
+      { cols: 6, rows: 6, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-2' },
+      { cols: 6, rows: 6, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-3' },
+
     ];
 
     this.dashboardN = [
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
-      { cols: 4, rows: 4, y: 0, x: 0, isActive: false },
+      { cols: 6, rows: 6, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-4' },
+      { cols: 4, rows: 4, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-5' },
+      { cols: 4, rows: 4, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-6' },
+      { cols: 4, rows: 4, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-7' },
+      { cols: 4, rows: 4, y: 0, x: 0, isActive: false, hasAdd: false, id: 'dashboard-8' },
+
+
     ];
     this.dashboard = this.dashboardO;
 
@@ -178,33 +216,74 @@ export class SecurityComponent implements OnInit {
 
   // 切换宫格
   seleteNum(num) {
+    if (this.videoNum === num) {
+      return;
+    }
+    if (num === 1) {
+      this.dashboard = this.dashboard.slice(0, 1);
+    } else if (num === 4) {
+      if (this.videoNum > num) {
+        this.dashboard = this.dashboard.slice(0, 4);
+      } else {
+        this.dashboard = this.dashboard.concat(this.dashboardF);
+      }
+
+    } else if (num === 9) {
+      if (this.videoNum === 1) {
+        this.dashboard = this.dashboard.concat(this.dashboardF, this.dashboardN);
+      } else if (this.videoNum === 4) {
+        this.dashboard = this.dashboard.concat(this.dashboardN);
+      }
+    }
+
     this.videoNum = num;
     this.isActive = null;
-    switch (num) {
-      case 1:
-        this.dashboard = this.dashboardO;
-        break;
-      case 4:
-        this.dashboard = this.dashboardF;
-        break;
-      case 9:
-        this.dashboard = this.dashboardN;
-        break;
-      default:
-        break;
+
+    const dashboard = this.dashboard;
+
+    console.log(dashboard);
+    for (let ind = 0; ind < dashboard.length; ind++) {
+      if (dashboard[ind].hasAdd === true) {
+        console.log(dashboard[ind]);
+        let id;
+        let player;
+        id = dashboard[ind].id;
+        setTimeout(() => {
+          player = new Aliplayer({
+            'id': id,
+            'source': 'rtmp://live-play.2inno.cn/apptest/streamtest?auth_key=1533712387-0-0-1b1a59f7bbf89050089d6a8cd47febd0',
+            'width': '100%',
+            'height': '500px',
+            'autoplay': true,
+            'isLive': false,
+            'rePlay': false,
+            'playsinline': true,
+            'preload': true,
+            'controlBarVisibility': 'hover',
+            'useH5Prism': true
+          }, function (play) {
+            console.log('播放器创建了。');
+          }
+          );
+        }, 2);
+      }
+
     }
+
+
   }
 
   // 点击添加
   addVideo(index, num) {
-    console.log(index);
+
+    this.index = index;
     if (index === this.isActive) {
       this.isActive = null;
     } else {
       this.isActive = index;
 
     }
-    console.log(this.isActive);
+
 
     switch (num) {
       case 1:

@@ -41,41 +41,35 @@
 
     <!-- 一宫格 -->
     <div class="row  video-warp" *ngIf="videoNum == 1">
-      <div class="col-12 video-four-content  cur-pointer" *ngFor="let item of dashboardO;let i = index" [ngClass]="{'video-active' :isActive == i && videoNum ==1}"
+      <div class="col-12 video-four-content  cur-pointer" *ngFor="let item of dashboard;let i = index" [ngClass]="{'video-active' :isActive == i && videoNum ==1}"
         (click)="addVideo(i,videoNum)">
         <div class="add " *ngIf="addImg[i] == 1">
           <img src="../../../assets/imgs/plus.png" alt="智慧城市" class="center-img">
           <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
         </div>
-        <div class="bg-img" *ngIf="addImg[i] == 0">
-          <!-- <img src="../../../assets/imgs/video.png" alt="智慧城市" class="center-video img-center"> -->
-        </div>
+        <div class="prism-player video-play" [id]="item.id" *ngIf="addImg[i] == 0"></div>
       </div>
 
     </div>
     <!-- 四宫格 -->
     <div class="row  video-warp" *ngIf="videoNum == 4">
-      <div class="col-6 video-four-content  cur-pointer" *ngFor="let item of dashboardF;let i = index" [ngClass]="{'video-active' :isActive == i && videoNum ==4}"
+      <div class="col-6 video-four-content  cur-pointer" *ngFor="let item of dashboard;let i = index" [ngClass]="{'video-active' :isActive == i && videoNum ==4}"
         (click)="addVideo(i,videoNum)">
         <div class="add " *ngIf="addImg[i] == 1">
           <img src="../../../assets/imgs/plus.png" alt="智慧城市" class="center-img">
         </div>
-        <div class=" bg-img" *ngIf="addImg[i] == 0">
-          <!-- <img src="../../../assets/imgs/video.png" alt="智慧城市" class="center-video img-center"> -->
-        </div>
+        <div class="prism-player video-play" [id]="item.id" *ngIf="addImg[i] == 0"></div>
       </div>
 
     </div>
     <!-- 九宫格 -->
     <div class="row  video-warp" *ngIf="videoNum == 9">
-      <div class="col-4 video-four-content  cur-pointer " *ngFor="let item of dashboardN;let i = index" [ngClass]="{'video-active' :isActive == i && videoNum ==9}"
+      <div class="col-4 video-four-content  cur-pointer " *ngFor="let item of dashboard;let i = index" [ngClass]="{'video-active' :isActive == i && videoNum ==9}"
         (click)="addVideo(i,videoNum)">
         <div class="add " *ngIf="addImg[i] == 1">
           <img src="../../../assets/imgs/plus.png" alt="智慧城市" class="center-img ">
         </div>
-        <div class="bg-img" *ngIf="addImg[i] == 0">
-          <!-- <img src="../../../assets/imgs/video.png" alt="智慧城市" class="center-video img-center"> -->
-        </div>
+        <div class="prism-player video-play" [id]="item.id" *ngIf="addImg[i] == 0"></div>
       </div>
 
     </div>
