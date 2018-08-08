@@ -482,15 +482,12 @@ export class MonitorComponent implements OnInit {
 
     } else if (zoom <= 16 && zoom > 13) {
       console.log('block_list');
-      length = 70;
+      length = 90;
       color = '#618d99';
       mouseoverColor = '#f60';
       that.getRegion(length, color, mouseoverColor);
     } else {
       console.log('community_list');
-      length = 20;
-      color = '#e54b00';
-      mouseoverColor = '#f60';
       that.getCommunity(sw, ne, zoom);
     }
 
@@ -548,14 +545,15 @@ export class MonitorComponent implements OnInit {
     val.map((item, i) => {
 
       const pt = new BMap.Point(item.center.lng, item.center.lat);
-      const name = item.name + item.count;
+      const name = item.name;
+      const count = item.count;
 
       // const myIcon = this.makeIcon(item.type);
       // const marker2 = new BMap.Marker(pt, { icon: myIcon });  // 创建标注-图片icon
       // this.map.addOverlay(marker2);              // 将标注添加到地图中
 
       // 添加自定义覆盖物
-      const mySquare = new CircleOverlarService(pt, name, length, color, mouseoverColor);
+      const mySquare = new CircleOverlarService(pt, name, count, length, color, mouseoverColor);
       that.map.addOverlay(mySquare);
 
       that.markers.push(mySquare); // 聚合
