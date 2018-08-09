@@ -61,7 +61,7 @@ export class VideoComponent implements OnInit {
     this.getDevice(); // 获取设备列表
     this.chartMapChana1();
     this.chartMapChana2();
-    // this.chartMapChana3();
+    this.chartMapChana3();
   }
 
   // 百度地图API功能
@@ -651,6 +651,7 @@ export class VideoComponent implements OnInit {
       //     color: '#212529'
       //   }
       // },
+      backgroundColor: '#404a59',
       tooltip: {
         trigger: 'axis',
         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -658,7 +659,10 @@ export class VideoComponent implements OnInit {
         }
       },
       legend: {
-        data: ['智慧照明', '环境监测', '灾害报警', '窨井管理', '智慧交通', '智慧安防', ]
+        data: ['智慧照明', '环境监测', '灾害报警', '窨井管理', '智慧交通', '智慧安防', ],
+        textStyle: {
+          color: '#fff'
+        }
       },
       grid: {
         left: '3%',
@@ -747,6 +751,110 @@ export class VideoComponent implements OnInit {
     const bmapChart = echarts.init(document.getElementById('map_container2'));
     bmapChart.setOption(option);
 
+  }
+
+  chartMapChana3() {
+    const option = {
+      backgroundColor: '#404a59',
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+      },
+      legend: {
+        orient: 'vertical',
+        y: 'bottom',
+        x: 'left',
+        data: ['智慧照明', '环境监测', '灾害报警', '窨井管理', '智慧交通', '智慧安防'],
+        textStyle: {
+          color: '#fff',
+          margin: '20px',
+        }
+      },
+      series: [
+        {
+          name: '智慧照明',
+          type: 'pie',
+          selectedMode: 'single',
+          radius: [0, '30%'],
+
+          label: {
+            normal: {
+              position: 'inner'
+            }
+          },
+          labelLine: {
+            normal: {
+              show: false
+            }
+          },
+          data: [
+            { value: 335, name: '路灯', selected: true },
+            { value: 679, name: '窨井' },
+            { value: 1548, name: '网关' }
+          ]
+        },
+        {
+          name: '数据',
+          type: 'pie',
+          radius: ['40%', '55%'],
+          label: {
+            normal: {
+              formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+              backgroundColor: '#eee',
+              borderColor: '#aaa',
+              borderWidth: 1,
+              borderRadius: 4,
+              // shadowBlur:3,
+              // shadowOffsetX: 2,
+              // shadowOffsetY: 2,
+              // shadowColor: '#999',
+              // padding: [0, 7],
+              rich: {
+                a: {
+                  color: '#999',
+                  lineHeight: 22,
+                  align: 'center'
+                },
+                // abg: {
+                //     backgroundColor: '#333',
+                //     width: '100%',
+                //     align: 'right',
+                //     height: 22,
+                //     borderRadius: [4, 4, 0, 0]
+                // },
+                hr: {
+                  borderColor: '#aaa',
+                  width: '100%',
+                  borderWidth: 0.5,
+                  height: 0
+                },
+                b: {
+                  fontSize: 16,
+                  lineHeight: 33
+                },
+                per: {
+                  color: '#eee',
+                  backgroundColor: '#334455',
+                  padding: [2, 4],
+                  borderRadius: 2
+                }
+              }
+            }
+          },
+          data: [
+            { value: 335, name: '智慧照明' },
+            { value: 310, name: '环境监测' },
+            { value: 234, name: '灾害报警' },
+            { value: 135, name: '窨井管理' },
+            { value: 1048, name: '智慧交通' },
+            { value: 251, name: '智慧安防' },
+
+          ]
+        }
+      ]
+    };
+    const bmapChart = echarts.init(document.getElementById('map_container3'));
+    bmapChart.setOption(option);
   }
 
 
