@@ -10,6 +10,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
+
+// ymZhao
+import { MessageService } from '../../../service/message.service';
+import { MessService } from '../../../service/mess.service';
+import { CommunicateService } from '../../../service/communicate.service';
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -22,7 +27,7 @@ declare let BMAP_ANCHOR_TOP_LEFT;
   styleUrls: ['./cover.component.scss']
 })
 export class CoverComponent implements OnInit {
-
+  messageList: any; // ymZhao
   @ViewChild('map3') map_container: ElementRef;
   model: any = {}; // 存储数据
 
@@ -53,14 +58,27 @@ export class CoverComponent implements OnInit {
 
   light_list = LIGHTLIST.val.light_list; // 数据模拟
 
-  constructor(private monitorService: MonitorService, ) { }
+  constructor(private monitorService: MonitorService, private messageService: MessageService, 
+    public messService: MessService, ) { }
 
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
     this.getDevice(); // 获取设备列表
+    this.getMessage();
   }
-
+  // ymZhao 获取消息列表
+  getMessage() {
+    const that = this;
+    this.messageService.getMessage().subscribe({
+      next: function (val) {
+        that.messageList = val.list;
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
   // 百度地图API功能
   addBeiduMap() {
 
@@ -112,14 +130,14 @@ export class CoverComponent implements OnInit {
       const point = new BMap.Point(item.lng, item.lat);
 
       let myIcon;
-      if (item.is_exception && item.is_exception === 1) { // 异常
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
+      if (item.is_exception && item.is_exception === 1) { // 井盖丢失
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
         // console.log('异常');
-      } else if (item.is_online === 0) { // 灯亮
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-up.png', new BMap.Size(300, 157));
+      } else if (item.is_online === 0) { // 井盖离线
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
         // console.log('掉线');
-      } else { // 正常
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
+      } else { // 井盖正常
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
         // console.log('正常');
 
       }
@@ -194,6 +212,7 @@ export class CoverComponent implements OnInit {
       }
     });
   }
+  
 
   // 省市区街道-地图级别
   switchZone(level) {
