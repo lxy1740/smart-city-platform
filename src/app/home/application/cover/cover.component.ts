@@ -100,8 +100,8 @@ export class CoverComponent implements OnInit {
 
 
 
-    map.setMapStyle({ style: 'grayscale' });
-
+    // map.setMapStyle({ style: 'grayscale' });
+    map.setMapStyle({ style: 'dark' });
 
     // 添加控件缩放
 
@@ -219,60 +219,82 @@ export class CoverComponent implements OnInit {
     // app.title = '堆叠柱状图';
 
     const option = {
+      backgroundColor: '#404a59',
       title: {
-          text: 'Step Line'
+        text: '深圳市各区井盖丢失率',
+        subtext: '纯属虚构',
+        textStyle: {
+          color: '#fff'
+        }
       },
       tooltip: {
-          trigger: 'axis'
+        trigger: 'axis'
       },
       legend: {
-          data:['Step Start', 'Step Middle', 'Step End']
-      },
-      grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        data: ['蒸发量', '降水量']
       },
       toolbox: {
-          feature: {
-              saveAsImage: {}
-          }
+        show: true,
+        feature: {
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ['line', 'bar'] },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
       },
-      xAxis: {
+      calculable: true,
+      xAxis: [
+        {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
+          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+        }
+      ],
+      yAxis: [
+        {
           type: 'value'
-      },
+        }
+      ],
       series: [
-          {
-              name:'Step Start',
-              type:'line',
-              step: 'start',
-              data:[120, 132, 101, 134, 90, 230, 210]
+        {
+          name: '蒸发量',
+          type: 'bar',
+          data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+          markPoint: {
+            data: [
+              { type: 'max', name: '最大值' },
+              { type: 'min', name: '最小值' }
+            ]
           },
-          {
-              name:'Step Middle',
-              type:'line',
-              step: 'middle',
-              data:[220, 282, 201, 234, 290, 430, 410]
-          },
-          {
-              name:'Step End',
-              type:'line',
-              step: 'end',
-              data:[450, 432, 401, 454, 590, 530, 510]
+          markLine: {
+            data: [
+              { type: 'average', name: '平均值' }
+            ]
           }
+        },
+        {
+          name: '降水量',
+          type: 'bar',
+          data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+          markPoint: {
+            data: [
+              { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183 },
+              { name: '年最低', value: 2.3, xAxis: 11, yAxis: 3 }
+            ]
+          },
+          markLine: {
+            data: [
+              { type: 'average', name: '平均值' }
+            ]
+          }
+        }
       ]
-  };
+    };
 
     const bmapChart = echarts.init(document.getElementById('map_cover1'));
     bmapChart.setOption(option);
 
   }
-  
+
 
   // 省市区街道-地图级别
   switchZone(level) {

@@ -3,10 +3,11 @@
     width: 100%;
 }
 .map-has-footer {
-    height: calc(100vh - 580px);
+    height: calc(100vh - 480px);
 }
 .cover-footer {
-    height: 500px;
+    height: 400px;
+    width: calc(100vw - 100px);
 }
 .cover_td_1 {
     background-color: red;
@@ -16,4 +17,10 @@
 }
 .cover_td_3{
     background-color: green;
+}
+
+.mes-list{
+    border: 1px solid #ccc;
+    background: #404a59;
+    color: #fff;
 }

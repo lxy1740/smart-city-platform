@@ -96,7 +96,7 @@
     <div #map3 id="map_container3" class="map_container no-fulls-map map-has-footer"></div>
     <div class="row cover-footer">
         <!-- 消息列表 -->
-        <div class="col-6" style=" border: 1px solid #ccc; ">
+        <div class="col-6 mes-list" style=" " >
             <div><p>消息列表</p></div>
             <ul>
                 <li *ngFor="let mess of messageList">
@@ -107,9 +107,10 @@
 
         </div>
         <!-- 图标 -->
-        <div class="col-6" style=" border: 1px solid #ccc; ">
-            <div class="col-12 block_bgcolor">
-                <table class="table table-bordered">
+        <div class="col-6" style=" height: 100px;padding: 0;">
+            <div class="col-12 block_bgcolor" style="padding: 0;">
+                <table class="table table-bordered" style="margin-bottom: 0;    background: #404a59;
+    padding: 0;">
                     <tr>
                         <td class="cover_td_1">待处理</td>
                         <td class="cover_td_2">处理中</td>
@@ -122,8 +123,8 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-12 block_bgcolor">
-                <div><p>深圳市各区井盖丢失率</p></div>
+            <div class="col-12 block_bgcolor" style=" padding: 0; ">
+                <!-- <div><p>深圳市各区井盖丢失率</p></div> -->
                 <div id="map_cover1" style="height: 300px;"></div>
             </div>
         </div>
