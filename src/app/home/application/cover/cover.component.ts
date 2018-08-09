@@ -1,5 +1,14 @@
+/*
+
+Copyright(c): 2018 深圳创新设计研究院
+Author: luo.shuqi@live.com
+@file: cover.componen.ts
+@time: 2018 /8 / 9 9: 00
+
+*/
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Point } from '../../../data/point.type';
+import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 // baidu map
 declare let BMap;
@@ -42,6 +51,8 @@ export class CoverComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
+  light_list = LIGHTLIST.val.light_list; // 数据模拟
+
   constructor(private monitorService: MonitorService, ) { }
 
   ngOnInit() {
@@ -55,17 +66,23 @@ export class CoverComponent implements OnInit {
 
     const map = this.map = new BMap.Map(this.map_container.nativeElement, {
       enableMapClick: true,
-      minZoom: 11,
+      // minZoom: 11,
       // maxZoom : 11
     }); // 创建地图实例
 
 
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
-    map.centerAndZoom(point, 15); // 设置中心和地图显示级别
+
+    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
+
+    map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+
+
+
     map.setMapStyle({ style: 'grayscale' });
 
-    map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
+
     // 添加控件缩放
 
     const offset = new BMap.Size(20, 55);
@@ -75,13 +92,41 @@ export class CoverComponent implements OnInit {
     });
     map.addControl(navigationControl);
 
-    const ctrl = new BMapLib.TrafficControl({
-      showPanel: true, // 是否显示路况提示面板
-    });
 
-    const marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
 
+    // const marker = new BMap.Marker(point);  // 创建标注
+    // map.addOverlay(marker);               // 将标注添加到地图中
+
+    // const myIcon = new BMap.Icon('../../../../assets/imgs/light-up.png', new BMap.Size(300, 157));
+    // myIcon.setAnchor(new BMap.Size(16, 38));
+    // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+    // this.map.addOverlay(marker2);
+
+    this.addMarker();
+
+  }
+
+  addMarker() {
+    for (let index = 0; index < this.light_list.length; index++) {
+      const item = this.light_list[index];
+      const point = new BMap.Point(item.lng, item.lat);
+
+      let myIcon;
+      if (item.is_exception && item.is_exception === 1) { // 异常
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
+        // console.log('异常');
+      } else if (item.is_online === 0) { // 灯亮
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-up.png', new BMap.Size(300, 157));
+        // console.log('掉线');
+      } else { // 正常
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
+        // console.log('正常');
+
+      }
+      myIcon.setAnchor(new BMap.Size(16, 38));
+      const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      this.map.addOverlay(marker2);
+    }
   }
 
   // 解析地址- 设置中心和地图显示级别

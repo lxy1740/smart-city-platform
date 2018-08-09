@@ -1,4 +1,10 @@
 .map_container{
-    // height: 100vh;
+    height: 100vh;
     width: 100%;
+}
+.map-has-footer {
+    height: calc(100vh - 580px);
+}
+.cover-footer {
+    height: 500px;
 }

@@ -302,3 +302,11 @@ export class SecurityComponent implements OnInit {
   }
 
 }
+/*
+
+Copyright(c): 2018 深圳创新设计研究院
+Author: luo.shuqi@live.com
+@file: security.component.ts
+@time: 2018 /8 / 9 9: 00
+
+*/
