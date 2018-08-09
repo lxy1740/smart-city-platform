@@ -9,6 +9,7 @@
     background-color: #434f5c;
     border-color: #434f5c;
     color: #fff;
+    font-size: 18px;
 }
 .btn.focus, .btn:focus {
     box-shadow: 0 0 0 0.2rem rgba(59, 64, 70, 0.25)
@@ -47,7 +48,7 @@
     left: 30px;
     height: 90vh;
     color: #fff;
-    font-size: 40px;
+    font-size: 36px;
     .product-name {
         position: absolute;
         top: 20px;
@@ -71,6 +72,7 @@
 }
 .login-titel {
     margin-bottom: 40px;
+    font-size: 23px
 }
 .login-icon{
     position: relative;
