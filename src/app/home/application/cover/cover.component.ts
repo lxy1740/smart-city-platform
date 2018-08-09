@@ -249,8 +249,15 @@ export class CoverComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-        }
+          data: ['罗湖', '宝安', '福田', '龙岗', '南山', '盐田', '光明', '龙华', '坪山', '大鹏'],
+          axisLine: {
+            lineStyle: {
+              color: '#fff',
+              width: 1, // 这里是为了突出显示加上的
+            }
+          }
+
+      }
       ],
       yAxis: [
         {
@@ -261,7 +268,7 @@ export class CoverComponent implements OnInit {
         {
           name: '损坏',
           type: 'bar',
-          data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+          data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0],
           markPoint: {
             data: [
               { type: 'max', name: '最大值' },
@@ -277,7 +284,7 @@ export class CoverComponent implements OnInit {
         {
           name: '丢失',
           type: 'bar',
-          data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+          data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8],
           markPoint: {
             data: [
               { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183 },

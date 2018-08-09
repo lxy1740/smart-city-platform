@@ -25,7 +25,35 @@
     border: 1px solid #ccc;
     background: #3c3c3c;
     color: #fff;
+    .mes-list-title{
+        padding-left: 40px;
+        padding-top: 20px;
+    }
+
+    .mes-list-detail{
+        height: 80%;
+        overflow: auto;
+    }
 }
 .list-item{
     padding-top: 12px;
+}
+.cover-tabel {
+    // height: 100px;
+    background: #3c3c3c;
+    padding: 0;
+}
+.block-padding{
+    padding: 0;
+}
+.table-body{
+    margin-bottom: 0;
+    background: #404a59;
+    padding: 0;
+}
+.mess-num {
+    td {
+    color: #fff;
+    }
+
 }
