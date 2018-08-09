@@ -1,12 +1,13 @@
 export const ROUTETREE = [
     {
         id: 1,
-        icon: 'fa fa-desktop nav-icon',
-        routeLink: 'monitor',
-        routeTitel: '设备监控',
+        icon: 'fa fa-home nav-icon',
+        routeLink: 'dashbord',
+        routeTitel: '可视化',
         isCollapsed: false,
         hasRight: true,
     },
+
     {
         id: 4,
         icon: 'fa  fa-building nav-icon',
@@ -54,6 +55,14 @@ export const ROUTETREE = [
 
 
         ]
+    },
+    {
+        id: 1,
+        icon: 'fa fa-desktop nav-icon',
+        routeLink: 'monitor',
+        routeTitel: '设备监控',
+        isCollapsed: false,
+        hasRight: true,
     },
 
     {

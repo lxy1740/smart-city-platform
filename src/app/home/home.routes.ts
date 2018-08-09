@@ -22,7 +22,7 @@ export const HomeRoutes: Route[] = [
         component: HomeComponent,
         canActivate: [AuthGuard],
         children: [
-            { path: '', redirectTo: 'monitor', pathMatch: 'full' },
+            { path: '', redirectTo: 'dashbord', pathMatch: 'full' },
             ...MonitorRoutes,
             ...DeviceRoutes,
             ...UserRoutes,
