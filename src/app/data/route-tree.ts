@@ -3,7 +3,7 @@ export const ROUTETREE = [
         id: 1,
         icon: 'fa fa-home nav-icon',
         routeLink: 'dashbord',
-        routeTitel: '可视化',
+        routeTitel: '概览',
         isCollapsed: false,
         hasRight: true,
     },
