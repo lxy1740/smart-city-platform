@@ -566,13 +566,15 @@ export class MonitorComponent implements OnInit {
 
     for (let index = 0; index < that.markers.length; index++) {
       const marker = that.markers[index];
-      this.setZoom(marker, this.map);
+      const item = val[index];
+      console.log(marker);
+      this.setZoom(marker, this.map, item);
     }
   }
 
 
 // 圆圈区域点击事件
-  setZoom(marker, baiduMap) {
+  setZoom(marker, baiduMap, item) {
     const that = this;
     let zoom = this.zoom;
     switch (this.zoom) {
@@ -597,7 +599,9 @@ export class MonitorComponent implements OnInit {
     }
     marker.V.addEventListener('click', function () {
 
-      baiduMap.setZoom(zoom);
+      const point = new BMap.Point(item.center.lng, item.center.lat); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+      baiduMap.centerAndZoom(point, zoom); // 设置中心和地图显示级别
+      // baiduMap.setZoom(zoom);
     });
   }
 
