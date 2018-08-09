@@ -96,10 +96,10 @@
     <div #map3 id="map_container3" class="map_container no-fulls-map map-has-footer"></div>
     <div class="row cover-footer">
         <!-- 消息列表 -->
-        <div class="col-6 mes-list" style=" " >
-            <div><p>消息列表</p></div>
+        <div class="col-6 mes-list" >
+            <!-- <div><p>消息列表</p></div> -->
             <ul>
-                <li *ngFor="let mess of messageList">
+                <li *ngFor="let mess of messageList" class="list-item">
                     <!-- 待加：每条消息前信号点，即绿、黄、红原点 -->
                   <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                 </li>
