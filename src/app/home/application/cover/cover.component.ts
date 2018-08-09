@@ -59,7 +59,7 @@ export class CoverComponent implements OnInit {
 
   light_list = LIGHTLIST.val.light_list; // 数据模拟
 
-  constructor(private monitorService: MonitorService, private messageService: MessageService, 
+  constructor(private monitorService: MonitorService, private messageService: MessageService,
     public messService: MessService, ) { }
 
   ngOnInit() {
@@ -219,9 +219,9 @@ export class CoverComponent implements OnInit {
     // app.title = '堆叠柱状图';
 
     const option = {
-      backgroundColor: '#404a59',
+      backgroundColor: '#3c3c3c',
       title: {
-        text: '深圳市各区井盖丢失率',
+        text: '深圳市各区井盖异常统计',
         subtext: '纯属虚构',
         textStyle: {
           color: '#fff'
@@ -231,7 +231,10 @@ export class CoverComponent implements OnInit {
         trigger: 'axis'
       },
       legend: {
-        data: ['蒸发量', '降水量']
+        data: ['损坏', '丢失'],
+        textStyle: {
+          color: '#fff'
+        }
       },
       toolbox: {
         show: true,
@@ -256,7 +259,7 @@ export class CoverComponent implements OnInit {
       ],
       series: [
         {
-          name: '蒸发量',
+          name: '损坏',
           type: 'bar',
           data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
           markPoint: {
@@ -272,7 +275,7 @@ export class CoverComponent implements OnInit {
           }
         },
         {
-          name: '降水量',
+          name: '丢失',
           type: 'bar',
           data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
           markPoint: {
