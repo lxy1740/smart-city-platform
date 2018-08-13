@@ -65,7 +65,7 @@ export class CoverComponent implements OnInit {
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
-    this.getDevice(); // 获取设备列表
+    //this.getDevice(); // 获取设备列表 - ymZhao-按要求，井盖页面不显示设备列表
     this.getMessage();
     this.chartMapCover1(); // ymZhao 井盖丢失率图
   }
@@ -196,24 +196,25 @@ export class CoverComponent implements OnInit {
       }
     });
   }
-  // 获取设备列表 -- ok
-  getDevice() {
-    const that = this;
+  // 获取设备列表 -- ok - ymZhao-按要求，井盖页面不显示设备列表
+  // getDevice() {
+  //   const that = this;
 
-    this.monitorService.getDevice().subscribe({
-      next: function (val) {
-        that.deviceList = val;
+  //   this.monitorService.getDevice().subscribe({
+  //     next: function (val) {
+  //       that.deviceList = val;
 
-      },
-      complete: function () {
+  //     },
+  //     complete: function () {
 
 
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  }
+  //     },
+  //     error: function (error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
+
   // ymZhao-井盖丢失率echart
   chartMapCover1() {
     // app.title = '堆叠柱状图';

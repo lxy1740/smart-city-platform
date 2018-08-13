@@ -83,7 +83,7 @@ export class MonitorService {
     }
 
     getCommunity(sw: Point, ne: Point, zoom: Number): Observable<any> {
-        // console.log(sw, ne, zoom);
+        console.log(sw, ne, zoom);
         return of(COMMUNITYLIST.val.community_list).pipe(
             delay(1000),
             tap(val => {
@@ -91,6 +91,22 @@ export class MonitorService {
                 return val;
             })
         );
+        // return this.http.post(`/api/position/inbounds/details`, {
+        //     'bounds': {
+        //         'ne': ne,
+        //         'sw': sw
+        //     },
+        //     // 'device_type': zoom
+        // })
+        //     .pipe(map((res: Response) => {
+        //         if (res.status === 200) {
+        //             const data = res.json();
+        //             return data;
+        //         } else if (res.status === 202) {
+        //             return res.json().code.toString();
+
+        //         }
+        //     }));
     }
 
 

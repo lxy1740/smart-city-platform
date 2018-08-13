@@ -18,27 +18,9 @@ export const ROUTETREE = [
         children: [
             {
                 id: 21,
-                icon: 'fa fa-life-ring nav-icon-s',
-                routeLink: 'application/cover',
-                routeTitel: '窨井管理',
-            },
-            {
-                id: 21,
-                icon: 'fa fa-lightbulb-o nav-icon-s',
-                routeLink: 'application/light',
-                routeTitel: '智慧照明',
-            },
-            {
-                id: 21,
-                icon: 'fa fa-car nav-icon-s',
-                routeLink: 'application/traffic',
-                routeTitel: '智慧交通',
-            },
-            {
-                id: 21,
-                icon: 'fa fa-shield nav-icon-s',
-                routeLink: 'application/security',
-                routeTitel: '智慧安防',
+                icon: 'fa fa-bolt nav-icon-s',
+                routeLink: 'application/calamity',
+                routeTitel: '灾害报警',
             },
             {
                 id: 21,
@@ -48,9 +30,27 @@ export const ROUTETREE = [
             },
             {
                 id: 21,
-                icon: 'fa fa-bolt nav-icon-s',
-                routeLink: 'application/calamity',
-                routeTitel: '灾害报警',
+                icon: 'fa fa-lightbulb-o nav-icon-s',
+                routeLink: 'application/light',
+                routeTitel: '智慧照明',
+            },
+            {
+                id: 21,
+                icon: 'fa fa-life-ring nav-icon-s',
+                routeLink: 'application/cover',
+                routeTitel: '窨井管理',
+            },
+            {
+                id: 21,
+                icon: 'fa fa-shield nav-icon-s',
+                routeLink: 'application/security',
+                routeTitel: '智慧安防',
+            },
+            {
+                id: 21,
+                icon: 'fa fa-car nav-icon-s',
+                routeLink: 'application/traffic',
+                routeTitel: '智慧交通',
             },
 
 

@@ -158,9 +158,18 @@
     }
 
     // 侧边栏
+    .sidebar-inner {   //ymZhao-aside下额外包一层，以隐藏滚动条
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: -15px;
+        bottom: 0;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
         // sidebar
     .sidebar-dark-primary {
-        overflow-y:auto; 
+        overflow: hidden; 
         box-shadow: 0px 6px 18px #e5e5e5;
         background-color: #fff;
         height: 100vh;

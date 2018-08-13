@@ -70,7 +70,8 @@
       </nav>
       <!-- 侧边菜单 -->
       <aside class="sidebar-dark-primary main-sidebar" *ngIf="visible == true">
-      
+      <!-- ymZhao-aside下额外包一层，以隐藏滚动条 -->
+      <div class="sidebar-inner">
         <ul class="first-menu">
           <!-- 一级菜单 -->
           <li *ngFor="let routes of routeTree " class="cur-pointer nav-item ">
@@ -100,7 +101,7 @@
       
       
         </ul>
-      
+      </div>
       </aside>
       
       <!-- Main content -->
