@@ -101,7 +101,7 @@ export class CoverComponent implements OnInit {
 
 
     // map.setMapStyle({ style: 'grayscale' });
-    map.setMapStyle({ style: 'dark' });
+    map.setMapStyle({ style: 'normal' });  //dark
 
     // 添加控件缩放
 

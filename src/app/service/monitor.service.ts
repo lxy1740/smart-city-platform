@@ -76,37 +76,35 @@ export class MonitorService {
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();
-
                 }
             }));
 
     }
 
-    getCommunity(sw: Point, ne: Point, zoom: Number): Observable<any> {
-        console.log(sw, ne, zoom);
-        return of(COMMUNITYLIST.val.community_list).pipe(
-            delay(1000),
-            tap(val => {
-                // console.log(val);
-                return val;
-            })
-        );
-        // return this.http.post(`/api/position/inbounds/details`, {
-        //     'bounds': {
-        //         'ne': ne,
-        //         'sw': sw
-        //     },
-        //     // 'device_type': zoom
-        // })
-        //     .pipe(map((res: Response) => {
-        //         if (res.status === 200) {
-        //             const data = res.json();
-        //             return data;
-        //         } else if (res.status === 202) {
-        //             return res.json().code.toString();
-
-        //         }
-        //     }));
+    getCommunity(sw: Point, ne: Point, zoom: Number, type: Number): Observable<any> {
+        // console.log(sw, ne, zoom);
+        // return of(COMMUNITYLIST.val.community_list).pipe(
+        //     delay(1000),
+        //     tap(val => {
+        //         // console.log(val);
+        //         return val;
+        //     })
+        // );
+        return this.http.post(`/api/position/inbounds/details`, {
+            'bounds': {
+                'ne': ne,
+                'sw': sw
+            },
+            'device_type': type
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
     }
 
 

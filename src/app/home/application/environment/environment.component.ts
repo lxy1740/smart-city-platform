@@ -84,7 +84,7 @@ export class EnvironmentComponent implements OnInit {
 
 
 
-    map.setMapStyle({ style: 'dark' });
+    map.setMapStyle({ style: 'normal' });  //dark
 
 
     // 添加控件缩放

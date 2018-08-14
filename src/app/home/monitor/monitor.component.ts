@@ -435,8 +435,9 @@ export class MonitorComponent implements OnInit {
   // 获取详情
   getCommunity(sw: Point, ne: Point, zoom: Number) {
     const that = this;
+    const type = this.type;
     let value;
-    this.monitorService.getCommunity(sw, ne, zoom).subscribe({
+    this.monitorService.getCommunity(sw, ne, zoom, type).subscribe({
       next: function (val) {
         value = val;
       },
@@ -510,18 +511,26 @@ export class MonitorComponent implements OnInit {
 
       // 添加自定义覆盖物
       let mySquare;
-      if (item.is_exception && item.is_exception === 1) { // 异常
+      // if (item.is_exception && item.is_exception === 1) { // 异常
+      //   mySquare = new GradOverlar(pt, 50, 'tag-red');
+      //   // console.log('异常');
+      // } else if (item.is_online === 0) { // 掉线
+      //   mySquare = new GradOverlar(pt, 50, 'tag-grad');
+      //   // console.log('掉线');
+      // } else { // 正常
+      //   mySquare = new GradOverlar(pt, 50, 'tag-bule');
+      //   // console.log('正常');
+      // }
+      if (item.with_error && item.with_error === true) { // 异常
         mySquare = new GradOverlar(pt, 50, 'tag-red');
         // console.log('异常');
-      } else if (item.is_online === 0) { // 掉线
+      } else if (item.with_offline === true) { // 掉线
         mySquare = new GradOverlar(pt, 50, 'tag-grad');
         // console.log('掉线');
       } else { // 正常
         mySquare = new GradOverlar(pt, 50, 'tag-bule');
         // console.log('正常');
-
       }
-
 
       that.map.addOverlay(mySquare);
 
