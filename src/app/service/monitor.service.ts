@@ -90,7 +90,7 @@ export class MonitorService {
         //         return val;
         //     })
         // );
-        return this.http.post(`/api/position/inbounds/details`, {
+        return this.http.post('/api/position/inbounds/details', {
             'bounds': {
                 'ne': ne,
                 'sw': sw

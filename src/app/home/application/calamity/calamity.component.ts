@@ -113,13 +113,13 @@ export class CalamityComponent implements OnInit {
 
       let myIcon;
       if (item.is_exception && item.is_exception === 1) { // 异常
-        myIcon = new BMap.Icon('../../../../assets/imgs/Earthquake_new.gif', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/Earthquake.gif', new BMap.Size(300, 157));
         // console.log('异常');
       } else if (item.is_online === 0) { // 灯亮
-        myIcon = new BMap.Icon('../../../../assets/imgs/water_new.gif', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/water.gif', new BMap.Size(300, 157));
         // console.log('掉线');
       } else { // 正常
-        myIcon = new BMap.Icon('../../../../assets/imgs/water_new.gif', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/water.gif', new BMap.Size(300, 157));
         // console.log('正常');
 
       }
