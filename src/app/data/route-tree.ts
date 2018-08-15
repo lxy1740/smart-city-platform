@@ -75,15 +75,15 @@ export const ROUTETREE = [
         children: [
             {
                 id: 21,
-                icon: 'fa fa-map-marker nav-icon-s',
-                routeLink: 'device/position',
-                routeTitel: '位置',
-            },
-            {
-                id: 21,
                 icon: 'fa fa-window-restore nav-icon-s',
                 routeLink: 'device/class',
                 routeTitel: '类',
+            },
+            {
+                id: 21,
+                icon: 'fa fa-map-o nav-icon-s',
+                routeLink: 'device/survey',
+                routeTitel: '设备',
             },
             {
                 id: 21,
@@ -93,11 +93,10 @@ export const ROUTETREE = [
             },
             {
                 id: 21,
-                icon: 'fa fa-map-o nav-icon-s',
-                routeLink: 'device/survey',
-                routeTitel: '设备',
+                icon: 'fa fa-map-marker nav-icon-s',
+                routeLink: 'device/position',
+                routeTitel: '位置',
             },
-
         ]
     },
     // {

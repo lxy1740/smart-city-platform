@@ -1,29 +1,38 @@
-<!-- <p>
-  class wodks!
-</p> -->
 <div class="bodyofclass">
 
-  <div class="card card-success">
-    <!-- Default panel contents -->
+  <div class="card card-primary">
     <div class="card-header">类管理</div>
+    <!-- 新建类 -->
+    <div class="card-block" style="text-align: right">
+      <a class="btn btn-info create-class">新建类</a>
+    </div>
+
+    <!-- 显示已有类 -->
     <div class="card-block">
-      <!-- Table -->
+      <!-- 类表 -->
       <table class="table table-hoved">
-        <tr>
-          <th>序号</th>
-          <th>类</th>
-          <th>创建时间</th>
-          <th>类描述</th>
-          <th>操作</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>灯</td>
-          <td>2018-7-31</td>
-          <td>所有灯具</td>
-          <td></td>
-        </tr>
-      </table>
+          <tr>
+            <th>序号</th>
+            <th>类</th>
+            <th>创建时间</th>
+            <th>类描述</th>
+            <th style="text-align: center">操作</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>灯</td>
+            <td>2018-7-31</td>
+            <td>所有灯具</td>
+            <!-- 对已有的具体类的操作 -->
+            <td style="text-align: center">
+              <div>
+                <a class="manage-class"><i class="fa fa-eye"></i></a>
+                <a class="manage-class"><i class="fa fa-wrench"></i></a>
+                <a class="manage-class"><i class="fa fa-trash"></i></a>
+              </div>
+            </td>
+          </tr>
+        </table>
     </div>
   </div>
 

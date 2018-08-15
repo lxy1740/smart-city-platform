@@ -1,0 +1,61 @@
+.bodyofposition {
+    width: calc(100vw - 100px);
+    padding: 15px;
+}
+.card-header {
+    border-bottom: 0px;
+}
+.card-block {
+    margin-bottom: 5px;
+}
+.card-primary {
+    background: #e7fdfb;
+}
+.search-position {
+    
+    font-size: 14px;
+    margin: 5px 0 5px;
+
+    .search-options {
+        //padding-left: 20px;
+        
+        .form-control {
+            font-size: 14px;
+            width: auto;
+            height: calc(1.8rem + 2px);
+            margin-left: 5px;
+            margin-bottom: 5px;
+        }
+        .search-icon {
+            font-size: 20px;
+            margin-left: 10px;
+            margin-bottom: 5px;
+        }
+        .search-exe, .search-clear {
+            font-size: 14px;
+            height: calc(1.8rem + 2px);
+            margin-left: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    .add-position {
+        margin-bottom: 0px;
+        text-align: right;
+        .create-position, .update-position {
+            font-size: 14px;
+            margin-left: 5px;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.manage-class {
+    font-size: 20px;
+    padding-right: 1px;
+}
+.manage-class:focus, .manage-class:hover {
+    background-color: #17a2b8;
+}
+.manage-class:active {
+    background-color: #137e8f;
+}

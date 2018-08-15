@@ -1,3 +1,75 @@
-<p>
-  product works!
-</p>
+<div class="bodyofproduct">
+
+    <div class="card card-primary">
+      <div class="card-header">产品管理</div>
+      <!-- 搜索产品 -->
+      <div class="row card-block search-product">
+          <!-- 表单，搜索产品 -->
+          <form class="form-inline search-options">
+            <select class="form-control">
+              <option>区域</option>
+              <option>...</option>
+            </select>
+            <select class="form-control">
+              <option>类</option>
+              <option>...</option>
+            </select>
+            <select class="form-control">
+              <option>是否可控</option>
+              <option>...</option>
+            </select>
+            <!-- 日期，功能不明 -->
+            <input type="date" class="form-control" value="2018-06-01"/>
+            <!-- 输入框，功能不明 -->
+            <div class="form-group inner-addon left-addon ">
+                <div class="form-group">
+                  <i class="fa fa-search search-icon"></i>
+                  <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
+                </div>
+              </div>
+            <a class="btn btn-info search-exe">搜索</a>
+            <a class="btn btn-info search-clear">清空选择</a>
+          </form>
+        
+        <!-- 新建产品 -->
+        <div class="card-block add-product">
+          <a class="btn btn-info create-product">新建产品</a></div>
+      </div>
+
+      <!-- 显示已有产品 -->
+      <div class="card-block">
+        <table class="table table-hoved">
+            <tr>
+              <th>序号</th>
+              <th>产品</th>
+              <th>所属类</th>
+              <th>是否可控</th>
+              <th>创建时间</th>
+              <th>PRODUCTNAME</th>
+              <th>PRODUCTKEY</th>
+              <th>PRODUCTSECRET</th>
+              <th style="text-align: center">操作</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>太阳能灯</td>
+              <td>灯</td>
+              <td>是</td>
+              <td>2017/07/08 17:51:31</td>
+              <td>adsd12</td>
+              <td>a148jK0pf1H</td>
+              <td>a148jK0pdfgf1H</td>
+              <!-- 对已有的具体产品的操作 -->
+              <td style="text-align: center">
+                <div>
+                  <a class="manage-class"><i class="fa fa-eye"></i></a>
+                  <a class="manage-class"><i class="fa fa-wrench"></i></a>
+                  <a class="manage-class"><i class="fa fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  
+  </div>

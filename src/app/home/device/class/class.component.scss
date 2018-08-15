@@ -2,6 +2,28 @@
     width: calc(100vw - 100px);
     padding: 15px;
 }
+.card-header {
+    border-bottom: 0px;
+}
+.card-block {
+    margin-bottom: 5px;
+}
 .card-primary {
-    //background: dimgray;
+    background: #e7fdfb;
+    
+}
+.create-class {
+    font-size: 14px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.manage-class {
+    font-size: 20px;
+    padding: 0 5px 0;
+}
+.manage-class:focus, .manage-class:hover {
+    background-color: #17a2b8;
+}
+.manage-class:active {
+    background-color: #137e8f;
 }

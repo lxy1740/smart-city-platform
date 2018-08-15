@@ -1,3 +1,67 @@
-<p>
-  position works!
-</p>
+<div class="bodyofposition">
+
+    <div class="card card-primary">
+      <div class="card-header">位置管理</div>
+      <!-- 按区域搜索位置？功能不明 -->
+      <div class="row card-block search-position">
+          <!-- 表单，搜索产品 -->
+          <form class="form-inline search-options">
+            <!-- 区域选择，按城市，区域选择 -->
+            <select class="form-control">
+              <option>区域</option>
+              <option>...</option>
+            </select>
+
+            <!-- 输入框，功能不明 -->
+            <div class="form-group inner-addon left-addon ">
+                <div class="form-group">
+                  <i class="fa fa-search search-icon"></i>
+                  <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
+                </div>
+              </div>
+
+              <!-- 起止日期选择 -->
+              <input type="date" class="form-control" value="Start date"/>
+              <input type="date" class="form-control" value="End date"/>
+            <a class="btn btn-info search-clear">清空选择</a>
+            <a class="btn btn-info search-exe">搜索</a>
+            
+          </form>
+        
+        <div class="card-block add-position">
+          <a class="btn btn-info update-position">批量导入位置</a>
+          <a class="btn btn-info create-position">新建位置</a></div>
+      </div>
+
+      <!-- 显示已有位置 -->
+      <div class="card-block">
+        <table class="table table-hoved">
+            <tr>
+              <th>序号</th>
+              <th>位置名称</th>
+              <th>位置编号</th>
+              <th>区域</th>
+              <th>坐标</th>
+              <th>创建时间</th>
+              <th style="text-align: center">操作</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>深圳南山蛇口工业七路0001</td>
+              <td>SZNSSKGYQL0001</td>
+              <td>广东省深圳市南山区蛇口街道</td>
+              <td>X:975, Y83</td>
+              <td>2017/07/08 17:51:31</td>
+              <td style="text-align: center">
+                <div>
+                  <a class="manage-class"><i class="fa fa-eye"></i></a>
+                  <a class="manage-class"><i class="fa fa-wrench"></i></a>
+                  <a class="manage-class"><i class="fa fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  
+  </div>
