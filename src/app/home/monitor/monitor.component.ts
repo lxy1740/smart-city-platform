@@ -237,7 +237,7 @@ export class MonitorComponent implements OnInit {
 
     // this.overMessage( baiduMap, pt, message); // 添加文字
 
-    this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
+    // this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
     // console.log(this.markers);
     setTimeout(() => {
       console.log('click');
@@ -503,7 +503,7 @@ export class MonitorComponent implements OnInit {
     const points: any[] = [];
     const that = this;
     val.map((item, i) => {
-      const pt = new BMap.Point(item.lng, item.lat);
+      const pt = new BMap.Point(item.point.lng, item.point.lat);
       const name = item.name;
       // const mk = new BMap.Marker(pt); // 默认标注
       // that.map.addOverlay(mk);
@@ -543,7 +543,7 @@ export class MonitorComponent implements OnInit {
     for (let index = 0; index < that.markers.length; index++) {
       const marker = that.markers[index];
       // console.log(val[index]);
-      that.openSideBar(marker, that.map, val[index], points[index]);
+      // that.openSideBar(marker, that.map, val[index], points[index]);
     }
   }
 
