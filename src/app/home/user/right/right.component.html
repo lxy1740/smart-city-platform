@@ -1,6 +1,13 @@
 <p>
-  right works!
+ 角色管理
 </p>
+<div>搜索框....
+    <div>时间框...</div>
+
+
+
+
+
 <!-- 新建角色 -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -30,13 +37,14 @@
 
   <button class="btn btn-default" (click)="open(content)">新建角色</button>
 </div>
-
+</div>
 <div class="table-responsive">
   <table class="table table-bordered">
     <tr>
-      <th>角色</th>
-      <th>权限</th>
-      <th>操作</th>
+      <td>角色</td>
+      <td>描述</td>
+      <td>时间</td>
+      <td>操作</td>
   
     </tr>
     <tr>
