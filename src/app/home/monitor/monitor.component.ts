@@ -172,14 +172,14 @@ export class MonitorComponent implements OnInit {
 
     baiduMap.addEventListener('zoomend', function () {
       if (that.isqueryPoint === true) {
-        console.log('地图缩放事件-点击消息列表事件');
+        // console.log('地图缩放事件-点击消息列表事件');
         that.isqueryPoint = false;
       } else {
-        console.log('地图缩放事件');
+        // console.log('地图缩放事件');
 
         that.remove_overlay(baiduMap);
         that.addMarker(); // 添加标注
-        console.log('地图缩放至：' + baiduMap.getZoom() + '级');
+        // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
 
       }
 
@@ -467,7 +467,7 @@ export class MonitorComponent implements OnInit {
 
   // 根据级别获取数据-锚点
   addMarker() {
-    console.log('获取数据');
+    // console.log('获取数据');
     this.getBounds(this.map); // 获取可视区域
 
     const that = this;
@@ -476,20 +476,20 @@ export class MonitorComponent implements OnInit {
     const ne = this.NorthEast;
     let length, color, mouseoverColor;
     if (zoom <= 13) {
-      console.log('region_list');
+      // console.log('region_list');
       length = 90;
       color = '#87a2b7';
       mouseoverColor = '#9bd9dd';
       that.getRegion(length, color, mouseoverColor);
 
     } else if (zoom <= 16 && zoom > 13) {
-      console.log('block_list');
+      // console.log('block_list');
       length = 90;
       color = '#87a2b7';
       mouseoverColor = '#9bd9dd';
       that.getRegion(length, color, mouseoverColor);
     } else {
-      console.log('community_list');
+      // console.log('community_list');
       that.getCommunity(sw, ne, zoom);
     }
 
