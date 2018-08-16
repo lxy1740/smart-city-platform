@@ -7,6 +7,7 @@ Author: luo.shuqi@live.com
 
 */
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
@@ -53,7 +54,7 @@ export class LightComponent implements OnInit {
 
   light_list = LIGHTLIST.val.light_list; // 数据模拟
 
-  constructor(private monitorService: MonitorService, ) { }
+  constructor(private monitorService: MonitorService, public router: Router, ) { }
 
   ngOnInit() {
     this.addBeiduMap();
@@ -286,6 +287,14 @@ export class LightComponent implements OnInit {
     //   node: that.node
     // };
     return that.node;
+  }
+
+
+  // 路由跳转
+  jumpHandle() {
+
+    this.router.navigate([`home/strategy`]);
+
   }
 
 
