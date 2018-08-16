@@ -366,3 +366,6 @@ address, cite, code, em, th, i, strong {
 .modal-content {
     top: 80px;
 }
+.modal{
+    z-index: 10000;
+}
