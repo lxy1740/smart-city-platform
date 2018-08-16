@@ -1,6 +1,42 @@
-<div  class="nav-margin">
+<div  class="nav-margin strategy">
+
+  <div class="strategy-left">
+    <div>
+      <p>策略表</p>
+    </div>
+  </div>
+  <div class="strategy-right">
+    <div>
+      <ul class="nav nav-tabs">
+        <li  *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)" [ngClass]="{'active':item.id === index}">
+          <a >{{item.name}}</a>
+        </li>
+
+
+      </ul>
+    </div>
+    <div *ngIf="index === 0">
+        <table class="table">
+          <tr>
+            <th>序号</th>
+            <th>日期范围</th>
+            <th>创建时间</th>
+            <th>操作</th>
+          
+          </tr>
+          <tr>
+            <td class="">...</td>
+            <td class="">...</td>
+            <td class="">...</td>
+            <td class="">...</td>
+
+          </tr>
+        </table>
+    </div>
+    <div *ngIf="index === 1">
+      策略范围
+    </div>
+  </div>
 
 </div>
-<p>
-  strategy works!
-</p>
+

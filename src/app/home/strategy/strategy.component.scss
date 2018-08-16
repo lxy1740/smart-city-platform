@@ -1,0 +1,47 @@
+.strategy {
+    position: relative;
+}
+.strategy-left {
+    width: 300px;
+    height: calc(100vh - 80px);
+    border: #dee2e6 1px solid;
+    // position: absolute;
+    // float: left;
+}
+
+.strategy-right {
+    position: absolute;
+    top: 0px;
+    left: 300px;
+    width: calc(100vw - 300px);
+}
+// 菜单
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.nav>li {
+    position: relative;
+    display: block;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
