@@ -29,7 +29,33 @@
           </form>
         
         <div class="card-block add-position">
-          <a class="btn btn-info update-position">批量导入位置</a>
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <!-- <h4 class="modal-title">新建产品</h4> -->
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- <p>One fine body&hellip;</p> -->
+                      <div class="form-group">
+                          <label class="control-label">下载位置导入模板，批量填写信息</label>
+                          <label class="control-label">输入参数</label>
+                          <div><a class="" href="">+增加参数</a></div>
+                      </div>
+                      <div class="form-group">
+                        <i class=""></i>
+                          <label class="control-label">增加参数</label>
+                          <button type="button" class="btn btn-outline-dark">下载</button>
+                      </div>
+          
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
+                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+                </div>
+              </ng-template>
+          <a class="btn btn-info update-position" (click)="open(content)">批量导入位置</a>
           <a class="btn btn-info create-position">新建位置</a></div>
       </div>
 

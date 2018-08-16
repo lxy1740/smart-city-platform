@@ -10,6 +10,7 @@
 }
 .card-primary {
     background: #e7fdfb;
+    margin-bottom: 15px;
 }
 .search-product {
     
@@ -26,6 +27,7 @@
             margin-left: 5px;
             margin-bottom: 5px;
         }
+        
         .search-icon {
             font-size: 20px;
             margin-left: 10px;
@@ -38,6 +40,7 @@
             margin-bottom: 5px;
         }
     }
+    
     .add-product {
         margin-bottom: 0px;
         //text-align: right;
@@ -48,6 +51,19 @@
         }
     }
 }
+.modal-body {
+    .form-control-left {
+    //max-width: 100px;
+    font-size: 14px;
+    height: calc(1.8rem + 2px);
+    margin-bottom: 5px;
+    }
+    .label-left {
+        text-align: right;
+    }
+}
+
+
 
 .manage-class {
     font-size: 20px;

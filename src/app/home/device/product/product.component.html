@@ -32,8 +32,79 @@
           </form>
         
         <!-- 新建产品 -->
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">新建产品</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <p>One fine body&hellip;</p> -->
+            <div class="row">
+              <!-- 左列 -->
+              <div class="col-8">
+                <div class="row form-group">
+                  <label class="col-4 control-label label-left">产品名称:</label>
+                  <div>
+                    <input type="text" class="col-8 form-control form-control-left" id="add-product-name" placeholder="">
+                  </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-4 control-label label-left">所属类:</label>
+                    <div>
+                      <select class="col-8 form-control form-control-left">
+                        <option id="" placeholder="">...</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-4 control-label label-left">制造商:</label>
+                    <div>
+                      <input type="text" class="col-8 form-control form-control-left" id="" placeholder="">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-4 control-label label-left">制造商联系方式:</label>
+                    <div>
+                      <input type="text" class="col-8 form-control form-control-left" id="" placeholder="">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-4 control-label label-left">PRODUCTKEY:</label>
+                    <div>
+                      <input type="text" class="col-8 form-control form-control-left" id="" placeholder="">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-4 control-label label-left">PRODUCTSECRET:</label>
+                    <div>
+                      <input type="text" class="col-8 form-control form-control-left" id="" placeholder="">
+                    </div>
+                </div>
+              </div>
+              <!-- 右列 -->
+              <div class="col-4">
+                <label class="control-label">参数：</label>
+                <div class="form-group">
+                    <label class="control-label">输入参数</label>
+                    <div><a class="" href="">+增加参数</a></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">增加参数</label>
+                    <div><a class="" href="">+增加参数</a></div>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+          </div>
+        </ng-template>
         <div class="card-block add-product">
-          <a class="btn btn-info create-product">新建产品</a></div>
+          <a class="btn btn-info create-product" (click)="open(content)">新建产品</a></div>
       </div>
 
       <!-- 显示已有产品 -->
@@ -71,5 +142,5 @@
           </table>
       </div>
     </div>
-  
+
   </div>
