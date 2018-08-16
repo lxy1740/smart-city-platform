@@ -73,12 +73,12 @@ export const ROUTETREE = [
         isCollapsed: true,
         hasRight: false,
         children: [
-            {
-                id: 21,
-                icon: 'fa fa-window-restore nav-icon-s',
-                routeLink: 'device/class',
-                routeTitel: '类',
-            },
+            // {
+            //     id: 21,
+            //     icon: 'fa fa-window-restore nav-icon-s',
+            //     routeLink: 'device/class',
+            //     routeTitel: '类',
+            // },
             {
                 id: 21,
                 icon: 'fa fa-map-o nav-icon-s',
