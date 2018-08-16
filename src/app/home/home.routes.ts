@@ -9,7 +9,9 @@ import { RuleRoutes } from './rule/rule.routes';
 
 import { ApplicationRoutes } from './application/application.routes';
 import { EnergyRoutes } from './energy/energy.routes';
+import { DashbordRoutes } from './dashbord/dashbord.routes';
 import { VideoRoutes } from './video/video.routes';
+import { MapRoutes } from './map/map.routes';
 import { ManageRoutes } from './manage/manage.routes';
 export const HomeRoutes: Route[] = [
     {
@@ -29,7 +31,9 @@ export const HomeRoutes: Route[] = [
             ...ApplicationRoutes,
             ...RuleRoutes,
             ...EnergyRoutes,
+            ...DashbordRoutes,
             ...VideoRoutes,
+            ...MapRoutes,
             ...ManageRoutes
         ]
     },
