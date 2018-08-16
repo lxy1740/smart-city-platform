@@ -114,13 +114,17 @@ export class LightComponent implements OnInit {
       let myIcon;
       if (item.is_exception && item.is_exception === 1) { // 异常
         myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
-        // console.log('异常');
-      } else if (item.is_online === 0) { // 灯亮
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(300, 157));
-        // console.log('掉线');
-      } else { // 正常
+        
+      } else if (item.is_online === 1) { // 灯亮
+        switch(item.light_level) {
+          case 1: myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(300, 157)); break;
+          case 2: myIcon = new BMap.Icon('../../../../assets/imgs/light-up-2.png', new BMap.Size(300, 157)); break;
+          case 3: myIcon = new BMap.Icon('../../../../assets/imgs/light-up-3.png', new BMap.Size(300, 157)); break;
+          default: console.log('亮度异常'); break;
+        }
+        
+      } else { // 正常,没亮
         myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
-        // console.log('正常');
 
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
