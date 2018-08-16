@@ -172,8 +172,8 @@
         overflow: hidden; 
         box-shadow: 0px 6px 18px #e5e5e5;
         background-color: #fff;
-        height: 100vh;
-        padding-top: 60px;
+        height: calc(100vh - 80px);
+        // padding-top: 60px;
         position: fixed;
         top:80px;
         z-index: 4000;
