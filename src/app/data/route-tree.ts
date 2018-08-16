@@ -7,22 +7,6 @@ export const ROUTETREE = [
         isCollapsed: false,
         hasRight: true,
     },
-    {
-        id: 1,
-        icon: 'fa fa-home nav-icon',
-        routeLink: 'dashbord',
-        routeTitel: '概览1',
-        isCollapsed: false,
-        hasRight: true,
-    },
-    {
-        id: 1,
-        icon: 'fa fa-home nav-icon',
-        routeLink: 'dashbord',
-        routeTitel: '概览2',
-        isCollapsed: false,
-        hasRight: true,
-    },
 
     {
         id: 4,
