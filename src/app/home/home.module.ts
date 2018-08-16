@@ -16,6 +16,7 @@ import { VideoComponent } from './video/video.component';
 import { ManageComponent } from './manage/manage.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { MapComponent } from './map/map.component';
+import { StrategyComponent } from './strategy/strategy.component';
 
 
 
@@ -25,7 +26,7 @@ import { MapComponent } from './map/map.component';
 @NgModule({
     imports: [BrowserModule, DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule],
     declarations: [
-    SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent, MapComponent,
+    SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent, MapComponent, StrategyComponent,
 
 
     ],
