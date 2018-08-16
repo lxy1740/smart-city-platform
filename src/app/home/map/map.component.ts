@@ -9,7 +9,7 @@ Author: luo.shuqi@live.com
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Point } from '../../data/point.type';
-import { LIGHTLIST } from '../../data/light-list';
+import { MAPLIST } from '../../data/map-list';
 import { MonitorService } from '../../service/monitor.service';
 // baidu map
 declare let BMap;
@@ -53,7 +53,7 @@ export class MapComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-  light_list = LIGHTLIST.val.light_list; // 数据模拟
+  light_list = MAPLIST.val.light_list; // 数据模拟
 
   constructor(private monitorService: MonitorService, ) { }
 
