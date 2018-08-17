@@ -1,3 +1,126 @@
+<!-- 批量导入设备 -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">批量导入设备</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">下载产品模板，批量填写信息</label>
+              <button type="button" class="btn btn-outline-dark btn1">下载</button>
+          </div>
+          <div class="form-group">
+            <!-- <i class=""></i> -->
+              <label class="control-label">上传填写好的信息表</label>
+              <button type="button" class="btn btn-outline-dark btn1">选择文件</button>
+          </div>
+          <table class="table table-bordered limited-width">
+            <tr><th>所属产品可填项</th></tr>
+            <tr><td>灯</td></tr>
+            <tr><td>井盖</td></tr>
+          </table>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+    </div>
+</ng-template>
+
+<!-- 新建设备 -->
+<ng-template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">新建设备</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+        <div class="row">
+            <!-- 左列 -->
+            <div class="col-4">
+              <div class="row form-group">
+                <label class="col-3 control-label label-left">设备名称:</label>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="add-product-name" placeholder="">
+                </div>
+              </div>
+              <div class="row form-group">
+                  <label class="col-3 control-label label-left">所属产品:</label>
+                  <div class="col-9">
+                      <select class="form-control">
+                          <option id="" placeholder="">...</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <label class="col-3 control-label label-left">制造商:</label>
+                  <div class="col-9">
+                      <input type="text" class="form-control" id="add-product-name" placeholder="">
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <label class="col-3 control-label label-left">制造商联系方式:</label>
+                  <div class="col-9">
+                      <input type="text" class="form-control" id="add-product-name" placeholder="">
+                  </div>
+              </div>
+              <div class="row form-group">
+                  <label class="col-3 control-label label-left">devicename:</label>
+                  <div class="col-9">
+                    <input type="text" class="form-control" id="" placeholder="">
+                  </div>
+              </div>
+            </div>
+            <!-- 中列 -->
+            <div class="col-4">
+                <label class="control-label label-left"><h3>位置绑定</h3></label>
+                <div class="row form-group">
+                    <label class="col-3 control-label">区域:</label>
+                    <div class="col-9">
+                        <select class="form-control">
+                            <option id="" placeholder="">...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-3 control-label label-left">检索产品:</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="" placeholder="">
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                  <tr>
+                    <th>位置名称</th>
+                    <th>位置编号</th>
+                    <th>位置经纬</th>
+                  </tr>
+                  <tr>
+                    <td>深证南山蛇口0023</td>
+                    <td>XXXX</td>
+                    <td>X:123 Y:789</td>
+                  </tr>
+                </table>
+                <label class="control-label label-left">已选位置：</label>
+            </div>
+            <!-- 右列 -->
+            <div class="col-4">
+                <label class="control-label">地图:</label>
+              <!-- map -->
+            </div>
+          </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+    </div>
+</ng-template>
+
 <div class="bodyofsurvey">
 
     <div class="card card-primary">
@@ -32,8 +155,8 @@
           </form>
         
         <div class="card-block add-survey">
-          <a class="btn btn-info update-survey">批量导入设备</a>
-          <a class="btn btn-info create-survey">新建设备</a></div>
+          <a class="btn btn-info update-survey" (click)="open(content)">批量导入设备</a>
+          <a class="btn btn-info create-survey" (click)="open(content2)">新建设备</a></div>
       </div>
 
       <!-- 显示已有设备 -->
@@ -65,7 +188,7 @@
                 <div>
                   <a class="manage-class"><i class="fa fa-eye"></i></a>
                   <a class="manage-class"><i class="fa fa-wrench"></i></a>
-                  <a class="manage-class"><i class="fa fa-trash"></i></a>
+                  <a class="manage-class"><i class="fa fa-times-circle"></i></a>
                 </div>
               </td>
             </tr>

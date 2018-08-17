@@ -59,3 +59,29 @@
 .manage-class:active {
     background-color: #137e8f;
 }
+
+.modal-body {
+    // .form-control-left {
+    //     //max-width: 100px;
+    //     font-size: 14px;
+    //     height: calc(1.8rem + 2px);
+    //     margin-bottom: 5px;
+    // }
+    .limited-width {
+        width: 133px;
+    }
+    .btn1 {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    .sm-width {
+        width: 70px;
+        margin: 0 3px 5px;
+    }
+    .padding-left-zero {
+        padding-left: 0px;
+    }
+    .label-left {
+        text-align: right;
+    }
+}
