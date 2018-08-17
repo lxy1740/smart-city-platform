@@ -5,8 +5,25 @@
     width: 300px;
     height: calc(100vh - 80px);
     border: #dee2e6 1px solid;
-    // position: absolute;
-    // float: left;
+    padding: 10px 20px;
+    .strategy-add{
+        position: relative;
+        button {
+            position: absolute;
+            right: 10px;
+        }
+    }
+
+    .strategy-title {
+        font-size: 18px;
+    }
+
+    .strategy-list{
+        ul {
+            padding: 0px;
+        }
+
+    }
 }
 
 .strategy-right {

@@ -44,7 +44,11 @@ export class StrategyComponent implements OnInit {
   ];
   nav_index = 0; // 菜单索引
   sub_nav_index = 0; // 菜单索引
-  strategyList = [];
+  strategyList = []; // 策略
+  dateList = []; // 日期策略
+  holidayList = []; // 时间策略
+  workdayList = []; // 工作时间策略
+  rangeList = []; // 策略范围
 
   // 弹框
   closeResult: string;
@@ -220,8 +224,21 @@ export class StrategyComponent implements OnInit {
   changeSubNav(index) {
     this.sub_nav_index = index;
   }
-  addStrategy() {
-    this.strategyList.push({date: new Date()});
+
+  addStrategy(type) {
+    if (type === 'strategy') {
+      this.strategyList.push({ date: new Date() });
+    } else if (type === 'date') {
+      this.dateList.push({ date: new Date() });
+    } else if (type === 'holiday') {
+      this.holidayList.push({ date: new Date() });
+    } else if (type === 'workday') {
+      this.workdayList.push({ date: new Date() });
+    } else {
+      this.rangeList.push({ date: new Date() });
+
+    }
+
   }
   removeStrategy() {
     const index = this.strategy_index;

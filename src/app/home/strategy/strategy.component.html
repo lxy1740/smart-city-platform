@@ -1,9 +1,15 @@
 <div  class="nav-margin strategy">
 <!-- 左侧 -->
   <div class="strategy-left">
-    <div>
-      <p>策略表</p>
-      <button type="button" class="btn btn-outline-dark" (click)="open2(content2)">点击</button>
+    <div class="strategy-add">
+      <span class="strategy-title">策略表</span>
+      <button type="button" class="btn " (click)="addStrategy('strategy')"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    </div>
+    <div class="strategy-list">
+      <ul>
+        <li>常态策略</li>
+        <li *ngFor="let item of strategyList">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</li>
+      </ul>
     </div>
   </div>
   <!-- 右侧 -->
@@ -37,13 +43,13 @@
                 <td class="">~</td>
                 <td class="">~</td>
                 <td class="">
-                  <span class="cur-pointer operate" (click)="addStrategy()">
+                  <span class="cur-pointer operate" (click)="addStrategy('date')">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                   </span>
                 </td>
             
               </tr>
-              <tr *ngFor="let item of strategyList;let i = index">
+              <tr *ngFor="let item of dateList;let i = index">
                 <td class="">{{i + 1}}</td>
                 <td class="">~</td>
                 <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
@@ -75,6 +81,7 @@
           
             </ul>
           </div>
+
           <table class="table" style=" margin-top: 20px; ">
             <tr>
               <th>时间</th>
@@ -88,13 +95,13 @@
               <td class="">~</td>
               <td class="">~</td>
               <td class="">
-                <span class="cur-pointer operate" (click)="addStrategy()">
+                <span class="cur-pointer operate" (click)="addStrategy('holiday')">
                   <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </span>
               </td>
       
             </tr>
-            <tr *ngFor="let item of strategyList;let i = index">
+            <tr *ngFor="let item of holidayList;let i = index">
               <td class="">{{i + 1}}</td>
               <td class="">~</td>
               <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
@@ -138,13 +145,13 @@
                 <td class="">~</td>
                 <td class="">~</td>
                 <td class="">
-                  <span class="cur-pointer operate" (click)="addStrategy()">
+                  <span class="cur-pointer operate" (click)="addStrategy('range')">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                   </span>
                 </td>
             
               </tr>
-              <tr *ngFor="let item of strategyList;let i = index">
+              <tr *ngFor="let item of rangeList;let i = index">
                 <td class="">{{i + 1}}</td>
                 <td class="">~</td>
                 <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
