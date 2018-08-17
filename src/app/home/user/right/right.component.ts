@@ -31,13 +31,15 @@ export class RightComponent implements OnInit {
 
   ngOnInit() {
     this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
-    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
+ 
   }
 
   // 弹框操作
   open(content) {
     const that = this;
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
+    modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
 
