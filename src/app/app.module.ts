@@ -10,7 +10,7 @@ import { MaterialModule } from './material.module';
 import { Router } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { CookieModule } from 'ngx-cookie';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeModule } from './home/home.module';
 import { ServiceModule } from './service/service.module';
 

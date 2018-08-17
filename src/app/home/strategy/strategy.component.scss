@@ -13,7 +13,7 @@
     position: absolute;
     top: 0px;
     left: 300px;
-    width: calc(100vw - 300px);
+    width: calc(100vw - 420px);
 }
 // 菜单
 .nav {
@@ -44,4 +44,25 @@
     position: relative;
     display: block;
     padding: 10px 15px;
+}
+
+.operate{
+    display: inline-block;
+    width: 50px;
+    /* height: 25px; */
+    text-align: center;
+}
+
+.strategy-table{
+    margin: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 25px 20px;
+}
+.br {
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+}
+.dash-1{
+    height: 400px;
 }

@@ -1,42 +1,138 @@
 <div  class="nav-margin strategy">
-
+<!-- 左侧 -->
   <div class="strategy-left">
     <div>
       <p>策略表</p>
     </div>
   </div>
+  <!-- 右侧 -->
   <div class="strategy-right">
+    <!-- 菜单-->
     <div>
       <ul class="nav nav-tabs">
-        <li  *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)" [ngClass]="{'active':item.id === index}">
+        <li  *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)" [ngClass]="{'active':item.id === nav_index}">
           <a >{{item.name}}</a>
         </li>
 
 
       </ul>
     </div>
-    <div *ngIf="index === 0">
-        <table class="table">
-          <tr>
-            <th>序号</th>
-            <th>日期范围</th>
-            <th>创建时间</th>
-            <th>操作</th>
-          
-          </tr>
-          <tr>
-            <td class="">...</td>
-            <td class="">...</td>
-            <td class="">...</td>
-            <td class="">...</td>
+    <!-- 菜单一 -->
+    <div *ngIf="nav_index === 0" class="strategy-table">
+      <!-- 日期 -->
+      <div class="row">
+        <div class="col-8">
 
-          </tr>
-        </table>
-    </div>
-    <div *ngIf="index === 1">
+            <table class="table">
+              <tr>
+                <th>序号</th>
+                <th>日期范围</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            
+              </tr>
+              <tr>
+                <td class="">默认策略</td>
+                <td class="">~</td>
+                <td class="">~</td>
+                <td class="">
+                  <span class="cur-pointer operate" (click)="addStrategy()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  </span>
+                </td>
+            
+              </tr>
+              <tr *ngFor="let item of strategyList;let i = index">
+                <td class="">{{i + 1}}</td>
+                <td class="">~</td>
+                <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
+                <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td class="">
+                  <span class="cur-pointer operate" (click)="open(content)">
+                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                  </span>
+                </td>
+            
+              </tr>
+            </table>
+        </div>
+        <div class="col-4">
+          <div id="map_container1" class="dash-1"> </div>
+        </div>
+      </div>
+
+      <div class="br"></div>
+      <!-- 时间段 -->
+      <div class="row">
+        <div class="col-8">
+          <div>
+            <ul class="nav nav-tabs">
+              <li *ngFor="let item of sub_navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeSubNav(i)" [ngClass]="{'active':item.id === sub_nav_index}">
+                <a>{{item.name}}</a>
+              </li>
+          
+          
+            </ul>
+          </div>
+          <table class="table" style=" margin-top: 20px; ">
+            <tr>
+              <th>时间</th>
+              <th>亮度</th>
+              <th>创建时间</th>
+              <th>操作</th>
+      
+            </tr>
+            <tr>
+              <td class="">默认策略</td>
+              <td class="">~</td>
+              <td class="">~</td>
+              <td class="">
+                <span class="cur-pointer operate" (click)="addStrategy()">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </span>
+              </td>
+      
+            </tr>
+            <tr *ngFor="let item of strategyList;let i = index">
+              <td class="">{{i + 1}}</td>
+              <td class="">~</td>
+              <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
+              <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td class="">
+                <span class="cur-pointer operate" (click)="open(content)">
+                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                </span>
+              </td>
+      
+            </tr>
+          </table>
+        </div>
+        <div class="col-4">
+          <div id="map_container2" class="dash-1"> </div>
+        </div>
+      </div>
+
+    <!-- 菜单二 -->
+    <div *ngIf="nav_index === 1">
       策略范围
     </div>
   </div>
 
 </div>
+<!-- 删除 -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">提示</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div><p>确定要删除数据吗？</p></div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+  </div>
+</ng-template>
 
