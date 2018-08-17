@@ -369,3 +369,15 @@ address, cite, code, em, th, i, strong {
 .modal{
     z-index: 10000;
 }
+
+.ex-lg-modal  {
+    .modal-dialog {
+        width: 90%;
+        max-width: 1000px;
+    }
+}
+.md-modal {
+    .modal-dialog {
+        width: 400px;
+    }
+}

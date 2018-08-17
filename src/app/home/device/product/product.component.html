@@ -59,7 +59,7 @@
         </div>
         <div class="form-group">
             <label class="control-label">增加参数</label>
-            <div><a class="" (click)="open(content3)"><span style="color:blue">+增加参数</span></a></div>
+            <div><a class="" (click)="open(content2)"><span style="color:blue">+增加参数</span></a></div>
         </div>
       </div>
     </div>
@@ -155,32 +155,25 @@
           <!-- 表单，搜索产品 -->
           <form class="form-inline search-options">
             <select class="form-control">
-              <option>区域</option>
-              <option>...</option>
-            </select>
-            <select class="form-control">
               <option>类</option>
               <option>...</option>
             </select>
-            <select class="form-control">
-              <option>是否可控</option>
-              <option>...</option>
-            </select>
             <!-- 日期，功能不明 -->
-            <input type="date" class="form-control" value="2018-06-01"/>
-            <!-- 输入框，功能不明 -->
+            <!-- <input type="date" class="form-control" value="2018-06-01"/> -->
+            <!-- 输入框 -->
             <div class="form-group inner-addon left-addon ">
                 <div class="form-group">
                   <i class="fa fa-search search-icon"></i>
                   <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
                 </div>
-              </div>
+            </div>
             <a class="btn btn-info search-exe">搜索</a>
-            <a class="btn btn-info search-clear">清空选择</a>
+            <!-- <a class="btn btn-info search-clear">清空选择</a> -->
           </form>
         
         <div class="card-block add-product">
-          <a class="btn btn-info create-product" (click)="open(content)">新建产品</a></div>
+          <a class="btn btn-info create-product" (click)="open(content)">新建产品</a>
+        </div>
       </div>
 
       <!-- 显示已有产品 -->
@@ -190,7 +183,6 @@
               <th>序号</th>
               <th>产品</th>
               <th>所属类</th>
-              <th>是否可控</th>
               <th>创建时间</th>
               <th>PRODUCTNAME</th>
               <th>PRODUCTKEY</th>
@@ -201,7 +193,6 @@
               <td>1</td>
               <td>太阳能灯</td>
               <td>灯</td>
-              <td>是</td>
               <td>2017/07/08 17:51:31</td>
               <td>adsd12</td>
               <td>a148jK0pf1H</td>

@@ -9,11 +9,12 @@
     
     <div class="modal-body">
           <div class="form-group">
+              <img src="../../../../assets/imgs/num1.png">
               <label class="control-label">下载产品模板，批量填写信息</label>
               <button type="button" class="btn btn-outline-dark btn1">下载</button>
           </div>
           <div class="form-group">
-            <!-- <i class=""></i> -->
+              <img src="../../../../assets/imgs/num2.png">
               <label class="control-label">上传填写好的信息表</label>
               <button type="button" class="btn btn-outline-dark btn1">选择文件</button>
           </div>
@@ -42,7 +43,7 @@
     <div class="modal-body">
         <div class="row">
             <!-- 左列 -->
-            <div class="col-4">
+            <div class="col-3">
               <div class="row form-group">
                 <label class="col-3 control-label label-left">设备名称:</label>
                 <div class="col-9">
@@ -78,7 +79,7 @@
             </div>
             <!-- 中列 -->
             <div class="col-4">
-                <label class="control-label label-left"><h3>位置绑定</h3></label>
+                <label class="control-label label-left"><h5>位置绑定</h5></label>
                 <div class="row form-group">
                     <label class="col-3 control-label">区域:</label>
                     <div class="col-9">
@@ -108,8 +109,9 @@
                 <label class="control-label label-left">已选位置：</label>
             </div>
             <!-- 右列 -->
-            <div class="col-4">
+            <div class="col-5">
                 <label class="control-label">地图:</label>
+                <div #map2  id="survey_map" class="map_container"></div>
               <!-- map -->
             </div>
           </div>
@@ -155,8 +157,8 @@
           </form>
         
         <div class="card-block add-survey">
-          <a class="btn btn-info update-survey" (click)="open(content)">批量导入设备</a>
-          <a class="btn btn-info create-survey" (click)="open(content2)">新建设备</a></div>
+          <a class="btn btn-info update-survey" (click)="openAddSurveys(content)">批量导入设备</a>
+          <a class="btn btn-info create-survey" (click)="openNewSurvey(content2)">新建设备</a></div>
       </div>
 
       <!-- 显示已有设备 -->
@@ -169,7 +171,6 @@
               <th>所属类</th>
               <th>所属区域</th>
               <th>绑定位置</th>
-              <th>是否可控</th>
               <th>制造商</th>
               <th>创建时间</th>
               <th style="text-align: center">操作</th>
@@ -181,7 +182,6 @@
               <td>灯</td>
               <td>广东省深圳市南山区蛇口街道</td>
               <td>X:975, Y83</td>
-              <td>是</td>
               <td>佛山</td>
               <td>2017/07/08 17:51:31</td>
               <td style="text-align: center">

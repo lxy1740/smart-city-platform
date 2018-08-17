@@ -56,6 +56,12 @@
     //     height: calc(1.8rem + 2px);
     //     margin-bottom: 5px;
     // }
+    .form-control {
+        font-size: 14px;
+        height: calc(1.8rem + 2px);
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
     .btn1 {
         font-size: 14px;
         margin-left: 5px;
@@ -66,6 +72,12 @@
     }
     .padding-left-zero {
         padding-left: 0px;
+    }
+    .mapIron {
+        color: red;
+    }
+    .mapIron:active, .mapIron:hover {
+        color: rgb(146, 4, 4);
     }
 }
 .manage-class {
@@ -78,3 +90,9 @@
 .manage-class:active {
     background-color: #137e8f;
 }
+
+.map_container{
+    height: 300px;
+}
+
+
