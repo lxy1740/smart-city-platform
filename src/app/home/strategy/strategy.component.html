@@ -111,12 +111,59 @@
           <div id="map_container2" class="dash-1"> </div>
         </div>
       </div>
+    </div>
 
     <!-- 菜单二 -->
-    <div *ngIf="nav_index === 1">
-      策略范围
+    <div *ngIf="nav_index === 1" class="strategy-table">
+      <div class="row">
+        <div class="col-3">
+          <!-- 搜索列表 -->
+          <div class="city-list">
+            <ul id="treeDemo" class="ztree"></ul>
+          </div>
+        </div>
+        <div class="col-9">
+            <table class="table">
+              <tr>
+                <th>操作</th>
+                <th>路灯名称</th>
+                <th>路灯位置</th>
+                <th>定位</th>
+
+            
+              </tr>
+              <tr>
+                <td class="">操作</td>
+                <td class="">~</td>
+                <td class="">~</td>
+                <td class="">
+                  <span class="cur-pointer operate" (click)="addStrategy()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  </span>
+                </td>
+            
+              </tr>
+              <tr *ngFor="let item of strategyList;let i = index">
+                <td class="">{{i + 1}}</td>
+                <td class="">~</td>
+                <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
+                <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td class="">
+                  <span class="cur-pointer operate" (click)="open(content)">
+                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                  </span>
+                </td>
+            
+              </tr>
+            </table>
+
+            <!-- 地图 -->
+            <div #map2 id="map_container2" class="map_container"></div>
+        </div>
+      </div>
+
     </div>
-  </div>
+
 
 </div>
 <!-- 删除 -->
