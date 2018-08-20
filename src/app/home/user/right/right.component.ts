@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { GUIZTREENODE} from '../../../data/gui-z-tree';
+import { GUIZTREENODE } from '../../../data/gui-z-tree';
 
 declare var $: any;
 @Component({
@@ -11,7 +11,7 @@ declare var $: any;
 export class RightComponent implements OnInit {
 
   zTreeObj: any;
-  
+
   setting = {}; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
@@ -27,8 +27,7 @@ export class RightComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
- 
+
   }
 
   // 弹框操作
@@ -44,7 +43,7 @@ export class RightComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
-    const that1=this;
+    const that1 = this;
     this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
     this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
   }
