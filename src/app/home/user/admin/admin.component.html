@@ -15,83 +15,76 @@
             </div>
           </div>
         </div>
-        </td>
-        <td style="border:none">
-          <select class="form-control">
-              <option>角色</option>
-              <option>管理员</option>
-            </select>
-        </td>
-        <td style="border:none">
-            <input type="date" class="form-control" value="Start date"/>
-            
-        </td>
-        <td style="border:none">
-            <input type="date" class="form-control" value="End date"/>
-        </td>
-        <td style="border:none">
-          <ng-template #content let-c="close" let-d="dismiss">
-            <div class="modal-header">
-              <!-- <h4 class="modal-title">新建角色</h4> -->
-              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <!-- <p>One fine body&hellip;</p> -->
-              <div style="width: 300px; margin: 0 auto;">
-                <table class="tb-tr">
-                  <tr>
-                    <th>账户名称：</th>
-                    <th>
-                      <input type="text">
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>密码：</th>
-                    <th>
-                      <input type="text">
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>密码确认：</th>
-                    <th>
-                      <input type="text">
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>联系方式：</th>
-                    <th>
-                      <input type="text">
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>所属角色：</th>
-                    <th>
-                      <select>
-                        <option value="">选择</option>
-                        <option value="">管理员</option>
-                      </select>
-                    </th>
-                  </tr>
-
-                </table>
-                <div style="float: right;">
-                  <input type="submit" value="确定">
-                </div>
-              </div>
-
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
-            </div>
-          </ng-template>
-          <div class="btn-group btn-parent">
-
-            <button class="btn btn-default" (click)="open(content)">新建角色</button>
+      </td>
+      <td style="border:none">
+        <select class="form-control">
+          <option>角色</option>
+          <option>管理员</option>
+        </select>
+      </td>
+      <td style="border:none">
+        <input type="date" class="form-control" value="Start date" />
+      </td>
+      <td style="border:none">
+        <input type="date" class="form-control" value="End date" />
+      </td>
+      <td style="border:none">
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <!-- <h4 class="modal-title">新建角色</h4> -->
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-        </td>
+          <div class="modal-body">
+            <!-- <p>One fine body&hellip;</p> -->
+            <div style="width: 300px; margin: 0 auto;">
+              <table class="tb-tr">
+                <tr>
+                  <th>账户名称：</th>
+                  <th>
+                    <input type="text">
+                  </th>
+                </tr>
+                <tr>
+                  <th>密码：</th>
+                  <th>
+                    <input type="text">
+                  </th>
+                </tr>
+                <tr>
+                  <th>密码确认：</th>
+                  <th>
+                    <input type="text">
+                  </th>
+                </tr>
+                <tr>
+                  <th>联系方式：</th>
+                  <th>
+                    <input type="text">
+                  </th>
+                </tr>
+                <tr>
+                  <th>所属角色：</th>
+                  <th>
+                    <select>
+                      <option value="">选择</option>
+                      <option value="">管理员</option>
+                    </select>
+                  </th>
+                </tr>
+
+              </table>
+              <div style="float: right;">
+                <button type="button">确定</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="btn-group btn-parent">
+          <button class="btn btn-default" (click)="open(content)">新建角色</button>
+        </div>
+      </td>
     </tr>
     <tr>
       <td style="border: none;border-top: 1px solid">账户名称</td>

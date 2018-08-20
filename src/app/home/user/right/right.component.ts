@@ -10,11 +10,8 @@ declare var $: any;
 })
 export class RightComponent implements OnInit {
 
-
-
-
   zTreeObj: any;
-
+  
   setting = {}; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
@@ -47,6 +44,9 @@ export class RightComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
+    const that1=this;
+    this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
+    this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
   }
 
   private getDismissReason(reason: any): string {
