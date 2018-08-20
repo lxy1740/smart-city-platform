@@ -95,9 +95,9 @@ export class LightComponent implements OnInit {
     });
     map.addControl(navigationControl);
 
+    this.addMarker(); // 添加地图上的点
 
-
-    this.addMarker();
+    this.mapClickOff(map); // 地图点击信息框隐藏
 
   }
 
