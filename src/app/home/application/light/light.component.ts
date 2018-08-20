@@ -81,9 +81,9 @@ export class LightComponent implements OnInit {
 
 
 
-    // map.setMapStyle({ style: 'dark' });
+    map.setMapStyle({ style: 'dark' });
     // map.setMapStyle({ style: 'midnight' });
-    //
+    // map.setMapStyle({ style: 'grayscale' });
 
 
     // 添加控件缩放
@@ -101,7 +101,18 @@ export class LightComponent implements OnInit {
 
   }
 
+  // 监控-点击地图事件
+  mapClickOff(baiduMap) {
+    const that = this;
+    baiduMap.addEventListener('click', function (e) {
+      that.deviceChild = null;
+    });
+  }
+
+  // 地图上描点
   addMarker() {
+    const markers: any[] = [];
+    const points: any[] = [];
     for (let index = 0; index < this.light_list.length; index++) {
       const item = this.light_list[index];
       const point = new BMap.Point(item.lng, item.lat);
@@ -123,9 +134,77 @@ export class LightComponent implements OnInit {
 
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
-      const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-      this.map.addOverlay(marker2);
+      const marker = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      this.map.addOverlay(marker);
+      markers.push(marker); // 聚合
+      points.push(point); // 聚合
     }
+
+    // 点击点标注事件 - 弹出信息框
+    for (let index = 0; index < markers.length; index++) {
+      const marker = markers[index];
+      this.openSideBar(marker, this.map, this.light_list[index], points[index]);
+
+
+    }
+  }
+
+  // 地图点注标-点击事件
+  openSideBar(marker, baiduMap, val, point) {
+    // console.log(val);
+    const that = this;
+    // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
+    const opts = {
+      width: 0,     // 信息窗口宽度
+      // height: 100,     // 信息窗口高度
+      // title: `${val.name} | ${val.id }`, // 信息窗口标题
+      // enableMessage: true, // 设置允许信息窗发送短息
+      enableAutoPan: true, // 自动平移
+    };
+    let txt = `
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${val.name} | ${val.id} </p>
+
+    `;
+    for (let index = 0; index < val.children.length; index++) {
+      if (val.children[index].is_online === 0 || val.children[index].is_exception === 1) {
+        // 离线或异常
+        txt = txt + `<p  class='cur-pointer' style='color:red;'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
+      } else {
+        txt = txt + `<p  class='cur-pointer'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
+      }
+
+    }
+
+    const infoWindow = new BMap.InfoWindow(txt, opts);
+
+    marker.addEventListener('click', function () {
+      that.device = val;
+      baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+
+      setTimeout(() => {
+        that.deviceAddEventListener();
+      }, 0);
+    });
+
+  }
+
+  // 点击子设备
+  deviceAddEventListener() {
+    const that = this;
+    for (let index = 0; index < this.device.children.length; index++) {
+      const device = $(`#${this.device.children[index].id}`);
+      device.on('click', function () {
+        console.log('ddd');
+
+        that.deviceChild = that.device.children[index];
+      });
+    }
+  }
+
+  // 点击关闭操作详情
+  closeDetail() {
+    this.deviceChild = null;
+
   }
 
   // 解析地址- 设置中心和地图显示级别

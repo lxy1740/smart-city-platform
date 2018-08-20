@@ -518,6 +518,8 @@ export class MonitorComponent implements OnInit {
     // 点击点标注事件
     for (let index = 0; index < that.markers.length; index++) {
       const marker = that.markers[index];
+      // that.openSideBar(marker, that.map, val, points[index]);
+    // this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
 
     }
   }
