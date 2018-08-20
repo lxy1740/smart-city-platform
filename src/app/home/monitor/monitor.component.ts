@@ -810,6 +810,7 @@ export class MonitorComponent implements OnInit {
   // 选择城市
   selecteCity(city) {
     this.currentCity = city;
+    this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
     this.currentChildren = city.children;
   }
