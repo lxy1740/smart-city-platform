@@ -172,11 +172,8 @@ export class MonitorComponent implements OnInit {
 
     baiduMap.addEventListener('zoomend', function () {
       if (that.isqueryPoint === true) {
-        // console.log('地图缩放事件-点击消息列表事件');
         that.isqueryPoint = false;
       } else {
-        // console.log('地图缩放事件');
-
         that.remove_overlay(baiduMap);
         that.addMarker(); // 添加标注
         // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
@@ -189,7 +186,6 @@ export class MonitorComponent implements OnInit {
 
   checkFull() {
     let isFull: any;
-    // isFull = document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled;
     isFull = document.fullscreenEnabled || document.webkitIsFullScreen;
 
     if (isFull === undefined) {
@@ -223,13 +219,12 @@ export class MonitorComponent implements OnInit {
 
     if (parent.is_exception && parent.is_exception === 1) { // 异常
       mySquare = new GradOverlar(pt, 50, 'tag-red');
-      // console.log('异常');
+
     } else if (parent.is_online === 0) { // 掉线
       mySquare = new GradOverlar(pt, 50, 'tag-grad');
-      // console.log('掉线');
+
     } else { // 正常
       mySquare = new GradOverlar(pt, 50, 'tag-bule');
-      // console.log('正常');
 
     }
 
@@ -238,10 +233,8 @@ export class MonitorComponent implements OnInit {
     // this.overMessage( baiduMap, pt, message); // 添加文字
 
     // this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
-    // console.log(this.markers);
+
     setTimeout(() => {
-      console.log('click');
-      console.log(mySquare.V);
       mySquare.V.click();
     }, 50);
 
@@ -298,7 +291,7 @@ export class MonitorComponent implements OnInit {
     const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
     const fullName = city.full_name;
-    console.log(city);
+
 
     let pt;
 
@@ -352,9 +345,6 @@ export class MonitorComponent implements OnInit {
     } else {
       level = 4;
     }
-
-    console.log('level');
-    console.log(level);
     return level;
   }
 
@@ -467,7 +457,7 @@ export class MonitorComponent implements OnInit {
 
   // 根据级别获取数据-锚点
   addMarker() {
-    // console.log('获取数据');
+
     this.getBounds(this.map); // 获取可视区域
 
     const that = this;
@@ -476,20 +466,20 @@ export class MonitorComponent implements OnInit {
     const ne = this.NorthEast;
     let length, color, mouseoverColor;
     if (zoom <= 13) {
-      // console.log('region_list');
+
       length = 90;
       color = '#87a2b7';
       mouseoverColor = '#9bd9dd';
       that.getRegion(length, color, mouseoverColor);
 
     } else if (zoom <= 16 && zoom > 13) {
-      // console.log('block_list');
+
       length = 90;
       color = '#87a2b7';
       mouseoverColor = '#9bd9dd';
       that.getRegion(length, color, mouseoverColor);
     } else {
-      // console.log('community_list');
+
       that.getCommunity(sw, ne, zoom);
     }
 
@@ -497,30 +487,16 @@ export class MonitorComponent implements OnInit {
 
   // 添加点标注
   addPoint(val) {
-    // console.log('标注');
-    // console.log(this.markers);
+
     this.markers = [];
     const points: any[] = [];
     const that = this;
     val.map((item, i) => {
       const pt = new BMap.Point(item.point.lng, item.point.lat);
       const name = item.name;
-      // const mk = new BMap.Marker(pt); // 默认标注
-      // that.map.addOverlay(mk);
-      // markers.push(mk);
-
       // 添加自定义覆盖物
       let mySquare;
-      // if (item.is_exception && item.is_exception === 1) { // 异常
-      //   mySquare = new GradOverlar(pt, 50, 'tag-red');
-      //   // console.log('异常');
-      // } else if (item.is_online === 0) { // 掉线
-      //   mySquare = new GradOverlar(pt, 50, 'tag-grad');
-      //   // console.log('掉线');
-      // } else { // 正常
-      //   mySquare = new GradOverlar(pt, 50, 'tag-bule');
-      //   // console.log('正常');
-      // }
+
       if (item.with_error && item.with_error === true) { // 异常
         mySquare = new GradOverlar(pt, 50, 'tag-red');
         // console.log('异常');
@@ -542,8 +518,7 @@ export class MonitorComponent implements OnInit {
     // 点击点标注事件
     for (let index = 0; index < that.markers.length; index++) {
       const marker = that.markers[index];
-      // console.log(val[index]);
-      // that.openSideBar(marker, that.map, val[index], points[index]);
+
     }
   }
 
@@ -576,7 +551,7 @@ export class MonitorComponent implements OnInit {
     for (let index = 0; index < that.markers.length; index++) {
       const marker = that.markers[index];
       const item = val[index];
-      console.log(marker);
+
       this.setZoom(marker, this.map, item);
     }
   }
@@ -658,8 +633,7 @@ export class MonitorComponent implements OnInit {
     for (let index = 0; index < this.device.children.length; index++) {
       const device = $(`#${this.device.children[index].id}`);
       device.on('click', function () {
-        console.log('click');
-        // console.log(device);
+
         that.deviceChild = that.device.children[index];
       });
     }
@@ -668,7 +642,7 @@ export class MonitorComponent implements OnInit {
   // 点击关闭操作详情
   closeDetail() {
     this.deviceChild = null;
-    console.log('close');
+
   }
 
 
@@ -747,8 +721,7 @@ export class MonitorComponent implements OnInit {
       if (!obj || !obj.id) {
         continue;
       }
-      // console.log(nodeId);
-      // console.log(obj.id);
+
       // 2.有节点就开始找，一直递归下去
       if (obj.id === nodeId) {
         // 找到了与nodeId匹配的节点，结束递归
@@ -793,8 +766,7 @@ export class MonitorComponent implements OnInit {
 
   // 打开新页面
   addURLParamAddOpen() {
-    console.log(window.location.href);
-    // const href = window.location.href;
+
     this.urlService.addURLParamAddOpen('visible', 'false');
     localStorage.setItem('visible', 'false');
 
@@ -804,11 +776,11 @@ export class MonitorComponent implements OnInit {
 
   // 进入全屏
   enterFullScreen() {
-    // this.urlService.addURLParam('visible', 'false');
+
     this.visible = false;
     localStorage.setItem('visible', 'false');
     console.log('进入全屏');
-    console.log(this.visible);
+
     // 设置缩放控件偏移量
     const offset = new BMap.Size(20, 15);
     this.navigationControl.setOffset(offset);
