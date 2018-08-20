@@ -14,7 +14,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 1, //亮度1-3
+                'light_level': 1, //  亮度1-3
                 'is_disabled': 0, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -240,7 +240,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 0, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -426,7 +426,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 3, //亮度1-3
+                'light_level': 3, //  亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -613,7 +613,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 1, //亮度1-3
+                'light_level': 1, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -800,7 +800,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 0, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -1026,7 +1026,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 3, //亮度1-3
+                'light_level': 3, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -1213,7 +1213,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 1, //亮度1-3
+                'light_level': 1, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -1439,7 +1439,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -1665,7 +1665,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 3, //亮度1-3
+                'light_level': 3, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -1852,7 +1852,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 1, //亮度1-3
+                'light_level': 1, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -2078,7 +2078,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -2304,7 +2304,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 3, //亮度1-3
+                'light_level': 3, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -2530,7 +2530,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 1, //亮度1-3
+                'light_level': 1, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -2756,7 +2756,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -2983,7 +2983,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 3, //亮度1-3
+                'light_level': 3, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -3209,7 +3209,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 1, // 异常
                 'exception_Information': [], // 异常信息
@@ -3435,7 +3435,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -3495,7 +3495,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -3554,7 +3554,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 1, // 在线
-                'light_level': 3, //亮度1-3
+                'light_level': 3, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -3780,7 +3780,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -3839,7 +3839,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -3898,7 +3898,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -3957,7 +3957,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4016,7 +4016,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4075,7 +4075,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4134,7 +4134,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, //  亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4193,7 +4193,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, //  亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4252,7 +4252,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, //  亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4311,7 +4311,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, //  亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
@@ -4370,7 +4370,7 @@ export const LIGHTLIST = {
                 'prop_num': 2,
                 'is_active': 1, // 激活
                 'is_online': 0, // 在线
-                'light_level': 2, //亮度1-3
+                'light_level': 2, // 亮度1-3
                 'is_disabled': 1, // 禁用
                 'is_exception': 0, // 异常
                 'exception_Information': [], // 异常信息
