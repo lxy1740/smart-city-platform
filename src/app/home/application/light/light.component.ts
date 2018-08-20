@@ -83,7 +83,7 @@ export class LightComponent implements OnInit {
 
     // map.setMapStyle({ style: 'dark' });
     // map.setMapStyle({ style: 'midnight' });
-    // map.setMapStyle({ style: 'grayscale' });
+    //
 
 
     // 添加控件缩放

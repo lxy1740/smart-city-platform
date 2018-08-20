@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/';
 
-import { CircleOverlarService } from '../../service/circle-overlay.server';
+import { CircleOverlarService } from '../../service/circle-overlay.service';
 import { GradOverlar } from '../../service/grad.overlay';
 
 import { UrlService } from '../../service/url.service';
@@ -646,27 +646,7 @@ export class MonitorComponent implements OnInit {
   }
 
 
-// 创建图标标注
-  makeIcon(type: string) {
-    let myIcon;
-    switch (type) {
-      case 'light':
-        myIcon = new BMap.Icon('../../../assets/imgs/dzx.png', new BMap.Size(48, 48));
-        break;
-      case 'cover':
-        myIcon = new BMap.Icon('../../../assets/imgs/dzx1.png', new BMap.Size(48, 48));
-        break;
-      case 'camera':
-        myIcon = new BMap.Icon('../../../assets/imgs/dzx2.png', new BMap.Size(48, 48));
-        break;
-      case 'gateway':
-        myIcon = new BMap.Icon('../../../assets/imgs/dzx3.png', new BMap.Size(48, 48));
-        break;
-      default:
-        break;
-    }
-    return myIcon;
-  }
+
 
   // 获取marker的位置
   getAttr(marker) {
