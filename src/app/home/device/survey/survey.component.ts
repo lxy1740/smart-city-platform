@@ -38,7 +38,7 @@ export class SurveyComponent implements OnInit {
   areashow1 = false; // 默认区域列表不显示
   cityshow1 = false; // 默认区域列表不显示
   deviceshow1 = false; // 默认设备列表不显示
-
+  node1 = null; // 用于递归查询JSON树 父子节点
   visible1 = true; // 控制可视区域
 
   zoom: any; // 地图级数
@@ -210,9 +210,18 @@ export class SurveyComponent implements OnInit {
   // 选择城市
   selecteCity(city) {
     this.currentCity = city;
+    this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
     this.currentChildren = city.children;
   }
+
+  // 选择城市
+  selecteCity1(city) {
+    this.currentCity1 = city;
+    this.node1 = city;
+    this.currentChildren1 = city.children;
+  }
+
 
   selecteblock(block) {
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
@@ -250,9 +259,10 @@ export class SurveyComponent implements OnInit {
       next: function (val) {
         that.cityList1 = val.regions;
         that.currentCity1 = val.zone;
+        console.log(that.cityList1);
         // that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
-        that.currentChildren1 = that.node.children;
+        that.node1 = that.getNode(val.regions, val.zone.region_id);
+        that.currentChildren1 = that.node1.children;
       },
       complete: function () {
         // that.addBaiduMap(); // 创建地图
