@@ -79,6 +79,25 @@
     .mapIron:active, .mapIron:hover {
         color: rgb(146, 4, 4);
     }
+    .area-selection {
+        z-index: 3000;
+        //top: 15px;
+        height: calc(1.8rem + 2px);
+        //margin-left: 5px;
+        margin-bottom: 5px;
+
+        .area-selection-block {
+            //width: 100px;
+            cursor: pointer;
+            position: relative;
+            background-color: #fff;
+            border: 1px solid #e3e3e3;
+            line-height: 32px;
+            height: 32px;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+    }
 }
 .manage-class {
     font-size: 20px;

@@ -87,4 +87,22 @@
     .label-left {
         text-align: right;
     }
+    
+    
+}
+.area-selection {
+    z-index: 3000;
+    top: 15px;
+
+    .area-selection-block {
+        //width: 100px;
+        cursor: pointer;
+        position: relative;
+        background-color: #fff;
+        border: 1px solid #e3e3e3;
+        line-height: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-left: 5px;
+    }
 }
