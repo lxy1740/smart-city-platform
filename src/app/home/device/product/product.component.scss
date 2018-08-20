@@ -59,11 +59,18 @@
     font-size: 14px;
     height: calc(1.8rem + 2px);
     }
+    .form-control-left {
+        margin-bottom: 5px;
+        
+    }
     .label-left {
         text-align: right;
     }
     .sm-width {
         width:40%;
+    }
+    .limited-width {
+        width: 110px;
     }
 }
 

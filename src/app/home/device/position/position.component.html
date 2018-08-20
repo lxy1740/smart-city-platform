@@ -103,12 +103,12 @@
                   <label class="col-3 control-label">位置:</label>
                   <div class="col-9 form-inline padding-left-zero">
                     <label class="control-label">经度:</label>
-                    <input type="text" class="form-control border-none" name="longitude" id="longitude" autocomplete 
+                    <input type="text" class="form-control border-none"  autocomplete 
                     [(ngModel)]="longitude" required/>
                     <label class="control-label">纬度:</label>
-                    <input type="text" class="form-control border-none" name="latitude" id="latitude" autocomplete 
+                    <input type="text" class="form-control border-none"  autocomplete 
                     [(ngModel)]="latitude" required/>
-                    <i class="fa fa-map-marker fa-2x mapIron" (click)="addMapWithPoint(longitude, latitude)"></i>
+                    <i class="fa fa-map-marker fa-2x mapIron" (click)="addMapWithPoint()"></i>
                   </div>
               </div>
               <div class="row form-group">

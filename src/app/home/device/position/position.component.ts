@@ -15,6 +15,9 @@ declare let BMAP_ANCHOR_TOP_LEFT;
 })
 export class PositionComponent implements OnInit {
   @ViewChild('map1') map_container: ElementRef;
+
+  longitude: string;
+  latitude: string;
   closeResult: string;
   map: any; // 地图对象
 
@@ -36,7 +39,7 @@ export class PositionComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-  constructor(private modalService: NgbModal, private monitorService: MonitorService,) { }
+  constructor(private modalService: NgbModal, private monitorService: MonitorService) { }
 
   ngOnInit() {
     // this.addBaiduMap();
@@ -64,7 +67,7 @@ export class PositionComponent implements OnInit {
   openAddPositions(content) {
     const that = this;
 
-    this.modalService.open(content, { windowClass: 'md-modal' }).result.then((result) => {
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 
       console.log(this.closeResult);
@@ -96,12 +99,13 @@ export class PositionComponent implements OnInit {
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     map.setMapStyle({ style: 'normal' });
   }
-  addMapWithPoint(longitude, latitude) {
+  addMapWithPoint() {
+
     const map = this.map = new BMap.Map('position_map', {
       enableMapClick: true,
       // minZoom: 11
     }); // 创建地图实例
-    const point = new BMap.Point(longitude, latitude); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    const point = new BMap.Point(this.longitude, this.latitude); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
     map.centerAndZoom(point, 16); // 设置中心和地图显示级别
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     map.setMapStyle({ style: 'normal' });
