@@ -8,7 +8,6 @@ body {
     // font-family: "Microsoft YaHei","宋体",Arial,"\5B8B\4F53",Helvetica,sans-serif;
     font-family:"Microsoft Yahei",微软雅黑,"Helvetica Neue",Arial,sans-serif;
     font-size: 14px;
-    // overflow: hidden;  //ymZhao-取消首页横纵滚动条
 }
 
 ol, ul {
@@ -48,8 +47,8 @@ address, cite, code, em, th, i, strong {
 }
 
 .no-fulls-map {
-    height: calc(100vh - 80px);
-    margin-top: 80px;
+    height: 100vh;
+    // margin-top: 80px;
 }
 // 隐藏百度地图logo
 .BMap_cpyCtrl, .anchorBL{

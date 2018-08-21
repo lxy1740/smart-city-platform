@@ -1,0 +1,11 @@
+@import '../css/variable.scss';
+.theme-bg { // 主题色
+    background: $color-bg;
+}
+.theme-text {
+    color: $color-theme-text
+}
+.sidebar-bg { // 侧边背景色
+    background: $color-sidebar-bg;
+}
+
