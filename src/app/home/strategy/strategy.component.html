@@ -68,7 +68,7 @@
                 <tr>
                   <td>工作日</td>
                   <td style="position: relative;left: 400px;">
-                    <button (click)="open(content)">创建工作日控制</button>
+                    <button (click)="open(content2)">创建工作日控制</button>
                   </td>
                 </tr>
                 <tr>
@@ -144,14 +144,19 @@
       <!-- 删除 -->
       <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
-          <h4 class="modal-title">提示</h4>
+          <font class="modal-title">创建策略日期</font>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div>
-            <p>确定要删除数据吗？</p>
+            <div>
+              开始日期;
+            </div>
+            <div>
+              结束日期：
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -160,19 +165,64 @@
         </div>
       </ng-template>
 
-      <!-- 删除 -->
+      <!-- 工作日志弹窗 -->
       <ng-template #content2 let-c="close" let-d="dismiss">
         <div class="modal-header">
-          <h4 class="modal-title">地图</h4>
+          <font class="modal-title">创建工作日志控制</font>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div>
-            <p>确定要删除数据吗？</p>
-            <!-- 地图 -->
-            <div #map3 id="allmap" class="map_container"></div>
+            <div>开始日期</div>
+            <div>结束日期</div>
+            <div>亮度
+              <select name="" id="">
+                <option value="">关</option>
+                <option value="">低亮</option>
+                <option value="">中亮</option>
+                <option value="">高亮</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
+          <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+        </div>
+      </ng-template>
+      <!-- 修改弹窗 -->
+      <ng-template #content3 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <font class="modal-title">修改工作日控制</font>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <table>
+              <tr>
+                <td>开始日期:</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>结束日期：</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>亮度：</td>
+                <td>
+                  <select name="" id="">
+                    <option value="">关</option>
+                    <option value="">低亮</option>
+                    <option value="">中亮</option>
+                    <option value="">高亮</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
         <div class="modal-footer">
