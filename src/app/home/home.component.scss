@@ -23,7 +23,7 @@
     // 中间布局
 
     .header-margin {
-        margin-left: 100px;
+        margin-left: 50px;
 
     }
 
@@ -45,6 +45,7 @@
         position: fixed;
         z-index: 4000;
         .nav-link {
+            padding: 0;
             display: block;
             position: relative;
             height: 56px;
@@ -159,12 +160,12 @@
     // hover
     @media (min-width: 992px){
         .sidebar-collapse .main-sidebar:hover {
-            width: 275px;
+            width: 230px;
             .nav-link {
-                width: 275px;
+                width: 230px;
             }
             li {
-                 width: 275px;
+                 width: 230px;
             }
             p{
                 opacity: 1;
@@ -187,14 +188,9 @@
         padding-left: 0px;
         padding-right: 0px;
 
-        .login-nav-paren {
-            img {
-                    width: 100px;
-            }
-        }
         .sidebar-dark-primary{
             margin-left: 0;
-            width: 100px;
+            width: 50px;
 
     
 
