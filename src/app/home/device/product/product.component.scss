@@ -61,6 +61,7 @@
     }
     .form-control-left {
         margin-bottom: 5px;
+        width: 200px;
         
     }
     .label-left {
@@ -71,6 +72,10 @@
     }
     .limited-width {
         width: 110px;
+    }
+    .modal-col {
+        margin-left: 20px;
+        // display: inline;
     }
 }
 

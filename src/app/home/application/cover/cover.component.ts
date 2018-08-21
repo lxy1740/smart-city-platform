@@ -58,6 +58,9 @@ export class CoverComponent implements OnInit {
   node = null; // 用于递归查询JSON树 父子节点
 
   light_list = LIGHTLIST.val.light_list; // 数据模拟
+  showunstartedlist = false; // 默认不显示“未处理”的异常消息
+  showonprogresslist = false; // 默认不显示“处理中”的异常消息
+  showfinishedlist = false; // 默认不显示“已处理”的异常消息
 
   constructor(private monitorService: MonitorService, private messageService: MessageService,
     public messService: MessService, ) { }
@@ -65,7 +68,7 @@ export class CoverComponent implements OnInit {
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
-    //this.getDevice(); // 获取设备列表 - ymZhao-按要求，井盖页面不显示设备列表
+    // this.getDevice(); // 获取设备列表 - ymZhao-按要求，井盖页面不显示设备列表
     this.getMessage();
     this.chartMapCover1(); // ymZhao 井盖丢失率图
   }
@@ -460,5 +463,38 @@ export class CoverComponent implements OnInit {
   arealistMouseNone() {
     this.areashow = true;
     this.currentBlock = null;
+  }
+  // 显示 未处理 消息
+  showUntartedList() {
+    this.showunstartedlist = true;
+  }
+  // 显示 处理中 消息
+  showOnprogressList() {
+    this.showonprogresslist = true;
+  }
+  // 显示 已处理消息
+  showFinishedList() {
+    this.showfinishedlist = true;
+  }
+  // 离开 未处理
+  messageListMouseleave_1() {
+    this.showunstartedlist = false;
+  }
+  // 离开 处理中
+  messageListMouseleave_2() {
+    this.showonprogresslist = false;
+  }
+  // 离开 已处理
+  messageListMouseleave_3() {
+    this.showfinishedlist = false;
+  }
+  // 获取对应处理状态的消息
+  readHandleType(mess, messtype) {
+    const handletype = mess.handleType;
+    if (messtype === handletype) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

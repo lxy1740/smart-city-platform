@@ -80,6 +80,55 @@
 
     </div>
 
+    <!-- 井盖消息处理三按键 -->
+    <div class="cover-issues">
+        <!-- 待处理 -->
+        <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_1()">
+            <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
+            <span class="cl-blue cur-pointer" (mouseover)="showUntartedList()">
+                <span class="filter">待处理</span>
+            </span>
+            <div class="messagelist-wrap" *ngIf="showunstartedlist">
+                <ul class="messagelist" data-type="area">
+                    <li class="messagelist-item" *ngFor="let mess of messageList">
+                        <span *ngIf="readHandleType(mess, 0)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 处理中 -->
+        <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_2()">
+            <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
+            <span class="cl-blue cur-pointer" (mouseover)="showOnprogressList()">
+                <span class="filter">处理中</span>
+            </span>
+            <div class="messagelist-wrap" *ngIf="showonprogresslist">
+                <ul class="messagelist" data-type="area">
+                    <li class="messagelist-item" *ngFor="let mess of messageList">
+                        <span *ngIf="readHandleType(mess, 1)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
+                    </li>
+                </ul>
+    
+            </div>
+        </div>
+        <!-- 已处理 -->
+        <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_3()">
+            <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
+            <span class="cl-blue cur-pointer" (mouseover)="showFinishedList()">
+                <span class="filter">已处理</span>
+            </span>
+            <div class="messagelist-wrap" *ngIf="showfinishedlist">
+                <ul class="messagelist" data-type="area">
+                    <li class="messagelist-item" *ngFor="let mess of messageList">
+                        <span *ngIf="readHandleType(mess, 2)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
+                    </li>
+                </ul>
+    
+            </div>
+        </div>
+    </div> 
+
+
     <!-- 右边按钮 -->
     <div class="btn-icon" *ngIf="visible == true">
         <!-- <div class="d-inline-block icon-item cur-pointer">
@@ -97,19 +146,19 @@
     <div #map3 id="map_container3" class="map_container no-fulls-map map-has-footer"></div>
     
     <!-- 底部 -->
-    <div class="row cover-footer">
-        <!-- 消息列表 -->
+    <!-- <div class="row cover-footer">
+        <!-- 消息列表
         <div class="col-6 mes-list" >
             <div class="mes-list-title"><p>消息列表</p></div>
             <ul class="mes-list-detail">
                 <li *ngFor="let mess of messageList" class="list-item">
-                    <!-- 待加：每条消息前信号点，即绿、黄、红原点 -->
+                    <!-- 待加：每条消息前信号点，即绿、黄、红原点
                   <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                 </li>
             </ul>
 
         </div>
-        <!-- 图标 -->
+        <!-- 图标
         <div class="col-6 cover-tabel" >
             <div class="col-12 block-padding" >
                 <table class="table table-bordered table-body" >
@@ -126,10 +175,10 @@
                 </table>
             </div>
             <div class="col-12 block-padding" >
-                <!-- <div><p>深圳市各区井盖丢失率</p></div> -->
+                <!-- <div><p>深圳市各区井盖丢失率</p></div>
                 <div id="map_cover1" style="height: 300px;"></div>
             </div>
         </div>
 
-    </div>
+    </div> -->
 </div>

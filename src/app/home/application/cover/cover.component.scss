@@ -3,7 +3,7 @@
     width: 100%;
 }
 .map-has-footer {
-    height: calc(100vh - 480px);
+    height: calc(100vh - 80px);
 }
 .cover-footer {
     height: 400px;
@@ -56,4 +56,64 @@
     color: #fff;
     }
 
+}
+.cover-issues {
+    position: absolute;
+    z-index: 3000;
+    top: 15px;
+    right: 170px;
+    .cover-issues-block {
+        width: 70px;
+        cursor: pointer;
+        position: relative;
+        background-color: #fff;
+        border: 1px solid #e3e3e3;
+        line-height: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-left: 21px;
+    }
+    .filter {
+        width: 66px;
+    }
+    .messagelist-wrap {
+        position: absolute;
+        padding: 0;
+        margin: 0px;
+        // width: 90px;
+        // width: 212px;
+        top: 31px;
+        left: -1px;
+        z-index: 99;
+    }
+    .messagelist {
+        position: relative;
+        padding: 0;
+        margin: 0px;
+        padding-left:0;
+        margin-bottom: 0;
+        width: 300px;
+        font-size: 12px;
+        z-index: 99;
+        border: 1px solid #e6e6e6;
+        border-top-width: 0;
+        background: #f6f6f6;
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
+        max-height: 300px;
+        overflow-y: auto;
+        cursor: pointer;
+    }
+    .messagelist-item {
+        text-indent: 15px;
+        font-size: 12px;
+    }
+    .messagelist .messagelist-item:hover {
+        background: #fff;
+        .blocklist{
+        display: block;
+        }
+    }
+    .messagelist .messagelist-item:hover em {
+        color:#f60;
+    }
 }

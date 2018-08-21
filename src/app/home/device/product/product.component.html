@@ -1,4 +1,4 @@
-<!-- 新建产品 -->
+<!-- modal:新建产品 -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">新建产品</h4>
@@ -10,7 +10,7 @@
     <!-- <p>One fine body&hellip;</p> -->
     <div class="row">
       <!-- 左列 -->
-      <div class="col-8">
+      <div class="modal-col">
         <div class="form-inline">
           <label class="control-label label-left limited-width">产品名称:</label>
           <div>
@@ -51,7 +51,7 @@
         </div>
       </div>
       <!-- 右列 -->
-      <div class="col-4">
+      <div class="modal-col">
         <label class="control-label">参数：</label>
         <div class="form-group">
             <label class="control-label">输入参数</label>
@@ -71,7 +71,7 @@
   </div>
 </ng-template>
 
-<!-- 增加参数 -->
+<!-- modal下modal:增加参数 -->
 <ng-template #content2 class="modal1" let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">新建参数</h4>
@@ -146,8 +146,9 @@
     </div>
 </ng-template>
 
+<!-- 产品管理页面 -->
 <div class="bodyofproduct">
-
+    <!-- 卡片形式 -->
     <div class="card card-primary">
       <div class="card-header">产品管理</div>
       <!-- 搜索产品 -->
