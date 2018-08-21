@@ -76,9 +76,9 @@ export class StrategyComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.chartMapChana2();
-    }, 2);
+    // setTimeout(() => {
+    //   this.chartMapChana2();
+    // }, 2);
 
   }
   chartMapChana2() {
@@ -163,17 +163,17 @@ export class StrategyComponent implements OnInit {
 
   changeNav(index) {
     this.nav_index = index;
-    if (index === 0) {
-      setTimeout(() => {
-        this.chartMapChana2();
-      }, 2);
-    } else {
-      setTimeout(() => {
-        this.getZoneDefault();
-        this.addBeiduMap();
-      }, 2);
+    // if (index === 0) {
+    //   setTimeout(() => {
+    //     this.chartMapChana2();
+    //   }, 2);
+    // } else {
+    //   setTimeout(() => {
+    //     this.getZoneDefault();
+    //     this.addBeiduMap();
+    //   }, 2);
 
-    }
+    // }
   }
 
   changeSubNav(index) {
