@@ -3,23 +3,23 @@
     width: 100%;
 }
 .map-has-footer {
-    height: calc(100vh - 80px);
+    height: calc(100vh);
 }
-.cover-footer {
-    height: 400px;
-    width: calc(100vw - 100px);
-    margin-right: 0;
-    margin-left: 0;
-}
-.cover_td_1 {
-    background-color: red;
-}
-.cover_td_2 {
-    background-color: yellow;
-}
-.cover_td_3{
-    background-color: green;
-}
+// .cover-footer {
+//     height: 400px;
+//     width: calc(100vw - 100px);
+//     margin-right: 0;
+//     margin-left: 0;
+// }
+// .cover_td_1 {
+//     background-color: red;
+// }
+// .cover_td_2 {
+//     background-color: yellow;
+// }
+// .cover_td_3{
+//     background-color: green;
+// }
 
 .mes-list{
     border: 1px solid #ccc;

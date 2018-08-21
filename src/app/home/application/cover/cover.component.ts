@@ -153,25 +153,54 @@ export class CoverComponent implements OnInit {
       this.map.addOverlay(marker2);
     }
   }
+
   // 标注消息列表中点击的点
-  markPoint(mess, messtype) {
-    // this.markers = [];
-    // const messpoint = mess;
+  findPoint(mess, messtype) {
     const pt = new BMap.Point(mess.lng, mess.lat);
     let myIcon;
     if (messtype === 0) {
-      myIcon = new GradOverlar(pt, 50, 'tag-red');
+      myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
     } else if (messtype === 1) {
-      myIcon = new GradOverlar(pt, 50, 'tag-grad');
+      myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
     } else if (messtype === 2) {
-      myIcon = new GradOverlar(pt, 50, 'tag-bule');
+      myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
     }
-    this.map.addOverlay(myIcon);
+    const marker = new BMap.Marker(pt, { icon: myIcon });  // 创建标注
+    this.map.addOverlay(marker);
     this.map.centerAndZoom(pt, 18);
+    this.openSideBar(marker, this.map, mess, pt);
     // this.markers.push(myIcon); // 聚合
     // points.push(pt); // 聚合
   }
+  // 地图点注标-点击事件
+  openSideBar(marker, baiduMap, mess, point) {
+    // console.log(val);
+    const that = this;
+    // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
+    const opts = {
+      width: 0,     // 信息窗口宽度
+      // height: 100,     // 信息窗口高度
+      // title: `${val.name} | ${val.id }`, // 信息窗口标题
+      // enableMessage: true, // 设置允许信息窗发送短息
+      enableAutoPan: true, // 自动平移
+    };
+    let txt = `
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${mess.name} | ${mess.id} </p>
 
+    `;
+    txt = txt + `<p  class='cur-pointer' style='color:red;'> message: ${mess.message}</p>`;
+
+    const infoWindow = new BMap.InfoWindow(txt, opts);
+
+    marker.addEventListener('click', function () {
+      that.device = mess;
+      baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+      // setTimeout(() => {
+      //   that.deviceAddEventListener();
+      // }, 0);
+    });
+
+  }
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
     const that = this;
