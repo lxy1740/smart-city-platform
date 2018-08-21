@@ -75,7 +75,10 @@ export class MonitorService {
 
     }
 
-    getCommunity(sw: Point, ne: Point, zoom: Number, type: Number): Observable<any> {
+
+
+    // 获取详细的位置数据
+    getDetails(sw: Point, ne: Point, zoom: Number, type: Number): Observable<any> {
         return this.http.post('/api/position/inbounds/details', {
             'bounds': {
                 'ne': ne,
@@ -83,6 +86,19 @@ export class MonitorService {
             },
             'device_type': type
         })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 获取指定位置所挂设备参数定义
+    getDeviceDetails(positionId: string, deviceType: Number): Observable<any> {
+        return this.http.get(`/api/position/device?positionId=${positionId}&deviceType=${deviceType}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();

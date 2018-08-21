@@ -291,21 +291,26 @@ export class MonitorComponent implements OnInit {
     const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
     const fullName = city.full_name;
+    // console.log(city);
+    const pt = city.center;
+    const point = new BMap.Point(pt.lng, pt.lat);
+    baiduMap.centerAndZoom(point, zoom);
 
 
-    let pt;
+    that.addMarker(); // 获取数据-添加标注
 
     // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(fullName, function (point) {
-      if (point) {
-        baiduMap.centerAndZoom(point, zoom);
-        pt = point;
+    // myGeo.getPoint(fullName, function (point) {
+    //   if (point) {
+    //     console.log(point);
+    //     baiduMap.centerAndZoom(point, zoom);
+    //     pt = point;
 
-        that.addMarker(); // 获取数据-添加标注
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, that.node.name);
+    //     that.addMarker(); // 获取数据-添加标注
+    //   } else {
+    //     console.log('您选择地址没有解析到结果!');
+    //   }
+    // }, that.node.name);
   }
 
 
@@ -423,16 +428,35 @@ export class MonitorComponent implements OnInit {
 
 
   // 获取详情
-  getCommunity(sw: Point, ne: Point, zoom: Number) {
+  getDetails(sw: Point, ne: Point, zoom: Number) {
     const that = this;
     const type = this.type;
     let value;
-    this.monitorService.getCommunity(sw, ne, zoom, type).subscribe({
+    this.monitorService.getDetails(sw, ne, zoom, type).subscribe({
       next: function (val) {
         value = val;
       },
       complete: function () {
         that.addPoint(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // // 获取指定位置所挂设备参数定义
+  getDeviceDetails(positionId: string, deviceType: Number) {
+    let value;
+    const that = this;
+    this.monitorService.getDeviceDetails(positionId, deviceType).subscribe({
+      next: function (val) {
+        value = val;
+      },
+      complete: function () {
+        that.deviceChild = value;
+        console.log(value);
+
       },
       error: function (error) {
         console.log(error);
@@ -480,7 +504,7 @@ export class MonitorComponent implements OnInit {
       that.getRegion(length, color, mouseoverColor);
     } else {
 
-      that.getCommunity(sw, ne, zoom);
+      that.getDetails(sw, ne, zoom);
     }
 
   }
@@ -498,13 +522,13 @@ export class MonitorComponent implements OnInit {
       let mySquare;
 
       if (item.with_error && item.with_error === true) { // 异常
-        mySquare = new GradOverlar(pt, 50, 'tag-red');
+        mySquare = new GradOverlar(pt, 36, 'tag-red');
         // console.log('异常');
-      } else if (item.with_offline === true) { // 掉线
-        mySquare = new GradOverlar(pt, 50, 'tag-grad');
+      } else if (item.with_offline === false) { // 掉线
+        mySquare = new GradOverlar(pt, 36, 'tag-grad');
         // console.log('掉线');
       } else { // 正常
-        mySquare = new GradOverlar(pt, 50, 'tag-bule');
+        mySquare = new GradOverlar(pt, 36, 'tag-bule');
         // console.log('正常');
       }
 
@@ -518,8 +542,8 @@ export class MonitorComponent implements OnInit {
     // 点击点标注事件
     for (let index = 0; index < that.markers.length; index++) {
       const marker = that.markers[index];
-      // that.openSideBar(marker, that.map, val, points[index]);
-    // this.openSideBar(mySquare, baiduMap, parent, pt); // 弹出信息框
+      that.openSideBar(marker, that.map, val[index], points[index]);
+
 
     }
   }
@@ -574,12 +598,12 @@ export class MonitorComponent implements OnInit {
       case 16:
         zoom = 17;
         break;
-      case 17:
-      case 18:
-      case 19:
-      case 20:
+      // case 17:
+      // case 18:
+      // case 19:
+      // case 20:
 
-        break;
+      //   break;
       default:
         break;
     }
@@ -593,6 +617,7 @@ export class MonitorComponent implements OnInit {
 
   // 点注标点击事件
   openSideBar(marker, baiduMap, val, point) {
+
     const that = this;
     // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
     const opts = {
@@ -603,16 +628,17 @@ export class MonitorComponent implements OnInit {
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${val.name} | ${val.id } </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ID | ${val.id } </p>
 
     `;
-    for (let index = 0; index < val.children.length; index++) {
-      if (val.children[index].is_online === 0 || val.children[index].is_exception === 1) {
-        // 离线或异常
-        txt = txt + `<p  class='cur-pointer' style='color:red;'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
-      } else {
-        txt = txt + `<p  class='cur-pointer'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
-      }
+    for (let index = 0; index < val.device_types.length; index++) {
+      txt = txt + `<p  class='cur-pointer'  id='${val.device_types[index].id}'> ${val.device_types[index].name}</p>`;
+      // if (val.with_error === true || val.with_offline === false) {
+      //   // 离线或异常
+      // txt = txt + `<p  class='cur-pointer' style='color:red;'  id='${val.device_types[index].id}'> ${val.device_types[index].name}</p>`;
+      // } else {
+      //   txt = txt + `<p  class='cur-pointer'  id='${val.device_types[index].id}'> ${val.device_types[index].name}</p>`;
+      // }
 
     }
 
@@ -620,6 +646,8 @@ export class MonitorComponent implements OnInit {
 
     marker.V.addEventListener('click', function () {
       that.device = val;
+      console.log('val');
+      console.log(val);
       baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
 
       setTimeout(() => {
@@ -632,11 +660,13 @@ export class MonitorComponent implements OnInit {
 // 点击子设备
   deviceAddEventListener() {
     const that = this;
-    for (let index = 0; index < this.device.children.length; index++) {
-      const device = $(`#${this.device.children[index].id}`);
+    for (let index = 0; index < this.device.device_types.length; index++) {
+      const positionId = this.device.id;
+      const deviceType = this.device.device_types[index].id;
+      const device = $(`#${deviceType}`);
       device.on('click', function () {
 
-        that.deviceChild = that.device.children[index];
+        that.getDeviceDetails(positionId, deviceType);
       });
     }
   }

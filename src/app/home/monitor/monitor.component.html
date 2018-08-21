@@ -114,14 +114,14 @@
     <div class="device-title" >
       <span class="device-close float-right" (click)="closeDetail()">X</span>
     </div>
-    <div *ngIf="deviceChild.has_child == 0">
+    <div *ngFor="let item of deviceChild">
           <p>
             <span>设备名称:</span>
-            <span>{{deviceChild.name}}</span>
+            <span>{{item.name}}</span>
           </p>
           <p>
             <span>设备ID:</span>
-            <span>{{deviceChild.id}}</span>
+            <span>{{item.id}}</span>
           </p>
           <table class="table">
             <tr>
@@ -130,39 +130,14 @@
               <th>单位</th>
           
             </tr>
-            <tr *ngFor="let item of deviceChild.parameters">
-              <td>{{item.name}}</td>
-              <td>{{item.value}}</td>
-              <td>{{item.Unit}}</td>
+            <tr *ngFor="let items of item.deviceProperties">
+              <td>{{items.name}}</td>
+              <td>{{items.value}}</td>
+              <td>{{items.Unit}}</td>
             </tr>
           </table>
     </div>
-        <div *ngIf="deviceChild.has_child == 1">
-          <div *ngFor="let cChild of deviceChild.children;let i = index" [ngClass]="{'info-border':i !==deviceChild.children.length -1}">
-              <p>
-                <span>设备名称:</span>
-                <span>{{cChild.name}}</span>
-              </p>
-              <p>
-                <span>设备ID:</span>
-                <span>{{cChild.id}}</span>
-              </p>
-              <table class="table">
-                <tr>
-                  <th>参数</th>
-                  <th>值</th>
-                  <th>单位</th>
-              
-                </tr>
-                <tr *ngFor="let citem of cChild.parameters" [ngClass]="{'color-red':cChild.is_exception ==1 || cChild.is_online == 0}">
-                  <td>{{citem.name}}</td>
-                  <td>{{citem.value}}</td>
-                  <td>{{citem.Unit}}</td>
-                </tr>
-              </table>
-          </div>
 
-        </div>
 
   </div>
   <div class="info-footer row" *ngIf="weather">
@@ -190,9 +165,8 @@
   </div>
 
 </div>
-<!-- <div class="i-circle test-cs">
-  <span>terc</span>
-  <br/>
-  <span>90</span></div> -->
+<!-- <div class="tag-bule">
+
+</div> -->
 
 
