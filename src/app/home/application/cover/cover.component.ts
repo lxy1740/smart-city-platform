@@ -15,6 +15,7 @@ import { MonitorService } from '../../../service/monitor.service';
 import { MessageService } from '../../../service/message.service';
 import { MessService } from '../../../service/mess.service';
 import { CommunicateService } from '../../../service/communicate.service';
+import { GradOverlar } from '../../../service/grad.overlay';
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -33,6 +34,7 @@ export class CoverComponent implements OnInit {
   model: any = {}; // 存储数据
 
   map: any; // 地图对象
+  // markers: any[] = []; // 标记
 
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
@@ -70,7 +72,7 @@ export class CoverComponent implements OnInit {
     this.getCity(); // 获取城市列表
     // this.getDevice(); // 获取设备列表 - ymZhao-按要求，井盖页面不显示设备列表
     this.getMessage();
-    this.chartMapCover1(); // ymZhao 井盖丢失率图
+    // this.chartMapCover1(); // ymZhao 井盖丢失率图
   }
   // ymZhao 获取消息列表
   getMessage() {
@@ -104,7 +106,7 @@ export class CoverComponent implements OnInit {
 
 
     // map.setMapStyle({ style: 'grayscale' });
-    map.setMapStyle({ style: 'normal' });  //dark
+    map.setMapStyle({ style: 'normal' });  // dark
 
     // 添加控件缩放
 
@@ -150,6 +152,24 @@ export class CoverComponent implements OnInit {
       const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker2);
     }
+  }
+  // 标注消息列表中点击的点
+  markPoint(mess, messtype) {
+    // this.markers = [];
+    // const messpoint = mess;
+    const pt = new BMap.Point(mess.lng, mess.lat);
+    let myIcon;
+    if (messtype === 0) {
+      myIcon = new GradOverlar(pt, 50, 'tag-red');
+    } else if (messtype === 1) {
+      myIcon = new GradOverlar(pt, 50, 'tag-grad');
+    } else if (messtype === 2) {
+      myIcon = new GradOverlar(pt, 50, 'tag-bule');
+    }
+    this.map.addOverlay(myIcon);
+    this.map.centerAndZoom(pt, 18);
+    // this.markers.push(myIcon); // 聚合
+    // points.push(pt); // 聚合
   }
 
   // 解析地址- 设置中心和地图显示级别

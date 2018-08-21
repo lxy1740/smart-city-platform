@@ -90,7 +90,8 @@
             </span>
             <div class="messagelist-wrap" *ngIf="showunstartedlist">
                 <ul class="messagelist" data-type="area">
-                    <li class="messagelist-item" *ngFor="let mess of messageList">
+                        <!-- (click)="markPoint(mess,0)" -->
+                    <li class="messagelist-item" *ngFor="let mess of messageList" (click)="markPoint(mess,0)">
                         <span *ngIf="readHandleType(mess, 0)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                     </li>
                 </ul>
@@ -103,12 +104,11 @@
                 <span class="filter">处理中</span>
             </span>
             <div class="messagelist-wrap" *ngIf="showonprogresslist">
-                <ul class="messagelist" data-type="area">
-                    <li class="messagelist-item" *ngFor="let mess of messageList">
+                <ul class="messagelist mes-list-1" data-type="area">
+                    <li class="messagelist-item" *ngFor="let mess of messageList" (click)="markPoint(mess,1)">
                         <span *ngIf="readHandleType(mess, 1)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                     </li>
                 </ul>
-    
             </div>
         </div>
         <!-- 已处理 -->
@@ -118,12 +118,11 @@
                 <span class="filter">已处理</span>
             </span>
             <div class="messagelist-wrap" *ngIf="showfinishedlist">
-                <ul class="messagelist" data-type="area">
-                    <li class="messagelist-item" *ngFor="let mess of messageList">
+                <ul class="messagelist mes-list-2" data-type="area">
+                    <li class="messagelist-item" *ngFor="let mess of messageList" (click)="markPoint(mess,2)">
                         <span *ngIf="readHandleType(mess, 2)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                     </li>
                 </ul>
-    
             </div>
         </div>
     </div> 
