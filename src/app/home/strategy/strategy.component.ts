@@ -25,13 +25,13 @@ export class StrategyComponent implements OnInit {
   @ViewChild('map3') map_container3: ElementRef;
 
   navs = [{
-    id : 0,
+    id: 0,
     name: '策略时间'
-    },
-    {
-      id: 1,
-      name: '策略范围'
-    }
+  },
+  {
+    id: 1,
+    name: '策略范围'
+  }
   ];
   sub_navs = [{
     id: 0,
@@ -77,59 +77,15 @@ export class StrategyComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.chartMapChana1();
       this.chartMapChana2();
     }, 2);
 
   }
-
-
-  chartMapChana1() {
-
-    const option = {
-      tooltip: {
-        formatter: '{a} <br/>{b} : {c}%'
-      },
-      toolbox: {
-        feature: {
-          restore: {},
-          saveAsImage: {}
-        }
-      },
-      series: [
-        {
-          name: '业务指标',
-          type: 'gauge',
-          radius: '100%',
-          startAngle: 90,
-          endAngle: -269,
-          clockwise: true,
-          min: 0,
-          max: 12,
-          splitNumber: 12,
-          detail: false,
-          // axisLabel: false,
-          // detail: { formatter: '{value}%' },
-          data: [{ value: 50, name: '' }]
-        }
-      ]
-    };
-
-    const bmapChart = echarts.init(document.getElementById('map_container1'));
-    bmapChart.setOption(option);
-  }
-
   chartMapChana2() {
 
     const option = {
       tooltip: {
         formatter: '{a} <br/>{b} : {c}%'
-      },
-      toolbox: {
-        feature: {
-          restore: {},
-          saveAsImage: {}
-        }
       },
       series: [
         {
@@ -209,7 +165,6 @@ export class StrategyComponent implements OnInit {
     this.nav_index = index;
     if (index === 0) {
       setTimeout(() => {
-        this.chartMapChana1();
         this.chartMapChana2();
       }, 2);
     } else {
@@ -225,8 +180,8 @@ export class StrategyComponent implements OnInit {
     this.sub_nav_index = index;
   }
 
-  addStrategy(type) {
-    if (type === 'strategy') {
+  addStrategy(type) { 
+  if (type === 'strategy') {
       this.strategyList.push({ date: new Date() });
     } else if (type === 'date') {
       this.dateList.push({ date: new Date() });
@@ -238,7 +193,6 @@ export class StrategyComponent implements OnInit {
       this.rangeList.push({ date: new Date() });
 
     }
-
   }
   removeStrategy() {
     const index = this.strategy_index;

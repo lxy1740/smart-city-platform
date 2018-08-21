@@ -60,9 +60,9 @@ export class TrafficComponent implements OnInit {
 
     // 添加控件缩放
 
-    const offset = new BMap.Size(20, 15);
+    const offset = new BMap.Size(100, 20);
     const navigationControl = new BMap.NavigationControl({
-      anchor: BMAP_ANCHOR_TOP_LEFT,
+      anchor: BMAP_ANCHOR_TOP_RIGHT,
       offset: offset,
     });
     map.addControl(navigationControl);
@@ -72,8 +72,8 @@ export class TrafficComponent implements OnInit {
     });
     map.addControl(ctrl);
     ctrl.showTraffic({ predictDate: { hour: 15, weekday: 5 } });
-    ctrl.setAnchor(BMAP_ANCHOR_TOP_LEFT);
-    ctrl.setOffset(new BMap.Size(85, 27));
+    ctrl.setAnchor(BMAP_ANCHOR_TOP_RIGHT);
+    ctrl.setOffset(new BMap.Size(180, 20));
 
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
 

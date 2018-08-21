@@ -7,7 +7,9 @@
     </div>
     <div class="strategy-list">
       <ul>
-        <li>常态策略</li>
+        <li>策略方案</li>
+        <li style="float: left;"><input type="text" id="txt"></li>
+        <li style="float: left;margin-left: 45px"><button id="bt">确定</button></li>
         <li *ngFor="let item of strategyList">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</li>
       </ul>
     </div>
@@ -63,7 +65,7 @@
               </tr>
             </table>
         </div>
-        <div class="col-4">
+     <div class="col-4">
           <div id="map_container1" class="dash-1"> </div>
         </div>
       </div>
@@ -166,7 +168,7 @@
             </table>
 
             <!-- 地图 -->
-            <div #map2 id="map_container2" class="map_container"></div>
+           <!--  <div #map2 id="map_container2" class="map_container"></div> -->
         </div>
       </div>
 
