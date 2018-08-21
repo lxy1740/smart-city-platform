@@ -129,7 +129,7 @@ export class StrategyComponent implements OnInit {
       console.log(this.closeResult);
     });
   }
-  open2(content) {
+   open2(content) {
 
     const that = this;
 
@@ -180,8 +180,9 @@ export class StrategyComponent implements OnInit {
     this.sub_nav_index = index;
   }
 
-  addStrategy(type) { 
-  if (type === 'strategy') {
+  addStrategy(type) {
+
+    if (type === 'strategy') {
       this.strategyList.push({ date: new Date() });
     } else if (type === 'date') {
       this.dateList.push({ date: new Date() });
