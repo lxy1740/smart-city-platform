@@ -1,29 +1,35 @@
-<div  class="nav-margin strategy">
-<!-- 左侧 -->
+<div class="nav-margin strategy">
+  <!-- 左侧 -->
   <div class="strategy-left">
     <div class="strategy-add">
       <span class="strategy-title">策略表</span>
-      <button type="button" class="btn " (click)="addStrategy('strategy')"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+      <button type="button" class="btn " (click)="addStrategy('strategy')">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      </button>
     </div>
     <div class="strategy-list">
-      <ul>
-        <li>策略方案</li>
-        <li style="float: left;"><input type="text" id="txt"></li>
-        <li style="float: left;margin-left: 45px"><button id="bt">确定</button></li>
+      <ul id="ull">
+        <li>
+          <span>策略一</span>
+        </li>
+        <li>
+          <span>策略二</span>
+        </li>
         <li *ngFor="let item of strategyList">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</li>
       </ul>
     </div>
   </div>
   <!-- 右侧 -->
   <div class="strategy-right">
+    <div style="margin-top: 20px;">
+      <span class="strategy-top">策略一</span>
+    </div>
     <!-- 菜单-->
-    <div>
+    <div style="margin-top: 20px;">
       <ul class="nav nav-tabs">
-        <li  *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)" [ngClass]="{'active':item.id === nav_index}">
-          <a >{{item.name}}</a>
+        <li *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)" [ngClass]="{'active':item.id === nav_index}">
+          <a>{{item.name}}</a>
         </li>
-
-
       </ul>
     </div>
     <!-- 菜单一 -->
@@ -31,185 +37,146 @@
       <!-- 日期 -->
       <div class="row">
         <div class="col-8">
-
-            <table class="table">
-              <tr>
-                <th>序号</th>
-                <th>日期范围</th>
-                <th>创建时间</th>
-                <th>操作</th>
-            
-              </tr>
-              <tr>
-                <td class="">默认策略</td>
-                <td class="">~</td>
-                <td class="">~</td>
-                <td class="">
-                  <span class="cur-pointer operate" (click)="addStrategy('date')">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                  </span>
-                </td>
-            
-              </tr>
-              <tr *ngFor="let item of dateList;let i = index">
-                <td class="">{{i + 1}}</td>
-                <td class="">~</td>
-                <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
-                <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td class="">
-                  <span class="cur-pointer operate" (click)="open(content)">
-                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                  </span>
-                </td>
-            
-              </tr>
-            </table>
-        </div>
-     <div class="col-4">
-          <div id="map_container1" class="dash-1"> </div>
-        </div>
-      </div>
-
-      <div class="br"></div>
-      <!-- 时间段 -->
-      <div class="row">
-        <div class="col-8">
-          <div>
-            <ul class="nav nav-tabs">
-              <li *ngFor="let item of sub_navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeSubNav(i)" [ngClass]="{'active':item.id === sub_nav_index}">
-                <a>{{item.name}}</a>
+          <div class="table-left">
+            <div>
+              <span class="table-span">策略日期</span>
+              <div class="btn-group btn-parent">
+                <button (click)="open(content)" style="margin-left: 30px;">新建</button>
+              </div>
+            </div>
+            <ul class="ul-hw">
+              <li>
+                <span>7月1日~7月8日</span>
+                <select name="" id="" class="select-del">
+                  <option value="">...</option>
+                  <option value="">添加</option>
+                  <option value="">删除</option>
+                </select>
               </li>
-          
-          
+              <li>
+                <span>7月9日~7月30日</span>
+              </li>
+              <li>
+                <span>7月9日~7月30日</span>
+              </li>
             </ul>
+            <div class="table-right">
+              <table cellpadding=5 cellspacing=0>
+                <tr>
+                  <th>7月1日-7月8日控制设置</th>
+                </tr>
+                <tr>
+                  <td>工作日</td>
+                  <td style="position: relative;left: 400px;">
+                    <button (click)="open(content)">创建工作日控制</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>时间</td>
+                  <td>亮度</td>
+                  <td>添加时间</td>
+                  <td>操作</td>
+                </tr>
+                <tr>
+                  <td>17:00-23:00</td>
+                  <td>中亮</td>
+                  <td>2018/08/01 17:29:11</td>
+                  <td>
+                    <button (click)="open(content)">修改</button>
+                    <button (click)="open(content)" style="margin-left: 10px;">删除</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 菜单二 -->
+        <div *ngIf="nav_index === 1" class="strategy-table">
+          <div class="row">
+            <div class="col-3">
+              <!-- 搜索列表 -->
+              <div class="city-list">
+                <ul id="treeDemo" class="ztree"></ul>
+              </div>
+            </div>
+            <div class="col-9">
+              <table class="table">
+                <tr>
+                  <th>操作</th>
+                  <th>路灯名称</th>
+                  <th>路灯位置</th>
+                  <th>定位</th>
+                </tr>
+                <tr>
+                  <td class="">操作</td>
+                  <td class="">~</td>
+                  <td class="">~</td>
+                  <td class="">
+                    <span class="cur-pointer operate" (click)="addStrategy('range')">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </span>
+                  </td>
+                </tr>
+                <tr *ngFor="let item of rangeList;let i = index">
+                  <td class="">{{i + 1}}</td>
+                  <td class="">~</td>
+                  <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
+                  <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                  <td class="">
+                    <span class="cur-pointer operate" (click)="open(content)">
+                      <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                    </span>
+                  </td>
+
+                </tr>
+              </table>
+
+              <!-- 地图 -->
+              <!--  <div #map2 id="map_container2" class="map_container"></div> -->
+            </div>
           </div>
 
-          <table class="table" style=" margin-top: 20px; ">
-            <tr>
-              <th>时间</th>
-              <th>亮度</th>
-              <th>创建时间</th>
-              <th>操作</th>
-      
-            </tr>
-            <tr>
-              <td class="">默认策略</td>
-              <td class="">~</td>
-              <td class="">~</td>
-              <td class="">
-                <span class="cur-pointer operate" (click)="addStrategy('holiday')">
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </span>
-              </td>
-      
-            </tr>
-            <tr *ngFor="let item of holidayList;let i = index">
-              <td class="">{{i + 1}}</td>
-              <td class="">~</td>
-              <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
-              <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
-              <td class="">
-                <span class="cur-pointer operate" (click)="open(content)">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                </span>
-              </td>
-      
-            </tr>
-          </table>
         </div>
-        <div class="col-4">
-          <div id="map_container2" class="dash-1"> </div>
-        </div>
+
+
       </div>
-    </div>
-
-    <!-- 菜单二 -->
-    <div *ngIf="nav_index === 1" class="strategy-table">
-      <div class="row">
-        <div class="col-3">
-          <!-- 搜索列表 -->
-          <div class="city-list">
-            <ul id="treeDemo" class="ztree"></ul>
+      <!-- 删除 -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">提示</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <p>确定要删除数据吗？</p>
           </div>
         </div>
-        <div class="col-9">
-            <table class="table">
-              <tr>
-                <th>操作</th>
-                <th>路灯名称</th>
-                <th>路灯位置</th>
-                <th>定位</th>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
+          <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+        </div>
+      </ng-template>
 
-            
-              </tr>
-              <tr>
-                <td class="">操作</td>
-                <td class="">~</td>
-                <td class="">~</td>
-                <td class="">
-                  <span class="cur-pointer operate" (click)="addStrategy('range')">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                  </span>
-                </td>
-            
-              </tr>
-              <tr *ngFor="let item of rangeList;let i = index">
-                <td class="">{{i + 1}}</td>
-                <td class="">~</td>
-                <!-- <td class="">{{item.date | date:'yyyy.MM.dd'}}</td> -->
-                <td class="">{{item.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td class="">
-                  <span class="cur-pointer operate" (click)="open(content)">
-                    <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                  </span>
-                </td>
-            
-              </tr>
-            </table>
-
+      <!-- 删除 -->
+      <ng-template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">地图</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <p>确定要删除数据吗？</p>
             <!-- 地图 -->
-           <!--  <div #map2 id="map_container2" class="map_container"></div> -->
+            <div #map3 id="allmap" class="map_container"></div>
+          </div>
         </div>
-      </div>
-
-    </div>
-
-
-</div>
-<!-- 删除 -->
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">提示</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div><p>确定要删除数据吗？</p></div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-    <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
-  </div>
-</ng-template>
-
-<!-- 删除 -->
-<ng-template #content2 let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">地图</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      <p>确定要删除数据吗？</p>
-      <!-- 地图 -->
-      <div #map3 id="allmap" class="map_container"></div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-    <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
-  </div>
-</ng-template>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
+          <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+        </div>
+      </ng-template>

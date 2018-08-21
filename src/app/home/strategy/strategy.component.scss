@@ -15,12 +15,20 @@
     }
 
     .strategy-title {
-        font-size: 18px;
+        text-align: center;
+        display:block;
+        font-size: 30px;
+        line-height: 45px;
+        color: #000000;
+        font-style: Normal;
+        font-weight: 400;
+        font-family: 微软雅黑;
     }
 
     .strategy-list{
         ul {
             padding: 0px;
+            text-align: center;
         }
 
     }
@@ -74,7 +82,7 @@
     margin: 10px;
     border: 1px solid #dee2e6;
     border-radius: 10px;
-    padding: 25px 20px;
+    padding: 10px 5px;
 }
 .br {
     border: 1px solid #ccc;
@@ -95,4 +103,55 @@
 .city-list{
     max-height: 79vh;
     overflow-y: auto;
+}
+.strategy-top{
+    font-size: 30px;
+    line-height: 45px;
+    color: #000000;
+    font-style: Normal;
+    font-weight: 400;
+    font-family: 微软雅黑;
+}
+.select-del{
+    border: 0;
+    background: transparent;
+    appearance: none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    margin-left: 10px;
+}
+.table-left{
+    width: 200px;
+    height: calc(100vh - 80px);
+   /*  border: #dee2e6 1px solid; */
+    padding: 5px 5px;
+  
+}
+.table-right{
+    height: 600px;
+    position: absolute;
+    top: 0px;
+    left: 300px;
+   /*  width: calc(100vw - 420px); */width:800px;
+    background-color:  #EEEEEE;
+    margin-left: 200px;
+    margin-top: 35px;
+    td{
+        width: 200px;
+    }
+}
+.table-span{
+    font-size: 20px;
+    line-height: 36px;
+    color: #000000;
+    font-style: Normal;
+    font-weight: 400;
+    font-family: 微软雅黑;
+    margin-left: 20px;
+}
+.ul-hw{
+    li{
+        margin-top: 5px;
+        height: 100px;
+    }
 }
