@@ -57,7 +57,8 @@ export class MonitorComponent implements OnInit {
   zoom: any; // 地图级数
   SouthWest: Point; // 地图视图西南角
   NorthEast: Point; // 地图视图东北角
-  type = 0; // 设备类型
+  type = 0; // 设备类型id
+  typeName: string; // 设备类型名称
 
   queryPoint: any; // 路由传递的数据
   isqueryPoint = false; // 是否从路由点的异常信息点的数据
@@ -827,9 +828,26 @@ export class MonitorComponent implements OnInit {
     this.currentChildren = city.children;
   }
 
+  // 选择区域
   selecteblock(block) {
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
   }
+
+  // 选择设备
+  selecteDevice(device) {
+    this.type = device.id;
+    this.typeName = device.name;
+    console.log(this.type);
+    this.addMarker();
+  }
+
+  // selecteDeviceNone
+  selecteDeviceNone() {
+    this.type = 0;
+    this.typeName = null;
+  }
+
+  // 选择设备
 
   // 显示区域
   showArea() {
