@@ -108,7 +108,7 @@
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showonprogresslist">
-                <ul class="messagelist mes-list-1" data-type="area">
+                <ul class="messagelist " data-type="area">
                     <li class="messagelist-item" *ngFor="let mess of messageList" (click)="findPoint(mess,1)">
                         <span *ngIf="readHandleType(mess, 1)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                     </li>
@@ -124,7 +124,7 @@
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showfinishedlist">
-                <ul class="messagelist mes-list-2" data-type="area">
+                <ul class="messagelist " data-type="area">
                     <li class="messagelist-item" *ngFor="let mess of messageList" (click)="findPoint(mess,2)">
                         <span *ngIf="readHandleType(mess, 2)">{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                     </li>

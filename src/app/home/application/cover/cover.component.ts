@@ -10,6 +10,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 // ymZhao
 import { MessageService } from '../../../service/message.service';
@@ -65,7 +66,9 @@ export class CoverComponent implements OnInit {
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
 
   constructor(private monitorService: MonitorService, private messageService: MessageService,
-    public messService: MessService, ) { }
+    public messService: MessService, private config: NgbDropdownConfig) {
+      config.placement = 'bottom-right';
+     }
 
   ngOnInit() {
     this.addBeiduMap();
@@ -167,6 +170,9 @@ export class CoverComponent implements OnInit {
     this.map.addOverlay(marker);
     this.map.centerAndZoom(pt, 18);
     this.openSideBar(marker, this.map, mess, pt);
+    setTimeout(() => {
+      marker.V.click();
+    }, 50);
   }
   // 地图点注标-点击事件
   openSideBar(marker, baiduMap, mess, point) {
