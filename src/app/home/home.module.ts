@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { GridsterModule } from 'angular-gridster2';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +25,7 @@ import { StrategyComponent } from './strategy/strategy.component';
 
 
 @NgModule({
-    imports: [BrowserModule, DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule,
+    imports: [BrowserModule, FormsModule, DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule,
     ],
     declarations: [
     SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent, MapComponent, StrategyComponent,

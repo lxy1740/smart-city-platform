@@ -3,9 +3,10 @@
 }
 .strategy-left {
     width: 300px;
-    height: calc(100vh - 80px);
+    height: 100vh;
     border: #dee2e6 1px solid;
     padding: 10px 20px;
+    background: #dee2e6;
     .strategy-add{
         position: relative;
         button {
@@ -15,8 +16,6 @@
     }
 
     .strategy-title {
-        text-align: center;
-        display:block;
         font-size: 30px;
         line-height: 45px;
         color: #000000;
@@ -25,12 +24,15 @@
         font-family: 微软雅黑;
     }
 
-    .strategy-list{
+    .strategy-list {
+
         ul {
             padding: 0px;
-            text-align: center;
+            li {
+                height: 50px;
+                line-height: 50px;
+            }
         }
-
     }
 }
 
@@ -121,25 +123,10 @@
     margin-left: 10px;
 }
 .table-left{
-    width: 200px;
-    height: calc(100vh - 80px);
-   /*  border: #dee2e6 1px solid; */
     padding: 5px 5px;
   
 }
-.table-right{
-   /*  height: 600px; */
-    position: absolute;
-    top: 0px;
-    left: 300px;
-   /*  width: calc(100vw - 420px); */width:800px;
- /*    background-color:  #EEEEEE; */
-    margin-left: 200px;
-    margin-top: 35px;
-    td{
-        width: 200px;
-    }
-}
+
 .table-span{
     font-size: 20px;
     line-height: 36px;
