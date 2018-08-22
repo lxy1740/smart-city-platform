@@ -1,18 +1,17 @@
 <div class="table-responsive">
-  <table class="table table-bordered" style="width: 1170px;margin: 0 auto;">
+  <table class="table table-bordered  table-bg" style="width: 1170px;margin: 0 auto;">
     <tr>
       <td style="border: none;text-align:center;vertical-align:middle;">
         <!--搜索按钮组-->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="input-group" style=" border:1px solid darkslategray;border-radius:30px;">
-              <span class="input-group-btn" style="text-align: center;line-height: 36px;">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-              <input type="text" class="form-control" style="border: none;border-radius:30px;">
-            </div>
+        <div class="form-group inner-addon left-addon " style="margin: 0 auto; margin-top: 20px;">
+          <span style="float: left;width: 20px;margin: 0 auto;margin-top: 10px;">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+          <div class="form-group" style=" float: left;;border:1px solid darkslategray;border-radius:30px;">
+            <!-- <i class="fa fa-search search-icon"></i> -->
+            <input style="border: none;border-radius:30px;" type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
           </div>
-        </div>
+      </div>
       </td>
       <td style="border: none;text-align:center;vertical-align:middle;">
         <input type="date" class="form-control" value="Start date" />
@@ -20,7 +19,7 @@
       <td style="border: none;text-align:center;vertical-align:middle;">
         <ng-template #content let-c="close" let-d="dismiss">
           <div class="modal-header" style="background-color: 	#CCCCCC">
-            <font>窗体</font>
+            <font class="modal-titile">窗体</font>
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -75,12 +74,12 @@
 
           </div>
           <div class="modal-footer" style="background-color: 	#CCCCCC">
-            <button style="margin-right: 20px;" type="submit">确定</button>
-            <button (click)="c('Close click')" type="button">取消</button>
+            <button style="margin-right: 20px;" type="submit" class="btn btn-bg">确定</button>
+            <button (click)="c('Close click')" type="button" class="btn btn-bg2">取消</button>
           </div>
         </ng-template>
         <div class="btn-group btn-parent">
-          <button class="btn btn-cl" (click)="open(content)">新建角色</button>
+          <button class="btn btn-bg" (click)="open(content)">新建角色</button>
         </div>
       </td>
     </tr>
@@ -96,13 +95,13 @@
       <td class="warning" style="border: none">...</td>
       <td class="warning" style="border: none">
         <div>
-          <button class="btn-body">
+          <button class="btn-check">
             <i class="fa fa-eye" aria-hidden="true"></i>
           </button>
-          <button class="btn-body">
+          <button class="btn-check">
             <i class="fa fa-wrench" aria-hidden="true" style="margin-right: 6px;"></i>
           </button>
-          <button class="btn-body">
+          <button class="btn-check">
             <i class="fa fa-times-circle" aria-hidden="true" style="margin-right: 6px;"></i>
           </button>
         </div>

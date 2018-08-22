@@ -1,19 +1,16 @@
 <div class="table-responsive">
-  <table class="table table-bordered" style="width: 1170px;margin: 0 auto;">
+  <table class="table table-bordered table-bg" style="width: 1170px;margin: 0 auto;">
     <tr>
       <td style="border:none">
-        <!--搜索按钮组-->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="input-group" style=" border:1px solid darkslategray;border-radius:30px;">
-              <span class="input-group-btn" style="border: 1px;">
-                <button class="btn btn-check" type="button">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </span>
-              <input type="text" class="form-control" style="border: none;border-radius:30px;">
+        <!--搜索输入框-->
+        <div class="form-group inner-addon left-addon ">
+            <span style="float: left;width: 20px;margin: 0 auto;margin-top: 10px;">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+            <div class="form-group" style=" float: left;;border:1px solid darkslategray;border-radius:30px;">
+              <!-- <i class="fa fa-search search-icon"></i> -->
+              <input style="border: none;border-radius:30px;" type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
             </div>
-          </div>
         </div>
       </td>
       <td style="border:none">
@@ -74,13 +71,13 @@
                 </tr>
               </table>
               <div style="float: right;">
-                <button type="button" class="btn btn-cl">确定</button>
+                <button type="button" class="btn btn-bg">确定</button>
               </div>
             </div>
           </div>
         </ng-template>
         <div class="btn-group btn-parent">
-          <button class="btn btn-cl" (click)="open(content)">新建角色</button>
+          <button class="btn btn-bg" (click)="open(content)">新建角色</button>
         </div>
       </td>
     </tr>

@@ -8,7 +8,23 @@
 .sidebar-bg { // 侧边背景色
     background: $color-sidebar-bg;
 }
-.btn-bg{
+.btn-bg{// 按钮颜色
     background: $color-brand-color;
+    color: #fff;
+}
+.btn-bg2{// 取消按钮颜色
+    background: $color-white;
+    color:#000;
+}
+.modal-title{// 弹窗标题
+    font-size: $font-cpm-title-font-size;
+    line-height: $font-cpm-title-line-height;
+    color: $font-cpm-title-color;
+    font-style: $font-cpm-title-font-style;
+    font-weight: $font-cpm-title-font-weight;
+    font-family: $font-cpm-title-font-family;
+}
+.table-bg{
+   background:  $color-table-bg;
 }
 
