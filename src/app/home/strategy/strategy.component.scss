@@ -22,8 +22,8 @@
         ul {
             padding: 0px;
             li {
-                height: 50px;
-                line-height: 50px;
+                height: 56px;
+                line-height: 56px;
                 border-bottom: 1px solid #ccc;
                 padding: 0 12px;
             }
@@ -75,6 +75,7 @@
     position: relative;
     display: block;
     padding: 10px 15px;
+    font-size: 18px;
 }
 
 .operate{
@@ -86,8 +87,7 @@
 
 .strategy-table{
     margin: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
+
     padding: 10px 5px;
 }
 .br {
@@ -127,29 +127,31 @@
     margin-left: 10px;
 }
 .table-left{
-    padding: 5px 0 0 22px;
+
+    border-radius: 10px;
     position: relative;
-    .table-span{
-        font-size: 20px;
-        line-height: 36px;
-        color: #000000;
-        font-style: Normal;
-        font-weight: 400;
-        font-family: 微软雅黑;
-    }
+
     .btn {
         position: absolute;
-        right: 0px;
+        right: 15px;
     }
   
+}
+.table-left, .table-workday ,.table-holiday ,.panel-def {
+    // margin: 15px;
+    padding: 5px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    background: #fff;
+    height: 100%;
 }
 
 
 .data-list {
     padding: 0px;
     li {
-        height: 50px;
-        line-height: 50px;
+        height: 56px;
+        line-height: 56px;
         border-bottom: 1px solid #ccc;
         padding: 0 12px; 
     }
