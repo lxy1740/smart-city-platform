@@ -11,13 +11,13 @@ body {
     background: $color-bg;
 }
 .theme-text {
-    color: $color-theme-text
+    color: $color-theme-text !important;
 }
 .sidebar-bg { // 侧边背景色
     background: $color-sidebar-bg;
 }
 .btn {
-    font-size: 0.8rem;
+    font-size: 14px;
 }
 .btn-bg{// 按钮颜色
     background: $color-brand-color;
