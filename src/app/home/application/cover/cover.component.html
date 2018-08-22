@@ -86,7 +86,9 @@
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_1()">
             <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
             <span class="cl-blue cur-pointer" (mouseover)="showUntartedList()">
-                <span class="filter">待处理</span>
+                <span class="filter">待处理
+                    <span class="badge-light">4</span>
+                </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showunstartedlist">
                 <ul class="messagelist" data-type="area">
@@ -101,7 +103,9 @@
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_2()">
             <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
             <span class="cl-blue cur-pointer" (mouseover)="showOnprogressList()">
-                <span class="filter">处理中</span>
+                <span class="filter">处理中
+                    <span class="badge-light">4</span>
+                </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showonprogresslist">
                 <ul class="messagelist mes-list-1" data-type="area">
@@ -115,7 +119,9 @@
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_3()">
             <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
             <span class="cl-blue cur-pointer" (mouseover)="showFinishedList()">
-                <span class="filter">已处理</span>
+                <span class="filter">已处理
+                    <span class="badge-light">3</span>
+                </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showfinishedlist">
                 <ul class="messagelist mes-list-2" data-type="area">

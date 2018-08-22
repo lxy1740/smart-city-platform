@@ -71,7 +71,7 @@ export class CoverComponent implements OnInit {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
     // this.getDevice(); // 获取设备列表 - ymZhao-按要求，井盖页面不显示设备列表
-    this.getMessage();
+    this.getMessage();  // 获取消息列表
     // this.chartMapCover1(); // ymZhao 井盖丢失率图
   }
   // ymZhao 获取消息列表
@@ -95,7 +95,6 @@ export class CoverComponent implements OnInit {
       // maxZoom : 11
     }); // 创建地图实例
 
-
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
 
     const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
@@ -103,21 +102,16 @@ export class CoverComponent implements OnInit {
 
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
 
-
-
     // map.setMapStyle({ style: 'grayscale' });
     map.setMapStyle({ style: 'normal' });  // dark
 
     // 添加控件缩放
-
     const offset = new BMap.Size(20, 55);
     const navigationControl = new BMap.NavigationControl({
       anchor: BMAP_ANCHOR_TOP_LEFT,
       offset: offset,
     });
     map.addControl(navigationControl);
-
-
 
     // const marker = new BMap.Marker(point);  // 创建标注
     // map.addOverlay(marker);               // 将标注添加到地图中
@@ -128,10 +122,11 @@ export class CoverComponent implements OnInit {
     // this.map.addOverlay(marker2);
 
     this.addMarker();
-
   }
 
   addMarker() {
+    const markers: any[] = [];
+    const points: any[] = [];
     for (let index = 0; index < this.light_list.length; index++) {
       const item = this.light_list[index];
       const point = new BMap.Point(item.lng, item.lat);
@@ -139,18 +134,21 @@ export class CoverComponent implements OnInit {
       let myIcon;
       if (item.is_exception && item.is_exception === 1) { // 井盖丢失
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
-        // console.log('异常');
       } else if (item.is_online === 0) { // 井盖离线
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
-        // console.log('掉线');
       } else { // 井盖正常
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
-        // console.log('正常');
-
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
       const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker2);
+      markers.push(marker2); // 聚合
+      points.push(point); // 聚合
+    }
+    // 点击点标注事件 - 弹出信息框
+    for (let index = 0; index < markers.length; index++) {
+      const marker = markers[index];
+      this.openSideBar(marker, this.map, this.light_list[index], points[index]);
     }
   }
 
@@ -169,14 +167,10 @@ export class CoverComponent implements OnInit {
     this.map.addOverlay(marker);
     this.map.centerAndZoom(pt, 18);
     this.openSideBar(marker, this.map, mess, pt);
-    // this.markers.push(myIcon); // 聚合
-    // points.push(pt); // 聚合
   }
   // 地图点注标-点击事件
   openSideBar(marker, baiduMap, mess, point) {
-    // console.log(val);
     const that = this;
-    // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
     const opts = {
       width: 0,     // 信息窗口宽度
       // height: 100,     // 信息窗口高度
@@ -188,7 +182,7 @@ export class CoverComponent implements OnInit {
     <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${mess.name} | ${mess.id} </p>
 
     `;
-    txt = txt + `<p  class='cur-pointer' style='color:red;'> message: ${mess.message}</p>`;
+    txt = txt + `<p  class='cur-pointer' style='color:red;'> devices list: 待接口</p>`; // ${mess.message}
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
@@ -513,6 +507,8 @@ export class CoverComponent implements OnInit {
     this.areashow = true;
     this.currentBlock = null;
   }
+
+  // 消息相关
   // 显示 未处理 消息
   showUntartedList() {
     this.showunstartedlist = true;
