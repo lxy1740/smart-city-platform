@@ -22,11 +22,23 @@ export const ROUTETREE = [
                 routeLink: 'application/calamity',
                 routeTitel: '灾害报警',
             },
+            // {
+            //     id: 21,
+            //     icon: 'fa fa-snowflake-o nav-icon-s',
+            //     routeLink: 'application/environment',
+            //     routeTitel: '环境监测',
+            // },
+            {
+                id: 21,
+                icon: 'fa fa-tint nav-icon-s',
+                routeLink: 'application/water',
+                routeTitel: '水质监测',
+            },
             {
                 id: 21,
                 icon: 'fa fa-snowflake-o nav-icon-s',
-                routeLink: 'application/environment',
-                routeTitel: '环境监测',
+                routeLink: 'application/air',
+                routeTitel: '空气质量',
             },
             {
                 id: 21,
@@ -40,12 +52,12 @@ export const ROUTETREE = [
                 routeLink: 'application/cover',
                 routeTitel: '窨井管理',
             },
-            {
-                id: 21,
-                icon: 'fa fa-shield nav-icon-s',
-                routeLink: 'application/security',
-                routeTitel: '智慧安防',
-            },
+            // {
+            //     id: 21,
+            //     icon: 'fa fa-shield nav-icon-s',
+            //     routeLink: 'application/security',
+            //     routeTitel: '智慧安防',
+            // },
             {
                 id: 21,
                 icon: 'fa fa-car nav-icon-s',
@@ -73,18 +85,18 @@ export const ROUTETREE = [
         isCollapsed: true,
         hasRight: false,
         children: [
-            // {
-            //     id: 21,
-            //     icon: 'fa fa-window-restore nav-icon-s',
-            //     routeLink: 'device/class',
-            //     routeTitel: '类',
-            // },
             {
                 id: 21,
-                icon: 'fa fa-map-o nav-icon-s',
-                routeLink: 'device/survey',
+                icon: 'fa fa-window-restore nav-icon-s',
+                routeLink: 'device/class',
                 routeTitel: '设备',
             },
+            // {
+            //     id: 21,
+            //     icon: 'fa fa-map-o nav-icon-s',
+            //     routeLink: 'device/survey',
+            //     routeTitel: '设备',
+            // },
             {
                 id: 21,
                 icon: 'fa fa-product-hunt nav-icon-s',

@@ -6,6 +6,8 @@ import { EnvironmentComponent } from './environment/environment.component';
 import { LightComponent } from './light/light.component';
 import { SecurityComponent } from './security/security.component';
 import { TrafficComponent } from './traffic/traffic.component';
+import { WaterComponent } from './water/water.component';
+import { AirComponent } from './air/air.component';
 
 
 @NgModule({
@@ -13,7 +15,7 @@ import { TrafficComponent } from './traffic/traffic.component';
     ],
     declarations: [
         CoverComponent, CalamityComponent, EnvironmentComponent,
-        LightComponent, SecurityComponent, TrafficComponent,
+        LightComponent, SecurityComponent, TrafficComponent, WaterComponent, AirComponent,
 ]
 })
 export class ApplicationModule { }
