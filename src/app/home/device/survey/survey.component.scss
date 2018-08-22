@@ -3,20 +3,34 @@
     height: 100%;
 }
 .bodyofsurvey {
-    width: calc(100vw - 100px);
+    width: calc(100vw - 50px);
     padding: 15px;
 }
 .card-header {
     border-bottom: 0px;
+    position: relative;
 }
 .card-block {
     margin: 5px 15px;
+}
+.add-survey {
+    margin: 0px;
+    text-align: right;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    .extral-padd {
+        padding-right: 12px;
+    }
 }
 .search-survey {
     font-size: 14px;
     // margin-top: 5px;
     // margin-bottom: 5px;
-
+    .extral-marg {
+        margin-right: 5px;
+        margin-top: 5px;
+    }
     .search-options {
         //padding-left: 20px;
         
@@ -25,20 +39,25 @@
             width: auto;
             height: calc(1.8rem + 2px);
             margin-right: 5px;
+            margin-top: 5px;
         }
         .search-icon {
             font-size: 20px;
-            margin: 0 5px 5px;
+            margin: 5px;
         }
     }
     .add-survey {
         margin: 0px;
         text-align: right;
     }
+    .area-selection {
+        margin-top: 5px;
+    }
 }
 .btn-survey {
     font-size: 14px;
     margin-right: 5px;
+    margin-top: 5px;
     background-color: $color-brand-color;
 }
 .btn-survey-end {
@@ -77,7 +96,7 @@
     .form-cont-left {
         padding-left: 0px;
     }
-    .form-cont-marg {
+    .extral-margin {
         margin-left: 5px;
     }
     .limited-width {

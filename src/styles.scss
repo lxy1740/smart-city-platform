@@ -2,6 +2,7 @@
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome.scss';
 @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import './assets/css/variable.scss';
 // @import '~src/app/main.css';
 
 ol, ul {
@@ -356,6 +357,16 @@ address, cite, code, em, th, i, strong {
 }
 
 // 弹框
+.modal-header {
+    .modal-title {
+        font-size: $font-cpm-title-font-size;
+        line-height: $font-cpm-title-line-height;
+        color: $font-cpm-title-color;
+        font-style: $font-cpm-title-font-style;
+        font-weight: $font-cpm-title-font-weight;
+        font-family: $font-cpm-title-font-family;
+    }
+}
 .modal-content {
     top: 80px;
 }

@@ -1,38 +1,47 @@
 @import '../../../../assets/css/variable.scss';
 .bodyofposition {
-    width: calc(100vw - 100px);
+    width: calc(100vw - 50px);
     padding: 15px;
 }
 .card-header {
     border-bottom: 0px;
+    position: relative;
 }
 .card-block {
     margin: 5px 15px;
 }
 
-.search-position {
+.search-options {
+    position: relative;
     font-size: 14px;
-    .search-options {
-        //padding-left: 20px;
-        .form-control {
-            font-size: 14px;
-            width: auto;
-            height: calc(1.8rem + 2px);
-            margin-right: 5px;
-        }
-        .search-icon {
-            font-size: 20px;
-            margin: 0 5px 5px;
-        }
+    .extral-marg {
+        margin-right: 5px;
+        margin-top: 5px;
     }
-    .add-position {
-        margin: 0px;
-        text-align: right;
+    .form-control {
+        font-size: 14px;
+        width: auto;
+        height: calc(1.8rem + 2px);
+        margin-right: 5px;
+        margin-top: 5px;
     }
+    .search-icon {
+        font-size: 20px;
+        margin: 5px;
+    }
+    
 }
-.row {
+.add-position {
     margin: 0px;
+    text-align: right;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    .extral-padd {
+        padding-right: 12px;
+    }
 }
+// modal
 .modal-body {
     .form-control {
         font-size: 14px;
@@ -42,6 +51,10 @@
     .control-label {
         width: 50px;
         text-align: left;
+    }
+    .c-label-long {
+        padding-left: 5px;
+        width: 225px;
     }
     .posi-input {
         text-align: center;
@@ -73,6 +86,9 @@
         padding-left: 15px;
     }
 }
+.row {
+    margin: 0px;
+}
 .area-selection {
     z-index: 3000;
     margin-bottom: 5px;
@@ -87,15 +103,6 @@
     }
 }
 
-.btn-position {
-    font-size: 14px;
-    margin-right: 5px;
-    background-color: $color-brand-color;
-    // height: calc(1.8rem + 2px);
-}
-.btn-position:hover {
-    background-color: $color-hover-color;
-}
 .manage-class {
     font-size: 20px;
     padding-right: 1px;
@@ -109,7 +116,6 @@
 
 .map_container{
     height: 300px;
-    // width: calc(100vw - 400px);
     min-width: 200px;
 }
 

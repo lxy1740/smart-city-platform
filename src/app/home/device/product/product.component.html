@@ -130,7 +130,12 @@
 <div class="bodyofproduct">
     <!-- 卡片形式 -->
     <div class="card card-primary">
-      <div class="card-header">产品管理</div>
+      <div class="card-header">
+        <span>产品管理</span>
+        <div class="card-block add-product">
+          <a class="theme-text" (click)="openNewProduct(content)">新建产品</a>
+        </div>
+      </div>
       <!-- 搜索产品 -->
       <div class="row card-block search-product">
           <!-- 表单，搜索产品 -->
@@ -139,7 +144,7 @@
               <option>类</option>
               <option>...</option>
             </select>
-            <!-- 日期，功能不明 -->
+            <!-- 日期 -->
             <!-- <input type="date" class="form-control" value="2018-06-01"/> -->
             <!-- 输入框 -->
             <div class="form-group inner-addon left-addon ">
@@ -148,13 +153,8 @@
                   <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
                 </div>
             </div>
-            <a class="btn btn-info btn-search">搜索</a>
-            <!-- <a class="btn btn-info search-clear">清空选择</a> -->
+            <button class="btn btn-bg extral-marg">搜索</button>
           </form>
-        
-        <div class="card-block add-product">
-          <a class="btn btn-info btn-search" (click)="openNewProduct(content)">新建产品</a>
-        </div>
       </div>
 
       <!-- 显示已有产品 -->

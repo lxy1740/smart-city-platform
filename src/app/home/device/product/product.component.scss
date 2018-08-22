@@ -1,10 +1,21 @@
 @import '../../../../assets/css/variable.scss';
 .bodyofproduct {
-    width: calc(100vw - 100px);
+    width: calc(100vw - 50px);
     padding: 15px;
 }
 .card-header {
     border-bottom: 0px;
+    position: relative;
+}
+.add-product {
+    margin: 0px;
+    text-align: right;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    // .extral-padd {
+    //     padding-right: 12px;
+    // }
 }
 .card-block {
     margin: 5px 15px;
@@ -22,27 +33,26 @@
             width: auto;
             height: calc(1.8rem + 2px);
             margin-right: 5px;
+            margin-top: 5px;
         }
         
         .search-icon {
             font-size: 20px;
-            margin: 0 5px 5px;
-        }
-        .exe-search, .search-clear {
-            font-size: 14px;
-            height: calc(1.8rem + 2px);
-            margin-right: 5px;
-            background-color: $color-brand-color;
+            margin: 5px;
         }
     }
-    
-    .add-product {
-        margin: 0px;
+    .extral-marg {
+        margin-top: 5px;
+        // margin-right: 5px;
     }
+    // .add-product {
+    //     margin: 0px;
+    // }
 }
 .btn-search {
     font-size: 14px;
     margin-right: 5px;
+    margin-top: 5px;
     background-color: $color-brand-color;
 }
 .btn-search:focus, .btn-search:hover, .btn-search:active, {
