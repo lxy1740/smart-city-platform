@@ -46,16 +46,77 @@ export class StrategyComponent implements OnInit {
   sub_nav_index = 0; // 菜单索引
   strategyList = [{
     name: '策略一',
-    data: new Date()
+    date: new Date(),
+    dateList: [{
+      startDate: '7月1日',
+      endDate: '7月18日'
+    },
+      {
+        startDate: '8月1日',
+        endDate: '8月18日'
+      },
+      {
+        startDate: '9月1日',
+        endDate: '9月18日'
+      }],
   },
     {
       name: '策略二',
-      data: new Date()
+      date: new Date(),
+      dateList: [{
+        startDate: '7月1日',
+        endDate: '7月18日'
+      },
+        {
+          startDate: '8月1日',
+          endDate: '8月18日'
+        },
+        {
+          startDate: '9月1日',
+          endDate: '9月18日'
+        }
+      ],
     }]; // 策略
   dateList = []; // 日期策略
-  holidayList = []; // 时间策略
-  workdayList = []; // 工作时间策略
-  rangeList = []; // 策略范围
+  holidayList = [
+    { startTime: '7:00', endTime: '12:00', intensity: '50%', date: new Date() },
+    { startTime: '12:00', endTime: '17:00', intensity: '0%', date: new Date() },
+    { startTime: '17:00', endTime: '19:00', intensity: '70%', date: new Date() }
+  ]; // 节假日策略
+  workdayList = [
+    { startTime: '7:00', endTime: '12:00', intensity: '50%', date: new Date() },
+    { startTime: '12:00', endTime: '17:00', intensity: '0%', date: new Date() },
+    { startTime: '17:00', endTime: '19:00', intensity: '70%', date: new Date() }
+  ]; // 工作时间策略
+  rangeList = [
+    {
+      id: 'SN0001',
+      name: '太阳能灯',
+      pro: '太阳能灯',
+      strategy: '策略一',
+      intensity: '30%',
+      status: '在线'
+
+    },
+    {
+      id: 'SN0002',
+      name: '太阳能灯',
+      pro: '太阳能灯',
+      strategy: '策略一',
+      intensity: '30%',
+      status: '在线'
+
+    },
+    {
+      id: 'SN0002',
+      name: '太阳能灯',
+      pro: '太阳能灯',
+      strategy: '策略一',
+      intensity: '30%',
+      status: '在线'
+
+    }
+  ]; // 策略范围
 
   // 弹框
   closeResult: string;
@@ -72,6 +133,7 @@ export class StrategyComponent implements OnInit {
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal, private videoService: VideoService, public element: ElementRef) {
+    this.dateList = this.strategyList[0].dateList;
     // 树的操作
     // 点击
     const that = this;
@@ -138,6 +200,39 @@ export class StrategyComponent implements OnInit {
     });
   }
 
+  // 添加工作日弹框操作
+  openAddWorkday(content, index) {
+
+    const that = this;
+
+    this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+      console.log('workday');
+      that.addStrategy('workday');
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+
+  // 添加工作日弹框操作
+  openAddHoliday(content, index) {
+
+    const that = this;
+
+    this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+      console.log('holiday');
+      that.addStrategy('holiday');
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
   // 弹框操作
   open(content, index) {
 
@@ -202,17 +297,21 @@ export class StrategyComponent implements OnInit {
   addStrategy(type) {
 
     if (type === 'strategy') {
-      this.strategyList.push({ name: this.strategyName, date: new Date() });
-      console.log(this.strategyList);
-    } else if (type === 'date') {
-      this.dateList.push({ date: new Date() });
-    } else if (type === 'holiday') {
-      this.holidayList.push({ date: new Date() });
-    } else if (type === 'workday') {
-      this.workdayList.push({ date: new Date() });
-    } else {
-      this.rangeList.push({ date: new Date() });
+      this.strategyList.push({
+        name: this.strategyName,
+        date: new Date(),
+        dateList: [{
+          startDate: '7月1日',
+          endDate: '7月8日'
+        }]
+      });
 
+    } else if (type === 'date') {
+      this.dateList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
+    } else if (type === 'holiday') {
+      this.holidayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
+    } else if (type === 'workday') {
+      this.workdayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
     }
   }
   removeStrategy() {

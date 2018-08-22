@@ -16,6 +16,9 @@ body {
 .sidebar-bg { // 侧边背景色
     background: $color-sidebar-bg;
 }
+.btn {
+    font-size: 0.8rem;
+}
 .btn-bg{// 按钮颜色
     background: $color-brand-color;
     color: #fff;
