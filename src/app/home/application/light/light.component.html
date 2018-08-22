@@ -68,5 +68,63 @@
     </div>
     <!-- 地图 -->
     <div #map5 id="map_container5" class="map_container no-fulls-map"></div>
+
+    <!-- 设备操作 -->
+    <div class="device-detail" *ngIf="deviceChild">
+        <div class="device-title">
+            <span class="device-close float-right" (click)="closeDetail()">X</span>
+        </div>
+        <div *ngIf="deviceChild.has_child == 0">
+            <p>
+                <span>设备名称:</span>
+                <span>{{deviceChild.name}}</span>
+            </p>
+            <p>
+                <span>设备ID:</span>
+                <span>{{deviceChild.id}}</span>
+            </p>
+            <table class="table">
+                <tr>
+                    <th>参数</th>
+                    <th>值</th>
+                    <th>单位</th>
+    
+                </tr>
+                <tr *ngFor="let item of deviceChild.parameters">
+                    <td>{{item.name}}</td>
+                    <td>{{item.value}}</td>
+                    <td>{{item.Unit}}</td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="deviceChild.has_child == 1">
+            <div *ngFor="let cChild of deviceChild.children;let i = index" [ngClass]="{'info-border':i !==deviceChild.children.length -1}">
+                <p>
+                    <span>设备名称:</span>
+                    <span>{{cChild.name}}</span>
+                </p>
+                <p>
+                    <span>设备ID:</span>
+                    <span>{{cChild.id}}</span>
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>参数</th>
+                        <th>值</th>
+                        <th>单位</th>
+    
+                    </tr>
+                    <tr *ngFor="let citem of cChild.parameters" [ngClass]="{'color-red':cChild.is_exception ==1 || cChild.is_online == 0}">
+                        <td>{{citem.name}}</td>
+                        <td>{{citem.value}}</td>
+                        <td>{{citem.Unit}}</td>
+                    </tr>
+                </table>
+            </div>
+    
+        </div>
+    
+    </div>
+
 </div>
 

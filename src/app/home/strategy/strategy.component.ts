@@ -44,7 +44,14 @@ export class StrategyComponent implements OnInit {
   ];
   nav_index = 0; // 菜单索引
   sub_nav_index = 0; // 菜单索引
-  strategyList = []; // 策略
+  strategyList = [{
+    name: '策略一',
+    data: new Date()
+  },
+    {
+      name: '策略二',
+      data: new Date()
+    }]; // 策略
   dateList = []; // 日期策略
   holidayList = []; // 时间策略
   workdayList = []; // 工作时间策略
@@ -60,6 +67,8 @@ export class StrategyComponent implements OnInit {
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
   zNodes: any;
   city = '广州市'; // 当前选中城市
+  strategyName: string; // 添加策略名称
+
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal, private videoService: VideoService, public element: ElementRef) {
@@ -114,6 +123,21 @@ export class StrategyComponent implements OnInit {
     bmapChart.setOption(option);
   }
 
+  // 添加策略弹框操作
+  openAddStrategy(content, index) {
+    const that = this;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.strategyName = '';
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log('strategy');
+      that.addStrategy('strategy');
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+
   // 弹框操作
   open(content, index) {
 
@@ -163,17 +187,12 @@ export class StrategyComponent implements OnInit {
 
   changeNav(index) {
     this.nav_index = index;
-    // if (index === 0) {
-    //   setTimeout(() => {
-    //     this.chartMapChana2();
-    //   }, 2);
-    // } else {
-    //   setTimeout(() => {
-    //     this.getZoneDefault();
-    //     this.addBeiduMap();
-    //   }, 2);
+    if (index === 1) {
+      setTimeout(() => {
+        this.getZoneDefault();
 
-    // }
+      }, 2);
+    }
   }
 
   changeSubNav(index) {
@@ -183,7 +202,8 @@ export class StrategyComponent implements OnInit {
   addStrategy(type) {
 
     if (type === 'strategy') {
-      this.strategyList.push({ date: new Date() });
+      this.strategyList.push({ name: this.strategyName, date: new Date() });
+      console.log(this.strategyList);
     } else if (type === 'date') {
       this.dateList.push({ date: new Date() });
     } else if (type === 'holiday') {
