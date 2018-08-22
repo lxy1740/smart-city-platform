@@ -1,3 +1,4 @@
+@import '../../../../assets/css/variable.scss';
 .bodyofproduct {
     width: calc(100vw - 100px);
     padding: 15px;
@@ -6,50 +7,46 @@
     border-bottom: 0px;
 }
 .card-block {
-    margin-bottom: 5px;
+    margin: 5px 15px;
 }
 .card-primary {
-    background: #e7fdfb;
     margin-bottom: 15px;
 }
 .search-product {
-    
     font-size: 14px;
-    margin: 5px 0 5px;
 
     .search-options {
         //padding-left: 20px;
-        
         .form-control {
             font-size: 14px;
             width: auto;
             height: calc(1.8rem + 2px);
-            margin-left: 5px;
-            margin-bottom: 5px;
+            margin-right: 5px;
         }
         
         .search-icon {
             font-size: 20px;
-            margin-left: 10px;
-            margin-bottom: 5px;
+            margin: 0 5px 5px;
         }
-        .search-exe, .search-clear {
+        .exe-search, .search-clear {
             font-size: 14px;
             height: calc(1.8rem + 2px);
-            margin-left: 5px;
-            margin-bottom: 5px;
+            margin-right: 5px;
+            background-color: $color-brand-color;
         }
     }
     
     .add-product {
-        margin-bottom: 0px;
-        //text-align: right;
-        .create-product {
-            font-size: 14px;
-            margin-left: 5px;
-            margin-bottom: 5px;
-        }
+        margin: 0px;
     }
+}
+.btn-search {
+    font-size: 14px;
+    margin-right: 5px;
+    background-color: $color-brand-color;
+}
+.btn-search:focus, .btn-search:hover, .btn-search:active, {
+    background-color: $color-hover-color;
 }
 // .modal1 {
 //     padding: 0 20px 0;
@@ -65,17 +62,20 @@
         
     }
     .label-left {
+        margin-right: 5px;
         text-align: right;
-    }
-    .sm-width {
-        width:40%;
-    }
-    .limited-width {
-        width: 110px;
+        width: 121px;
     }
     .modal-col {
-        margin-left: 20px;
+        margin-left: 15px;
         // display: inline;
+    }
+    .sm-width {
+        width: 168px;
+    }
+    .ssm-width {
+        width: 11px;
+        margin: 0 5px 0;
     }
 }
 
@@ -86,8 +86,8 @@
     padding-right: 1px;
 }
 .manage-class:focus, .manage-class:hover {
-    background-color: #17a2b8;
+    background-color: $color-brand-color;
 }
 .manage-class:active {
-    background-color: #137e8f;
+    background-color: $color-hover-color;
 }
