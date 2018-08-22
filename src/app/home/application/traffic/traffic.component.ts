@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
+/* import { TRAFFICLIST} from '../../../date/traffic-list'; */
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -36,6 +37,10 @@ export class TrafficComponent implements OnInit {
 
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
+
+/*
+  traffic_list = TRAFFICLIST.val.traffic_list; */
+
   constructor(private monitorService: MonitorService, public router: Router, ) { }
 
   ngOnInit() {
@@ -243,6 +248,16 @@ arealistMouseleave() {
 arealistMouseNone() {
   this.areashow = true;
   this.currentBlock = null;
+}
+// 地图描点
+addMarker() {
+  const markers: any[] = [];
+  const points: any[] = [];
+
+
+
+
+
 }
 }
 

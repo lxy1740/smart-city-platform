@@ -1,83 +1,84 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">窗体</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <p>One fine body&hellip;</p> -->
+      <!--窗体内容 -->
+      <table class="tabl">
+        <tr>
+          <td>角色名称:</td>
+          <td>
+            <input type="text">
+          </td>
+        </tr>
+        <tr>
+          <td>角色描述:</td>
+          <td>
+            <textarea rows="3" cols="90" class="ta"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div>
+        <div class="div-a">
+          <div>
+            功能权限：
+          </div>
+          <table class="bor tabl-a">
+            <tr >
+              <td valign="top">
+                <div>
+                  <ul id="guitree" class="ztree"></ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="div-a">
+          <div>
+            数据权限：
+          </div>
+          <table class="bor">
+            <tr>
+              <td valign="top">
+                <div>
+                  <ul id="treeDemo" class="ztree"></ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button style="margin-right: 20px;" type="submit" class="btn modal-btn">确定</button>
+      <button (click)="c('Close click')" type="button" class="btn modal-btn">取消</button>
+    </div>
+  </ng-template>
 <div class="table-responsive">
-  <table class="table table-bordered  table-bg" style="width: 1170px;margin: 0 auto;">
+  <table class="table table-bordered  table-bg tabl-b">
     <tr>
-      <td style="border: none;text-align:center;vertical-align:middle;">
+      <td>
         <!--搜索按钮组-->
-        <div class="form-group inner-addon left-addon " style="margin: 0 auto; margin-top: 20px;">
+        <div class="form-group inner-addon left-addon div-search">
           <span style="float: left;width: 20px;margin: 0 auto;margin-top: 10px;">
             <i class="fa fa-search" aria-hidden="true"></i>
           </span>
-          <div class="form-group" style=" float: left;;border:1px solid darkslategray;border-radius:30px;">
+          <div class="form-group div-i">
             <!-- <i class="fa fa-search search-icon"></i> -->
-            <input style="border: none;border-radius:30px;" type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
+            <input type="text" class="form-control border-none search-input" name="search-content" id="" placeholder="{{'XXX'}}"/>
           </div>
       </div>
       </td>
-      <td style="border: none;text-align:center;vertical-align:middle;">
+      <td>
         <input type="date" class="form-control" value="Start date" />
       </td>
-      <td style="border: none;text-align:center;vertical-align:middle;">
-        <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header" style="background-color: 	#CCCCCC">
-            <font class="modal-titile">窗体</font>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- <p>One fine body&hellip;</p> -->
-            <!--窗体内容 -->
-            <table style="border-collapse:separate; border-spacing:0px 10px;">
-              <tr>
-                <td>角色名称:</td>
-                <td>
-                  <input type="text">
-                </td>
-              </tr>
-              <tr>
-                <td>角色描述:</td>
-                <td>
-                  <textarea rows="3" cols="90" class="ta"></textarea>
-                </td>
-              </tr>
-            </table>
-            <div>
-              <div style="float: left;">
-                <div>
-                  功能权限：
-                </div>
-                <table class="bor" style="margin-right: 100px;">
-                  <tr >
-                    <td valign="top">
-                      <div>
-                        <ul id="guitree" class="ztree"></ul>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div style="float: left;">
-                <div>
-                  数据权限：
-                </div>
-                <table class="bor">
-                  <tr>
-                    <td valign="top">
-                      <div>
-                        <ul id="treeDemo" class="ztree"></ul>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-          </div>
-          <div class="modal-footer" style="background-color: 	#CCCCCC">
-            <button style="margin-right: 20px;" type="submit" class="btn btn-bg">确定</button>
-            <button (click)="c('Close click')" type="button" class="btn btn-bg2">取消</button>
-          </div>
-        </ng-template>
+      <td>
+        
         <div class="btn-group btn-parent">
           <button class="btn btn-bg" (click)="open(content)">新建角色</button>
         </div>
@@ -90,7 +91,7 @@
       <td style="border: none;border-top: 1px solid">操作</td>
     </tr>
     <tr>
-      <td class="" style="border: none">...</td>
+      <td class="success" style="border: none">...</td>
       <td class="success" style="border: none">...</td>
       <td class="warning" style="border: none">...</td>
       <td class="warning" style="border: none">
@@ -99,10 +100,10 @@
             <i class="fa fa-eye" aria-hidden="true"></i>
           </button>
           <button class="btn-check">
-            <i class="fa fa-wrench" aria-hidden="true" style="margin-right: 6px;"></i>
+            <i class="fa fa-wrench btn-i" aria-hidden="true"></i>
           </button>
           <button class="btn-check">
-            <i class="fa fa-times-circle" aria-hidden="true" style="margin-right: 6px;"></i>
+            <i class="fa fa-times-circle btn-i" aria-hidden="true"></i>
           </button>
         </div>
       </td>
