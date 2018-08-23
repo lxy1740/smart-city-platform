@@ -60,7 +60,8 @@
             <span class="filter">选择区域</span>
           </span>
 
-          <div class="arealist-wrap" *ngIf="areashow">
+          <div class="arealist-wrap dropdown_panel" *ngIf="areashow" >
+            <span class="menu_arrow_left"></span>
             <ul class="arealist" data-type="area">
               <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
                 <em>不限</em>

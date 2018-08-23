@@ -49,36 +49,11 @@ body {
     padding: 7px 0 0 0;
     left: 0;
     top: 37px;
-    border-radius: 5px;
-    font-size: 12px;
-}
-
-.dropdown_panel_left {
-    position: absolute;
-    z-index: 3000;
-    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
-    background-color: #f9f9f9;
-    padding: 7px 0 0 0;
-    left: 0;
-    top: 37px;
-    border-radius: 0 0 4px 4px;
+    // border-radius: 5px;
     font-size: 12px;
 }
 
 
-.ropdown_panel_left:before{
-    display: block;
-    border-width: 6px;
-    position: absolute;
-    /* bottom: -14px; */
-    top: -12px;
-    left: 10px;
-    border-style: solid dashed dashed;
-    border-color: transparent transparent #f8f9fa transparent;
-    font-size: 0;
-    line-height: 0;
-    content: "";
-}
 .menu_arrow_left:before {
     display: block;
     border-width: 6px;
