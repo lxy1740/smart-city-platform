@@ -67,7 +67,7 @@ export class CoverComponent implements OnInit {
 
   constructor(private monitorService: MonitorService, private messageService: MessageService,
     public messService: MessService, private config: NgbDropdownConfig) {
-      config.placement = 'bottom-right';
+      config.placement = 'top-left';
      }
 
   ngOnInit() {
@@ -183,11 +183,10 @@ export class CoverComponent implements OnInit {
       // title: `${val.name} | ${val.id }`, // 信息窗口标题
       // enableMessage: true, // 设置允许信息窗发送短息
       enableAutoPan: true, // 自动平移
+      // border-radius: 5px,
     };
-    let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${mess.name} | ${mess.id} </p>
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${mess.name} | ${mess.id} </p>`;
 
-    `;
     txt = txt + `<p  class='cur-pointer' style='color:red;'> devices list: 待接口</p>`; // ${mess.message}
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
@@ -198,6 +197,7 @@ export class CoverComponent implements OnInit {
       // setTimeout(() => {
       //   that.deviceAddEventListener();
       // }, 0);
+      console.log('AAAAAAAAAA' + infoWindow.infoBoxContent);
     });
 
   }

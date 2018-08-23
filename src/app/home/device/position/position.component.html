@@ -21,8 +21,8 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+      <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
     </div>
 </ng-template>
 <!-- modal2:新建位置 -->
@@ -120,8 +120,8 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+      <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
     </div>
 </ng-template>
 
@@ -163,7 +163,8 @@
 
       <!-- 显示已有位置 -->
       <div class="card-block">
-        <table class="table table-hoved">
+        <table class="table table-hover">
+          <thead class="table-header">
             <tr>
               <th>序号</th>
               <th>位置名称</th>
@@ -174,6 +175,8 @@
               <th>创建时间</th>
               <th style="text-align: center">操作</th>
             </tr>
+          </thead>
+          <tbody>
             <tr>
               <td>1</td>
               <td>深圳南山蛇口工业七路0001</td>
@@ -190,7 +193,8 @@
                 </div>
               </td>
             </tr>
-          </table>
+          </tbody>
+        </table>
       </div>
     </div>
   

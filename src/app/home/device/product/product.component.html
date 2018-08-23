@@ -52,8 +52,8 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+    <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+    <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
   </div>
 </ng-template>
 
@@ -121,8 +121,8 @@
   
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确认</button>
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">关闭</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+      <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
     </div>
 </ng-template>
 
@@ -159,7 +159,8 @@
 
       <!-- 显示已有产品 -->
       <div class="card-block">
-        <table class="table table-hoved">
+        <table class="table table-hover">
+          <thead class="table-header">
             <tr>
               <th>序号</th>
               <th>产品</th>
@@ -170,6 +171,8 @@
               <th>PRODUCTSECRET</th>
               <th style="text-align: center">操作</th>
             </tr>
+          </thead>
+          <tbody>
             <tr>
               <td>1</td>
               <td>太阳能灯</td>
@@ -187,7 +190,8 @@
                 </div>
               </td>
             </tr>
-          </table>
+          </tbody>
+        </table>
       </div>
     </div>
 

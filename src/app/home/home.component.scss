@@ -26,6 +26,36 @@
         margin-left: 50px;
 
     }
+    // 用户登录
+    .nav-user {
+        // z-index: 5000;
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        .user-menus {
+            font-size: 14px;
+            // width: 50px;
+            // background-color: dimgray;
+        }
+        .currentUsername {
+            color: $color-sidebar-text;
+            padding-left: 20px;
+            font-size: 20px;
+            // line-height: 24px;
+        }
+        .dropdown-item {
+            // width: 50%;
+            color: $color-sidebar-text;
+        }
+        .dropdown-item:hover, .dropdown-item:active {
+            color: #d7f8ff;   //ymZhao
+            background-color: $color-sidebar-active; 
+        }
+    }
+    .display-inoneline {
+        white-space:nowrap;
+        overflow: hidden;
+    }
 
     // 侧边栏
     .sidebar-inner {   //ymZhao-aside下额外包一层，以隐藏滚动条
@@ -63,7 +93,7 @@
             font-size: 1.2rem;
             margin-right: .2rem;
             position: relative;
-            left: 12px;
+            left: 11px;
             // top: 11px;
         }
         // 二级菜单图片
@@ -127,7 +157,17 @@
             
             }
         }
-
+        .nav-log {
+            overflow: hidden;
+            // height: 50px;
+        }
+        .logo-title {
+            color: $color-sidebar-text;
+            padding-left: 20px;
+            font-size: 20px;
+            line-height: 66px;
+        }
+        
 
     }
     // 动画
