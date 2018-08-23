@@ -27,5 +27,64 @@ body {
     background: $color-white;
     color:#000;
 }
+// 面板
+@media (min-width: 1025px){
+    .m-portlet.m-portlet--full-height {
+        height: calc(100% - 2.2rem);
+    }
+}
+.m-portlet {
+    -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    background-color: #ffffff;
+}
+.m-portlet {
+    margin-bottom: 2.2rem;
+}
+
+.m-portlet.m-portlet--bordered-semi .m-portlet__head {
+    border: 0;
+}
+.m-portlet .m-portlet__head {
+    border-bottom: 1px solid #ebedf2;
+}
+.m-portlet .m-portlet__head {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0;
+    padding: 0 2.2rem;
+    height: 5.1rem;
+    position: relative;
+}
+
+element.style {
+}
+@media (min-width: 1025px){
+    .m-portlet.m-portlet--full-height .m-portlet__body {
+        height: calc(100% - 2.2rem - 2.2rem);
+    }
+}
+
+.m-portlet.m-portlet--bordered-semi .m-portlet__body {
+    padding-top: 0.5rem;
+}
+.m-portlet .m-portlet__body {
+    color: #575962;
+}
+.m-portlet .m-portlet__body {
+    padding: 2.2rem 2.2rem;
+}
+
 
 

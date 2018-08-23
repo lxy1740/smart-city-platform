@@ -160,7 +160,7 @@ address, cite, code, em, th, i, strong {
 
 // 地图浮动按钮
 
-// 城市列表
+// 城市列表  设备列表
 .city-panel, .device-panel {
     position: absolute;
     z-index: 3000;
@@ -202,10 +202,10 @@ address, cite, code, em, th, i, strong {
 
         }
     }
-    dd a:hover, .moreCity:hover {
-    color: #f60;
-    text-decoration: underline;
-}
+    a:hover, .moreCity:hover {
+        color: #f60 !important;
+        text-decoration: underline;
+    }
 }
 .device-panel {
     width: 150px;
@@ -221,13 +221,19 @@ address, cite, code, em, th, i, strong {
             white-space: nowrap;
 
         }
-        a:hover{
-            color: #f60;
-            text-decoration: underline;
-        }
+
+    }
+    dt:hover a{
+        color: #f60 !important;
+        text-decoration: underline;
     }
 
 }
+// .device-panel:hover {
+//     dl {
+//         background: #fff;
+//     }
+// }
 
 
 .device-panel dt a:link, .moreCity:link, .device-panel dt a:visited, .moreCity:visited, .device-panel dt a:active, .moreCity:active {
@@ -245,7 +251,7 @@ address, cite, code, em, th, i, strong {
     text-align: center;
 }
 
-// 
+// 区域列表
 .sel-area-block,  {
     width: 100px;
     cursor: pointer;
@@ -259,7 +265,7 @@ address, cite, code, em, th, i, strong {
     // float: left;
 }
 
-//
+//区域列表
 .arealist-wrap {
     position: absolute;
     padding: 0;
@@ -388,10 +394,10 @@ address, cite, code, em, th, i, strong {
 
 // 面板
 .panel-def {
-    // margin: 15px;
-    padding: 15px 15px;
-    border: 1px solid #dee2e6;
+    padding: 2.2rem;
     border-radius: 10px;
-    background: #fff;
     height: 100%;
+    -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    background-color: #ffffff;
 }
