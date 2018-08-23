@@ -6,51 +6,53 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="row modal-body">
+  <div class="modal-body add-product-modal">
     <!-- <p>One fine body&hellip;</p> -->
       <!-- 左列 -->
-      <div class="modal-col">
-        <div class="form-inline">
-          <label class="control-label label-left">产品名称:</label>
-          <input type="text" class="form-control form-control-left" id="add-product-name" placeholder="">
+      <div class="row center-align">
+        <div class="modal-col">
+          <div class="form-inline">
+            <label class="control-label label-left">产品名称:</label>
+            <input type="text" class="form-control form-control-left" id="add-product-name" placeholder="">
+          </div>
+          <div class="form-inline">
+              <label class="control-label label-left">所属类:</label>
+              <select class="form-control form-control-left">
+                <option id="" placeholder="">...</option>
+              </select>
+          </div>
+          <div class="form-inline">
+              <label class="control-label label-left">制造商:</label>
+              <input type="text" class="form-control form-control-left" id="" placeholder="">
+          </div>
+          <div class="form-inline">
+              <label class="control-label label-left">制造商联系方式:</label>
+              <input type="text" class="form-control form-control-left" id="" placeholder="">
+          </div>
+          <div class="form-inline">
+              <label class="control-label label-left">PRODUCTKEY:</label>
+              <input type="text" class="form-control form-control-left" id="" placeholder="">
+          </div>
+          <div class="form-inline">
+              <label class="control-label label-left">PRODUCTSECRET:</label>
+              <input type="text" class="form-control form-control-left" id="" placeholder="">
+          </div>
         </div>
-        <div class="form-inline">
-            <label class="control-label label-left">所属类:</label>
-            <select class="form-control form-control-left">
-              <option id="" placeholder="">...</option>
-            </select>
+        <!-- 右列 -->
+        <div class="modal-col">
+          <label class="control-label">参数：</label>
+          <div class="form-group">
+              <label class="control-label">输入参数</label>
+              <div><a class="" (click)="openAddParams(content2)"><span style="color:blue">+增加参数</span></a></div>
+          </div>
+          <div class="form-group">
+              <label class="control-label">增加参数</label>
+              <div><a class="" (click)="openAddParams(content2)"><span style="color:blue">+增加参数</span></a></div>
+          </div>
         </div>
-        <div class="form-inline">
-            <label class="control-label label-left">制造商:</label>
-            <input type="text" class="form-control form-control-left" id="" placeholder="">
-        </div>
-        <div class="form-inline">
-            <label class="control-label label-left">制造商联系方式:</label>
-            <input type="text" class="form-control form-control-left" id="" placeholder="">
-        </div>
-        <div class="form-inline">
-            <label class="control-label label-left">PRODUCTKEY:</label>
-            <input type="text" class="form-control form-control-left" id="" placeholder="">
-        </div>
-        <div class="form-inline">
-            <label class="control-label label-left">PRODUCTSECRET:</label>
-            <input type="text" class="form-control form-control-left" id="" placeholder="">
-        </div>
-      </div>
-      <!-- 右列 -->
-      <div class="modal-col">
-        <label class="control-label">参数：</label>
-        <div class="form-group">
-            <label class="control-label">输入参数</label>
-            <div><a class="" (click)="openAddParams(content2)"><span style="color:blue">+增加参数</span></a></div>
-        </div>
-        <div class="form-group">
-            <label class="control-label">增加参数</label>
-            <div><a class="" (click)="openAddParams(content2)"><span style="color:blue">+增加参数</span></a></div>
-        </div>
-      </div>
 
-  </div>
+    </div>
+</div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>

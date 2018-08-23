@@ -55,60 +55,63 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
-<div class="row table-responsive panel-default">
-  <table class="col-10 table table-bordered  table-bg tabl-b">
-    <tr>
-      <td>
-        <!--搜索按钮组-->
-        <div class="form-group inner-addon left-addon div-search">
-          <span class="span-text">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </span>
-          <div class="form-group div-i">
-            <!-- <i class="fa fa-search search-icon"></i> -->
-            <input type="text" class="form-control border-none search-input" name="search-content" id="" placeholder="{{'XXX'}}"/>
+
+<!-- 主体 -->
+<div class="bodyofright">
+
+  <div class="card card-primary">
+    <div class="card-header">
+      <span>角色管理</span>
+      <div class="add-right">
+          <a class="theme-text" (click)="open(content)">新建用户</a>
+      </div>
+    </div>
+    <!-- 搜索表单 -->
+    <form class="card-block form-inline right-manage">
+      <!-- 搜索输入框 -->
+      <div class="form-group inner-addon left-addon ">
+          <div class="form-group">
+            <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
+            <i class="fa fa-search search-icon"></i>
           </div>
       </div>
-      </td>
-      <td>
-        <input type="date" class="form-control" value="Start date" />
-      </td>
-      <td>
-        
-        <div class="btn-group btn-parent">
-          <button class="btn btn-bg" (click)="open(content)">新建角色</button>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td style="border: none;border-top: 1px solid">角色</td>
-      <td style="border: none;border-top: 1px solid">描述</td>
-      <td style="border: none;border-top: 1px solid">时间</td>
-      <td style="border: none;border-top: 1px solid">操作</td>
-    </tr>
-    <tr>
-      <td class="success" style="border: none">...</td>
-      <td class="success" style="border: none">...</td>
-      <td class="warning" style="border: none">...</td>
-      <td class="warning" style="border: none">
-        <div>
-          <button class="btn-check">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </button>
-          <button class="btn-check">
-            <i class="fa fa-wrench btn-i" aria-hidden="true"></i>
-          </button>
-          <button class="btn-check">
-            <i class="fa fa-times-circle btn-i" aria-hidden="true"></i>
-          </button>
-        </div>
-      </td>
-      <!-- <td class="danger">...</td>
-        <td class="info">...</td> -->
-    </tr>
-  </table>
+      <input type="date" class="form-control" value="" />
+    </form>
+
+    <div class="card-block">
+        <!-- 用户信息表 -->
+        <table class="table table-hover">
+          <tr class="table-header">
+            <th class="th-top-border">角色</th>
+            <th class="th-top-border">描述</th>
+            <th class="th-top-border">时间</th>
+            <th class="th-top-border">操作</th>
+          </tr>
+          <tr>
+            <td class="success" style="border: none">...</td>
+            <td class="success" style="border: none">...</td>
+            <td class="warning" style="border: none">...</td>
+            <td class="warning " style="border: none">
+              <div>
+                <button class="btn-check">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </button>
+                <button class="btn-check">
+                  <i class="fa fa-wrench btn-i" aria-hidden="true"></i>
+                </button>
+                <button class="btn-check">
+                  <i class="fa fa-times-circle btn-i" aria-hidden="true"></i>
+                </button>
+              </div>
+              <!-- <td class="danger">...</td>
+              <td class="info">...</td> -->
+          </tr>
+        </table>
+    </div>
+
+  </div>
 </div>

@@ -187,7 +187,9 @@ export class CoverComponent implements OnInit {
     };
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${mess.name} | ${mess.id} </p>`;
 
-    txt = txt + `<p  class='cur-pointer' style='color:red;'> devices list: 待接口</p>`; // ${mess.message}
+    txt = txt + `<p  class='cur-pointer' style='color:red;'> Build Date：${mess.build_date}</p>`; // ${mess.message}
+    txt = txt + `<p  class='cur-pointer'> 经度：${mess.lng}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 纬度：${mess.lat}</p>`;
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
@@ -197,7 +199,6 @@ export class CoverComponent implements OnInit {
       // setTimeout(() => {
       //   that.deviceAddEventListener();
       // }, 0);
-      console.log('AAAAAAAAAA' + infoWindow.infoBoxContent);
     });
 
   }

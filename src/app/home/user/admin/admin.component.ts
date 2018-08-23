@@ -57,7 +57,7 @@ export class AdminComponent implements OnInit {
 
   open(content) {
     const that = this;
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'md' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
 
