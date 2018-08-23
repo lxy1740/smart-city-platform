@@ -629,7 +629,7 @@ export class MonitorComponent implements OnInit {
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ID | ${val.id } </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> 编号 | ${val.number } </p>
 
     `;
     for (let index = 0; index < val.device_types.length; index++) {
@@ -839,6 +839,7 @@ export class MonitorComponent implements OnInit {
     this.typeName = device.name;
     console.log(this.type);
     this.addMarker();
+    this.remove_overlay(this.map);
   }
 
   // selecteDeviceNone
