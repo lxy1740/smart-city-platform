@@ -198,6 +198,25 @@ export class StrategyComponent implements OnInit {
   }
 
   // 添加工作日弹框操作
+  openAddDate(content, index) {
+
+    const that = this;
+
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+      console.log('date');
+      that.addStrategy('date');
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+
+  // 添加工作日弹框操作
   openAddWorkday(content, index) {
 
     const that = this;
