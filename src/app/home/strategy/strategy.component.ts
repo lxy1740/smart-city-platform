@@ -7,7 +7,7 @@ Author: luo.shuqi@live.com
 
 */
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
 import { VideoService } from '../../service/video.service';
 
 declare let echarts;
@@ -23,6 +23,11 @@ export class StrategyComponent implements OnInit {
 
   @ViewChild('map2') map_container: ElementRef;
   @ViewChild('map3') map_container3: ElementRef;
+
+  modelData = {
+    title: '删除',
+    body: 'hh',
+  };
 
   navs = [{
     id: 0,
@@ -129,10 +134,12 @@ export class StrategyComponent implements OnInit {
   zNodes: any;
   city = '广州市'; // 当前选中城市
   strategyName: string; // 添加策略名称
+  public mr: NgbModalRef;
 
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
-  constructor(private modalService: NgbModal, private videoService: VideoService, public element: ElementRef) {
+  constructor(private modalService: NgbModal,
+     private videoService: VideoService, public element: ElementRef) {
     this.dateList = this.strategyList[0].dateList;
     // 树的操作
     // 点击
@@ -152,43 +159,26 @@ export class StrategyComponent implements OnInit {
     // }, 2);
 
   }
-  chartMapChana2() {
 
-    const option = {
-      tooltip: {
-        formatter: '{a} <br/>{b} : {c}%'
-      },
-      series: [
-        {
-          name: '业务指标',
-          type: 'gauge',
-          radius: '100%',
-          startAngle: 90,
-          endAngle: -269,
-          clockwise: true,
-          min: 0,
-          max: 24,
-          splitNumber: 24,
-          detail: false,
-          // detail: { formatter: '{value}%' },
-          data: [{ value: 50, name: '' }]
-        }
-      ]
-    };
+  output($event) {
 
-    // setInterval(function () {
-    //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-    //   myChart.setOption(option, true);
-    // }, 2000);
+    console.log($event);
+    if ($event === 'ok') {
+      this.delStrategy('workday');
+    }
+    this.mr.close();
 
-    const bmapChart = echarts.init(document.getElementById('map_container2'));
-    bmapChart.setOption(option);
+  }
+
+  colseModal() {
+    this.mr.close();
   }
 
   // 添加策略弹框操作
   openAddStrategy(content, index) {
     const that = this;
     const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
     this.strategyName = '';
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -205,7 +195,9 @@ export class StrategyComponent implements OnInit {
 
     const that = this;
 
-    this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+    modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
       console.log('workday');
@@ -217,20 +209,23 @@ export class StrategyComponent implements OnInit {
     });
   }
   // 删除工作日弹框操作
-  opendelWorkday(content) {
+  delWorkday(content) {
 
-      const that = this;
+    const that = this;
 
-      this.modalService.open(content, { size: 'sm' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-        console.log(this.closeResult);
-        console.log('workday');
-        that.addStrategy('workday');
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      if (result) {
+        that.delStrategy('workday');
+      }
 
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        console.log(this.closeResult);
-      });
+      console.log(result);
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
 
   }
 
@@ -239,23 +234,18 @@ export class StrategyComponent implements OnInit {
 
     const that = this;
 
-    this.modalService.open(content, { size: 'sm' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      console.log('holiday');
-      that.addStrategy('holiday');
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
 
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
   }
   // 弹框操作
   open(content, index) {
 
     const that = this;
     this.strategy_index = index;
-    this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+    modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
       that.removeStrategy();
@@ -270,6 +260,7 @@ export class StrategyComponent implements OnInit {
     const that = this;
 
     const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
     setTimeout(() => {
       console.log(this.element.nativeElement.querySelector('#map3'));
 
@@ -329,6 +320,26 @@ export class StrategyComponent implements OnInit {
       this.holidayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
     } else if (type === 'workday') {
       this.workdayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
+    }
+  }
+  delStrategy(type) {
+
+    if (type === 'strategy') {
+      this.strategyList.push({
+        name: this.strategyName,
+        date: new Date(),
+        dateList: [{
+          startDate: '7月1日',
+          endDate: '7月8日'
+        }]
+      });
+
+    } else if (type === 'date') {
+      this.dateList.splice(0, 1);
+    } else if (type === 'holiday') {
+      this.holidayList.splice(0, 1);
+    } else if (type === 'workday') {
+      this.workdayList.splice(0, 1);
     }
   }
   removeStrategy() {

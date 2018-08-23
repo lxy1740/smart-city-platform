@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { GridsterModule } from 'angular-gridster2';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-// import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal,  } from '@ng-bootstrap/ng-bootstrap';
 
 import { DeviceModule } from './device/device.module';
 import { ApplicationModule } from './application/application.module';
 
 import { UserModule } from './user/user.module';
 import { RuleModule } from './rule/rule.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { SurveyComponent } from './energy/survey/survey.component';
 import { ReportComponent } from './energy/report/report.component';
@@ -25,7 +26,8 @@ import { StrategyComponent } from './strategy/strategy.component';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule,
+    imports: [BrowserModule, FormsModule, DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule, SharedModule,
+
     ],
     declarations: [
     SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent, MapComponent, StrategyComponent,

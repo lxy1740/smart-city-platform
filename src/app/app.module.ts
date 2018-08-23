@@ -13,6 +13,7 @@ import { CookieModule } from 'ngx-cookie';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeModule } from './home/home.module';
 import { ServiceModule } from './service/service.module';
+import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -65,7 +66,8 @@ import { PageNotFoundComponent } from './not-found.component';
     HomeModule,
     GridsterModule,
     MaterialModule,
-    ServiceModule
+    ServiceModule,
+    SharedModule
 
   ],
   exports: [

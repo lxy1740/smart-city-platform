@@ -17,6 +17,7 @@
   <div class="strategy-right">
     <div style="margin-top: 10px;">
       <span class="strategy-title">策略一</span>
+
     </div>
     <!-- 菜单-->
     <div style="margin-top: 10px;">
@@ -66,7 +67,7 @@
                 <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
+                  <a (click)="delWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
             </table>
@@ -134,7 +135,7 @@
                 <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
+                  <a (click)="delWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
             </table>
@@ -329,22 +330,7 @@
 
 <!-- 删除工作日控制 -->
   <ng-template #content6 let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <font class="modal-title">删除</font>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div>
-          确定要删除该条记录吗？
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
-    </div>
+    <app-sq-modal [input]="modelData" (output)="output($event)"></app-sq-modal>
   </ng-template>
+
 
