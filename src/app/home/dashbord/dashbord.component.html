@@ -40,8 +40,8 @@
             <span class="filter" *ngIf="!currentCity">选择城市</span>
             <!-- <i class="fa fa-bell-o nav-icon " aria-hidden="true"></i> -->
           </span>
-          <div id="city-panel" class="city-panel dropdown_panel" *ngIf="cityshow">
-            <span class="menu_arrow_left"></span>
+          <div id="city-panel" class="city-panel " *ngIf="cityshow">
+            <!-- <span class="menu_arrow_left"></span> -->
             <dl *ngFor="let item of cityList">
               <dt>{{item.name}}</dt>
               <dd *ngIf="item.children && item.children.length > 0">
@@ -60,8 +60,8 @@
             <span class="filter">选择区域</span>
           </span>
 
-          <div class="arealist-wrap dropdown_panel" *ngIf="areashow" >
-            <span class="menu_arrow_left"></span>
+          <div class="arealist-wrap " *ngIf="areashow" >
+            <!-- <span class="menu_arrow_left"></span> -->
             <ul class="arealist" data-type="area">
               <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
                 <em>不限</em>
@@ -81,31 +81,7 @@
 
         </div>
 
-        <!-- 设备列表 -->
-        <div class="d-inline-block sel-area-block" (mouseleave)="devicelistMouseleave()">
 
-          <span class="cl-blue cur-pointer" (mouseover)="showDevice()">
-            <span class="filter">设备类别</span>
-
-          </span>
-          <div id="device-panel" class="device-panel dropdown_panel" *ngIf="deviceshow">
-            <span class="menu_arrow_left"></span>
-            <dl>
-              <dt>
-                <a>不限</a>
-              </dt>
-            </dl>
-            <dl *ngFor="let device of deviceList">
-              <dt>
-                <a title="智慧城市">{{device.name}}</a>
-              </dt>
-              <dd *ngIf="device.children && device.children.length > 0">
-                <a title="智慧城市" *ngFor="let itemc of device.children">{{itemc.name}}</a>
-              </dd>
-            </dl>
-          </div>
-
-        </div>
 
       </div>
 
