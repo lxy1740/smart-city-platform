@@ -67,7 +67,7 @@
                 <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="delWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
+                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
             </table>
@@ -135,7 +135,7 @@
                 <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="delWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
+                  <a (click)="opendelWorkday(content7)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
             </table>
@@ -330,7 +330,10 @@
 
 <!-- 删除工作日控制 -->
   <ng-template #content6 let-c="close" let-d="dismiss">
-    <app-sq-modal [input]="modelData" (output)="output($event)"></app-sq-modal>
+    <app-sq-modal [input]="modelData" (output)="closedelWorkday($event)"></app-sq-modal>
   </ng-template>
 
-
+<!-- 删除节假日控制 -->
+<ng-template #content7 let-c="close" let-d="dismiss">
+  <app-sq-modal [input]="modelData" (output)="closedelHoliday($event)"></app-sq-modal>
+</ng-template>

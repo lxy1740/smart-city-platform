@@ -154,13 +154,11 @@ export class StrategyComponent implements OnInit {
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.chartMapChana2();
-    // }, 2);
 
   }
 
-  output($event) {
+  // 删除工作日
+  closedelWorkday($event) {
 
     console.log($event);
     if ($event === 'ok') {
@@ -168,6 +166,15 @@ export class StrategyComponent implements OnInit {
     }
     this.mr.close();
 
+  }
+
+  // 删除节假日
+  closedelHoliday($event)  {
+    console.log($event);
+    if ($event === 'ok') {
+      this.delStrategy('holiday');
+    }
+    this.mr.close();
   }
 
   colseModal() {
@@ -208,24 +215,13 @@ export class StrategyComponent implements OnInit {
       console.log(this.closeResult);
     });
   }
-  // 删除工作日弹框操作
-  delWorkday(content) {
+  // 删除工作日弹框操作 // 删除节假日
+  opendelWorkday(content) {
 
     const that = this;
 
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
-    modal.result.then((result) => {
-      if (result) {
-        that.delStrategy('workday');
-      }
-
-      console.log(result);
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
 
   }
 
@@ -236,45 +232,18 @@ export class StrategyComponent implements OnInit {
 
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
-
-  }
-  // 弹框操作
-  open(content, index) {
-
-    const that = this;
-    this.strategy_index = index;
-    const modal = this.modalService.open(content, { size: 'sm' });
-    this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
-      that.removeStrategy();
+      console.log('Holiday');
+      that.addStrategy('holiday');
 
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
   }
-   open2(content) {
 
-    const that = this;
-
-    const modal = this.modalService.open(content, { size: 'lg' });
-    this.mr = modal;
-    setTimeout(() => {
-      console.log(this.element.nativeElement.querySelector('#map3'));
-
-    }, 2);
-    that.addBeiduMap2();
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
-  }
 
 
   private getDismissReason(reason: any): string {
