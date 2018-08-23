@@ -216,6 +216,23 @@ export class StrategyComponent implements OnInit {
       console.log(this.closeResult);
     });
   }
+  // 删除工作日弹框操作
+  opendelWorkday(content) {
+
+      const that = this;
+
+      this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        console.log('workday');
+        that.addStrategy('workday');
+
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      });
+
+  }
 
   // 添加工作日弹框操作
   openAddHoliday(content, index) {

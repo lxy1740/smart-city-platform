@@ -4,7 +4,7 @@
     <div class="strategy-add">
       <span class="strategy-title">策略表</span>
       <button type="button" class="btn btn-bg" (click)="openAddStrategy(content4)">
-        添加
+        新建
       </button>
     </div>
     <div class="strategy-list">
@@ -34,7 +34,7 @@
           <div class=" panel-default">
             <div class="date-title">
               <span >策略日期</span>
-              <button class="btn btn-bg" (click)="open(content)">新建</button>
+              <button class="btn btn-bg" (click)="open(content)">添加</button>
             </div>
             <ul class="data-list">
               <li *ngFor="let item of dateList" class="cur-pointer">
@@ -49,7 +49,7 @@
               <span>工作日</span>
               <button class="btn btn-bg" (click)="openAddWorkday(content2)">创建工作日控制</button>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover " >
             
               <thead>
                 <tr class="table-header">
@@ -66,10 +66,48 @@
                 <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="open(content)" class="cur-pointer btn-a theme-text">删除</a>
+                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
             </table>
+            <!-- 分页 -->
+            <div class="row">
+              <div class="col-sm-12 col-md-12 dataTables_pager">
+                <div class="bs-example" data-example-id="disabled-active-pagination">
+                  <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="disabled">
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">«</span>
+                        </a>
+                      </li>
+                      <li class="active">
+                        <a href="#">1
+                          <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">2</a>
+                      </li>
+                      <li>
+                        <a href="#">3</a>
+                      </li>
+                      <li>
+                        <a href="#">4</a>
+                      </li>
+                      <li>
+                        <a href="#">5</a>
+                      </li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">»</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -96,7 +134,7 @@
                 <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="open(content)" class="cur-pointer btn-a theme-text">删除</a>
+                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
             </table>
@@ -178,7 +216,26 @@
 
 
 </div>
-  <!-- 删除 -->
+  <!-- 添加策略 -->
+  <ng-template #content4 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <font class="modal-title">添加策略</font>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        策略名称：
+        <input type="text" [(ngModel)]="strategyName" name="strategyName">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+    </div>
+  </ng-template>
+  <!-- 创建策略日期 -->
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <font class="modal-title">创建策略日期</font>
@@ -197,12 +254,12 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
 
-  <!-- 工作日志弹窗 -->
+  <!-- 创建工作日志控制 -->
   <ng-template #content2 let-c="close" let-d="dismiss">
     <div class="modal-header">
       <font class="modal-title">创建工作日志控制</font>
@@ -225,11 +282,11 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
-  <!-- 修改弹窗 -->
+  <!-- 修改工作日控制 -->
   <ng-template #content3 let-c="close" let-d="dismiss">
     <div class="modal-header">
       <font class="modal-title">修改工作日控制</font>
@@ -263,26 +320,31 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
 
-  <!-- 添加策略 -->
-  <ng-template #content4 let-c="close" let-d="dismiss">
+
+
+<!-- 删除工作日控制 -->
+  <ng-template #content6 let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <font class="modal-title">添加策略</font>
+      <font class="modal-title">删除</font>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <div>
-        策略名称：<input type="text" [(ngModel)]="strategyName" name="strategyName"> 
+        <div>
+          确定要删除该条记录吗？
+        </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">取消</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
+
