@@ -65,6 +65,7 @@
     // -khtml-opacity: 0.9;
     // opacity: 0.9;
 }
+
 // 消息相关
 .cover-issues {
     position: absolute;
@@ -110,7 +111,7 @@
             border-width: 7px;
             position: absolute;
             top: -7px;
-            left: 7px;
+            right: 35px;
             border-style: solid dashed dashed;
             border-color: transparent transparent #fff transparent;
             font-size: 0;
@@ -138,10 +139,31 @@
     .messagelist-item {  // li样式
         // text-indent: 15px;
         font-size: 12px;
-    
+        margin: 5px 0;
+        padding: 0 10px;
+
+        .m-list-timeline__badge {
+            text-align:left;
+            vertical-align:middle;
+            display:table-cell;
+            position:relative;
+            width:20px
+        }
+        .m-list-timeline__badge:before {
+            position:absolute;
+            display:block;
+            content:'';
+            width:7px;
+            height:7px;
+            left:0;
+            top:50%;
+            margin-top:-3.5px;
+            border-radius:100%
+        }
     }
     .messagelist .messagelist-item:hover {
-        background: #fff;
+        background: #f6f6f6;
+        color:#f60;
         .blocklist{
         display: block;
         }
@@ -149,4 +171,43 @@
     .messagelist .messagelist-item:hover em {
         color:#f60;
     }
+}
+.m-badge-danger {
+    background:#f4516c;
+    color:#fff;
+    font-size:0.8rem;
+    line-height:20px;
+    min-height:20px;
+    min-width:20px;
+    vertical-align:middle;
+    text-align:center;
+    display:inline-block;
+    padding:0px 3px;
+    border-radius:.75rem;
+}
+.m-badge-inprocess {
+    background:#ffb822;
+    color:#111;
+    font-size:0.8rem;
+    line-height:20px;
+    min-height:20px;
+    min-width:20px;
+    vertical-align:middle;
+    text-align:center;
+    display:inline-block;
+    padding:0px 3px;
+    border-radius:.75rem;
+}
+.m-badge-fixed {
+    background:#36a3f7;
+    color:#fff;
+    font-size:0.8rem;
+    line-height:20px;
+    min-height:20px;
+    min-width:20px;
+    vertical-align:middle;
+    text-align:center;
+    display:inline-block;
+    padding:0px 3px;
+    border-radius:.75rem;
 }

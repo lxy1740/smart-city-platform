@@ -69,7 +69,8 @@ export class CoverComponent implements OnInit {
 
   constructor(private monitorService: MonitorService, private messageService: MessageService,
     public messService: MessService, private config: NgbDropdownConfig) {
-      config.placement = 'top-left';
+      // config.placement = 'top-left';
+      // config.placement = 'bottom-left';
      }
 
   ngOnInit() {

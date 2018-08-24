@@ -63,22 +63,38 @@
 
     </div>
 
+
+    <!-- <div ngbDropdown class="dropup nav-user">
+            <div class="cl-blue display-inoneline" id="dropdownBasic2" ngbDropdownToggle>
+              <i class="fa fa-user-circle-o nav-icon cl-blue" aria-hidden="true"></i>
+              <span class="currentUsername">{{loginName}}</span>
+            </div>
+            <ul ngbDropdownMenu aria-labelledby="dropdownBasic2" class="user-menus">
+              <li class="dropdown-item">
+                <span class="dropdown-menu-list">用户管理</span>
+              </li>
+              <li class="dropdown-item">
+                <a (click)="logout()" class="cur-pointer ">
+                  <span class="dropdown-menu-list">退出登录</span>
+                </a>
+              </li>
+            </ul>
+          </div> -->
     <!-- 井盖消息处理三按键 -->
     <div class="cover-issues">
         <!-- 待处理 -->
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_1()">
-            <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
             <span class="cl-blue cur-pointer" (mouseover)="showUntartedList()">
                 <span class="filter">待处理
-                    <span class="badge-light">{{messageList.length}}</span>
+                    <span class="m-badge-danger" *ngIf="messageList">{{messageList.length}}</span>
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showunstartedlist">
                 <div class="dropdown_panel_inner">
                     <span class="menu_arrow_left"></span>
                     <ul class="messagelist" data-type="area">
-                            <!-- (click)="markPoint(mess,0)" -->
                         <li class="messagelist-item" *ngFor="let mess of messageList" (click)="findPoint(mess)">
+                            <i class="fa fa-dot-circle-o" aria-hidden="true" style="color:#f4516c;padding-right:5px"></i>
                             <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                         </li>
                     </ul>
@@ -88,17 +104,18 @@
         </div>
         <!-- 处理中 -->
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_2()">
-            <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
             <span class="cl-blue cur-pointer" (mouseover)="showOnprogressList()">
                 <span class="filter">处理中
-                    <span class="badge-light">{{messageList1.length}}</span>
+                    <span class="m-badge-inprocess" *ngIf="messageList1">{{messageList1.length}}</span>
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showonprogresslist">
                 <div class="dropdown_panel_inner">
                     <span class="menu_arrow_left"></span>
-                    <ul class="messagelist " data-type="area">
+                    <ul class="messagelist" data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of messageList1" (click)="findPoint(mess)">
+                            <!-- <span class="m-list-timeline__badge"></span> -->
+                            <i class="fa fa-circle" aria-hidden="true" style="color:#ffb822;padding-right:5px"></i>
                             <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                         </li>
                     </ul>
@@ -107,10 +124,9 @@
         </div>
         <!-- 已处理 -->
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_3()">
-            <!-- <button class="btn" (click)="showUntartedList()">待处理</button> -->
             <span class="cl-blue cur-pointer" (mouseover)="showFinishedList()">
                 <span class="filter">已处理
-                    <span class="badge-light">{{messageList2.length}}</span>
+                    <span class="m-badge-fixed" *ngIf="messageList2">{{messageList2.length}}</span>
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showfinishedlist">
@@ -118,6 +134,7 @@
                     <span class="menu_arrow_left"></span>
                     <ul class="messagelist " data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of messageList2" (click)="findPoint(mess)">
+                            <i class="fa fa-circle" aria-hidden="true" style="color:#36a3f7;padding-right:5px"></i>
                             <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
                         </li>
                     </ul>
