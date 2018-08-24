@@ -30,7 +30,9 @@ declare let echarts; // ymZhao
   styleUrls: ['./cover.component.scss']
 })
 export class CoverComponent implements OnInit {
-  messageList: any; // ymZhao
+  messageList: any;
+  messageList1: any;
+  messageList2: any; // 井盖三按状态生成的列表
   @ViewChild('map3') map_container: ElementRef;
   model: any = {}; // 存储数据
 
@@ -83,6 +85,23 @@ export class CoverComponent implements OnInit {
     this.messageService.getMessage().subscribe({
       next: function (val) {
         that.messageList = val.list;
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+    this.messageService.getMessage1().subscribe({
+      next: function (val) {
+        that.messageList1 = val.list;
+        console.log(val.list);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+    this.messageService.getMessage2().subscribe({
+      next: function (val) {
+        that.messageList2 = val.list;
       },
       error: function (error) {
         console.log(error);
@@ -156,8 +175,9 @@ export class CoverComponent implements OnInit {
   }
 
   // 标注消息列表中点击的点
-  findPoint(mess, messtype) {
+  findPoint(mess) {
     const pt = new BMap.Point(mess.lng, mess.lat);
+    const messtype = mess.handleType;
     let myIcon;
     if (messtype === 0) {
       myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
@@ -165,6 +185,8 @@ export class CoverComponent implements OnInit {
       myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
     } else if (messtype === 2) {
       myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
+    } else {
+      console.log('Error messtype!');
     }
     const marker = new BMap.Marker(pt, { icon: myIcon });  // 创建标注
     this.map.addOverlay(marker);

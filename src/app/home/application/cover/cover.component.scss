@@ -89,45 +89,56 @@
         // display: inline-block;
         // text-align: center;
     }
-    .messagelist-wrap {
+    .messagelist-wrap {  // ul容器div样式
         position: absolute;
-        padding: 0;
+        // padding: 0;
+        padding: 7px 0;
         margin: 0px;
-        // width: 90px;
-        // width: 212px;
         top: 31px;
         right: 0;
         z-index: 99;
         text-align: left;
+        .dropdown_panel_inner {
+            box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+            background-color: #fff;
+            padding: 20px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+        .menu_arrow_left:before {
+            display: block;
+            border-width: 7px;
+            position: absolute;
+            top: -7px;
+            left: 7px;
+            border-style: solid dashed dashed;
+            border-color: transparent transparent #fff transparent;
+            font-size: 0;
+            line-height: 0;
+            content: "";
+        }
     }
-    .messagelist {
+    .messagelist {  // ul样式
         position: relative;
         //left: -10px;
         padding: 0;
         margin: 0px;
-        padding-left:0;
         margin-bottom: 0;
-        width: 300px;
+        width: max-content;
         font-size: 12px;
         z-index: 99;
-        border: 1px solid #e6e6e6;
-        border-top-width: 0;
-        background: #f6f6f6;
-        box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
+        // border: 1px solid #e6e6e6;
+        // border-top-width: 0;
+        // background: #f6f6f6;
+        // box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
         max-height: 300px;
         overflow-y: auto;
         cursor: pointer;
     }
-    .mes-list-1 {
-        left: -101px;
-    }
-    .mes-list-2 {
-        position: relative;
-        left: -182px;
-    }
-    .messagelist-item {
-        text-indent: 15px;
+    .messagelist-item {  // li样式
+        // text-indent: 15px;
         font-size: 12px;
+    
     }
     .messagelist .messagelist-item:hover {
         background: #fff;
