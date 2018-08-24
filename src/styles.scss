@@ -163,22 +163,14 @@ address, cite, code, em, th, i, strong {
 // 城市列表  设备列表
 
 .city-panel ,.device-panel{
-    position: absolute;
-    z-index: 3000;
-    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
-    background-color: #f9f9f9;
-    padding: 7px 0 0 0;
-    left: 0;
-    top: 31px;
-    // border-radius: 5px;
+
     font-size: 12px;
     dl {
         width: 222px;
-        padding: 7px 0 6px 0;
-        margin: 0 13px;
+        /* padding: 7px 0 6px 0; */
+        margin: 0;
         border: 0;
-        border-bottom: 1px solid #ccc;
-        line-height: 23px;
+        /* line-height: 23px; */
         overflow: hidden;
         zoom: 1;
     }
@@ -205,12 +197,12 @@ address, cite, code, em, th, i, strong {
     }
 }
 .device-panel {
-    width: 150px;
+    width: 100px;
     dl {
-        width: 122px;
+        // width: 122px;
     }
     dt {
-        width: 120px;
+        // width: 120px;
         a {
             width: 100%;
             float: left;
@@ -282,11 +274,8 @@ address, cite, code, em, th, i, strong {
     width: 90px;
     font-size: 12px;
     z-index: 99;
-    border: 1px solid #e6e6e6;
     border-top-width: 0;
-    background: #f6f6f6;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
-    max-height: 300px;
+    max-height: 260px;
     overflow-y: auto;
     cursor: pointer;
 }
@@ -304,26 +293,32 @@ address, cite, code, em, th, i, strong {
     color:#f60;
 }
 
-
-.blocklist {
-    // display: none;
+.blocklist-wrap {
     position: absolute;
-    padding-left:0;
-    left: 90px;
-    top: 0;
-    width: 120px;
+    padding: 20px;
+    left: 130px;
+    top: 7px;
+    min-width: 120px;
     background: #fff;
-    border: 1px solid #e6e6e6;
-    border-left-width: 0;
-    height: 300px;
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    border-radius: 4px;
+
     z-index: 100;
-    overflow-y: auto;
-    text-indent: 15px;
-    font-size: 12px;
+    .blocklist {
+        width: 90px;
+        height: 260px;
+        overflow-y: auto;
+        text-indent: 15px;
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
+        li:hover {
+            color: #f60;
+        }
+    }
+
 }
-.blocklist li:hover {
-    color: #f60;
-}
+
 
 .map_warp {
     position: relative;
