@@ -151,24 +151,23 @@ export class LightComponent implements OnInit {
     const points: any[] = [];
     for (let index = 0; index < light_list.length; index++) {
       const item = light_list[index];
-      const point = new BMap.Point(item.lng, item.lat);
+      const point = new BMap.Point(item.point.lng, item.point.lat);
 
       let myIcon;
-      if (item.is_exception && item.is_exception === 1) { // 异常
+      if (item.offline && item.offline === true) { // 异常
         myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
 
-      } else if (item.is_online === 1) { // 灯亮
-        switch (item.light_level) {
-          case 1: myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(300, 157)); break;
-          case 2: myIcon = new BMap.Icon('../../../../assets/imgs/light-up-2.png', new BMap.Size(300, 157)); break;
-          case 3: myIcon = new BMap.Icon('../../../../assets/imgs/light-up-3.png', new BMap.Size(300, 157)); break;
-          default: console.log('亮度异常'); break;
-        }
-
-      } else { // 正常,没亮
+      } else if (item.level === 0) { // 正常,没亮
         myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
 
+      } else if (item.level < 30) { // 一级亮度
+       myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(300, 157));
+      } else if (item.level < 70) { // 二级亮度
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-2.png', new BMap.Size(300, 157));
+      } else { // 三级亮度
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-3.png', new BMap.Size(300, 157));
       }
+
       myIcon.setAnchor(new BMap.Size(16, 38));
       const marker = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker);
@@ -191,25 +190,36 @@ export class LightComponent implements OnInit {
     const that = this;
     // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
     const opts = {
-      width: 0,     // 信息窗口宽度
+      width: 400,     // 信息窗口宽度
       // height: 100,     // 信息窗口高度
       // title: `${val.name} | ${val.id }`, // 信息窗口标题
       // enableMessage: true, // 设置允许信息窗发送短息
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${val.name} | ${val.id} </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号： ${val.positionNumber} </p>
 
     `;
-    for (let index = 0; index < val.children.length; index++) {
-      if (val.children[index].is_online === 0 || val.children[index].is_exception === 1) {
+    txt = txt +
+     `<p  class='cur-pointer'   id='${val.id}'>设备名称： ${val.description}</p>
+     `;
+
+    if (val.offline === true) {// 离线
         // 离线或异常
-        txt = txt + `<p  class='cur-pointer' style='color:red;'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
+      txt = txt + `   <p >是否在线： 否</p>`;
       } else {
-        txt = txt + `<p  class='cur-pointer'  id='${val.children[index].id}'> ${val.children[index].name}</p>`;
+      txt = txt + `   <p >是否在线： 是</p>`;
       }
 
+    if (val.isError === true) {// 离线
+      // 离线或异常
+      txt = txt + `<p >是否故障： 是</p>`;
+    } else {
+      txt = txt + `<p >是否故障： 否</p>`;
     }
+
+    txt = txt + `<p >亮度级别： ${val.level}%</p>`;
+
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
@@ -227,14 +237,13 @@ export class LightComponent implements OnInit {
   // 点击子设备
   deviceAddEventListener() {
     const that = this;
-    for (let index = 0; index < this.device.children.length; index++) {
-      const device = $(`#${this.device.children[index].id}`);
+
+      const device = $(`#${this.device.id}`);
       device.on('click', function () {
         console.log('ddd');
-
-        that.deviceChild = that.device.children[index];
+        that.deviceChild = that.device.id;
       });
-    }
+
   }
 
   // 点击关闭操作详情
