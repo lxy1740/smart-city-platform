@@ -221,14 +221,15 @@ export class CoverComponent implements OnInit {
     const messtype = mess.handleType;
     let myIcon;
     if (messtype === 0) {
-      myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
+      myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(16, 16));
     } else if (messtype === 1) {
-      myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
+      myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(16, 16));
     } else if (messtype === 2) {
-      myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
+      myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(16, 16));
     } else {
       console.log('Error messtype!');
     }
+
     const marker = new BMap.Marker(pt, { icon: myIcon });  // 创建标注
     this.map.addOverlay(marker);
     this.map.centerAndZoom(pt, 18);
@@ -248,7 +249,7 @@ export class CoverComponent implements OnInit {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号${mess.positionNumber} </p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${mess.positionNumber} </p>`;
 
     txt = txt + `<p  class='cur-pointer'> 设备名称：${mess.description}</p>`;
     if (mess.lowBattery === false) {

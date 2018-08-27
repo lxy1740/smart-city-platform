@@ -166,20 +166,20 @@ export class LightComponent implements OnInit {
 
       let myIcon;
       if (item.offline && item.offline === true) { // 异常
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(36, 36));
 
       } else if (item.level === 0) { // 正常,没亮
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(36, 36));
 
       } else if (item.level < 30) { // 一级亮度
-       myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(300, 157));
+       myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(36, 36));
       } else if (item.level < 70) { // 二级亮度
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-2.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-2.png', new BMap.Size(36, 36));
       } else { // 三级亮度
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-3.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-3.png', new BMap.Size(36, 36));
       }
 
-      myIcon.setAnchor(new BMap.Size(16, 38));
+      // myIcon.setAnchor(new BMap.Size(16, 38));
       const marker = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker);
       markers.push(marker); // 聚合
