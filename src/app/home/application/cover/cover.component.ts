@@ -17,6 +17,7 @@ import { MessageService } from '../../../service/message.service';
 import { MessService } from '../../../service/mess.service';
 import { CommunicateService } from '../../../service/communicate.service';
 import { GradOverlar } from '../../../service/grad.overlay';
+import { CoverService } from '../../../service/cover.service';
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -37,7 +38,7 @@ export class CoverComponent implements OnInit {
   model: any = {}; // 存储数据
 
   map: any; // 地图对象
-  // markers: any[] = []; // 标记
+  markers: any[] = []; // 标记
 
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
@@ -67,8 +68,8 @@ export class CoverComponent implements OnInit {
   showonprogresslist = false; // 默认不显示“处理中”的异常消息
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
 
-  constructor(private monitorService: MonitorService, private messageService: MessageService,
-    public messService: MessService, private config: NgbDropdownConfig) {
+  constructor(private coverService: CoverService, private monitorService: MonitorService,
+    private messageService: MessageService, public messService: MessService, private config: NgbDropdownConfig) {
       // config.placement = 'top-left';
       // config.placement = 'bottom-left';
      }
@@ -146,33 +147,68 @@ export class CoverComponent implements OnInit {
 
     this.addMarker();
   }
+    // 返回地图可视区域，以地理坐标表示
+    getBounds(baiduMap) {
+      const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
+      this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+      this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+      this.zoom = baiduMap.getZoom(); // 地图级别
+    }
 
   addMarker() {
-    const markers: any[] = [];
+    this.getBounds(this.map);
+    const sw = this.SouthWest;
+    const ne = this.NorthEast;
+    this.getCovers(ne, sw);  // 获取井盖
+  }
+  // 添加点标注
+  addPoint(val) {
+    this.markers = [];
     const points: any[] = [];
-    for (let index = 0; index < this.light_list.length; index++) {
-      const item = this.light_list[index];
-      const point = new BMap.Point(item.lng, item.lat);
-
+    const that = this;
+    val.map((item, i) => {
+      const point = new BMap.Point(item.point.lng, item.point.lat);
+      // const name = item.name;
+      // 添加自定义覆盖物
       let myIcon;
-      if (item.is_exception && item.is_exception === 1) { // 井盖丢失
+
+      if (item.alarm && item.alarm === true) { // 异常
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
-      } else if (item.is_online === 0) { // 井盖离线
+      } else if (item.offline === false) { // 掉线
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
-      } else { // 井盖正常
+      } else { // 正常
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
       const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker2);
-      markers.push(marker2); // 聚合
+      this.markers.push(marker2); // 聚合
       points.push(point); // 聚合
+    });
+
+    // 点击点标注事件
+    for (let index = 0; index < that.markers.length; index++) {
+      const marker = that.markers[index];
+      that.openSideBar(marker, that.map, val[index], points[index]);
     }
-    // 点击点标注事件 - 弹出信息框
-    for (let index = 0; index < markers.length; index++) {
-      const marker = markers[index];
-      this.openSideBar(marker, this.map, this.light_list[index], points[index]);
-    }
+  }
+
+  // 获取地图内井盖
+  getCovers(sw: Point, ne: Point) {
+    const that = this;
+
+    let value;
+    this.coverService.getCovers(sw, ne).subscribe({
+      next: function (val) {
+        value = val;
+      },
+      complete: function () {
+        that.addPoint(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   // 标注消息列表中点击的点
@@ -208,11 +244,14 @@ export class CoverComponent implements OnInit {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> ${mess.name} | ${mess.id} </p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>${mess.description} </p>`;
 
-    txt = txt + `<p  class='cur-pointer' style='color:red;'> Build Date：${mess.build_date}</p>`; // ${mess.message}
-    txt = txt + `<p  class='cur-pointer'> 经度：${mess.lng}</p>`;
-    txt = txt + `<p  class='cur-pointer'> 纬度：${mess.lat}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 名称：${mess.name}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 设备编号：${mess.positionNumber}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 低电压状态：${mess.lowBattery}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 报警状态：${mess.alarm}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 故障状态：${mess.error}</p>`;
+    txt = txt + `<button class='btn btn-info' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
@@ -275,15 +314,11 @@ export class CoverComponent implements OnInit {
   // 获取设备列表 -- ok - ymZhao-按要求，井盖页面不显示设备列表
   // getDevice() {
   //   const that = this;
-
   //   this.monitorService.getDevice().subscribe({
   //     next: function (val) {
   //       that.deviceList = val;
-
   //     },
   //     complete: function () {
-
-
   //     },
   //     error: function (error) {
   //       console.log(error);

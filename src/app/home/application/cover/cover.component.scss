@@ -141,25 +141,6 @@
         font-size: 12px;
         margin: 5px 0;
         padding: 0 10px;
-
-        .m-list-timeline__badge {
-            text-align:left;
-            vertical-align:middle;
-            display:table-cell;
-            position:relative;
-            width:20px
-        }
-        .m-list-timeline__badge:before {
-            position:absolute;
-            display:block;
-            content:'';
-            width:7px;
-            height:7px;
-            left:0;
-            top:50%;
-            margin-top:-3.5px;
-            border-radius:100%
-        }
     }
     .messagelist .messagelist-item:hover {
         background: #f6f6f6;
@@ -175,7 +156,7 @@
 .m-badge-danger {
     background:#f4516c;
     color:#fff;
-    font-size:0.8rem;
+    font-size:0.8rem; 
     line-height:20px;
     min-height:20px;
     min-width:20px;

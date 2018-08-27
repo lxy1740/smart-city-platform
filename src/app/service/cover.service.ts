@@ -23,12 +23,12 @@ export class CoverService {
 
 
     // 获取详细的位置数据
-    getLights(sw: Point, ne: Point): Observable<any> {
+    getCovers( ne: Point, sw: Point): Observable<any> {
         return this.http.post('/api/manhole/inbounds', {
-            'bounds': {
-                'ne': ne,
-                'sw': sw
-            }
+
+            'ne': ne,
+            'sw': sw
+
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
