@@ -21,6 +21,7 @@ import { ManageComponent } from './manage/manage.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { MapComponent } from './map/map.component';
 import { StrategyComponent } from './strategy/strategy.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 
@@ -33,7 +34,8 @@ import { StrategyComponent } from './strategy/strategy.component';
 
     ],
     declarations: [
-    SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent, MapComponent, StrategyComponent,
+    SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent,
+     MapComponent, StrategyComponent, HomepageComponent,
 
 
     ],

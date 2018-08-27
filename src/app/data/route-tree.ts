@@ -2,11 +2,19 @@ export const ROUTETREE = [
     {
         id: 1,
         icon: 'fa fa-home nav-icon',
-        routeLink: 'dashbord',
-        routeTitel: '概览',
+        routeLink: 'homepage',
+        routeTitel: '首页',
         isCollapsed: false,
         hasRight: true,
     },
+    // {
+    //     id: 1,
+    //     icon: 'fa fa-home nav-icon',
+    //     routeLink: 'dashbord',
+    //     routeTitel: '概览',
+    //     isCollapsed: false,
+    //     hasRight: true,
+    // },
 
     {
         id: 4,

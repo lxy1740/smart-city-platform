@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
+import { LightService } from '../../../service/light.service';
+
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -54,7 +56,9 @@ export class LightComponent implements OnInit {
 
   light_list = LIGHTLIST.val.light_list; // 数据模拟
 
-  constructor(private monitorService: MonitorService, public router: Router, ) { }
+
+
+  constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router, ) { }
 
   ngOnInit() {
     this.addBeiduMap();
@@ -95,10 +99,42 @@ export class LightComponent implements OnInit {
     });
     map.addControl(navigationControl);
 
-    this.addMarker(); // 添加地图上的点
+    this.getLights(); // 获取地图上的点
+
+
+
 
     this.mapClickOff(map); // 地图点击信息框隐藏
 
+  }
+
+  // 返回地图可视区域，以地理坐标表示
+  getBounds(baiduMap) {
+    const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
+    this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+    this.zoom = baiduMap.getZoom(); // 地图级别
+
+  }
+
+  getLights() {
+    const that = this;
+    const type = this.type;
+    const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
+    const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    const SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+    let value;
+    this.lightService.getLights(NorthEast, SouthWest).subscribe({
+      next: function (val) {
+        value = val;
+      },
+      complete: function () {
+        that.addMarker(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   // 监控-点击地图事件
@@ -110,11 +146,11 @@ export class LightComponent implements OnInit {
   }
 
   // 地图上描点
-  addMarker() {
+  addMarker(light_list) {
     const markers: any[] = [];
     const points: any[] = [];
-    for (let index = 0; index < this.light_list.length; index++) {
-      const item = this.light_list[index];
+    for (let index = 0; index < light_list.length; index++) {
+      const item = light_list[index];
       const point = new BMap.Point(item.lng, item.lat);
 
       let myIcon;
@@ -143,7 +179,7 @@ export class LightComponent implements OnInit {
     // 点击点标注事件 - 弹出信息框
     for (let index = 0; index < markers.length; index++) {
       const marker = markers[index];
-      this.openSideBar(marker, this.map, this.light_list[index], points[index]);
+      this.openSideBar(marker, this.map, light_list[index], points[index]);
 
 
     }

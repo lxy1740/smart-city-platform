@@ -10,6 +10,7 @@ import { RuleRoutes } from './rule/rule.routes';
 import { ApplicationRoutes } from './application/application.routes';
 import { EnergyRoutes } from './energy/energy.routes';
 import { DashbordRoutes } from './dashbord/dashbord.routes';
+import { HomepageRoutes } from './homepage/homepage.routes';
 import { StrategyRoutes } from './strategy/strategy.routes';
 import { VideoRoutes } from './video/video.routes';
 import { MapRoutes } from './map/map.routes';
@@ -25,7 +26,7 @@ export const HomeRoutes: Route[] = [
         component: HomeComponent,
         canActivate: [AuthGuard],
         children: [
-            { path: '', redirectTo: 'dashbord', pathMatch: 'full' },
+            { path: '', redirectTo: 'homepage', pathMatch: 'full' },
             ...MonitorRoutes,
             ...DeviceRoutes,
             ...UserRoutes,
@@ -33,6 +34,7 @@ export const HomeRoutes: Route[] = [
             ...RuleRoutes,
             ...EnergyRoutes,
             ...DashbordRoutes,
+            ...HomepageRoutes,
             ...StrategyRoutes,
             ...VideoRoutes,
             ...MapRoutes,
