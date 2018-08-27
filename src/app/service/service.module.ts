@@ -11,6 +11,8 @@ import { UrlService } from './url.service';
 import { CommunicateService } from './communicate.service';
 import { VideoService } from './video.service';
 import { BaiduFunService } from './baidu-fun.service';
+import { LightService } from './light.service';
+import { CoverService } from './cover.service';
 
 @NgModule({
   imports: [
@@ -18,6 +20,7 @@ import { BaiduFunService } from './baidu-fun.service';
   ],
   declarations: [],
   providers: [FullScreenService, BeiduAPIService, BeiduMAPService, MonitorService,
+    LightService, CoverService,
     MessService, MessageService, UrlService, CommunicateService, VideoService, BaiduFunService]
 })
 export class ServiceModule { }
