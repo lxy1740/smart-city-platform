@@ -86,7 +86,7 @@
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_1()">
             <span class="cl-blue cur-pointer" (mouseover)="showUntartedList()">
                 <span class="filter">待处理
-                    <span class="m-badge-danger" *ngIf="messageList">{{messageList.length}}</span>
+                    <span class="m-badge m-badge-danger" *ngIf="messageList">{{messageList.length}}</span>
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showunstartedlist">
@@ -106,7 +106,7 @@
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_2()">
             <span class="cl-blue cur-pointer" (mouseover)="showOnprogressList()">
                 <span class="filter">处理中
-                    <span class="m-badge-inprocess" *ngIf="messageList1">{{messageList1.length}}</span>
+                    <span class="m-badge m-badge-inprocess" *ngIf="messageList1">{{messageList1.length}}</span>
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showonprogresslist">
@@ -126,7 +126,7 @@
         <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_3()">
             <span class="cl-blue cur-pointer" (mouseover)="showFinishedList()">
                 <span class="filter">已处理
-                    <span class="m-badge-fixed" *ngIf="messageList2">{{messageList2.length}}</span>
+                    <span class="m-badge m-badge-fixed" *ngIf="messageList2">{{messageList2.length}}</span>
                 </span>
             </span>
             <div class="messagelist-wrap" *ngIf="showfinishedlist">

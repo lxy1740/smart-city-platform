@@ -80,7 +80,7 @@ export class CalamityComponent implements OnInit {
 
 
 
-    map.setMapStyle({ style: 'normal' });   //dark
+    map.setMapStyle({ style: 'normal' });   // dark
 
 
     // 添加控件缩放
