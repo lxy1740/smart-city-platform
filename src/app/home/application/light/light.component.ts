@@ -100,12 +100,23 @@ export class LightComponent implements OnInit {
     map.addControl(navigationControl);
 
     this.getLights(); // 获取地图上的点
+    setInterval(() => {
+      this.remove_overlay(this.map);
+      this.getLights(); // 获取地图上的点
+    }, 50000);
+
+
 
 
 
 
     this.mapClickOff(map); // 地图点击信息框隐藏
 
+  }
+
+  // 清除覆盖物
+  remove_overlay(baiduMap) {
+    baiduMap.clearOverlays();
   }
 
   // 返回地图可视区域，以地理坐标表示
@@ -291,7 +302,7 @@ export class LightComponent implements OnInit {
 
       },
       complete: function () {
-        that.addBeiduMap(); // 创建地图
+
 
       },
       error: function (error) {
