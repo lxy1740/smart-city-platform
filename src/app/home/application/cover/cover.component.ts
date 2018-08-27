@@ -160,6 +160,10 @@ export class CoverComponent implements OnInit {
     const sw = this.SouthWest;
     const ne = this.NorthEast;
     this.getCovers(ne, sw);  // 获取井盖
+    // setInterval(() => {
+    //   this.remove_overlay(this.map);
+    //   this.getCovers();
+    // }, 50000);
   }
   // 添加点标注
   addPoint(val) {
@@ -244,13 +248,29 @@ export class CoverComponent implements OnInit {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>${mess.description} </p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号${mess.positionNumber} </p>`;
 
-    txt = txt + `<p  class='cur-pointer'> 名称：${mess.name}</p>`;
-    txt = txt + `<p  class='cur-pointer'> 设备编号：${mess.positionNumber}</p>`;
-    txt = txt + `<p  class='cur-pointer'> 低电压状态：${mess.lowBattery}</p>`;
-    txt = txt + `<p  class='cur-pointer'> 报警状态：${mess.alarm}</p>`;
-    txt = txt + `<p  class='cur-pointer'> 故障状态：${mess.error}</p>`;
+    txt = txt + `<p  class='cur-pointer'> 设备名称：${mess.description}</p>`;
+    if (mess.lowBattery === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否低电量：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否低电量：是</p>`;
+    }
+    if (mess.alarm === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否报警：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否报警：是</p>`;
+    }
+    if (mess.error === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否故障：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否故障：是</p>`;
+    }
+    if (mess.offline === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否离线：是</p>`;
+    }
     txt = txt + `<button class='btn btn-info' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
