@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
+import { PM25LIST } from '../../../data/air-pm2.5';
+import { Point } from '../../../data/point.type';
 
 // baidu map
 declare let BMap;
@@ -37,6 +39,10 @@ export class AirComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
+  SouthWest: Point; // 地图视图西南角
+  NorthEast: Point; // 地图视图东北角
+  pm25list = PM25LIST.list;
+
   constructor(private monitorService: MonitorService, public router: Router) { }
   ngOnInit() {
     this.addBeiduMap();
@@ -60,18 +66,52 @@ export class AirComponent implements OnInit {
 
     // 添加控件缩放
 
-    const offset = new BMap.Size(100, 20);
+    const offset = new BMap.Size(20, 55);
     const navigationControl = new BMap.NavigationControl({
-      anchor: BMAP_ANCHOR_TOP_RIGHT,
+      anchor: BMAP_ANCHOR_TOP_LEFT,
       offset: offset,
     });
     map.addControl(navigationControl);
 
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
-    const marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
+    // const marker = new BMap.Marker(point);  // 创建标注
+    // map.addOverlay(marker);               // 将标注添加到地图中
+    this.getPMpoints();
   }
 
+  getPMpoints() {
+    const markers: any[] = [];
+    const points: any[] = [];
+    for (let index = 0; index < this.pm25list.length; index++) {
+      const item = this.pm25list[index];
+      const point = new BMap.Point(item.lng, item.lat);
+      let myIcon;
+      if (item.pmvalue >= 0 && item.pmvalue <= 50) {
+        myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
+      } else if (item.pmvalue > 50 && item.pmvalue <= 100) {
+        myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
+      } else if (item.pmvalue > 100 && item.pmvalue <= 150) {
+        myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
+      } else if (item.pmvalue > 150 && item.pmvalue <= 200) {
+        myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
+      } else if (item.pmvalue > 200) {
+        myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
+      }
+      myIcon.setAnchor(new BMap.Size(16, 38));
+      const marker = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      this.map.addOverlay(marker);
+      markers.push(marker); // 聚合
+      points.push(point); // 聚合
+    }
+  }
+  // 返回地图可视区域，以地理坐标表示
+  getBounds(baiduMap) {
+    const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
+    this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+    this.zoom = baiduMap.getZoom(); // 地图级别
+
+  }
   // 获取城市列表 --ok
   getCity() {
     const that = this;

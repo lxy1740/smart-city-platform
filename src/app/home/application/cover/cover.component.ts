@@ -160,10 +160,10 @@ export class CoverComponent implements OnInit {
     const sw = this.SouthWest;
     const ne = this.NorthEast;
     this.getCovers(ne, sw);  // 获取井盖
-    // setInterval(() => {
-    //   this.remove_overlay(this.map);
-    //   this.getCovers();
-    // }, 50000);
+    setInterval(() => {
+      this.map.clearOverlays();
+      this.getCovers(ne, sw);
+    }, 50000);
   }
   // 添加点标注
   addPoint(val) {
