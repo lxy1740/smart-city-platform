@@ -7,6 +7,13 @@
         新建
       </button>
     </div>
+    <div>
+
+
+
+
+
+    </div>
     <div class="strategy-list">
       <ul >
         <li *ngFor="let item of strategyList" class="cur-pointer">{{item.name}}</li>
@@ -36,6 +43,7 @@
             <div class="date-title">
               <span >策略日期</span>
               <button class="btn btn-bg" (click)="openAddDate(content)">添加</button>
+
             </div>
             <ul class="data-list">
               <li *ngFor="let item of dateList" class="cur-pointer">
@@ -139,6 +147,15 @@
                 </td>
               </tr>
             </table>
+              <div class="m-section__content">
+                <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t"></ngb-datepicker>
+                <ng-template #t let-date="date" let-focused="focused">
+                  <span class="custom-day" [class.focused]="focused" [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+              </div>
           </div>
 
         </div>
@@ -245,13 +262,15 @@
       </button>
     </div>
     <div class="modal-body">
-      <div>
-        <div>
-          开始日期;
-        </div>
-        <div>
-          结束日期：
-        </div>
+
+      <input date-time class="form-control" placeholder="年-月-日" name="dp" ngModel ngbDatepicker #dPress="ngbDatepicker" (ngModelChange)="onDateChange($event)"
+        [displayMonths]="2" [dayTemplate]="t">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="showDatepicker(dPress)" type="button">
+          <span class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </button>
       </div>
     </div>
     <div class="modal-footer">

@@ -1,8 +1,10 @@
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NgbModal,  } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 import { DeviceModule } from './device/device.module';
 import { ApplicationModule } from './application/application.module';
@@ -26,7 +28,8 @@ import { StrategyComponent } from './strategy/strategy.component';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule, SharedModule,
+    imports: [BrowserModule, FormsModule, NgbModule.forRoot(),
+         DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule, SharedModule,
 
     ],
     declarations: [

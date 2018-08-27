@@ -8,7 +8,19 @@ Author: luo.shuqi@live.com
 */
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+
 import { VideoService } from '../../service/video.service';
+
+const now = new Date();
+const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
+  one && two && two.year === one.year && two.month === one.month && two.day === one.day;
+const before = (one: NgbDateStruct, two: NgbDateStruct) =>
+  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+    ? false : one.day < two.day : one.month < two.month : one.year < two.year;
+const after = (one: NgbDateStruct, two: NgbDateStruct) =>
+  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+    ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 
 declare let echarts;
 declare let BMap;
@@ -134,12 +146,20 @@ export class StrategyComponent implements OnInit {
   zNodes: any;
   city = '广州市'; // 当前选中城市
   strategyName: string; // 添加策略名称
-  public mr: NgbModalRef;
+  public mr: NgbModalRef; // 当前弹框
+
+  hoveredDate: NgbDateStruct;
+  fromDate: NgbDateStruct;
+  toDate: NgbDateStruct;
 
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal,
-     private videoService: VideoService, public element: ElementRef) {
+     private videoService: VideoService, public element: ElementRef,
+    calendar: NgbCalendar) {
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+
     this.dateList = this.strategyList[0].dateList;
     // 树的操作
     // 点击
@@ -154,6 +174,38 @@ export class StrategyComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+  isFrom = date => equals(date, this.fromDate);
+  isTo = date => equals(date, this.toDate);
+// 按钮响应事件
+  showDatepicker(d) {
+    d.toggle();
+  }
+
+
+  // 日期选择后触发业务
+  onDateChange(date: NgbDateStruct) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+
+    if (this.fromDate !== null && this.toDate !== null) {
+      console.log('from :' + this.fromDate.day);
+      console.log('to :' + this.toDate.day);
+
+      const fromStr = this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day;
+      const toStr = this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day;
+
+    }
 
   }
 
@@ -179,6 +231,13 @@ export class StrategyComponent implements OnInit {
 
   colseModal() {
     this.mr.close();
+  }
+
+  // 添加策略弹框操作
+  open(content, index) {
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+
   }
 
   // 添加策略弹框操作
