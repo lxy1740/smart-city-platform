@@ -201,7 +201,7 @@ export class LightComponent implements OnInit {
     const that = this;
     // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
     const opts = {
-      width: 400,     // 信息窗口宽度
+      width: 350,     // 信息窗口宽度
       // height: 100,     // 信息窗口高度
       // title: `${val.name} | ${val.id }`, // 信息窗口标题
       // enableMessage: true, // 设置允许信息窗发送短息
