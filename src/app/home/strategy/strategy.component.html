@@ -38,7 +38,7 @@
     <div *ngIf="nav_index === 0" class="strategy-table">
       <!-- 日期 -->
       <div class="row">
-        <div class="col-6 col-md-2 ">
+        <div class="col-6 col-md-4 ">
           <div class=" panel-default">
             <div class="date-title">
               <span >策略日期</span>
@@ -52,7 +52,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-6 col-md-5 ">
+        <div class="col-6 col-md-4 ">
           <div class="table-workday panel-default">
             <div class="date-title">
               <span>工作日</span>
@@ -64,7 +64,6 @@
                 <tr class="table-header">
                   <th>时间</th>
                   <th>亮度</th>
-                  <th>添加时间</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -72,7 +71,6 @@
               <tr *ngFor="let item of workdayList">
                 <td>{{item.startTime}}~{{item.endTime}}</td>
                 <td>{{item.intensity}}</td>
-                <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
                   <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
@@ -120,7 +118,7 @@
           </div>
 
         </div>
-        <div class="col-6 col-md-5 ">
+        <div class="col-6 col-md-4 ">
           <div class="table-holiday panel-default">
             <div class="date-title">
               <span>节假日</span>
@@ -132,7 +130,6 @@
                 <tr class="table-header">
                   <th>时间</th>
                   <th>亮度</th>
-                  <th>添加时间</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -140,7 +137,6 @@
               <tr *ngFor="let item of holidayList">
                 <td>{{item.startTime}}~{{item.endTime}}</td>
                 <td>{{item.intensity}}</td>
-                <td>{{item.date | date:'yyyy-MM-dd'}}</td>
                 <td>
                   <a (click)="open(content)" class="cur-pointer btn-a theme-text">修改</a>
                   <a (click)="opendelWorkday(content7)" class="cur-pointer btn-a theme-text">删除</a>
