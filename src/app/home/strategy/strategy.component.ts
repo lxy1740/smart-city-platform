@@ -67,18 +67,7 @@ export class StrategyComponent implements OnInit {
       name: '策略一',
       date: new Date(),
       dateList: [
-        {
-        startDate: '7月1日',
-        endDate: '7月18日'
-        },
-        {
-          startDate: '8月1日',
-          endDate: '8月18日'
-        },
-        {
-          startDate: '9月1日',
-          endDate: '9月18日'
-        }
+
       ],
     },
     {
@@ -299,7 +288,7 @@ export class StrategyComponent implements OnInit {
 
     const that = this;
 
-    const modal = this.modalService.open(content, { size: 'sm' });
+    const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -393,14 +382,14 @@ export class StrategyComponent implements OnInit {
       this.strategyList.push({
         name: this.strategyName,
         date: new Date(),
-        dateList: [{
-          startDate: '7月1日',
-          endDate: '7月8日'
-        }]
+        dateList: []
       });
 
     } else if (type === 'date') {
-      this.dateList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
+      this.dateList.push({
+        fromDate: this.fromDate,
+        toDate: this.toDate
+      });
     } else if (type === 'holiday') {
       this.holidayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
     } else if (type === 'workday') {
