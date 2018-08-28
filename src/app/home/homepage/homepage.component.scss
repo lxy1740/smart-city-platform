@@ -26,6 +26,9 @@ app-homepage {
     height: 30%;
     width: 100%;
     margin-bottom: 15px;
+    a {
+        display: inline-block;
+    }
 }
 .dash-row {
     height: 100%;
@@ -45,5 +48,10 @@ app-homepage {
     text-align: center;
     background: #41AEE6;
 
+}
+.content {
+    i {
+        font-size: 32px;
+    }
 }
 
