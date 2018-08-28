@@ -41,14 +41,15 @@ export class StrategyComponent implements OnInit {
     body: 'hh',
   };
 
-  navs = [{
+  navs = [
+    {
     id: 0,
     name: '策略时间'
-  },
-  {
-    id: 1,
-    name: '策略范围'
-  }
+    },
+    {
+      id: 1,
+      name: '策略范围'
+    }
   ];
   sub_navs = [{
     id: 0,
@@ -61,22 +62,25 @@ export class StrategyComponent implements OnInit {
   ];
   nav_index = 0; // 菜单索引
   sub_nav_index = 0; // 菜单索引
-  strategyList = [{
-    name: '策略一',
-    date: new Date(),
-    dateList: [{
-      startDate: '7月1日',
-      endDate: '7月18日'
+  strategyList = [
+    {
+      name: '策略一',
+      date: new Date(),
+      dateList: [
+        {
+        startDate: '7月1日',
+        endDate: '7月18日'
+        },
+        {
+          startDate: '8月1日',
+          endDate: '8月18日'
+        },
+        {
+          startDate: '9月1日',
+          endDate: '9月18日'
+        }
+      ],
     },
-      {
-        startDate: '8月1日',
-        endDate: '8月18日'
-      },
-      {
-        startDate: '9月1日',
-        endDate: '9月18日'
-      }],
-  },
     {
       name: '策略二',
       date: new Date(),
@@ -93,7 +97,8 @@ export class StrategyComponent implements OnInit {
           endDate: '9月18日'
         }
       ],
-    }]; // 策略
+    }
+  ]; // 策略
   dateList = []; // 日期策略
   holidayList = [
     { startTime: '7:00', endTime: '12:00', intensity: '50%', date: new Date() },
@@ -148,17 +153,22 @@ export class StrategyComponent implements OnInit {
   strategyName: string; // 添加策略名称
   public mr: NgbModalRef; // 当前弹框
 
-  hoveredDate: NgbDateStruct;
-  fromDate: NgbDateStruct;
-  toDate: NgbDateStruct;
+  hoveredDate: NgbDateStruct; // 日历
+  fromDate: NgbDateStruct; // 日历
+  toDate: NgbDateStruct; // 日历
+
+  // hoveredDate: NgbDate;
+
+  // fromDate: NgbDate;
+  // toDate: NgbDate;
 
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal,
      private videoService: VideoService, public element: ElementRef,
     calendar: NgbCalendar) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.fromDate = calendar.getToday();  // 日历
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10); // 日历
 
     this.dateList = this.strategyList[0].dateList;
     // 树的操作
@@ -177,10 +187,38 @@ export class StrategyComponent implements OnInit {
 
   }
 
+  onDateSelection(date: NgbDateStruct) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+
+
+    if (this.fromDate !== null && this.toDate !== null) {
+      console.log('from :' + this.fromDate.day);
+      console.log('to :' + this.toDate.day);
+
+      const fromStr = this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day;
+      const toStr = this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day;
+
+    }
+  }
+
   isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
   isInside = date => after(date, this.fromDate) && before(date, this.toDate);
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
+
+  // isHovered = (date: NgbDateStruct) =>
+  //   this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate)
+  // isInside = (date: NgbDateStruct) =>
+  //   date.after(this.fromDate) && date.before(this.toDate)
+  isRange = (date: NgbDateStruct) =>
+    equals(date, this.fromDate) || equals(date, this.toDate) || this.isInside(date) || this.isHovered(date)
 // 按钮响应事件
   showDatepicker(d) {
     d.toggle();
