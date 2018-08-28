@@ -6,7 +6,7 @@ Author: luo.shuqi@live.com
 @time: 2018 /8 / 9 9: 00
 
 */
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
@@ -30,7 +30,7 @@ declare let echarts; // ymZhao
   templateUrl: './cover.component.html',
   styleUrls: ['./cover.component.scss']
 })
-export class CoverComponent implements OnInit {
+export class CoverComponent implements OnInit, OnDestroy {
   messageList: any;
   messageList1: any;
   messageList2: any; // 井盖三按状态生成的列表
@@ -67,6 +67,7 @@ export class CoverComponent implements OnInit {
   showunstartedlist = false; // 默认不显示“未处理”的异常消息
   showonprogresslist = false; // 默认不显示“处理中”的异常消息
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
+  timer: any; // 定时器
 
   constructor(private coverService: CoverService, private monitorService: MonitorService,
     private messageService: MessageService, public messService: MessService, private config: NgbDropdownConfig) {
@@ -81,6 +82,9 @@ export class CoverComponent implements OnInit {
     this.getMessage();  // 获取消息列表
     // this.chartMapCover1(); // ymZhao 井盖丢失率图
   }
+
+
+
   // ymZhao 获取消息列表
   getMessage() {
     const that = this;
@@ -146,6 +150,8 @@ export class CoverComponent implements OnInit {
     // this.map.addOverlay(marker2);
 
     this.addMarker();
+
+
   }
     // 返回地图可视区域，以地理坐标表示
     getBounds(baiduMap) {
@@ -156,14 +162,13 @@ export class CoverComponent implements OnInit {
     }
 
   addMarker() {
-    this.getBounds(this.map);
-    const sw = this.SouthWest;
-    const ne = this.NorthEast;
-    this.getCovers(ne, sw);  // 获取井盖
-    setInterval(() => {
+    this.getCovers();  // 获取井盖
+    this.timer = setInterval(() => {
       this.map.clearOverlays();
-      this.getCovers(ne, sw);
-    }, 50000);
+      this.getCovers();
+    }, 5000);
+
+
   }
   // 添加点标注
   addPoint(val) {
@@ -198,11 +203,15 @@ export class CoverComponent implements OnInit {
   }
 
   // 获取地图内井盖
-  getCovers(sw: Point, ne: Point) {
+  getCovers() {
+
     const that = this;
+    const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
+    const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    const SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
 
     let value;
-    this.coverService.getCovers(sw, ne).subscribe({
+    this.coverService.getCovers(NorthEast, SouthWest).subscribe({
       next: function (val) {
         value = val;
       },
@@ -324,7 +333,7 @@ export class CoverComponent implements OnInit {
 
       },
       complete: function () {
-        that.addBeiduMap(); // 创建地图
+        // that.addBeiduMap(); // 创建地图
 
       },
       error: function (error) {
@@ -627,5 +636,9 @@ export class CoverComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  ngOnDestroy() {
+    window.clearInterval(this.timer);
   }
 }

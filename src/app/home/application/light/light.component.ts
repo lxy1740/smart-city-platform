@@ -6,7 +6,7 @@ Author: luo.shuqi@live.com
 @time: 2018 /8 / 9 9: 00
 
 */
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
@@ -24,7 +24,7 @@ declare let BMAP_ANCHOR_TOP_LEFT;
   templateUrl: './light.component.html',
   styleUrls: ['./light.component.scss']
 })
-export class LightComponent implements OnInit {
+export class LightComponent implements OnInit, OnDestroy  {
 
   @ViewChild('map5') map_container: ElementRef;
   model: any = {}; // 存储数据
@@ -55,6 +55,8 @@ export class LightComponent implements OnInit {
   node = null; // 用于递归查询JSON树 父子节点
 
   light_list = LIGHTLIST.val.light_list; // 数据模拟
+
+  timer: any; // 定时器
 
 
 
@@ -100,7 +102,7 @@ export class LightComponent implements OnInit {
     map.addControl(navigationControl);
 
     this.getLights(); // 获取地图上的点
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.remove_overlay(this.map);
       this.getLights(); // 获取地图上的点
     }, 5000);
@@ -477,5 +479,9 @@ export class LightComponent implements OnInit {
   arealistMouseNone() {
     this.areashow = true;
     this.currentBlock = null;
+  }
+
+  ngOnDestroy() {
+    window.clearInterval(this.timer);
   }
 }
