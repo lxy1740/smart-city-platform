@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
-import { PM25LIST } from '../../../data/air-pm2.5';
+import { AIRDATALIST } from '../../../data/air-data';
 import { Point } from '../../../data/point.type';
 
 // baidu map
@@ -41,7 +41,7 @@ export class AirComponent implements OnInit {
 
   SouthWest: Point; // 地图视图西南角
   NorthEast: Point; // 地图视图东北角
-  pm25list = PM25LIST.list;
+  pm25list = AIRDATALIST.list;
 
   constructor(private monitorService: MonitorService, public router: Router) { }
   ngOnInit() {
@@ -58,14 +58,12 @@ export class AirComponent implements OnInit {
       // maxZoom : 11
     }); // 创建地图实例
 
-
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
+    const point = new BMap.Point(113.950723, 22.558888); // 坐标可以通过百度地图坐标拾取器获取
     map.centerAndZoom(point, 15); // 设置中心和地图显示级别
     // map.setMapStyle({ style: 'googlelite' });
 
     // 添加控件缩放
-
     const offset = new BMap.Size(20, 55);
     const navigationControl = new BMap.NavigationControl({
       anchor: BMAP_ANCHOR_TOP_LEFT,
@@ -76,7 +74,7 @@ export class AirComponent implements OnInit {
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
     // const marker = new BMap.Marker(point);  // 创建标注
     // map.addOverlay(marker);               // 将标注添加到地图中
-    this.getPMpoints();
+    // this.getPMpoints();
   }
 
   getPMpoints() {
@@ -86,15 +84,15 @@ export class AirComponent implements OnInit {
       const item = this.pm25list[index];
       const point = new BMap.Point(item.lng, item.lat);
       let myIcon;
-      if (item.pmvalue >= 0 && item.pmvalue <= 50) {
+      if (item.pm25value >= 0 && item.pm25value <= 50) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pmvalue > 50 && item.pmvalue <= 100) {
+      } else if (item.pm25value > 50 && item.pm25value <= 100) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pmvalue > 100 && item.pmvalue <= 150) {
+      } else if (item.pm25value > 100 && item.pm25value <= 150) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pmvalue > 150 && item.pmvalue <= 200) {
+      } else if (item.pm25value > 150 && item.pm25value <= 200) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pmvalue > 200) {
+      } else if (item.pm25value > 200) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
@@ -272,5 +270,9 @@ export class AirComponent implements OnInit {
   addMarker() {
     const markers: any[] = [];
     const points: any[] = [];
+  }
+
+  jumpHandle() {
+    this.router.navigate([`home/airreport`]);
   }
 }

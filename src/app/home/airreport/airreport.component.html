@@ -1,0 +1,55 @@
+<div class="air-data-report">
+  <!-- 左侧 -->
+  <div class="air-left">
+      <div class="title">
+        <span>监测点</span>
+      </div>
+      <!-- 导航栏 -->
+      <div class="sidebar-inner">
+          <ul class="first-menu">
+            <!-- 一级菜单 -->
+            <li *ngFor="let area of arealist " class="cur-pointer nav-item">
+              <!-- 没有子菜单 -->
+              <!-- <a *ngIf="!area.children" [routerLink]="[area.routeLink]" routerLinkActive="active" class="nav-link">
+                <i class={{area.icon}}></i>
+                <p class="p-left">{{area.routeTitel}}</p>
+              </a> -->
+              <!-- 有子菜单 -->
+              <a *ngIf="area" (click)="area.isCollapsed = !area.isCollapsed" class="nav-link">
+                <span class="p-left">{{area.name}}</span>
+                <span class="angle" *ngIf="area.isCollapsed"><i class="fa fa-angle-right menu-icon" aria-hidden="true"></i></span>
+                <span class="angle" *ngIf="!area.isCollapsed"><i class="fa fa-angle-down menu-icon" aria-hidden="true"></i></span>
+              </a>
+              <!-- 二级菜单 ul: -->
+              <ul [ngbCollapse]="area.isCollapsed" *ngIf="area.children" class="sec-menu">
+                <li *ngFor="let airpoint of airreport" class="cur-pointer nav-item ">
+                  <a class="nav-link">
+                    <span class="p-left" (click)="selectpoint(airpoint)">{{airpoint.name}}{{airpoint.id}}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+  </div>
+  <!-- 右侧 -->
+  <div class="air-right">
+    <!-- 监测点信息 -->
+    <div class="point-info">
+        <!-- 上半部，头部，简短信息 -->
+        <div class="info-top form-inline">
+          <label class="form-control">时间范围：</label>
+          <input type="date" class="form-control extral-margin" value=""/>
+          <label class="form-control">设备名称：</label>
+          <span class="form-control extral-margin">XBD213</span>
+          <label class="form-control">设备状态：</label>
+          <a><span>在线</span></a>
+        </div>
+
+        <!-- 表单，详细数据展示 -->
+        <div class="panel-default info-form">
+
+        </div>
+    </div>
+  </div>
+</div>

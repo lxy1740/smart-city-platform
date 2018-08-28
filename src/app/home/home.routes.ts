@@ -12,6 +12,7 @@ import { EnergyRoutes } from './energy/energy.routes';
 import { DashbordRoutes } from './dashbord/dashbord.routes';
 import { HomepageRoutes } from './homepage/homepage.routes';
 import { StrategyRoutes } from './strategy/strategy.routes';
+import { AirreportRoutes } from './airreport/airreport.routes';
 import { VideoRoutes } from './video/video.routes';
 import { MapRoutes } from './map/map.routes';
 import { ManageRoutes } from './manage/manage.routes';
@@ -36,6 +37,7 @@ export const HomeRoutes: Route[] = [
             ...DashbordRoutes,
             ...HomepageRoutes,
             ...StrategyRoutes,
+            ...AirreportRoutes,
             ...VideoRoutes,
             ...MapRoutes,
             ...ManageRoutes

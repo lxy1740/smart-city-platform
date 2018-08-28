@@ -1,0 +1,51 @@
+.air-data-report {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    // flex-wrap: wrap;
+    .air-left {
+        width: 150px;
+        height: calc(100vh);
+        background-color: rgb(233, 237, 241);
+        .title {
+            padding: 10px 0 10px 20px;
+            background-color: rgba(153, 153, 153, 0.5);
+            font-size: 20px;
+        }
+    }
+    .air-right {
+        width: 200px;
+        height: 100%;
+    }
+}
+
+
+.sidebar-inner {
+    background-color: rgb(233, 237, 241);
+}
+.first-menu {
+    padding-left: 0px;
+    .nav-link {
+        position: relative;
+
+        .menu-icon {
+            position: absolute;
+            right: 5px;
+        }
+    }
+    .nav-item:hover>.nav-link {
+        color: #b8eefa;
+        background-color: white;
+    }
+}
+.sec-menu {
+    padding-left: 0px;
+}
+
+.info-top {
+    height: 100px;
+    background-color: wheat;
+    .extral-margin {
+        margin-right: 40px;
+    }
+}

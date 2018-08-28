@@ -22,6 +22,7 @@ import { DashbordComponent } from './dashbord/dashbord.component';
 import { MapComponent } from './map/map.component';
 import { StrategyComponent } from './strategy/strategy.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { AirreportComponent } from './airreport/airreport.component';
 
 
 
@@ -35,7 +36,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     ],
     declarations: [
     SurveyComponent, ReportComponent,  VideoComponent, ManageComponent, DashbordComponent,
-     MapComponent, StrategyComponent, HomepageComponent,
+     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent,
 
 
     ],
