@@ -103,7 +103,7 @@ export class LightComponent implements OnInit {
     setInterval(() => {
       this.remove_overlay(this.map);
       this.getLights(); // 获取地图上的点
-    }, 50000);
+    }, 5000);
 
 
 
@@ -165,7 +165,7 @@ export class LightComponent implements OnInit {
       const point = new BMap.Point(item.point.lng, item.point.lat);
 
       let myIcon;
-      if (item.offline && item.offline === true) { // 异常
+      if (item.offline === true || item.error === true)  { // 异常
         myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(36, 36));
 
       } else if (item.level === 0) { // 正常,没亮
@@ -208,7 +208,7 @@ export class LightComponent implements OnInit {
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号： ${val.positionNumber} </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>灯杆编号： ${val.positionNumber} </p>
 
     `;
     txt = txt +
@@ -222,7 +222,7 @@ export class LightComponent implements OnInit {
       txt = txt + `   <p >是否在线： 是</p>`;
       }
 
-    if (val.isError === true) {// 离线
+    if (val.error === true) {// 离线
       // 离线或异常
       txt = txt + `<p >是否故障： 是</p>`;
     } else {
