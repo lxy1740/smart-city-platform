@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AIRAREALIST } from '../../data/air-arealist';
 import { AIRDATALIST } from '../../data/air-data';
+import { Router } from '@angular/router';
+import { AirmonitorService } from '../../service/airmonitor.service';
+// import { Point } from '../../data/point.type';
 
 @Component({
   selector: 'app-airreport',
@@ -12,13 +15,34 @@ export class AirreportComponent implements OnInit {
   arealist = AIRAREALIST.list;
   airreport = AIRDATALIST.list;
   currentpoint: any; // 当前观测点
-  showrightblock = false; // 显示右侧具体信息
-  constructor() { }
+  devicelist: any;
+  constructor(public router: Router, private airmonitorService: AirmonitorService) { }
 
   ngOnInit() {
+    this.getPositions();
+    console.log(this.devicelist);
   }
-  selectpoint(airpoint) {
+  getPositions() {
+    const that = this;
+
+    this.airmonitorService.getAllDevice().subscribe({
+      next: function (val) {
+        that.devicelist = val;
+      },
+      complete: function () {
+        // that.addPoint(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 点击左侧监测点
+  selectPoint(airpoint) {
     this.currentpoint = airpoint;
-    this.showrightblock = true;
+  }
+  jumpHandle() {
+    this.router.navigate([`home/application/air`]);
   }
 }

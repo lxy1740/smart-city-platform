@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
-import { AIRDATALIST } from '../../../data/air-data';
+import { AirmonitorService } from '../../../service/airmonitor.service';
+// import { AIRDATALIST } from '../../../data/air-data';
 import { Point } from '../../../data/point.type';
 
 // baidu map
@@ -41,9 +42,10 @@ export class AirComponent implements OnInit {
 
   SouthWest: Point; // 地图视图西南角
   NorthEast: Point; // 地图视图东北角
-  pm25list = AIRDATALIST.list;
+  // pm25list = AIRDATALIST.list;
 
-  constructor(private monitorService: MonitorService, public router: Router) { }
+  constructor(private monitorService: MonitorService, private airmonitorService: AirmonitorService,
+    public router: Router) { }
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
@@ -74,25 +76,51 @@ export class AirComponent implements OnInit {
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
     // const marker = new BMap.Marker(point);  // 创建标注
     // map.addOverlay(marker);               // 将标注添加到地图中
-    // this.getPMpoints();
+    this.addMarkers();
   }
 
-  getPMpoints() {
+  addMarkers() {
+    this.getPositions();
+  }
+  getPositions() {
+    const that = this;
+    const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
+    const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    const SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+
+    let value;
+    this.airmonitorService.getAirDevice(NorthEast, SouthWest).subscribe({
+      next: function (val) {
+        value = val;
+      },
+      complete: function () {
+        that.addPoint(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  addPoint(val) {
     const markers: any[] = [];
     const points: any[] = [];
-    for (let index = 0; index < this.pm25list.length; index++) {
-      const item = this.pm25list[index];
-      const point = new BMap.Point(item.lng, item.lat);
+    const that = this;
+    val.map((item, i) => {
+      const point = new BMap.Point(item.point.lng, item.point.lat);
+      // const name = item.name;
+      // 添加自定义覆盖物
       let myIcon;
-      if (item.pm25value >= 0 && item.pm25value <= 50) {
+
+      if (item.pm25 >= 0 && item.pm25 <= 50) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pm25value > 50 && item.pm25value <= 100) {
+      } else if (item.pm25 > 50 && item.pm25 <= 100) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pm25value > 100 && item.pm25value <= 150) {
+      } else if (item.pm25 > 100 && item.pm25 <= 150) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pm25value > 150 && item.pm25value <= 200) {
+      } else if (item.pm25 > 150 && item.pm25 <= 200) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
-      } else if (item.pm25value > 200) {
+      } else if (item.pm25 > 200) {
         myIcon = new BMap.Icon('../../../../assets/imgs/pm25Icon.png', new BMap.Size(300, 157));
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
@@ -100,7 +128,12 @@ export class AirComponent implements OnInit {
       this.map.addOverlay(marker);
       markers.push(marker); // 聚合
       points.push(point); // 聚合
-    }
+    });
+    // 点击点标注事件
+    // for (let index = 0; index < that.markers.length; index++) {
+    //   const marker = that.markers[index];
+    //   that.openSideBar(marker, that.map, val[index], points[index]);
+    // }
   }
   // 返回地图可视区域，以地理坐标表示
   getBounds(baiduMap) {
@@ -121,10 +154,9 @@ export class AirComponent implements OnInit {
         that.zoom = that.switchZone(val.zone.level);
         that.node = that.getNode(val.regions, val.zone.region_id);
         that.currentChildren = that.node.children;
-
       },
       complete: function () {
-        that.addBeiduMap(); // 创建地图
+        // that.addBeiduMap(); // 创建地图
 
       },
       error: function (error) {
