@@ -242,7 +242,7 @@ export class CoverComponent implements OnInit {
   openSideBar(marker, baiduMap, mess, point) {
     const that = this;
     const opts = {
-      width: 0,     // 信息窗口宽度
+      width: 350,     // 信息窗口宽度
       // height: 100,     // 信息窗口高度
       // title: `${val.name} | ${val.id }`, // 信息窗口标题
       // enableMessage: true, // 设置允许信息窗发送短息
@@ -272,7 +272,7 @@ export class CoverComponent implements OnInit {
     } else {
       txt = txt + `<p  class='cur-pointer'> 是否离线：是</p>`;
     }
-    txt = txt + `<button class='btn btn-info' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
+    txt = txt + `<button class='btn btn-bg' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
 

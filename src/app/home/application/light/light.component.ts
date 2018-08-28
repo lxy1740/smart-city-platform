@@ -230,6 +230,9 @@ export class LightComponent implements OnInit {
     }
 
     txt = txt + `<p >亮度级别： ${val.level}%</p>`;
+    txt = txt + `<p >电流强度： ${val.current}A</p>`;
+    txt = txt + `<p >电压大小： ${val.volt}V</p>`;
+    txt = txt + `<button class='btn btn-bg' style='font-size: 14px; float: right; margin: 5px'>控制</button>`;
 
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
