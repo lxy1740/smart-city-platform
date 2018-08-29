@@ -58,6 +58,10 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   timer: any; // 定时器
 
+  lightList = []; // 当前数据
+
+  markers: any; // 标注点
+
 
 
   constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router, ) { }
@@ -67,6 +71,15 @@ export class LightComponent implements OnInit, OnDestroy  {
     this.getCity(); // 获取城市列表
     // this.getDevice(); // 获取设备列表
   }
+
+  // 监控-点击地图事件
+  mapClickOff(baiduMap) {
+    const that = this;
+    baiduMap.addEventListener('click', function (e) {
+      that.deviceChild = null;
+    });
+  }
+
 
   // 百度地图API功能
   addBeiduMap() {
@@ -103,7 +116,6 @@ export class LightComponent implements OnInit, OnDestroy  {
 
     this.getLights(); // 获取地图上的点
     this.timer = setInterval(() => {
-      this.remove_overlay(this.map);
       this.getLights(); // 获取地图上的点
     }, 5000);
 
@@ -130,6 +142,8 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   }
 
+
+
   getLights() {
     const that = this;
     const type = this.type;
@@ -137,12 +151,25 @@ export class LightComponent implements OnInit, OnDestroy  {
     const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
     const SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
     let value;
+    let compar;
     this.lightService.getLights(NorthEast, SouthWest).subscribe({
       next: function (val) {
-        value = val;
+        compar = that.comparison(that.lightList, val);
+        value = that.judgeChange(compar.a_arr, compar.b_arr);
+        console.log('value');
+        console.log(value);
+
+
+        that.changeMarker(value); // 替换
+        that.deleMarker(compar.a_surplus); // 删除
+        // that.deleMarker(value); // 删除
+        that.addMarker(compar.b_surplus); // 添加
+        // that.addMarker(value); // 添加
+
+        that.lightList = val; // 变为新值
       },
       complete: function () {
-        that.addMarker(value);
+        // that.changeMarker(value);
       },
       error: function (error) {
         console.log(error);
@@ -150,13 +177,99 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
 
-  // 监控-点击地图事件
-  mapClickOff(baiduMap) {
-    const that = this;
-    baiduMap.addEventListener('click', function (e) {
-      that.deviceChild = null;
-    });
+  // 交并补
+  comparison(a, b) {
+    const a_arr: any[] = [];
+    const b_arr: any[] = [];
+    const a_surplus: any[] = [];
+    const b_surplus: any[] = [];
+    let i = 0;
+    for (let j = 0; j < b.length; j++) {
+      while (i < a.length && a[i].id < b[j].id) {
+        a_surplus.push(a[i]);
+        i++;
+      }
+      if (i >= a.length || a[i].id > b[j].id) {
+        b_surplus.push(b[j]);
+      } else {
+        a_arr.push(a[i]);
+        i++;
+        b_arr.push(b[j]);
+      }
+    }
+    return {
+      a_arr: a_arr,
+      b_arr: b_arr,
+      a_surplus: a_surplus,
+      b_surplus: b_surplus,
+    };
   }
+
+ // 判断变化值
+  judgeChange(a, b) {
+    const changePoint: any[] = [];
+    const length = a.length < b.length ? a.length : b.length;
+    for (let index = 0; index < length; index++) {
+      const a_element = a[index];
+      const b_element = b[index];
+      let a_level = 0;
+      let b_level = 0;
+      if (a_element.level === 0) {
+        a_level = 0;
+      } else if (a_element.level < 30 ) {
+        a_level = 1;
+      } else if (a_element.level < 70) {
+        a_level = 2;
+      } else {
+        a_level = 3;
+      }
+      if (b_element.level === 0) {
+        b_level = 0;
+      } else if (b_element.level < 30) {
+        b_level = 1;
+      } else if (b_element.level < 70) {
+        b_level = 2;
+      } else {
+        b_level = 3;
+      }
+      if (a_element.error !== b_element.error ||
+        a_element.offline !== b_element.offline ||
+        a_element.current !== b_element.current ||
+        a_element.volt !== b_element.volt ||
+        a_element.level !== b_element.level ||
+        a_level !== b_level
+       ) {
+        changePoint.push(b_element);
+      }
+
+    }
+    return changePoint;
+
+  }
+
+  // 替换
+  changeMarker(light_list) {
+    this.deleMarker(light_list); // 删除
+    this.addMarker(light_list); // 添加
+  }
+  // 删除
+  deleMarker(light_list) {
+    const makers = this.map.getOverlays();
+    for (let ind = 0; ind < light_list.length; ind++) {
+      const ele = light_list[ind];
+      const point = light_list[ind].point;
+      for (let index = 0; index < makers.length; index++) {
+        const element = makers[index];
+        const lat = element.point && element.point.lat;
+        const lng = element.point && element.point.lng;
+        if (point.lat === lat && point.lng === lng) {
+          this.map.removeOverlay(makers[index]);
+        }
+
+      }
+    }
+  }
+
 
   // 地图上描点
   addMarker(light_list) {
@@ -185,6 +298,8 @@ export class LightComponent implements OnInit, OnDestroy  {
       const marker = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker);
       markers.push(marker); // 聚合
+
+      this.markers = markers;
       points.push(point); // 聚合
     }
 
@@ -214,7 +329,7 @@ export class LightComponent implements OnInit, OnDestroy  {
 
     `;
     txt = txt +
-     `<p  class='cur-pointer'   id='${val.id}'>设备名称： ${val.description}</p>
+     `<p  class='cur-pointer' >设备名称： ${val.description}</p>
      `;
 
     if (val.offline === true) {// 离线
@@ -234,7 +349,7 @@ export class LightComponent implements OnInit, OnDestroy  {
     txt = txt + `<p >亮度级别： ${val.level}%</p>`;
     txt = txt + `<p >电流强度： ${val.current}A</p>`;
     txt = txt + `<p >电压大小： ${val.volt}V</p>`;
-    txt = txt + `<button class='btn btn-bg' style='font-size: 14px; float: right; margin: 5px'>控制</button>`;
+    txt = txt + `<button class='btn btn-bg cur-point' style='font-size: 14px; float: right; margin: 5px'  id='${val.id}'>控制</button>`;
 
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
@@ -257,7 +372,7 @@ export class LightComponent implements OnInit, OnDestroy  {
       const device = $(`#${this.device.id}`);
       device.on('click', function () {
         console.log('ddd');
-        that.deviceChild = that.device.id;
+        that.deviceChild = that.device;
       });
 
   }
