@@ -145,6 +145,9 @@ export class StrategyComponent implements OnInit {
   hoveredDate: NgbDateStruct; // 日历
   fromDate: NgbDateStruct; // 日历
   toDate: NgbDateStruct; // 日历
+  time = { hour: 13, minute: 30 }; // 工作日时间
+  brightness: any; // 亮度
+
 
   // hoveredDate: NgbDate;
 
@@ -158,6 +161,7 @@ export class StrategyComponent implements OnInit {
     calendar: NgbCalendar) {
     this.fromDate = calendar.getToday();  // 日历
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10); // 日历
+
 
     this.dateList = this.strategyList[0].dateList;
     // 树的操作
@@ -291,9 +295,9 @@ export class StrategyComponent implements OnInit {
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      console.log('date');
+      if (that.toDate === null) {
+        return;
+      }
       that.addStrategy('date');
 
     }, (reason) => {
