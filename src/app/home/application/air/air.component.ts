@@ -42,10 +42,11 @@ export class AirComponent implements OnInit {
 
   SouthWest: Point; // 地图视图西南角
   NorthEast: Point; // 地图视图东北角
+  airdevicelist: any;
   // pm25list = AIRDATALIST.list;
 
   constructor(private monitorService: MonitorService, private airmonitorService: AirmonitorService,
-    public router: Router) { }
+    public router: Router) {}
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
@@ -95,6 +96,7 @@ export class AirComponent implements OnInit {
       },
       complete: function () {
         that.addPoint(value);
+        localStorage.setItem('DEVICES', JSON.stringify(value));
       },
       error: function (error) {
         console.log(error);
@@ -298,13 +300,9 @@ export class AirComponent implements OnInit {
     this.areashow = true;
     this.currentBlock = null;
   }
-  // 地图描点
-  addMarker() {
-    const markers: any[] = [];
-    const points: any[] = [];
-  }
 
   jumpHandle() {
     this.router.navigate([`home/airreport`]);
+
   }
 }

@@ -7,28 +7,27 @@
       <!-- 导航栏 -->
       <div class="sidebar-inner">
           <ul class="first-menu">
+              <li *ngFor="let device of devicelist " class="cur-pointer nav-item" (click)="selectPoint(device)">
+                  <a *ngIf="device" class="nav-link">
+                    <span>{{device.description}}</span>
+                  </a>
+              </li>
             <!-- 一级菜单 -->
-            <li *ngFor="let area of arealist " class="cur-pointer nav-item">
-              <!-- 没有子菜单 -->
-              <!-- <a *ngIf="!area.children" [routerLink]="[area.routeLink]" routerLinkActive="active" class="nav-link">
-                <i class={{area.icon}}></i>
-                <p class="p-left">{{area.routeTitel}}</p>
-              </a> -->
-              <!-- 有子菜单 -->
+            <!-- <li *ngFor="let area of arealist " class="cur-pointer nav-item">
               <a *ngIf="area" (click)="area.isCollapsed = !area.isCollapsed" class="nav-link">
                 <span class="p-left">{{area.name}}</span>
                 <span class="angle" *ngIf="area.isCollapsed"><i class="fa fa-angle-right menu-icon" aria-hidden="true"></i></span>
                 <span class="angle" *ngIf="!area.isCollapsed"><i class="fa fa-angle-down menu-icon" aria-hidden="true"></i></span>
-              </a>
+              </a> -->
               <!-- 二级菜单 ul: -->
-              <ul [ngbCollapse]="area.isCollapsed" *ngIf="area.children" class="sec-menu">
+              <!-- <ul [ngbCollapse]="area.isCollapsed" *ngIf="area.children" class="sec-menu">
                 <li *ngFor="let airpoint of airreport" class="cur-pointer nav-item" (click)="selectPoint(airpoint)">
                   <a class="nav-link">
                     <span class="p-left">{{airpoint.name}}{{airpoint.id}}</span>
                   </a>
                 </li>
-              </ul>
-            </li>
+              </ul> -->
+            <!-- </li> -->
           </ul>
       </div>
   </div>
@@ -39,15 +38,21 @@
     <div  class="point-info">
         <!-- 上半部，头部，简短信息 -->
         <div class="panel-default info-top">
-            <span class="title-right" *ngIf="currentpoint">{{currentpoint.name}}{{currentpoint.id}}</span>
+            <span class="title-right" *ngIf="currentdevice">{{currentdevice.description}}</span>
             <i class="fa fa-arrow-circle-o-left fa-2x backtoair" (click)="jumpHandle()"></i>
             <div class="form-inline brief-info">
+              <div class="extral-margin">
                 <label class="form-control text-label">时间范围：</label>
-                <input type="date" class="form-control extral-margin" value=""/>
+                <input type="date" class="form-control" value=""/>
+              </div>
+              <div class="extral-margin">
                 <label class="form-control text-label">设备名称：</label>
-                <span class="form-control text-label extral-margin">XBD213</span>
+                <span *ngIf="currentdevice" class="form-control text-label">{{currentdevice.name}}</span>
+              </div>
+              <div>
                 <label class="form-control text-label">设备状态：</label>
-                <a class="form-control text-label"><span>在线</span></a>
+                <span *ngIf="currentdevice" class="form-control text-label">{{getdevicestatus(currentdevice.offline)}}</span>
+              </div>
             </div>
         </div>
 
@@ -56,12 +61,12 @@
           <form class="form-air-point">
             <div class="btns">
               <button class="btn btn-bg extral-margin">导出报表</button>
-              <button class="btn btn-bg">生成图表</button>
+              <button class="btn btn-bg" (click)="openGenerateTables(content)">生成图表</button>
             </div>
             <table class="table table-hover">
               <thead class="table-header">
                 <tr>
-                  <th><input type="checkbox" value=""></th>
+                  <!-- <th><input type="checkbox" value=""></th> -->
                   <th>采集时间</th>
                   <th>PM2.5</th>
                   <th>PM10</th>
@@ -70,12 +75,40 @@
                   <th>湿度</th>
                 </tr>
               </thead>
-              <tbody>
-
+              <!-- 接口中每个设备仅一组数据 -->
+              <tbody *ngIf="currentdevice">
+                <tr>
+                  <td>无</td>
+                  <td>{{currentdevice.pm25}}</td>
+                  <td>{{currentdevice.pm10}}</td>
+                  <td>{{currentdevice.tvoc}}</td>
+                  <td>{{currentdevice.temperature}}</td>
+                  <td>{{currentdevice.humidity}}</td>
+                </tr>
               </tbody>
             </table>
           </form>
         </div>
+
     </div>
   </div>
+
 </div>
+
+<!-- 生成图表 -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <span class="modal-title">批量导入设备</span>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body">
+  
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-info" (click)="c('Close click')">保存</button>
+      <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
+    </div>
+  </ng-template>

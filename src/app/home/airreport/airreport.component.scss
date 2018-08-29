@@ -29,22 +29,13 @@
 }
 .first-menu {
     padding-left: 0px;
-    .nav-link {
-        position: relative;
 
-        .menu-icon {
-            position: absolute;
-            right: 5px;
-        }
-    }
     .nav-item:hover>.nav-link {
         color: #b8eefa;
         background-color: white;
     }
 }
-.sec-menu {
-    padding-left: 0px;
-}
+
 // 右侧
 .info-top {
     height: 150px;
@@ -53,7 +44,7 @@
     margin: 15px;
     position: relative;
     .extral-margin {
-        margin-right: 40px;
+        margin-right: 80px;
     }
     .text-label {
         border: none;
@@ -85,4 +76,8 @@
             margin-bottom: 10px;
         }
     }
+}
+
+.modal-header, .modal-footer {
+    padding: 5px 15px;
 }

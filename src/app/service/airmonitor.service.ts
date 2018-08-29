@@ -32,17 +32,17 @@ export class AirmonitorService {
                 }
             }));
     }
-    getAllDevice(): Observable<any> {
-        return this.http.post(`/api/airmonitor/inbounds`, {})
-            .pipe(map((res: Response) => {
-                if (res.status === 200) {
-                    const data = res.json();
-                    return data;
-                } else if (res.status === 202) {
-                    return res.json().code.toString();
-                }
-            }));
-    }
+    // getAllDevice(): Observable<any> {
+    //     return this.http.post(`/api/airmonitor/inbounds`, {})
+    //         .pipe(map((res: Response) => {
+    //             if (res.status === 200) {
+    //                 const data = res.json();
+    //                 return data;
+    //             } else if (res.status === 202) {
+    //                 return res.json().code.toString();
+    //             }
+    //         }));
+    // }
 
 
 
