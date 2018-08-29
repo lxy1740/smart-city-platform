@@ -146,7 +146,8 @@ export class StrategyComponent implements OnInit {
   fromDate: NgbDateStruct; // 日历
   toDate: NgbDateStruct; // 日历
   time = { hour: 13, minute: 30 }; // 工作日时间
-  brightness: any; // 亮度
+  brightness = 30 ; // 亮度
+  step = 1; // 步骤
 
 
   // hoveredDate: NgbDate;
@@ -238,6 +239,14 @@ export class StrategyComponent implements OnInit {
 
     }
 
+  }
+
+  // 下一步
+  nextStep() {
+    this.step = this.step + 1;
+  }
+  preStep() {
+    this.step = this.step - 1;
   }
 
   // 删除工作日
