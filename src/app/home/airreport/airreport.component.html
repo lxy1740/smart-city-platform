@@ -12,22 +12,6 @@
                     <span>{{device.description}}</span>
                   </a>
               </li>
-            <!-- 一级菜单 -->
-            <!-- <li *ngFor="let area of arealist " class="cur-pointer nav-item">
-              <a *ngIf="area" (click)="area.isCollapsed = !area.isCollapsed" class="nav-link">
-                <span class="p-left">{{area.name}}</span>
-                <span class="angle" *ngIf="area.isCollapsed"><i class="fa fa-angle-right menu-icon" aria-hidden="true"></i></span>
-                <span class="angle" *ngIf="!area.isCollapsed"><i class="fa fa-angle-down menu-icon" aria-hidden="true"></i></span>
-              </a> -->
-              <!-- 二级菜单 ul: -->
-              <!-- <ul [ngbCollapse]="area.isCollapsed" *ngIf="area.children" class="sec-menu">
-                <li *ngFor="let airpoint of airreport" class="cur-pointer nav-item" (click)="selectPoint(airpoint)">
-                  <a class="nav-link">
-                    <span class="p-left">{{airpoint.name}}{{airpoint.id}}</span>
-                  </a>
-                </li>
-              </ul> -->
-            <!-- </li> -->
           </ul>
       </div>
   </div>
@@ -36,7 +20,7 @@
   <div class="air-right">
     <!-- 监测点信息 -->
     <div  class="point-info">
-        <!-- 上半部，头部，简短信息 -->
+        <!-- 右侧，上半部，头部，简短信息 -->
         <div class="panel-default info-top">
             <span class="title-right" *ngIf="currentdevice">{{currentdevice.description}}</span>
             <i class="fa fa-arrow-circle-o-left fa-2x backtoair" (click)="jumpHandle()"></i>
@@ -56,13 +40,14 @@
             </div>
         </div>
 
-        <!-- 表单，详细数据展示 -->
+        <!-- 右侧，下半部-->
         <div class="panel-default info-form">
           <form class="form-air-point">
             <div class="btns">
               <button class="btn btn-bg extral-margin">导出报表</button>
               <button class="btn btn-bg" (click)="openGenerateTables(content)">生成图表</button>
             </div>
+            <!--当前设备详细数据展示-->
             <table class="table table-hover">
               <thead class="table-header">
                 <tr>
@@ -75,19 +60,59 @@
                   <th>湿度</th>
                 </tr>
               </thead>
-              <!-- 接口中每个设备仅一组数据 -->
               <tbody *ngIf="currentdevice">
-                <tr>
-                  <td>无</td>
-                  <td>{{currentdevice.pm25}}</td>
-                  <td>{{currentdevice.pm10}}</td>
-                  <td>{{currentdevice.tvoc}}</td>
-                  <td>{{currentdevice.temperature}}</td>
-                  <td>{{currentdevice.humidity}}</td>
+                <tr *ngFor="let historydate of historydatalist">
+                  <td>{{historydate.timestamp}}</td>
+                  <td>{{historydate.pm25}}</td>
+                  <td>{{historydate.pm10}}</td>
+                  <td>{{historydate.tvoc}}</td>
+                  <td>{{historydate.temperature}}</td>
+                  <td>{{historydate.humidity}}</td>
                 </tr>
               </tbody>
             </table>
           </form>
+
+          <!-- 分页 开始-->
+          <div class="row">
+              <div class="col-sm-12 col-md-12 dataTables_pager">
+                <div class="bs-example" data-example-id="disabled-active-pagination">
+                  <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="disabled">
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">«</span>
+                        </a>
+                      </li>
+                      <li class="active">
+                        <a href="#">1
+                          <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">2</a>
+                      </li>
+                      <li>
+                        <a href="#">3</a>
+                      </li>
+                      <li>
+                        <a href="#">4</a>
+                      </li>
+                      <li>
+                        <a href="#">5</a>
+                      </li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">»</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+            <!-- 分页 结束 -->
+
         </div>
 
     </div>
@@ -95,7 +120,8 @@
 
 </div>
 
-<!-- 生成图表 -->
+
+<!-- modal: 生成图表 -->
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <span class="modal-title">批量导入设备</span>

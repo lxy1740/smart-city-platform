@@ -18,6 +18,7 @@ export class AirmonitorService {
 
     constructor(private http: Http) {
     }
+    // 获取指定坐标范围内的所有设备
     getAirDevice(ne: Point, sw: Point): Observable<any> {
         return this.http.post(`/api/airmonitor/inbounds`, {
             'ne': ne,
@@ -32,19 +33,18 @@ export class AirmonitorService {
                 }
             }));
     }
-    // getAllDevice(): Observable<any> {
-    //     return this.http.post(`/api/airmonitor/inbounds`, {})
-    //         .pipe(map((res: Response) => {
-    //             if (res.status === 200) {
-    //                 const data = res.json();
-    //                 return data;
-    //             } else if (res.status === 202) {
-    //                 return res.json().code.toString();
-    //             }
-    //         }));
-    // }
+    // 获取指定设备的多项历史数据
+    getHistoryData(id: number, from: string, to: string): Observable<any> {
+        return this.http.post(`/api/airmonitor/history/${id}?from=${from}&to=${to}`, {
 
-
-
-
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
 }

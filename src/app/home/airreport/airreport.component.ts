@@ -10,43 +10,67 @@ import { AirmonitorService } from '../../service/airmonitor.service';
   styleUrls: ['./airreport.component.scss']
 })
 export class AirreportComponent implements OnInit {
-  isCollapsed = false;
-  currentdevice: any; // 当前观测设备点
-  devicelist: any;
+  currentdevice: any; // 当前设备
+  devicelist: any;  // 设备集合
+  NorthEast: any; // 坐标点
+  SouthWest: any; // 坐标点
   closeResult: string;
+  historydatalist: any; // 指定设备的历史数据集合
 
-  constructor(private modalService: NgbModal, public router: Router, private airmonitorService: AirmonitorService) {
-
-    this.devicelist = JSON.parse(localStorage.getItem('DEVICES'));
-    // console.log(points);
+  constructor(private modalService: NgbModal, public router: Router,
+    private airmonitorService: AirmonitorService) {
+    // 获取坐标范围
+    this.NorthEast = JSON.parse(localStorage.getItem('NE'));
+    this.SouthWest = JSON.parse(localStorage.getItem('SW'));
   }
 
   ngOnInit() {
-    // this.getPositions();
+    this.getDevices();
   }
-  // getPositions() {
-  //   const that = this;
 
-  //   this.airmonitorService.getAllDevice().subscribe({
-  //     next: function (val) {
-  //       that.devicelist = val;
-  //     },
-  //     complete: function () {
-  //       // that.addPoint(value);
-  //     },
-  //     error: function (error) {
-  //       console.log(error);
-  //     }
-  //   });
-  // }
+  // 根据当前坐标范围，获取所有在内的设备
+  getDevices() {
+    const that = this;
 
+    this.airmonitorService.getAirDevice(this.NorthEast, this.SouthWest).subscribe({
+      next: function (val) {
+        that.devicelist = val;
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  
   // 点击左侧监测点
   selectPoint(device) {
     this.currentdevice = device;
+    this.getHistoryData();
   }
+  // 获取指定设备的历史数据记录
+  getHistoryData() {
+    const that = this;
+    const fromdate = '2018-01-01T00:00';
+    const todate = '2018-12-30T23:59';
+    this.airmonitorService.getHistoryData(this.currentdevice.id, fromdate, todate).subscribe({
+      next: function (val) {
+        that.historydatalist = val.items;
+        console.log(that.historydatalist);
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  // 返回空气质量页面
   jumpHandle() {
     this.router.navigate([`home/application/air`]);
   }
+  // 获取当前设备的离线状态
   getdevicestatus(val) {
     if (val.offline) {
       return '离线';
