@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AIRAREALIST } from '../../data/air-arealist';
-import { AIRDATALIST } from '../../data/air-data';
 import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AirmonitorService } from '../../service/airmonitor.service';
 // import { Point } from '../../data/point.type';
 
@@ -12,37 +11,68 @@ import { AirmonitorService } from '../../service/airmonitor.service';
 })
 export class AirreportComponent implements OnInit {
   isCollapsed = false;
-  arealist = AIRAREALIST.list;
-  airreport = AIRDATALIST.list;
-  currentpoint: any; // 当前观测点
+  currentdevice: any; // 当前观测设备点
   devicelist: any;
-  constructor(public router: Router, private airmonitorService: AirmonitorService) { }
+  closeResult: string;
+
+  constructor(private modalService: NgbModal, public router: Router, private airmonitorService: AirmonitorService) {
+
+    this.devicelist = JSON.parse(localStorage.getItem('DEVICES'));
+    // console.log(points);
+  }
 
   ngOnInit() {
-    this.getPositions();
-    console.log(this.devicelist);
+    // this.getPositions();
   }
-  getPositions() {
-    const that = this;
+  // getPositions() {
+  //   const that = this;
 
-    this.airmonitorService.getAllDevice().subscribe({
-      next: function (val) {
-        that.devicelist = val;
-      },
-      complete: function () {
-        // that.addPoint(value);
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  }
+  //   this.airmonitorService.getAllDevice().subscribe({
+  //     next: function (val) {
+  //       that.devicelist = val;
+  //     },
+  //     complete: function () {
+  //       // that.addPoint(value);
+  //     },
+  //     error: function (error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
 
   // 点击左侧监测点
-  selectPoint(airpoint) {
-    this.currentpoint = airpoint;
+  selectPoint(device) {
+    this.currentdevice = device;
   }
   jumpHandle() {
     this.router.navigate([`home/application/air`]);
+  }
+  getdevicestatus(val) {
+    if (val.offline) {
+      return '离线';
+    } else {
+      return '在线';
+    }
+  }
+  // 模态框
+  openGenerateTables(content) {  // 批量导入
+    const that = this;
+    this.modalService.open(content, { windowClass: 'max-modal' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }

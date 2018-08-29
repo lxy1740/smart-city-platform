@@ -371,13 +371,20 @@ address, cite, code, em, th, i, strong {
 .modal{
     z-index: 10000;
 }
-
+// 超大模态框
 .ex-lg-modal  {
     .modal-dialog {
         width: 90%;
         max-width: 1000px;
     }
 }
+.max-modal {
+    .modal-dialog {
+        width: 1300px;
+        max-width: 1500px;
+    }
+}
+// 小模态框
 .md-modal {
     .modal-dialog {
         width: 400px;
