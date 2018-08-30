@@ -5,7 +5,7 @@ import { MaterialModule } from './material.module';
 
 
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Router } from '@angular/router';
@@ -64,6 +64,7 @@ import { PageNotFoundComponent } from './not-found.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
     HttpModule,
     CookieModule.forRoot(),

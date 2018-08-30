@@ -286,320 +286,340 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- 时间 -->
-      <div *ngIf="step===1">
-        <p>请选择时间范围：</p>
-        <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
-        </ngb-datepicker>
-        
-        <ng-template #t let-date="date" let-focused="focused">
-          <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
-            (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
-            {{ date.day }}
-          </span>
-        </ng-template>
-        <div>
-          <p>
-            <span>开始时间：</span>
-            <span *ngIf="fromDate">{{fromDate.month}}月{{fromDate.day}}日</span>
-          </p>
-          <p>
-            <span>结束时间：</span>
-            <span *ngIf="toDate">{{toDate.month}}月{{toDate.day}}日</span>
-          </p>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
 
-        </div>
-      </div>
-      <!-- 工作日 -->
-      <div *ngIf="step===2">
-        <div class="table-workday">
-          <div class="date-title">
-            <span>工作日</span>
-      
-      
-          </div>
-            <!-- 开灯时间： -->
-          <div class="row border-xif">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" >
-                <div class="col-4">
-                  <label for="brightnessTime">开灯时间：</label>
-                
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
+            <ng-template matStepLabel>选择日期范围</ng-template>
 
-            </div>
-            
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">起始亮度：</label>
-                </div>
-                <div class="col-6">
-                
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
+             
+                      <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
+                      </ngb-datepicker>
+                      
+                      <ng-template #t let-date="date" let-focused="focused">
+                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+                          (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                          {{ date.day }}
+                        </span>
+                      </ng-template>
+                      <div class="row" style=" padding: 12px 0; ">
+                        <div class="col-6 text-left">
+                          <span>开始时间：</span>
+                          <span *ngIf="fromDate">{{fromDate.month}}月{{fromDate.day}}日</span>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>结束时间：</span>
+                            <span *ngIf="toDate">{{toDate.month}}月{{toDate.day}}日</span>
+                        </div>
+                      
+                      </div>
 
+            <div>
+              <button mat-button matStepperNext>Next</button>
             </div>
-          </div>
 
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
 
-      
-          <!-- 中间时间 -->
-          <div class="row border-xif">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">时间：</label>
-          
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-          
-            </div>
-          
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">亮度：</label>
-                </div>
-                <div class="col-6">
-          
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-          
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">时间：</label>
-          
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-          
-            </div>
-          
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">亮度：</label>
-                </div>
-                <div class="col-6">
-          
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-          
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">时间：</label>
-          
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-          
-            </div>
-          
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">亮度：</label>
-                </div>
-                <div class="col-6">
-          
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-          
-            </div>
-          </div>
+            <ng-template matStepLabel>填写工作日时间</ng-template>
 
-      
-        <!-- 关灯时间： -->
-          <div class="row border-xif">
-              <div class="col-6">
-                <div class="row align-items-center justify-content-center">
-                  <div class="col-4">
-                    <label for="brightnessTime">关灯时间：</label>
-              
-                  </div>
-                  <div class="col-6">
-                    <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                  </div>
-                </div>
-              
-              </div>
+                          <!-- 开灯时间： -->
+                          <div class="row border-xif">
+                            <div class="col-6">
+                              <div class="row align-items-center justify-content-center">
+                                <div class="col-4">
+                                  <label for="brightnessTime">开灯时间：</label>
+                          
+                                </div>
+                                <div class="col-6">
+                                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                </div>
+                              </div>
+                          
+                            </div>
+                          
+                            <div class="col-6">
+                              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                <div class="col-4">
+                                  <label for="changeBrightness">起始亮度：</label>
+                                </div>
+                                <div class="col-6">
+                          
+                                  <input  type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                </div>
+                              </div>
+                          
+                            </div>
+                          </div>
+                          
+                          
+                          
+                          <!-- 中间时间 -->
+                          <div>
+                              <div class="row border-xif">
+                                <div class="col-6">
+                                  <div class="row align-items-center justify-content-center">
+                                    <div class="col-4">
+                                      <label for="brightnessTime">时间：</label>
+                              
+                                    </div>
+                                    <div class="col-6">
+                                      <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                    </div>
+                                  </div>
+                              
+                                </div>
+                              
+                                <div class="col-6">
+                                  <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                    <div class="col-4">
+                                      <label for="changeBrightness">亮度：</label>
+                                    </div>
+                                    <div class="col-6">
+                              
+                                      <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                    </div>
+                                  </div>
+                              
+                                </div>
+                              </div>
+                              <div class="row border-xi">
+                                <div class="col-6">
+                                  <div class="row align-items-center justify-content-center">
+                                    <div class="col-4">
+                                      <label for="brightnessTime">时间：</label>
+                              
+                                    </div>
+                                    <div class="col-6">
+                                      <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                    </div>
+                                  </div>
+                              
+                                </div>
+                              
+                                <div class="col-6">
+                                  <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                    <div class="col-4">
+                                      <label for="changeBrightness">亮度：</label>
+                                    </div>
+                                    <div class="col-6">
+                              
+                                      <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                    </div>
+                                  </div>
+                              
+                                </div>
+                              </div>
+                              <div class="row border-xi">
+                                <div class="col-6">
+                                  <div class="row align-items-center justify-content-center">
+                                    <div class="col-4">
+                                      <label for="brightnessTime">时间：</label>
+                              
+                                    </div>
+                                    <div class="col-6">
+                                      <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                    </div>
+                                  </div>
+                              
+                                </div>
+                              
+                                <div class="col-6">
+                                  <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                    <div class="col-4">
+                                      <label for="changeBrightness">亮度：</label>
+                                    </div>
+                                    <div class="col-6">
+                              
+                                      <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                    </div>
+                                  </div>
+                              
+                                </div>
+                              </div>
+                          </div>
+                          
+                          <!-- 关灯时间： -->
+                          <div class="row border-xif">
+                            <div class="col-6">
+                              <div class="row align-items-center justify-content-center">
+                                <div class="col-4">
+                                  <label for="brightnessTime">关灯时间：</label>
+                          
+                                </div>
+                                <div class="col-6">
+                                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                </div>
+                              </div>
+                          
+                            </div>
+                          </div>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+
+            <ng-template matStepLabel>填写节假日时间</ng-template>
+                          <!-- 开灯时间： -->
+                          <div class="row border-xif">
+                            <div class="col-6">
+                              <div class="row align-items-center justify-content-center">
+                                <div class="col-4">
+                                  <label for="brightnessTime">开灯时间：</label>
+                          
+                                </div>
+                                <div class="col-6">
+                                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                </div>
+                              </div>
+                          
+                            </div>
+                          
+                            <div class="col-6">
+                              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                <div class="col-4">
+                                  <label for="changeBrightness">起始亮度：</label>
+                                </div>
+                                <div class="col-6">
+                          
+                                  <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                </div>
+                              </div>
+                          
+                            </div>
+                          </div>
+                          
+                          
+                          
+                          <!-- 中间时间 -->
+                          <div>
+                            <div class="row border-xif">
+                              <div class="col-6">
+                                <div class="row align-items-center justify-content-center">
+                                  <div class="col-4">
+                                    <label for="brightnessTime">时间：</label>
+                          
+                                  </div>
+                                  <div class="col-6">
+                                    <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                  </div>
+                                </div>
+                          
+                              </div>
+                          
+                              <div class="col-6">
+                                <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                  <div class="col-4">
+                                    <label for="changeBrightness">亮度：</label>
+                                  </div>
+                                  <div class="col-6">
+                          
+                                    <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                  </div>
+                                </div>
+                          
+                              </div>
+                            </div>
+                            <div class="row border-xi">
+                              <div class="col-6">
+                                <div class="row align-items-center justify-content-center">
+                                  <div class="col-4">
+                                    <label for="brightnessTime">时间：</label>
+                          
+                                  </div>
+                                  <div class="col-6">
+                                    <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                  </div>
+                                </div>
+                          
+                              </div>
+                          
+                              <div class="col-6">
+                                <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                  <div class="col-4">
+                                    <label for="changeBrightness">亮度：</label>
+                                  </div>
+                                  <div class="col-6">
+                          
+                                    <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                  </div>
+                                </div>
+                          
+                              </div>
+                            </div>
+                            <div class="row border-xi">
+                              <div class="col-6">
+                                <div class="row align-items-center justify-content-center">
+                                  <div class="col-4">
+                                    <label for="brightnessTime">时间：</label>
+                          
+                                  </div>
+                                  <div class="col-6">
+                                    <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                  </div>
+                                </div>
+                          
+                              </div>
+                          
+                              <div class="col-6">
+                                <div class="row align-items-center justify-content-center" style=" height: 100%; ">
+                                  <div class="col-4">
+                                    <label for="changeBrightness">亮度：</label>
+                                  </div>
+                                  <div class="col-6">
+                          
+                                    <input type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
+                                  </div>
+                                </div>
+                          
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <!-- 关灯时间： -->
+                          <div class="row border-xif">
+                            <div class="col-6">
+                              <div class="row align-items-center justify-content-center">
+                                <div class="col-4">
+                                  <label for="brightnessTime">关灯时间：</label>
+                          
+                                </div>
+                                <div class="col-6">
+                                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
+                                </div>
+                              </div>
+                          
+                            </div>
+                          </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <!-- <button mat-button matStepperNext>Next</button> -->
+            </div>
+
+        </mat-step>
+        <!-- <mat-step>
+          <ng-template matStepLabel>完成</ng-template>
+          OK！
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
           </div>
-      
-      
-        </div>
-      
-      </div>
-      <!-- 节假日 -->
-      <div *ngIf="step===3">
-        <div class="table-workday">
-          <div class="date-title">
-            <span>节假日</span>
-          </div>
-          <!-- 开灯时间： -->
-          <div class="row border-xif">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">开灯时间：</label>
-      
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-      
-            </div>
-      
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">起始亮度：</label>
-                </div>
-                <div class="col-6">
-      
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-      
-            </div>
-          </div>
-      
-      
-      
-          <!-- 中间时间 -->
-          <div class="row border-xif">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">时间：</label>
-      
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-      
-            </div>
-      
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">亮度：</label>
-                </div>
-                <div class="col-6">
-      
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-      
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">时间：</label>
-      
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-      
-            </div>
-      
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">亮度：</label>
-                </div>
-                <div class="col-6">
-      
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-      
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">时间：</label>
-      
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-      
-            </div>
-      
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center" style=" height: 100%; ">
-                <div class="col-4">
-                  <label for="changeBrightness">亮度：</label>
-                </div>
-                <div class="col-6">
-      
-                  <input id="changeBrightness" type="number" class="form-control form-control-sm" [(ngModel)]="brightness" />
-                </div>
-              </div>
-      
-            </div>
-          </div>
-      
-      
-          <!-- 关灯时间： -->
-          <div class="row border-xif">
-            <div class="col-6">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4">
-                  <label for="brightnessTime">关灯时间：</label>
-      
-                </div>
-                <div class="col-6">
-                  <ngb-timepicker [(ngModel)]="time" id="brightnessTime"></ngb-timepicker>
-                </div>
-              </div>
-      
-            </div>
-          </div>
-      
-      
-        </div>
-      
-      </div>
+        </mat-step> -->
+      </mat-horizontal-stepper>
+
         
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="preStep()" *ngIf="step!==1">上一步</button>
-      <button type="button" class="btn btn-outline-info" (click)="nextStep()" *ngIf="step!==3">下一步</button>
+      <!-- <button type="button" class="btn btn-outline-info" (click)="preStep()" *ngIf="step!==3">上一步</button>
+      <button type="button" class="btn btn-outline-info" (click)="nextStep()" *ngIf="step!==3">下一步</button> -->
+      <!-- <button mat-button matStepperPrevious *ngIf="step!==3">上一步</button>
+      <button mat-button matStepperNext *ngIf="step!==3">下一步</button> -->
+      <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
       <button type="button" class="btn btn-outline-info" (click)="c('Save click')" *ngIf="step===3">完成</button>
       <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>

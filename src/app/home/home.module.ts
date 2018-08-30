@@ -1,8 +1,9 @@
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
+import { MatButtonModule, MatStepperModule, MatInputModule } from '@angular/material';
 
 
 
@@ -30,8 +31,9 @@ import { AirreportComponent } from './airreport/airreport.component';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, NgbModule.forRoot(),
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
          DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule, SharedModule,
+        MatStepperModule, MatButtonModule, MatInputModule
 
     ],
     declarations: [

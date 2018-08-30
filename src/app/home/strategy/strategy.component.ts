@@ -9,6 +9,8 @@ Author: luo.shuqi@live.com
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { VideoService } from '../../service/video.service';
 
@@ -155,13 +157,33 @@ export class StrategyComponent implements OnInit {
   // fromDate: NgbDate;
   // toDate: NgbDate;
 
+  isLinear = false; // 步骤
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal,
      private videoService: VideoService, public element: ElementRef,
-    calendar: NgbCalendar) {
+    calendar: NgbCalendar,
+    private _formBuilder: FormBuilder,
+    config: NgbTimepickerConfig) {
     this.fromDate = calendar.getToday();  // 日历
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10); // 日历
+
+    config.spinners = false; // 时间控制
+
+    this.firstFormGroup = this._formBuilder.group({ // 步骤
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required]
+    });
 
 
     this.dateList = this.strategyList[0].dateList;
