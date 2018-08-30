@@ -25,10 +25,10 @@
             <span class="title-right" >{{currentdevice.description}}</span>
             <i class="fa fa-arrow-circle-o-left fa-2x backtoair" (click)="jumpHandle()"></i>
             <div class="form-inline brief-info">
-              <div class="extral-margin">
+              <!-- <div class="extral-margin">
                 <label class="form-control text-label">时间范围：</label>
                 <input type="date" class="form-control" value=""/>
-              </div>
+              </div> -->
               <div class="extral-margin">
                 <label class="form-control text-label">设备名称：</label>
                 <span  class="form-control text-label">{{currentdevice.name}}</span>
@@ -42,8 +42,55 @@
 
         <!-- 右侧，下半部-->
         <div class="panel-default info-form">
-          <form class="form-air-point">
+
+            <div class="extral-margin">
+              <label class=" text-label">开始时间：</label>
+
+                <div class="d-inline-block">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="startDate" ngbDatepicker #ad="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary " (click)="ad.toggle()" type="button">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="d-inline-block">
+                  <label style="margin-left: 21px;">
+                    <ngb-timepicker [(ngModel)]="startTime" ></ngb-timepicker>
+                  </label>
+                </div>
+
+
+            </div>
+            <div class="extral-margin">
+              <label class=" text-label">结束时间：</label>
+            
+              <div class="d-inline-block">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="endDate" ngbDatepicker #bd="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary " (click)="bd.toggle()" type="button">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                  </div>
+            
+                </div>
+            
+              </div>
+              <div class="d-inline-block">
+                <label style="margin-left: 21px;">
+                  <ngb-timepicker [(ngModel)]="endTime"></ngb-timepicker>
+                </label>
+              </div>
+            
+            
+            </div>
             <div class="btns">
+              <button class="btn btn-bg extral-margin" (click)="dataSearch()">搜索</button>
               <button class="btn btn-bg extral-margin">导出报表</button>
               <button class="btn btn-bg" (click)="openGenerateTables(content)">生成图表</button>
             </div>
@@ -60,9 +107,9 @@
                   <th>湿度</th>
                 </tr>
               </thead>
-              <tbody >
+              <tbody *ngIf=" historydatalistItems">
 
-                <tr *ngFor="let historydate of historydatalist.items">
+                <tr *ngFor="let historydate of historydatalistItems">
                   <td>{{historydate.timestamp}}</td>
                   <td>{{historydate.pm25}}</td>
                   <td>{{historydate.pm10}}</td>
@@ -72,11 +119,11 @@
                 </tr>
               </tbody>
             </table>
-          </form>
-          <div *ngIf="historydatalist && !historydatalist.items || historydatalist.items.length ==0">无数据！</div>
+
+          <div *ngIf=" !historydatalistItems || historydatalistItems.length ==0">无数据！</div>
           <!-- 分页 开始-->
-          <div *ngIf="historydatalist && historydatalist.items && historydatalist.items.length > 0">
-          <ngb-pagination [collectionSize]=historydatalist.total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange) = "pageChange()"></ngb-pagination>
+          <div *ngIf=" historydatalistItems && historydatalistItems.length > 0">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange) = "pageChange()"></ngb-pagination>
           </div>
 
             <!-- 分页 结束 -->
