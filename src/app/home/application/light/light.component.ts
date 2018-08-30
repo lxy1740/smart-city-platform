@@ -74,7 +74,9 @@ export class LightComponent implements OnInit, OnDestroy  {
       name: '策略二'
     },
   ];
-  time: NgbTimeStruct = { hour: 13, minute: 30, second: 0 }; // 路灯控制时间
+  time = { hour: 13, minute: 30}; // 路灯控制时间
+  contrL = false; // 临时控制
+  lightLevel = 0;
 
 
 
@@ -95,6 +97,7 @@ export class LightComponent implements OnInit, OnDestroy  {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
       that.deviceChild = null;
+      this.contrL = false;
     });
   }
 
@@ -174,8 +177,8 @@ export class LightComponent implements OnInit, OnDestroy  {
       next: function (val) {
         compar = that.comparison(that.lightList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
-        console.log('value');
-        console.log(value);
+        // console.log('value');
+        // console.log(value);
 
 
         that.changeMarker(value); // 替换
@@ -398,6 +401,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   // 点击关闭操作详情
   closeDetail() {
     this.deviceChild = null;
+    this.contrL = false;
 
   }
 
@@ -628,8 +632,30 @@ export class LightComponent implements OnInit, OnDestroy  {
     if (value > 100) {
       return Math.round(value / 100) + '%';
     }
+    this.lightLevel = value;
 
     return value + '%';
+  }
+
+  changeContr() {
+    this.contrL = !this.contrL;
+  }
+
+  setLightsContr(id) {
+    const strategyList = this.strategyList;
+    const stopTime = this.time;
+    const level = this.lightLevel;
+    this.lightService.setLightsContr(id, level, stopTime).subscribe({
+      next: function (val) {
+        console.log('ok!');
+      },
+      complete: function () {
+        // that.changeMarker(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   ngOnDestroy() {

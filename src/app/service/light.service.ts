@@ -38,6 +38,23 @@ export class LightService {
             }));
     }
 
+    // 临时控制路灯
+    setLightsContr(id, level, stopTime): Observable<any> {
+        return this.http.post('/api/streetlight/level', {
+            'id': id,
+            'level': level,
+            'stopTime': stopTime
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
 
 
 

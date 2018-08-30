@@ -104,44 +104,49 @@
                         <p>
                             <span>临时控制：</span>
                             <label style="margin-left: 21px;">
-                                <mat-slide-toggle></mat-slide-toggle>
+                                <mat-slide-toggle (change) = "changeContr()"></mat-slide-toggle>
                             </label>
                         </p>
                     </div>
-                    <div>
-                        <p>
-                            <span>结束时间：</span>
-                            <label style="margin-left: 21px;">
-                                <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
-                            </label>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <span>亮度调整：</span>
-                    
-                        </p>
-                        <p>
-                            <label>
-                                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100"></mat-slider>
-                            </label>
-                        </p>
-                        <div class="row control-text">
-                            <div class="col-6 text-left">
-                                <span>关</span>
-                            </div>
-                            <div class="col-6 text-right">
-                                <span>100%</span>
-                            </div>
-                    
-                    
+                    <div *ngIf="contrL">
+
+                        <div>
+                            <p>
+                                <span>结束时间：</span>
+                                <label style="margin-left: 21px;">
+                                    <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                                </label>
+                            </p>
                         </div>
+                        <div>
+                            <p>
+                                <span>亮度调整：</span>
+                        
+                            </p>
+                            <p>
+                                <label>
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100" [(ngModel)]="lightLevel"></mat-slider>
+                                </label>
+                            </p>
+                            <div class="row control-text">
+                                <div class="col-6 text-left">
+                                    <span>关</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <span>100%</span>
+                                </div>
+                        
+                        
+                            </div>
+                        </div>
+
                     </div>
+
         </div>
 
 
         <div  class="modal-footer">
-                <button type="button" class="btn btn-outline-info" >确定</button>
+                <button type="button" class="btn btn-outline-info" (click)="setLightsContr(deviceChild.id)">确定</button>
                 <button type="button" class="btn btn-outline-metal" >取消</button>
         </div>
 
