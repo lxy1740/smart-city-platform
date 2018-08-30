@@ -60,7 +60,8 @@
       
       </div>
       <select name="profile" [(ngModel)]="indexofHtml" (change)="onIndexChange()"
-        class="form-control d-inline-block sel-area-block select-item">
+        class="form-control d-inline-block sel-area-block select-item"
+        [ngClass]="{'first': indexofHtml.name=='PM2.5', 'second': true, 'third': false}">
             <option *ngFor="let index of allIndexs" [ngValue]="index" >
                 {{ index.name }}
             </option>

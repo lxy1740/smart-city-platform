@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
+import { CameraService } from '../../../service/camera.service';
 /* import { TRAFFICLIST} from '../../../date/traffic-list'; */
 // baidu map
 declare let BMap;
@@ -22,6 +23,8 @@ export class TrafficComponent implements OnInit {
   model: any = {}; // 存储数据
 
   map: any; // 地图对象
+  NorthEast: any;
+  SouthWest: any;
 
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
@@ -29,6 +32,9 @@ export class TrafficComponent implements OnInit {
   currentCity: any; // 当前城市
   currentChildren: any; // 当前城市节点
   currentBlock: any; // // 当前城市街道
+
+  Camera: any;  // 当前摄像头
+  cameraChild: any;
 
   visible = true; // 控制可视区域
   areashow = false; // 默认区域列表不显示
@@ -41,7 +47,8 @@ export class TrafficComponent implements OnInit {
 /*
   traffic_list = TRAFFICLIST.val.traffic_list; */
 
-  constructor(private monitorService: MonitorService, public router: Router, ) { }
+  constructor(private monitorService: MonitorService, public router: Router,
+    private cameraService: CameraService) { }
 
   ngOnInit() {
     this.addBeiduMap();
@@ -59,7 +66,7 @@ export class TrafficComponent implements OnInit {
 
 
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
+    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
     map.centerAndZoom(point, 15); // 设置中心和地图显示级别
     map.setMapStyle({ style: 'googlelite' });
 
@@ -82,11 +89,134 @@ export class TrafficComponent implements OnInit {
 
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
 
-    const marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
+    // const marker = new BMap.Marker(point);  // 创建标注
+    // map.addOverlay(marker);               // 将标注添加到地图中
+    this.addMarker();
+
+    this.mapClickOff(map); // 地图点击信息框隐藏
+  }
+
+  // 监控-点击地图事件
+  mapClickOff(baiduMap) {
+    const that = this;
+    baiduMap.addEventListener('click', function (e) {
+      that.cameraChild = null;
+    });
+  }
+  // 添加标注
+  addMarker() {
+    this.getCameras();
+  }
+  // 获取指定坐标范围的摄像头
+  getCameras() {
+    const that = this;
+    const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
+    const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    const SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+
+    let value;
+    this.cameraService.getCameras(NorthEast, SouthWest).subscribe({
+      next: function (val) {
+        value = val;
+      },
+      complete: function () {
+        that.addPoint(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 添加点标注
+  addPoint(val) {
+    const markers: any[] = [];
+    const points: any[] = [];
+    const that = this;
+    val.map((item, i) => {
+      const point = new BMap.Point(item.point.lng, item.point.lat);
+      // const name = item.name;
+      // 添加自定义覆盖物
+      let myIcon;
+
+      if (item.error === true) { // 异常
+        myIcon = new BMap.Icon('../../../../assets/imgs/camera_error.png', new BMap.Size(300, 157));
+      } else if (item.offline === true) { // 掉线
+        myIcon = new BMap.Icon('../../../../assets/imgs/camera_offline.png', new BMap.Size(300, 157));
+      } else { // 正常
+        myIcon = new BMap.Icon('../../../../assets/imgs/camera_normal.png', new BMap.Size(300, 157));
+      }
+      myIcon.setAnchor(new BMap.Size(16, 38));
+      const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      this.map.addOverlay(marker2);
+      markers.push(marker2); // 聚合
+      points.push(point); // 聚合
+    });
+
+    // 点击点标注事件
+    for (let index = 0; index < markers.length; index++) {
+      const marker = markers[index];
+      that.openSideBar(marker, that.map, val[index], points[index]);
+    }
+  }
+
+  // 地图点注标-点击事件
+  openSideBar(marker, baiduMap, camera, point) {
+    const that = this;
+    const opts = {
+      width: 350,     // 信息窗口宽度
+      // height: 100,     // 信息窗口高度
+      // title: `${val.name} | ${val.id }`, // 信息窗口标题
+      // enableMessage: true, // 设置允许信息窗发送短息
+      enableAutoPan: true, // 自动平移
+      // border-radius: 5px,
+    };
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${camera.positionNumber} </p>`;
+
+    txt = txt + `<p  class='cur-pointer'> 设备名称：${camera.description}</p>`;
+    if (camera.offline === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
+    }
+    if (camera.error === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否异常：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否异常：<span style='color: red'>是</span></p>`;
+    }
+    txt = txt + `<button class='btn btn-bg' style='font-size: 14px; float: right; margin: 5px' id='${camera.id}'>详情</button>`;
+
+    const infoWindow = new BMap.InfoWindow(txt, opts);
+
+    marker.addEventListener('click', function () {
+      baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+      that.Camera = camera;
+      // console.log(that.Camera);
+      setTimeout(() => {
+        that.cameraAddEventListener();
+      }, 0);
+    });
+
+  }
+  // 点击子设备
+  cameraAddEventListener() {
+    const that = this;
+
+      const device = $(`#${this.Camera.id}`);
+      device.on('click', function () {
+        console.log('ddd');
+        that.cameraChild = that.Camera;
+      });
 
   }
 
+  // 返回地图可视区域，以地理坐标表示
+  getBounds(baiduMap) {
+    const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
+    this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+    this.zoom = baiduMap.getZoom(); // 地图级别
+  }
   // 获取城市列表 --ok
   getCity() {
     const that = this;
@@ -194,19 +324,22 @@ export class TrafficComponent implements OnInit {
     const zoom = this.zoom = this.switchZone(city.level);
     const fullName = city.full_name;
     console.log(city);
+    const pt = city.center;
+    const point = new BMap.Point(pt.lng, pt.lat);
+    baiduMap.centerAndZoom(point, zoom);
 
-    let pt;
+    // let pt;
 
-    // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(fullName, function (point) {
-      if (point) {
-        baiduMap.centerAndZoom(point, zoom);
-        pt = point;
+    // // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
+    // myGeo.getPoint(fullName, function (point) {
+    //   if (point) {
+    //     baiduMap.centerAndZoom(point, zoom);
+    //     pt = point;
 
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, '');
+    //   } else {
+    //     console.log('您选择地址没有解析到结果!');
+    //   }
+    // }, '');
   }
   // 选择区域
   // 选择城市
@@ -229,36 +362,27 @@ export class TrafficComponent implements OnInit {
   showCiyt() {
     this.cityshow = true;
   }
-// 离开城市
-citylistMouseleave() {
-  this.cityshow = false;
-}
-// 选择区域
-arealistMouseover(area) {
+  // 离开城市
+  citylistMouseleave() {
+    this.cityshow = false;
+  }
+  // 选择区域
+  arealistMouseover(area) {
 
-  this.currentBlock = area.children;
-}
+    this.currentBlock = area.children;
+  }
 
-// 离开区域
-arealistMouseleave() {
-  this.areashow = false;
-  this.currentBlock = null;
-}
+  // 离开区域
+  arealistMouseleave() {
+    this.areashow = false;
+    this.currentBlock = null;
+  }
 
-arealistMouseNone() {
-  this.areashow = true;
-  this.currentBlock = null;
-}
-// 地图描点
-addMarker() {
-  const markers: any[] = [];
-  const points: any[] = [];
+  arealistMouseNone() {
+    this.areashow = true;
+    this.currentBlock = null;
+  }
 
-
-
-
-
-}
 }
 
 /*
