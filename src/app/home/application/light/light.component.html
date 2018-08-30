@@ -78,7 +78,7 @@
     <div #map5 id="map_container5" class="map_container no-fulls-map"></div>
 
     <!-- 设备操作 -->
-    <div class="device-detail">
+    <div class="device-detail" *ngIf="deviceChild">
         <div class="device-title">
             <span  *ngIf="deviceChild">{{deviceChild.description}}</span>
             <span class="device-close float-right" (click)="closeDetail()">X</span>
