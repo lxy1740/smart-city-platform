@@ -5,6 +5,7 @@ import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AirmonitorService } from '../../service/airmonitor.service';
+import { saveAs } from 'file-saver';
 
 const now = new Date();
 
@@ -132,6 +133,16 @@ export class AirreportComponent implements OnInit {
       return '在线';
     }
   }
+
+  // 导出表格
+  exportTable() {
+    const blob = new Blob([document.getElementById('exportableTable').innerHTML], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'
+    });
+    saveAs(blob, 'test.xls');
+  }
+
+
   // 模态框
   openGenerateTables(content) {  // 批量导入
     const that = this;

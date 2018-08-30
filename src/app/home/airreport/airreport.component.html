@@ -91,34 +91,37 @@
             </div>
             <div class="btns">
               <button class="btn btn-bg extral-margin" (click)="dataSearch()">搜索</button>
-              <button class="btn btn-bg extral-margin">导出报表</button>
+              <button class="btn btn-bg extral-margin" (click)="exportTable()">导出报表</button>
               <button class="btn btn-bg" (click)="openGenerateTables(content)">生成图表</button>
             </div>
             <!--当前设备详细数据展示-->
-            <table class="table table-hover">
-              <thead class="table-header">
-                <tr>
-                  <!-- <th><input type="checkbox" value=""></th> -->
-                  <th>采集时间</th>
-                  <th>PM2.5</th>
-                  <th>PM10</th>
-                  <th>TVOC</th>
-                  <th>温度</th>
-                  <th>湿度</th>
-                </tr>
-              </thead>
-              <tbody *ngIf=" historydatalistItems">
+            <div id="exportableTable">
+              <table class="table table-hover">
+                <thead class="table-header">
+                  <tr>
+                    <!-- <th><input type="checkbox" value=""></th> -->
+                    <th>采集时间</th>
+                    <th>PM2.5</th>
+                    <th>PM10</th>
+                    <th>TVOC</th>
+                    <th>温度</th>
+                    <th>湿度</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf=" historydatalistItems">
+              
+                  <tr *ngFor="let historydate of historydatalistItems">
+                    <td>{{historydate.timestamp}}</td>
+                    <td>{{historydate.pm25}}</td>
+                    <td>{{historydate.pm10}}</td>
+                    <td>{{historydate.tvoc}}</td>
+                    <td>{{historydate.temperature}}</td>
+                    <td>{{historydate.humidity}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-                <tr *ngFor="let historydate of historydatalistItems">
-                  <td>{{historydate.timestamp}}</td>
-                  <td>{{historydate.pm25}}</td>
-                  <td>{{historydate.pm10}}</td>
-                  <td>{{historydate.tvoc}}</td>
-                  <td>{{historydate.temperature}}</td>
-                  <td>{{historydate.humidity}}</td>
-                </tr>
-              </tbody>
-            </table>
 
           <div *ngIf=" !historydatalistItems || historydatalistItems.length ==0">无数据！</div>
           <!-- 分页 开始-->
