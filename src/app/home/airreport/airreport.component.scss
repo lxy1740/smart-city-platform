@@ -4,7 +4,7 @@
     display: flex;
     // flex-wrap: wrap;
     .air-left {
-        width: 150px;
+        width: 300px;
         min-height: calc(100vh);
         background-color: rgb(233, 237, 241);
     }
@@ -18,7 +18,7 @@
         font-size: 20px;
     }
     .air-right {
-        width: calc(100vw - 200px);
+        width: calc(100vw - 350px);
         height: 100%;
     }
 }

@@ -43,7 +43,7 @@ export class AirreportComponent implements OnInit {
       }
     });
   }
-  
+
   // 点击左侧监测点
   selectPoint(device) {
     this.currentdevice = device;
