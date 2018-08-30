@@ -35,9 +35,7 @@ export class AirmonitorService {
     }
     // 获取指定设备的多项历史数据
     getHistoryData(id: number, from: string, to: string): Observable<any> {
-        return this.http.post(`/api/airmonitor/history/${id}?from=${from}&to=${to}`, {
-
-        })
+        return this.http.get(`/api/airmonitor/history/${id}?from=${from}&to=${to}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();

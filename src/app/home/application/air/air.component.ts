@@ -32,7 +32,7 @@ export class AirComponent implements OnInit {
   currentCity: any; // 当前城市
   currentChildren: any; // 当前城市节点
   currentBlock: any; // 当前城市街道
-  currentAirIdex: any; // 当前空气指标选项
+  currentAirIndex: any; // 当前空气指标选项
 
   visible = true; // 控制可视区域
   areashow = false; // 默认区域列表不显示
@@ -45,8 +45,8 @@ export class AirComponent implements OnInit {
   SouthWest: Point; // 地图视图西南角
   NorthEast: Point; // 地图视图东北角
   airdevicelist: any;
-  idexofHtml: any;
-  allIdexs = [
+  indexofHtml: any;
+  allIndexs = [
     {
       id: '',
       name: 'PM2.5'
@@ -57,7 +57,7 @@ export class AirComponent implements OnInit {
     },
     {
       id: '',
-      name: 'VTOC'
+      name: 'TVOC'
     },
     {
       id: '',
@@ -72,10 +72,10 @@ export class AirComponent implements OnInit {
 
   constructor(private monitorService: MonitorService, private airmonitorService: AirmonitorService,
     public router: Router) {
-      this.idexofHtml = this.allIdexs[0];
+      this.indexofHtml = this.allIndexs[0];
+      this.currentAirIndex = 'PM2.5';
     }
   ngOnInit() {
-    this.currentAirIdex = 'PM25';
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
   }
@@ -109,10 +109,12 @@ export class AirComponent implements OnInit {
     this.dragendOff(map);
     this.zoomendOff(map);
   }
+
   // 添加地图内的设备标记
   addMarkers() {
     this.getPositions();
   }
+
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
   dragendOff(baiduMap) {
     const that = this;
@@ -134,6 +136,7 @@ export class AirComponent implements OnInit {
       // }
     });
   }
+
   // 获取设备坐标点
   getPositions() {
     const that = this;
@@ -149,7 +152,7 @@ export class AirComponent implements OnInit {
         value = val;
       },
       complete: function () {
-        that.addPoint(value);
+        that.addCertainPoint(value, that.currentAirIndex);
         // localStorage.setItem('DEVICES', JSON.stringify(value));
       },
       error: function (error) {
@@ -158,116 +161,43 @@ export class AirComponent implements OnInit {
     });
   }
   // 根据当前空气指标加载对应图标
-  addPoint(val) {
-    switch (this.currentAirIdex) {
-      case 'PM25': this.addPm25Point(val); break;
-      case 'PM10': this.addPm10Point(val); break;
-      case 'TVOC': this.addTvocPoint(val); break;
-      case '温度': this.addTempPoint(val); break;
-      case '湿度': this.addHumidPoint(val); break;
-      default: break;
-    }
-  }
-  // 添加覆盖物图标
-  addPm25Point(val) {
+  addCertainPoint(val, index) {
+    const markers = [];
+    const points: any[] = [];
+
     const that = this;
+    const length = 60;  // 图标大小
+    let color;  // 背景色
+    color = '#4eb4cf'; // 按不同指标对应不同背景色，待确定
+    const name = index; // 圆形图标中显示的名字
+    let indexvalue; // 圆形图标中显示的值
+    const mouseoverColor = '#9bd9dd';  // 划过背景色
+
     val.map((item, i) => {
       const point = new BMap.Point(item.point.lng, item.point.lat);
       let myIcon;
-      let hasValue = false;  // 是否有效值，数大于0
-
-      const length = 60;  // 图标大小
-      let color;  // 背景色
-      const mouseoverColor = '#9bd9dd';  // 划过背景色
-      const name = 'PM2.5';
-      const pm25value = item.pm25;
-      // 背景颜色按级显示
-      if (item.pm25 >= 0 && item.pm25 <= 50) {
-        color = '#86ab61';
-        hasValue = true;
-      } else if (item.pm25 > 50 && item.pm25 <= 100) {
-        color = '#4eb4cf';
-        hasValue = true;
-      } else if (item.pm25 > 100 && item.pm25 <= 150) {
-        color = '#eda636';
-        hasValue = true;
-      } else if (item.pm25 > 150 && item.pm25 <= 200) {
-        color = '#d84e4a';
-        hasValue = true;
-      } else if (item.pm25 > 200) {
-        color = '#10110e';
-        hasValue = true;
+      switch (index) {
+        case 'PM2.5': indexvalue = item.pm25; break;
+        case 'PM10': indexvalue = item.pm10; break;
+        case 'TVOC': indexvalue = item.tvoc; break;
+        case '温度': indexvalue = item. temperature + ' °C'; break;
+        case '湿度': indexvalue = item.humidity; break;
+        default: break;
       }
-      if (hasValue) {
-        myIcon = new CircleOverlarAirService(point, name, pm25value, length, color, mouseoverColor);
-      }
+      // 添加覆盖物图标
+      myIcon = new CircleOverlarAirService(point, name, indexvalue, length, color, mouseoverColor);
       this.map.addOverlay(myIcon);
+
+      markers.push(myIcon); // 聚合
+      points.push(point);
     });
-    // 点击圆形标注事件
-    // for (let index = 0; index < that.markers.length; index++) {
-    //   const marker = that.markers[index];
+    // 点击点标注事件
+    // for (let index1 = 0; index1 < markers.length; index1++) {
+    //   const marker = markers[index];
     //   const item = val[index];
-    //   this.setZoom(marker, this.map, item);
+    //   that.openSideBar(marker, that.map, item, points[index]);
     // }
   }
-  addPm10Point(val) {
-    const that = this;
-    val.map((item, i) => {
-      const point = new BMap.Point(item.point.lng, item.point.lat);
-      let myIcon;
-      const length = 60;  // 图标大小
-      const color = '#4eb4cf';  // 背景色
-      const mouseoverColor = '#9bd9dd';  // 划过背景色
-      const name = 'PM10';
-      const pm10value = item.pm10;
-      myIcon = new CircleOverlarAirService(point, name, pm10value, length, color, mouseoverColor);
-      this.map.addOverlay(myIcon);
-    });
-  }
-  addTvocPoint(val) {
-    const that = this;
-    val.map((item, i) => {
-      const point = new BMap.Point(item.point.lng, item.point.lat);
-      let myIcon;
-      const length = 60;  // 图标大小
-      const color = '#4eb4cf';  // 背景色
-      const mouseoverColor = '#9bd9dd';  // 划过背景色
-      const name = 'TVOC';
-      const tvocvalue = item.tvoc;
-      myIcon = new CircleOverlarAirService(point, name, tvocvalue, length, color, mouseoverColor);
-      this.map.addOverlay(myIcon);
-    });
-  }
-  addTempPoint(val) {
-    const that = this;
-    val.map((item, i) => {
-      const point = new BMap.Point(item.point.lng, item.point.lat);
-      let myIcon;
-      const length = 60;  // 图标大小
-      const color = '#4eb4cf';  // 背景色
-      const mouseoverColor = '#9bd9dd';  // 划过背景色
-      const name = '温度';
-      const tempvalue = item.temperature;
-      myIcon = new CircleOverlarAirService(point, name, tempvalue, length, color, mouseoverColor);
-      this.map.addOverlay(myIcon);
-    });
-  }
-  addHumidPoint(val) {
-    const that = this;
-    val.map((item, i) => {
-      const point = new BMap.Point(item.point.lng, item.point.lat);
-      let myIcon;
-      const length = 60;  // 图标大小
-      const color = '#4eb4cf';  // 背景色
-      const mouseoverColor = '#9bd9dd';  // 划过背景色
-      const name = '湿度';
-      const humidvalue = item.humidity;
-      myIcon = new CircleOverlarAirService(point, name, humidvalue, length, color, mouseoverColor);
-      this.map.addOverlay(myIcon);
-    });
-  }
-
-
 
   // 返回地图可视区域，以地理坐标表示
   getBounds(baiduMap) {
@@ -278,6 +208,26 @@ export class AirComponent implements OnInit {
 
   }
 
+  // 地图点注标-点击事件
+  openSideBar(marker, baiduMap, airDevice, point) {
+    console.log(airDevice);
+    const that = this;
+    const opts = {
+      width: 350,     // 信息窗口宽度
+      // height: 100,     // 信息窗口高度
+      // title: `${val.name} | ${val.id }`, // 信息窗口标题
+      // enableMessage: true, // 设置允许信息窗发送短息
+      enableAutoPan: true, // 自动平移
+      // border-radius: 5px,
+    };  // ${airDevice.id} ${airDevice.description}
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 |  </p>`;
+    txt = txt + `<p  class='cur-pointer'> 设备名称：</p>`;
+    // txt = txt +
+    const infoWindow = new BMap.InfoWindow(txt, opts);
+    marker.V.addEventListener('click', function () {
+      baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+    });
+  }
 
   // 获取城市列表 --ok
   getCity() {
@@ -441,7 +391,7 @@ export class AirComponent implements OnInit {
   }
   // 切换指标
   onIndexChange() {
-    this.currentAirIdex = this.idexofHtml.name;
+    this.currentAirIndex = this.indexofHtml.name;
     this.map.clearOverlays();
     this.addMarkers();
   }

@@ -29,7 +29,7 @@ CircleOverlarAirService.prototype.initialize = function (map) {
     div.style.height = this._length + 'px';
     // div.style.lineHeight = this._length + 'px';
     div.style.background = this._color;
-
+    div.style.paddingTop = 15 + 'px';
     div.className = 'i-circle';
     // 将div添加到覆盖物容器中
     map.getPanes().markerPane.appendChild(div);
@@ -40,12 +40,17 @@ CircleOverlarAirService.prototype.initialize = function (map) {
 
     const span = this._span = document.createElement('span');
     const span2 = this._span2 = document.createElement('span');
+    // const span3 = this._span3 = document.createElement('span');
     const br = document.createElement('br');
+    // const br2 = document.createElement('br');
     div.appendChild(span);
     div.appendChild(br);
     div.appendChild(span2);
+    // div.appendChild(br2);
+    // div.appendChild(span3);
     span.appendChild(document.createTextNode(this._name));
     span2.appendChild(document.createTextNode(this._count));
+    // span3.appendChild(document.createTextNode(this._name));
 
 
 
