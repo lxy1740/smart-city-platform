@@ -101,7 +101,7 @@ export class AirreportComponent implements OnInit {
         that.historydatalist = val;
         that.historydatalistItems = val.items;
         that.total = val.total;
-        console.log(that.historydatalist);
+        // console.log(that.historydatalist);
       },
       complete: function () {
       },

@@ -368,8 +368,8 @@ export class LightComponent implements OnInit, OnDestroy  {
     }
 
     txt = txt + `<p >亮度级别： ${val.level}%</p>`;
-    txt = txt + `<p >电流强度： ${val.current}A</p>`;
-    txt = txt + `<p >电压大小： ${val.volt}V</p>`;
+    txt = txt + `<p >电流强度： ${val.current}毫安(mA)</p>`;
+    txt = txt + `<p >电压大小： ${val.volt}毫伏(mv)</p>`;
     txt = txt + `<button class='btn btn-bg cur-point' style='font-size: 14px; float: right; margin: 5px'  id='${val.id}'>控制</button>`;
 
 
@@ -377,6 +377,7 @@ export class LightComponent implements OnInit, OnDestroy  {
 
     marker.addEventListener('click', function () {
       that.device = val;
+      this.contrL = false;
       baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
 
       setTimeout(() => {
@@ -392,8 +393,8 @@ export class LightComponent implements OnInit, OnDestroy  {
 
       const device = $(`#${this.device.id}`);
       device.on('click', function () {
-        console.log('ddd');
         that.deviceChild = that.device;
+        that.lightLevel = that.device.level;
       });
 
   }
