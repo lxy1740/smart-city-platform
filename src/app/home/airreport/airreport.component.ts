@@ -16,6 +16,9 @@ export class AirreportComponent implements OnInit {
   SouthWest: any; // 坐标点
   closeResult: string;
   historydatalist: any; // 指定设备的历史数据集合
+  deviceIndx = 0;
+
+  page = 1;
 
   constructor(private modalService: NgbModal, public router: Router,
     private airmonitorService: AirmonitorService) {
@@ -35,8 +38,10 @@ export class AirreportComponent implements OnInit {
     this.airmonitorService.getAirDevice(this.NorthEast, this.SouthWest).subscribe({
       next: function (val) {
         that.devicelist = val;
+        that.currentdevice = val[0];
       },
       complete: function () {
+        that.getHistoryData();
       },
       error: function (error) {
         console.log(error);
@@ -45,8 +50,9 @@ export class AirreportComponent implements OnInit {
   }
 
   // 点击左侧监测点
-  selectPoint(device) {
+  selectPoint(index, device) {
     this.currentdevice = device;
+    this.deviceIndx = index;
     this.getHistoryData();
   }
   // 获取指定设备的历史数据记录
@@ -54,9 +60,11 @@ export class AirreportComponent implements OnInit {
     const that = this;
     const fromdate = '2018-01-01T00:00';
     const todate = '2018-12-30T23:59';
-    this.airmonitorService.getHistoryData(this.currentdevice.id, fromdate, todate).subscribe({
+    const page = this.page;
+    const pageSize = 10;
+    this.airmonitorService.getHistoryData(this.currentdevice.id, fromdate, todate, page, pageSize).subscribe({
       next: function (val) {
-        that.historydatalist = val.items;
+        that.historydatalist = val;
         console.log(that.historydatalist);
       },
       complete: function () {
@@ -66,6 +74,12 @@ export class AirreportComponent implements OnInit {
       }
     });
   }
+
+  // 分页获取数据
+  pageChange() {
+    this.getHistoryData();
+  }
+
   // 返回空气质量页面
   jumpHandle() {
     this.router.navigate([`home/application/air`]);

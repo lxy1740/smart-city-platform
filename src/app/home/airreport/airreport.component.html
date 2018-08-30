@@ -7,8 +7,8 @@
       <!-- 导航栏 -->
       <div class="sidebar-inner">
           <ul class="first-menu">
-              <li *ngFor="let device of devicelist " class="cur-pointer nav-item" (click)="selectPoint(device)">
-                  <a *ngIf="device" class="nav-link">
+              <li *ngFor="let device of devicelist; let i = index" class="cur-pointer nav-item" (click)="selectPoint(i, device)" [ngClass]="{'active': i == deviceIndx}">
+                  <a class="nav-link">
                     <span>{{device.description}}</span>
                   </a>
               </li>
@@ -21,8 +21,8 @@
     <!-- 监测点信息 -->
     <div  class="point-info">
         <!-- 右侧，上半部，头部，简短信息 -->
-        <div class="panel-default info-top">
-            <span class="title-right" *ngIf="currentdevice">{{currentdevice.description}}</span>
+        <div class="panel-default info-top" *ngIf="currentdevice">
+            <span class="title-right" >{{currentdevice.description}}</span>
             <i class="fa fa-arrow-circle-o-left fa-2x backtoair" (click)="jumpHandle()"></i>
             <div class="form-inline brief-info">
               <div class="extral-margin">
@@ -31,11 +31,11 @@
               </div>
               <div class="extral-margin">
                 <label class="form-control text-label">设备名称：</label>
-                <span *ngIf="currentdevice" class="form-control text-label">{{currentdevice.name}}</span>
+                <span  class="form-control text-label">{{currentdevice.name}}</span>
               </div>
               <div>
                 <label class="form-control text-label">设备状态：</label>
-                <span *ngIf="currentdevice" class="form-control text-label">{{getdevicestatus(currentdevice.offline)}}</span>
+                <span  class="form-control text-label">{{getdevicestatus(currentdevice.offline)}}</span>
               </div>
             </div>
         </div>
@@ -60,8 +60,9 @@
                   <th>湿度</th>
                 </tr>
               </thead>
-              <tbody *ngIf="currentdevice">
-                <tr *ngFor="let historydate of historydatalist">
+              <tbody >
+
+                <tr *ngFor="let historydate of historydatalist.items">
                   <td>{{historydate.timestamp}}</td>
                   <td>{{historydate.pm25}}</td>
                   <td>{{historydate.pm10}}</td>
@@ -72,45 +73,12 @@
               </tbody>
             </table>
           </form>
-
+          <div *ngIf="historydatalist && !historydatalist.items || historydatalist.items.length ==0">无数据！</div>
           <!-- 分页 开始-->
-          <div *ngIf="currentdevice" class="row">
-              <div class="col-sm-12 col-md-12 dataTables_pager">
-                <div class="bs-example" data-example-id="disabled-active-pagination">
-                  <nav aria-label="...">
-                    <ul class="pagination">
-                      <li class="disabled">
-                        <a href="#" aria-label="Previous">
-                          <span aria-hidden="true">«</span>
-                        </a>
-                      </li>
-                      <li class="active">
-                        <a href="#">1
-                          <span class="sr-only">(current)</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">2</a>
-                      </li>
-                      <li>
-                        <a href="#">3</a>
-                      </li>
-                      <li>
-                        <a href="#">4</a>
-                      </li>
-                      <li>
-                        <a href="#">5</a>
-                      </li>
-                      <li>
-                        <a href="#" aria-label="Next">
-                          <span aria-hidden="true">»</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-            </div>
+          <div *ngIf="historydatalist && historydatalist.items && historydatalist.items.length > 0">
+          <ngb-pagination [collectionSize]=historydatalist.total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange) = "pageChange()"></ngb-pagination>
+          </div>
+
             <!-- 分页 结束 -->
 
         </div>

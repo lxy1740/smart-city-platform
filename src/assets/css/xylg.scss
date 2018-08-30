@@ -34,6 +34,11 @@ body {
     color: $color-btn-text !important;
 }
 
+a:hover, a:active {
+    color: #d7f8ff;   //ymZhao
+    background-color: $color-sidebar-active !important; 
+}
+
 // 嵌套菜单
 .nav {
     padding-left: 0;
