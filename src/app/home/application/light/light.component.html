@@ -78,18 +78,72 @@
     <div #map5 id="map_container5" class="map_container no-fulls-map"></div>
 
     <!-- 设备操作 -->
-    <div class="device-detail" *ngIf="deviceChild">
+    <div class="device-detail">
         <div class="device-title">
-            <span>{{deviceChild.description}}</span>
+            <span  *ngIf="deviceChild">{{deviceChild.description}}</span>
             <span class="device-close float-right" (click)="closeDetail()">X</span>
         </div>
-        <div >
-            <p>
-                <span>灯杆编号：</span>
-                <span>{{deviceChild.positionNumber}}</span>
-            </p>
+        <div class="modal-body">
+                    <div>
+                        <p>
+                            <span>灯杆编号：</span>
+                            <span *ngIf="deviceChild">{{deviceChild.positionNumber}}</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <span>当前策略：</span>
+                            <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" class="form-control d-inline-block sel-area-block select-item">
+                                <option *ngFor="let index of strategyLists" [ngValue]="index">
+                                    {{ index.name }}
+                                </option>
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <span>临时控制：</span>
+                            <label style="margin-left: 21px;">
+                                <mat-slide-toggle></mat-slide-toggle>
+                            </label>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <span>结束时间：</span>
+                            <label style="margin-left: 21px;">
+                                <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                            </label>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <span>亮度调整：</span>
+                    
+                        </p>
+                        <p>
+                            <label>
+                                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100"></mat-slider>
+                            </label>
+                        </p>
+                        <div class="row control-text">
+                            <div class="col-6 text-left">
+                                <span>关</span>
+                            </div>
+                            <div class="col-6 text-right">
+                                <span>100%</span>
+                            </div>
+                    
+                    
+                        </div>
+                    </div>
         </div>
-        <div></div>
+
+
+        <div  class="modal-footer">
+                <button type="button" class="btn btn-outline-info" >确定</button>
+                <button type="button" class="btn btn-outline-metal" >取消</button>
+        </div>
 
     </div>
 

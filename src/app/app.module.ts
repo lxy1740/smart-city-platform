@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+
+
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +13,7 @@ import { HttpModule } from '@angular/http';
 import { CookieModule } from 'ngx-cookie';
 
 import { GridsterModule } from 'angular-gridster2';
-import { MaterialModule } from './material.module';
+
 
 
 
@@ -69,6 +72,7 @@ import { PageNotFoundComponent } from './not-found.component';
     HomeModule,
     GridsterModule,
     MaterialModule,
+
     ServiceModule,
     SharedModule
 

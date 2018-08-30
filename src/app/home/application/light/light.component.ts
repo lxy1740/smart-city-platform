@@ -12,7 +12,8 @@ import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 import { LightService } from '../../../service/light.service';
-
+import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -22,7 +23,8 @@ declare let BMAP_ANCHOR_TOP_LEFT;
 @Component({
   selector: 'app-light',
   templateUrl: './light.component.html',
-  styleUrls: ['./light.component.scss']
+  styleUrls: ['./light.component.scss'],
+  providers: [NgbTimepickerConfig] // add NgbTimepickerConfig to the component providers
 })
 export class LightComponent implements OnInit, OnDestroy  {
 
@@ -61,10 +63,26 @@ export class LightComponent implements OnInit, OnDestroy  {
   lightList = []; // 当前数据
 
   markers: any; // 标注点
+  strategyList: any; // 控制路灯当前策略
+  strategyLists = [
+    {
+      id: '',
+      name: '策略一'
+    },
+    {
+      id: '',
+      name: '策略二'
+    },
+  ];
+  time: NgbTimeStruct = { hour: 13, minute: 30, second: 0 }; // 路灯控制时间
 
 
 
-  constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router, ) { }
+  constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router,
+    config: NgbTimepickerConfig ) {
+    this.strategyList = this.strategyLists[0];
+    config.spinners = false; // 时间控制
+  }
 
   ngOnInit() {
     this.addBeiduMap();
@@ -318,18 +336,18 @@ export class LightComponent implements OnInit, OnDestroy  {
     const that = this;
     // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
     const opts = {
-      width: 350,     // 信息窗口宽度
+      width: 300,     // 信息窗口宽度
       // height: 100,     // 信息窗口高度
       // title: `${val.name} | ${val.id }`, // 信息窗口标题
       // enableMessage: true, // 设置允许信息窗发送短息
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>灯杆编号： ${val.positionNumber} </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>${val.description} </p>
 
     `;
     txt = txt +
-     `<p  class='cur-pointer' >设备名称： ${val.description}</p>
+      `<p  class='cur-pointer' >灯杆编号： ${val.positionNumber}</p>
      `;
 
     if (val.offline === true) {// 离线
@@ -594,6 +612,24 @@ export class LightComponent implements OnInit, OnDestroy  {
   arealistMouseNone() {
     this.areashow = true;
     this.currentBlock = null;
+  }
+
+  // 路灯控制页选择策略
+  strategyListsChange() {
+    console.log(this.strategyList);
+  }
+
+  // 路灯控制页亮度调节
+  formatLabel(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+
+    if (value > 100) {
+      return Math.round(value / 100) + '%';
+    }
+
+    return value + '%';
   }
 
   ngOnDestroy() {
