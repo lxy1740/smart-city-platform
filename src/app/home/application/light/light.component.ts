@@ -413,19 +413,25 @@ export class LightComponent implements OnInit, OnDestroy  {
     const zoom = this.zoom = this.switchZone(city.level);
     const fullName = city.full_name;
     console.log(city);
+    const pt = city.center;
+    const point = new BMap.Point(pt.lng, pt.lat);
+    baiduMap.centerAndZoom(point, zoom);
 
-    let pt;
 
-    // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(fullName, function (point) {
-      if (point) {
-        baiduMap.centerAndZoom(point, zoom);
-        pt = point;
+    // that.addMarker(); // 获取数据-添加标注
 
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, '');
+    // let pt;
+
+    // // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
+    // myGeo.getPoint(fullName, function (point) {
+    //   if (point) {
+    //     baiduMap.centerAndZoom(point, zoom);
+    //     pt = point;
+
+    //   } else {
+    //     console.log('您选择地址没有解析到结果!');
+    //   }
+    // }, '');
   }
 
   // 获取数据
