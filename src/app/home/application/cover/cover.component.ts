@@ -237,8 +237,8 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   // 替换
   changeMarker(cover_list) {
-    console.log(cover_list);
-    console.log(this.coverList);
+    // console.log(cover_list);
+    // console.log(this.coverList);
     this.deleMarker(cover_list); // 删除
     this.addPoint(cover_list); // 添加
   }

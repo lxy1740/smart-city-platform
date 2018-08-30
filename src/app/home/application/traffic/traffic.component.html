@@ -68,13 +68,14 @@
     <!-- 设备操作 -->
     <div class="camera-detail" *ngIf="cameraChild">
         <div class="camera-title">
-            <span class="">{{Camera.description}}</span>
+            <span class="" *ngIf="Camera">{{Camera.description}}</span>
             <span class="camera-close float-right">X</span>
         </div>
-        <div class="modal-body">
-            <div class="video-block">
-                
-            </div>
+        <div class="modal-body ">
+            <!-- <div class="video-block">
+                 
+            </div> -->
+            <div class="prism-player video-play" id="video_play" ></div>
         </div>
 
         <!-- <div  class="modal-footer">

@@ -4,6 +4,7 @@ import { MonitorService } from '../../../service/monitor.service';
 import { CameraService } from '../../../service/camera.service';
 /* import { TRAFFICLIST} from '../../../date/traffic-list'; */
 // baidu map
+declare let Aliplayer;
 declare let BMap;
 declare let $: any;
 declare let BMapLib;
@@ -92,10 +93,31 @@ export class TrafficComponent implements OnInit {
     // const marker = new BMap.Marker(point);  // 创建标注
     // map.addOverlay(marker);               // 将标注添加到地图中
     this.addMarker();
-
+    this.dragendOff(map);
+    this.zoomendOff(map);
     this.mapClickOff(map); // 地图点击信息框隐藏
   }
-
+  // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
+  dragendOff(baiduMap) {
+    const that = this;
+    baiduMap.addEventListener('dragend', function () {
+      baiduMap.clearOverlays();
+      that.addMarker(); // 获取数据-添加标注
+    });
+  }
+  // 监控-地图缩放事件-地图缩放后的级别。
+  zoomendOff(baiduMap) {
+    const that = this;
+    baiduMap.addEventListener('zoomend', function () {
+      // if (that.isqueryPoint === true) {
+      //   that.isqueryPoint = false;
+      // } else {
+        baiduMap.clearOverlays();
+        that.addMarker(); // 添加标注
+        // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
+      // }
+    });
+  }
   // 监控-点击地图事件
   mapClickOff(baiduMap) {
     const that = this;
@@ -206,6 +228,25 @@ export class TrafficComponent implements OnInit {
       device.on('click', function () {
         console.log('ddd');
         that.cameraChild = that.Camera;
+        let player;
+        setTimeout(() => {
+          player = new Aliplayer({
+            'id': 'video_play',
+            'source': that.Camera.videoUrl,
+            'width': '100%',
+            'height': '500px',
+            'autoplay': true,
+            'isLive': false,
+            'rePlay': false,
+            'playsinline': true,
+            'preload': true,
+            'controlBarVisibility': 'hover',
+            'useH5Prism': true
+          }, function (play) {
+            console.log('播放器创建了。');
+          }
+          );
+        }, 2);
       });
 
   }

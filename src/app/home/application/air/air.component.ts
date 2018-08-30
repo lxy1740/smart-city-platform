@@ -44,7 +44,7 @@ export class AirComponent implements OnInit {
 
   SouthWest: Point; // 地图视图西南角
   NorthEast: Point; // 地图视图东北角
-  airdevicelist: any;
+  airdevicelist = []; // 空气检测设备列表
   indexofHtml: any;
   allIndexs = [
     {
@@ -68,6 +68,7 @@ export class AirComponent implements OnInit {
       name: '湿度'
     },
   ];
+  timer: any; // 定时器
   // pm25list = AIRDATALIST.list;
 
   constructor(private monitorService: MonitorService, private airmonitorService: AirmonitorService,
@@ -113,6 +114,10 @@ export class AirComponent implements OnInit {
   // 添加地图内的设备标记
   addMarkers() {
     this.getPositions();
+    this.timer = setInterval(() => {
+      // this.map.clearOverlays();
+      this.getPositions();
+    }, 5000);
   }
 
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
@@ -146,20 +151,113 @@ export class AirComponent implements OnInit {
     localStorage.setItem('NE', JSON.stringify(NorthEast));
     localStorage.setItem('SW', JSON.stringify(SouthWest));
 
+    let compar;
     let value;
     this.airmonitorService.getAirDevice(NorthEast, SouthWest).subscribe({
       next: function (val) {
-        value = val;
+        // value = val;
+        const curIndex = that.currentAirIndex;
+        compar = that.comparison(that.airdevicelist, val);
+        value = that.judgeChange(compar.a_arr, compar.b_arr, curIndex);
+
+        that.changeMarker(value); // 替换
+        that.deleMarker(compar.a_surplus); // 删除
+        // that.deleMarker(value); // 删除
+        that.addCertainPoint(compar.b_surplus, curIndex); // 添加
+        // that.addPoint(value); // 添加
+
+        that.airdevicelist = val; // 变为新值
       },
       complete: function () {
-        that.addCertainPoint(value, that.currentAirIndex);
-        // localStorage.setItem('DEVICES', JSON.stringify(value));
+        // that.addCertainPoint(value, that.currentAirIndex);
       },
       error: function (error) {
         console.log(error);
       }
     });
   }
+
+  // 交并补
+  comparison(a, b) {
+    const a_arr: any[] = [];
+    const b_arr: any[] = [];
+    const a_surplus: any[] = [];
+    const b_surplus: any[] = [];
+    let i = 0;
+    for (let j = 0; j < b.length; j++) {
+      while (i < a.length && a[i].id < b[j].id) {
+        a_surplus.push(a[i]);
+        i++;
+      }
+      if (i >= a.length || a[i].id > b[j].id) {
+        b_surplus.push(b[j]);
+      } else {
+        a_arr.push(a[i]);
+        i++;
+        b_arr.push(b[j]);
+      }
+    }
+    return {
+      a_arr: a_arr,
+      b_arr: b_arr,
+      a_surplus: a_surplus,
+      b_surplus: b_surplus,
+    };
+  }
+  // 判断变化值
+  judgeChange(a, b, curIndex) {
+    const changePoint: any[] = [];
+    const length = a.length < b.length ? a.length : b.length;
+    let value;
+    switch (curIndex) {
+      case 'PM2.5': value = 'pm25'; break;
+      case 'PM10': value = 'pm10'; break;
+      case 'TVOC': value = 'tvoc'; break;
+      case '温度': value = 'temperature'; break;
+      case '湿度': value = 'humidity'; break;
+      default: break;
+    }
+
+    for (let index = 0; index < length; index++) {
+      const a_element = a[index];
+      const b_element = b[index];
+      if (a_element.error !== b_element.error ||
+        a_element.offline !== b_element.offline ||
+        a_element[value] !== b_element[value]
+       ) {
+        changePoint.push(b_element);
+      }
+
+    }
+    return changePoint;
+
+  }
+
+  // 替换
+  changeMarker(airdevice_list) {
+    // console.log(airdevice_list);
+    // console.log(this.airdeviceList);
+    this.deleMarker(airdevice_list); // 删除
+    this.addCertainPoint(airdevice_list, this.currentAirIndex); // 添加
+  }
+  // 删除
+  deleMarker(airdevice_list) {
+    const makers = this.map.getOverlays();
+    for (let ind = 0; ind < airdevice_list.length; ind++) {
+      const ele = airdevice_list[ind];
+      const point = airdevice_list[ind].point;
+      for (let index = 0; index < makers.length; index++) {
+        const element = makers[index];
+        const lat = element.point && element.point.lat;
+        const lng = element.point && element.point.lng;
+        if (point.lat === lat && point.lng === lng) {
+          this.map.removeOverlay(makers[index]);
+        }
+
+      }
+    }
+  }
+
   // 根据当前空气指标加载对应图标
   addCertainPoint(val, index) {
     const markers = [];
@@ -250,6 +348,19 @@ export class AirComponent implements OnInit {
       }
     });
   }
+
+  // 进入数据监控页面
+  jumpHandle() {
+    this.router.navigate([`home/airreport`]);
+
+  }
+  // 切换空气指标
+  onIndexChange() {
+    this.currentAirIndex = this.indexofHtml.name;
+    this.map.clearOverlays();
+    this.addMarkers();
+  }
+
   // 省市区街道-地图级别
   switchZone(level) {
     let zone = 12;
@@ -384,15 +495,5 @@ export class AirComponent implements OnInit {
     this.areashow = true;
     this.currentBlock = null;
   }
-  // 进入数据监控页面
-  jumpHandle() {
-    this.router.navigate([`home/airreport`]);
 
-  }
-  // 切换指标
-  onIndexChange() {
-    this.currentAirIndex = this.indexofHtml.name;
-    this.map.clearOverlays();
-    this.addMarkers();
-  }
 }
