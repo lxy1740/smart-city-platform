@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { VideoService } from '../../service/video.service';
+import { StrategyService } from '../../service/strategy.service';
 
 const now = new Date();
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
@@ -90,7 +91,13 @@ export class StrategyComponent implements OnInit {
       ],
     }
   ]; // 策略
+
+  strategyList1 = []; // 从接口获取的策略列表
+  currentStrategy: any; // 当前所选策略
+  ruleList = []; // 规则集合
+  currentRule: any;
   dateList = []; // 日期策略
+
   holidayList = [
     { startTime: '7:00', endTime: '12:00', intensity: '50%', date: new Date() },
     { startTime: '12:00', endTime: '17:00', intensity: '0%', date: new Date() },
@@ -164,7 +171,7 @@ export class StrategyComponent implements OnInit {
 
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
-  constructor(private modalService: NgbModal,
+  constructor(private modalService: NgbModal, private strategyService: StrategyService,
      private videoService: VideoService, public element: ElementRef,
     calendar: NgbCalendar,
     private _formBuilder: FormBuilder,
@@ -196,13 +203,32 @@ export class StrategyComponent implements OnInit {
       this.getPoint(that.map, that.city);
 
     };
-
   }
 
   ngOnInit() {
-
+    this.getStrategyList();
+    // this.getRules(this.currentStrategy);
+    // this.currentRule = this.ruleList[0];
   }
-
+  // 获取策略表
+  getStrategyList() {
+    const that = this;
+    this.strategyService.getStrategy().subscribe({
+      next: function (val) {
+        that.strategyList1 = val;
+        that.currentStrategy = val[0];
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  // 点击一个规则
+  selectRule(item) {
+    this.currentRule = item;
+  }
   onDateSelection(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
@@ -240,6 +266,40 @@ export class StrategyComponent implements OnInit {
     d.toggle();
   }
 
+  // 在左侧中点击一策略
+  selectStrategy(item) {
+    const that = this;
+    // console.log(this.currentRule);
+    this.currentRule = []; // 切换到其他策略时，当前所选规则置空
+    // console.log(this.currentRule);
+    this.currentStrategy = item;
+    // this.getRules(item);
+    this.strategyService.getRules(item.id).subscribe({
+      next: function (val) {
+        that.ruleList = val;
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  // 点击策略及初始化时调用
+  getRules(item) {
+    const that = this;
+    const strategyId = item.id;
+    this.strategyService.getRules(strategyId).subscribe({
+      next: function (val) {
+        that.ruleList = val;
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
 
   // 日期选择后触发业务
   onDateChange(date: NgbDateStruct) {
@@ -311,7 +371,8 @@ export class StrategyComponent implements OnInit {
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log('strategy');
-      that.addStrategy('strategy');
+      // that.addStrategy('strategy');
+      that.addStrategy1();  // 接口处策略
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
@@ -430,6 +491,22 @@ export class StrategyComponent implements OnInit {
     } else if (type === 'workday') {
       this.workdayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
     }
+  }
+  addStrategy1() {
+    const that = this;
+    this.strategyService.addStrategy(this.strategyName).subscribe({
+      next: function (val) {
+        // that.strategyList1 = val;
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  delStrategy2() {
+    const that =  this;
   }
   delStrategy(type) {
 

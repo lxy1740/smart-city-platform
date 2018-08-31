@@ -16,20 +16,27 @@
     </div>
     <div class="strategy-list">
       <ul >
-        <li *ngFor="let item of strategyList" class="cur-pointer">{{item.name}}</li>
+        <li *ngFor="let item of strategyList1" class="cur-pointer" (click)="selectStrategy(item)">
+          <span>{{item.name}}</span>
+          <div class="modify-strategy d-inline">
+              <a class="cur-pointer btn-a theme-text d-inline">修改</a>
+              <a class="cur-pointer btn-a theme-text d-inline">删除</a>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
   <!-- 右侧 -->
   <div class="strategy-right">
     <div style="margin-top: 10px;">
-      <span class="strategy-title">策略一</span>
+      <span *ngIf="currentStrategy" class="strategy-title">{{currentStrategy.name}}</span>
 
     </div>
     <!-- 菜单-->
     <div style="margin-top: 10px;">
       <ul class="nav nav-tabs">
-        <li *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)" [ngClass]="{'active':item.id === nav_index}">
+        <li *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer"
+          (click)="changeNav(i)" [ngClass]="{'active':item.id === nav_index}">
           <a>{{item.name}}</a>
         </li>
       </ul>
@@ -45,12 +52,16 @@
               <button class="btn btn-bg" (click)="openAddDate(contentAddDate)">添加</button>
 
             </div>
-            <!-- <ul class="data-list">
-              <li *ngFor="let item of dateList" class="cur-pointer">
-                <span>{{item.fromDate.month}}月{{item.fromDate.day}}日~{{item.toDate.month}}月{{item.toDate.day}}日</span>
+            <ul *ngIf="ruleList" class="data-list">
+              <li *ngFor="let item of ruleList" class="cur-pointer" (click)="selectRule(item)">
+                <span>{{item.start.month}}月{{item.start.day}}日~{{item.end.month}}月{{item.end.day}}日</span>
+                <div class="modify-strategy d-inline">
+                    <a class="cur-pointer btn-a theme-text d-inline">修改</a>
+                    <a class="cur-pointer btn-a theme-text d-inline">删除</a>
+                </div>
               </li>
-            </ul> -->
-            <table class="table table-hover ">
+            </ul>
+            <!-- <table class="table table-hover ">
               <tr >
                 <td>
                   <span>7月7日~8月8日</span>
@@ -68,7 +79,7 @@
                   <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
                 </td>
               </tr>
-            </table>
+            </table> -->
           </div>
         </div>
 
@@ -85,7 +96,9 @@
               
                 </div>
                 <div class="col-6">
-                  <span>7:00</span>
+                  <span>17:00</span>
+                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].start.hour}}时
+                    {{currentRule.workdayRules[0].start.minute}}分</span> -->
                 </div>
               </div>
               <div class="row align-items-center justify-content-center" >
@@ -93,8 +106,8 @@
                   <label for="changeBrightness">起始亮度：</label>
                 </div>
                 <div class="col-6">
-              
                   <span>30</span>
+                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].lightLevel}}</span> -->
                 </div>
               </div>
 
@@ -121,6 +134,8 @@
               </div>
               <div class="col-6">
                 <span>7:00</span>
+                <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[1].start.hour}}时
+                  {{currentRule.workdayRules[1].start.minute}}分</span> -->
               </div>
             </div>
         
@@ -141,7 +156,9 @@
         
               </div>
               <div class="col-6">
-                <span>7:00</span>
+                <span>17:00</span>
+                <!-- <span *ngIf="currentRule">{{currentRule.holidayRules[0].start.hour}}时
+                  {{currentRule.holidayRules[0].start.minute}}分</span> -->
               </div>
             </div>
             <div class="row align-items-center justify-content-center">
@@ -149,8 +166,8 @@
                 <label for="changeBrightness">起始亮度：</label>
               </div>
               <div class="col-6">
-        
                 <span>30</span>
+                <!-- <span *ngIf="currentRule">{{currentRule.holidayRules[0].lightLevel}}</span> -->
               </div>
             </div>
         
@@ -177,6 +194,8 @@
               </div>
               <div class="col-6">
                 <span>7:00</span>
+                <!-- <span *ngIf="currentRule">{{currentRule.holidayRules[1].start.hour}}时
+                  {{currentRule.holidayRules[1].start.minute}}分</span> -->
               </div>
             </div>
         

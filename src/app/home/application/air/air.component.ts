@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
 import { AirmonitorService } from '../../../service/airmonitor.service';
@@ -103,29 +103,26 @@ export class AirComponent implements OnInit {
     });
     map.addControl(navigationControl);
 
+    this.getAirdevices(); // 获取地图上的点
+    this.timer = setInterval(() => {
+      this.getAirdevices(); // 获取地图上的点
+    }, 5000);
+
     map.enableScrollWheelZoom(true); // 启动滚轮放大缩小，默认禁用
     // const marker = new BMap.Marker(point);  // 创建标注
     // map.addOverlay(marker);               // 将标注添加到地图中
-    this.addMarkers();
     this.dragendOff(map);
     this.zoomendOff(map);
   }
 
   // 添加地图内的设备标记
-  addMarkers() {
-    this.getPositions();
-    this.timer = setInterval(() => {
-      // this.map.clearOverlays();
-      this.getPositions();
-    }, 5000);
-  }
 
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
   dragendOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('dragend', function () {
       baiduMap.clearOverlays();
-      that.addMarkers(); // 获取数据-添加标注
+      that.getAirdevices(); // 获取数据-添加标注
     });
   }
   // 监控-地图缩放事件-地图缩放后的级别。
@@ -136,14 +133,14 @@ export class AirComponent implements OnInit {
       //   that.isqueryPoint = false;
       // } else {
         baiduMap.clearOverlays();
-        that.addMarkers(); // 添加标注
+        that.getAirdevices(); // 添加标注
         // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
       // }
     });
   }
 
   // 获取设备坐标点
-  getPositions() {
+  getAirdevices() {
     const that = this;
     const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
     const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
@@ -158,21 +155,24 @@ export class AirComponent implements OnInit {
         // value = val;
         const curIndex = that.currentAirIndex;
         compar = that.comparison(that.airdevicelist, val);
+        // console.log(compar);
         value = that.judgeChange(compar.a_arr, compar.b_arr, curIndex);
 
         that.changeMarker(value); // 替换
         that.deleMarker(compar.a_surplus); // 删除
         // that.deleMarker(value); // 删除
-        that.addCertainPoint(compar.b_surplus, curIndex); // 添加
+        that.addCertainMarker(compar.b_surplus, curIndex); // 添加
         // that.addPoint(value); // 添加
 
         that.airdevicelist = val; // 变为新值
       },
       complete: function () {
-        // that.addCertainPoint(value, that.currentAirIndex);
+        // that.addCertainMarker(value, that.currentAirIndex);
       },
       error: function (error) {
         console.log(error);
+        console.log(NorthEast);
+        console.log(SouthWest);
       }
     });
   }
@@ -238,7 +238,7 @@ export class AirComponent implements OnInit {
     // console.log(airdevice_list);
     // console.log(this.airdeviceList);
     this.deleMarker(airdevice_list); // 删除
-    this.addCertainPoint(airdevice_list, this.currentAirIndex); // 添加
+    this.addCertainMarker(airdevice_list, this.currentAirIndex); // 添加
   }
   // 删除
   deleMarker(airdevice_list) {
@@ -259,7 +259,7 @@ export class AirComponent implements OnInit {
   }
 
   // 根据当前空气指标加载对应图标
-  addCertainPoint(val, index) {
+  addCertainMarker(val, index) {
     const markers = [];
     const points: any[] = [];
 
@@ -290,11 +290,11 @@ export class AirComponent implements OnInit {
       points.push(point);
     });
     // 点击点标注事件
-    // for (let index1 = 0; index1 < markers.length; index1++) {
-    //   const marker = markers[index];
-    //   const item = val[index];
-    //   that.openSideBar(marker, that.map, item, points[index]);
-    // }
+    for (let indexl = 0; indexl < markers.length; indexl++) {
+      const marker = markers[indexl];
+      const item = val[indexl];
+      that.openSideBar(marker, that.map, item, points[indexl]);
+    }
   }
 
   // 返回地图可视区域，以地理坐标表示
@@ -308,7 +308,7 @@ export class AirComponent implements OnInit {
 
   // 地图点注标-点击事件
   openSideBar(marker, baiduMap, airDevice, point) {
-    console.log(airDevice);
+    // console.log(airDevice);
     const that = this;
     const opts = {
       width: 350,     // 信息窗口宽度
@@ -318,9 +318,18 @@ export class AirComponent implements OnInit {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };  // ${airDevice.id} ${airDevice.description}
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 |  </p>`;
-    txt = txt + `<p  class='cur-pointer'> 设备名称：</p>`;
-    // txt = txt +
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${airDevice.name} </p>`;
+    txt = txt + `<p class='cur-pointer'> 设备名称：${airDevice.description}</p>`;
+    if (airDevice.offline === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
+    }
+    if (airDevice.error === false) {
+      txt = txt + `<p  class='cur-pointer'> 是否异常：否</p>`;
+    } else {
+      txt = txt + `<p  class='cur-pointer'> 是否异常：<span style='color: red'>是</span></p>`;
+    }
     const infoWindow = new BMap.InfoWindow(txt, opts);
     marker.V.addEventListener('click', function () {
       baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
@@ -358,7 +367,7 @@ export class AirComponent implements OnInit {
   onIndexChange() {
     this.currentAirIndex = this.indexofHtml.name;
     this.map.clearOverlays();
-    this.addMarkers();
+    this.getAirdevices();
   }
 
   // 省市区街道-地图级别
@@ -494,6 +503,10 @@ export class AirComponent implements OnInit {
   arealistMouseNone() {
     this.areashow = true;
     this.currentBlock = null;
+  }
+
+  ngOnDestroy() {
+    window.clearInterval(this.timer);
   }
 
 }
