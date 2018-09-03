@@ -38,30 +38,25 @@ export class AirreportComponent implements OnInit {
   fromdate: any; // 开始日期
   todate: any; // 结束日期
   fields = [  // 统计字段名称
-    { id: 1, name: 'pm25' },
-    { id: 2, name: 'pm10' },
-    { id: 3, name: 'tvoc' },
-    { id: 3, name: 'temperature' },
-    { id: 3, name: 'humidity' },
+    { id: 1, name: 'pm25', type: 'PM2.5' },
+    { id: 2, name: 'pm10', type: 'PM10' },
+    { id: 3, name: 'tvoc', type: 'TVOC' },
+    { id: 3, name: 'temperature', type: '温度' },
+    { id: 3, name: 'humidity', type: '湿度' },
   ];
 
-  types = [  // 统计字段名称
-    { id: 1, name: 'PM2.5' },
-    { id: 2, name: 'PM10' },
-    { id: 3, name: 'TVOC' },
-    { id: 3, name: '温度' },
-    { id: 3, name: '湿度' },
+  aggs = [ // 统计方式
+    { id: 1, name: 'avg', type: '平均值' },
+    { id: 2, name: 'max', type: '最大值' },
+    { id: 3, name: 'min', type: '最小值' },
   ];
-  aggs = [ // 统计字段名称
-    { id: 1, name: 'avg' },
-    { id: 2, name: 'max' },
-    { id: 3, name: 'min' },
+  intervals = [ // 时间间隔
+    { id: 1, name: 'm', type: '分钟' },
+    { id: 2, name: 'h', type: '小时' },
+    { id: 3, name: 'd', type: '天' },
   ];
-  interval = [ // 时间间隔
-    {id: 1, name: 'm'},
-    {id: 2, name: 'h'},
-    {id: 3, name: 'd'},
-  ];
+
+  dashtrue = false; // 可视化图表
 
 
   constructor(private modalService: NgbModal, public router: Router,
@@ -151,130 +146,29 @@ export class AirreportComponent implements OnInit {
     this.getHistoryData();
   }
 
-  // 获取历史数据的统计值
+  // 本地存储数据
   getStatistics() {
     // id: number, field: string, agg: string, from: string, to: string, interval: string
+
     const that = this;
     const id = this.currentdevice.id;
     const field = this.fields[0].name;
-    const types = this.types;
+
     const agg = this.aggs[0].name;
     const fromdate = this.fromdate;
     const todate = this.todate;
-    const interval = this.interval[0].name;
-    this.fields.map((item, index) => {
-      this.airmonitorService.getStatistics(id, item.name, agg, fromdate, todate, interval).subscribe({
-        next: function (val) {
+    const interval = this.intervals[0].name;
+    localStorage.setItem('dash_data', JSON.stringify({ id: id, agg, fromdate, todate, interval}));
 
-          that.echartLine(val, types[index].name, `line_container${index + 1}`);
-        },
-        complete: function () {
-        },
-        error: function (error) {
-          console.log(error);
-        }
-      });
 
-    });
 
   }
 
-  // 可视化
-  echartLine(data, type, id) {
 
-    const option = {
-      title: {
-        text: type
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      xAxis: {
-        data: data.map(function (item) {
-          return item.label;
-        })
-      },
-      yAxis: {
-        splitLine: {
-          show: false
-        }
-      },
-      toolbox: {
-        left: 'center',
-        feature: {
-          dataZoom: {
-            yAxisIndex: 'none'
-          },
-          restore: {},
-          saveAsImage: {}
-        }
-      },
-      dataZoom: [{
-        startValue: '2014-06-01'
-      }, {
-        type: 'inside'
-      }],
-      visualMap: {
-        top: 10,
-        right: 10,
-        pieces: [{
-          gt: 0,
-          lte: 50,
-          color: '#096'
-        }, {
-          gt: 50,
-          lte: 100,
-          color: '#ffde33'
-        }, {
-          gt: 100,
-          lte: 150,
-          color: '#ff9933'
-        }, {
-          gt: 150,
-          lte: 200,
-          color: '#cc0033'
-        }, {
-          gt: 200,
-          lte: 300,
-          color: '#660099'
-        }, {
-          gt: 300,
-          color: '#7e0023'
-        }],
-        outOfRange: {
-          color: '#999'
-        }
-      },
-      series: {
-        name: type,
-        type: 'line',
-        data: data.map(function (item) {
-          return item.value;
-        }),
-        markLine: {
-          silent: true,
-          data: [{
-            yAxis: 50
-          }, {
-            yAxis: 100
-          }, {
-            yAxis: 150
-          }, {
-            yAxis: 200
-          }, {
-            yAxis: 300
-          }]
-        }
-      }
-    };
-    const bmapChart = echarts.init(document.getElementById(id));
-    console.log(bmapChart);
-    bmapChart.setOption(option);
-  }
 
-  // 返回空气质量页面
-  jumpHandle() {
-    this.router.navigate([`home/application/air`]);
+  // 路由跳转
+  jumpHandle(url) {
+    this.router.navigate([url]);
   }
   // 获取当前设备的离线状态
   getdevicestatus(val) {
@@ -294,20 +188,17 @@ export class AirreportComponent implements OnInit {
   }
 
 
-  // 模态框
-  openGenerateTables(content) {  // 批量导入
-    const that = this;
-    const modal = this.modalService.open(content, { windowClass: 'max-modal' });
-    this.getStatistics();
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
 
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
+
+  // 生成图表
+  openGenerateTables() {
+    const that = this;
+    this.dashtrue = true;
+    this.getStatistics();
+    this.jumpHandle('home/dashbord');
   }
+
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

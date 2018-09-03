@@ -33,6 +33,9 @@ body {
     padding: 5px;
     color: $color-btn-text !important;
 }
+.color-btn-text {
+    color: $color-btn-text;
+}
 
 a:hover, a:active {
     color: #d7f8ff;   //ymZhao
@@ -79,6 +82,16 @@ a:hover, a:active {
     -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
     box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
     background-color: #ffffff;
+}
+
+// 面板头部
+.car-header{
+    padding: 0 15px;
+    height: 50px;
+    // line-height: 50px;
+}
+.car-title{
+    font-size: 28px;
 }
 
 

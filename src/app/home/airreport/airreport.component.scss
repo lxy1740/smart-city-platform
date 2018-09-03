@@ -20,6 +20,7 @@
     .air-right {
         width: calc(100vw - 350px);
         height: 100%;
+        position: relative;
     }
 }
 
@@ -78,4 +79,10 @@
 
 .modal-header, .modal-footer {
     padding: 5px 15px;
+}
+
+.dash{
+    position: absolute;
+    top: 0;
+    width: 100%;
 }

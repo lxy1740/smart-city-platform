@@ -23,7 +23,7 @@
         <!-- 右侧，上半部，头部，简短信息 -->
         <div class="panel-default info-top" *ngIf="currentdevice">
             <span class="title-right" >{{currentdevice.description}}</span>
-            <i class="fa fa-arrow-circle-o-left fa-2x backtoair cur-pointer" (click)="jumpHandle()"></i>
+            <i class="fa fa-arrow-circle-o-left fa-2x backtoair cur-pointer color-btn-text" (click)="jumpHandle('home/application/air')"></i>
             <div class="form-inline brief-info">
               <!-- <div class="extral-margin">
                 <label class="form-control text-label">时间范围：</label>
@@ -92,7 +92,7 @@
             <div class="btns">
               <button class="btn btn-bg extral-margin" (click)="dataSearch()">搜索</button>
               <button class="btn btn-bg extral-margin" (click)="exportTable()" [disabled]='historydatalistItems.length ==0'>导出报表</button>
-              <button class="btn btn-bg" (click)="openGenerateTables(content)" [disabled]='historydatalistItems.length ==0'>生成图表</button>
+              <button class="btn btn-bg" (click)="openGenerateTables()" [disabled]='historydatalistItems.length ==0'>生成图表</button>
             </div>
             <!--当前设备详细数据展示-->
             <div id="exportableTable">
@@ -134,6 +134,7 @@
 
         </div>
 
+
     </div>
   </div>
 
@@ -149,34 +150,7 @@
       </button>
     </div>
   
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-4">
-          <div id="line_container1" style="height: 500px;">
-          </div>
-        </div>
-        <div class="col-4">
-          <div id="line_container2" style="height: 500px;">
-          </div>
-        </div>
-        <div class="col-4">
-          <div id="line_container3" style="height: 500px;">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div id="line_container4" style="height: 500px;">
-          </div>
-        </div>
-        <div class="col-6">
-          <div id="line_container5" style="height: 500px;">
-          </div>
-        </div>
 
-      </div>
-  
-    </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
     </div>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
-import { MatButtonModule, MatStepperModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatStepperModule, MatInputModule, MatCardModule } from '@angular/material';
 
 
 
@@ -33,7 +33,7 @@ import { AirreportComponent } from './airreport/airreport.component';
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
          DeviceModule, UserModule, GridsterModule, ApplicationModule, RuleModule, SharedModule,
-        MatStepperModule, MatButtonModule, MatInputModule
+        MatStepperModule, MatButtonModule, MatInputModule, MatCardModule
 
     ],
     declarations: [
