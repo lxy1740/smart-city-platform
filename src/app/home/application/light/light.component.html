@@ -93,7 +93,7 @@
                     <div>
                         <p>
                             <span>当前策略：</span>
-                            <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" class="form-control d-inline-block sel-area-block select-item">
+                            <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" class="form-control d-inline-block selece-str">
                                 <option *ngFor="let index of strategyLists" [ngValue]="index">
                                     {{ index.name }}
                                 </option>
@@ -114,7 +114,7 @@
                             <p>
                                 <span>结束时间：</span>
                                 <label style="margin-left: 21px;">
-                                    <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                                    <ngb-timepicker [(ngModel)]="time" (change) = "changeTime()"></ngb-timepicker>
                                 </label>
                             </p>
                         </div>
@@ -125,7 +125,7 @@
                             </p>
                             <p>
                                 <label>
-                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100" [(ngModel)]="lightLevel"></mat-slider>
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100" [(ngModel)]="lightLevel" (change) = "changeSlider()"></mat-slider>
                                 </label>
                             </p>
                             <div class="row control-text">
@@ -141,12 +141,17 @@
                         </div>
 
                     </div>
+                    <div *ngIf="prompt">
+                        <p class="prompt">
+                            <span>修改成功！</span>
+                        </p>
+                    </div>
 
         </div>
 
 
         <div  class="modal-footer">
-                <button type="button" class="btn btn-outline-info" (click)="setLightsContr(deviceChild.id)">确定</button>
+                <button type="button" class="btn btn-outline-info" (click)="lightsContr(deviceChild.id)">确定</button>
                 <button type="button" class="btn btn-outline-metal" (click)="closeDetail()">取消</button>
         </div>
 

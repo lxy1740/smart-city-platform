@@ -4,7 +4,7 @@
 }
 // 设备详情
 .device-detail{
-    width: 300px;
+    width: 350px;
     background: #fff;
     border: 1px solid #ccc;
     z-index: 4000;
@@ -34,4 +34,11 @@ mat-slider {
     position:  relative;
     top: -39px;
 
+}
+.prompt {
+    color: red;
+}
+.selece-str{
+    width: 150px;
+    margin-left: 20px;
 }

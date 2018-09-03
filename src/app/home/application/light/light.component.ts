@@ -14,6 +14,7 @@ import { MonitorService } from '../../../service/monitor.service';
 import { LightService } from '../../../service/light.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { initChangeDetectorIfExisting } from '@angular/core/src/render3/instructions';
 // baidu map
 declare let BMap;
 declare let $: any;
@@ -64,32 +65,23 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   markers: any; // 标注点
   strategyList: any; // 控制路灯当前策略
-  strategyLists = [
-    {
-      id: '',
-      name: '策略一'
-    },
-    {
-      id: '',
-      name: '策略二'
-    },
-  ];
+  strategyLists = []; // 策略列表
   time = { hour: 13, minute: 30}; // 路灯控制时间
   contrL = false; // 临时控制
   lightLevel = 0;
+  prompt = false; // 提示成功
 
 
 
   constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router,
     config: NgbTimepickerConfig ) {
-    this.strategyList = this.strategyLists[0];
     config.spinners = false; // 时间控制
   }
 
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
-    // this.getDevice(); // 获取设备列表
+    this.getStrategy(); // 获取策略表
   }
 
   // 监控-点击地图事件
@@ -377,7 +369,7 @@ export class LightComponent implements OnInit, OnDestroy  {
 
     marker.addEventListener('click', function () {
       that.device = val;
-      this.contrL = false;
+
       baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
 
       setTimeout(() => {
@@ -387,14 +379,27 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   }
 
-  // 点击子设备
+  // 点击控制按钮
   deviceAddEventListener() {
     const that = this;
 
+
       const device = $(`#${this.device.id}`);
       device.on('click', function () {
+        that.contrL = false;
+        that.prompt = false;
         that.deviceChild = that.device;
         that.lightLevel = that.device.level;
+
+        if (that.device.ruleId) {
+          that.strategyLists.map((item, index) => {
+            if (item.id === that.device.ruleId) {
+              that.strategyList = that.strategyLists[index];
+            }
+          });
+        }
+
+
       });
 
   }
@@ -419,20 +424,6 @@ export class LightComponent implements OnInit, OnDestroy  {
     baiduMap.centerAndZoom(point, zoom);
 
 
-    // that.addMarker(); // 获取数据-添加标注
-
-    // let pt;
-
-    // // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    // myGeo.getPoint(fullName, function (point) {
-    //   if (point) {
-    //     baiduMap.centerAndZoom(point, zoom);
-    //     pt = point;
-
-    //   } else {
-    //     console.log('您选择地址没有解析到结果!');
-    //   }
-    // }, '');
   }
 
   // 获取数据
@@ -627,11 +618,30 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   // 路灯控制页选择策略
   strategyListsChange() {
-    console.log(this.strategyList);
+    this.prompt = false;
+    console.log('策略改变');
+  }
+
+  // 临时控制切换
+  changeContr() {
+    this.contrL = !this.contrL;
+    this.prompt = false;
+  }
+
+  // 时间改变
+  changeTime() {
+    this.prompt = false;
+    console.log('时间改变');
+  }
+  // 亮度改变
+  changeSlider() {
+    this.prompt = false;
+    console.log('亮度改变');
   }
 
   // 路灯控制页亮度调节
   formatLabel(value: number | null) {
+    // this.prompt = false;
     if (!value) {
       return 0;
     }
@@ -644,17 +654,63 @@ export class LightComponent implements OnInit, OnDestroy  {
     return value + '%';
   }
 
-  changeContr() {
-    this.contrL = !this.contrL;
+
+
+  // 控制路灯
+  lightsContr(id) {
+    this.setStrategyRule(id);
+    if (this.contrL) {
+      this.setLightsContr(id);
+    }
   }
 
+   // 临时控制路灯
   setLightsContr(id) {
+    const that = this;
     const strategyList = this.strategyList;
     const stopTime = this.time;
     const level = this.lightLevel;
     this.lightService.setLightsContr(id, level, stopTime).subscribe({
       next: function (val) {
+        that.prompt = true;
         console.log('ok!');
+      },
+      complete: function () {
+        // that.changeMarker(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 临时控制路灯
+  setStrategyRule(id) {
+    const that = this;
+    const strategyList = this.strategyList;
+
+    this.lightService.setStrategyRule(id, strategyList.id).subscribe({
+      next: function (val) {
+        that.prompt = true;
+        console.log('ok!');
+      },
+      complete: function () {
+        // that.changeMarker(value);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 获取策略表
+  getStrategy() {
+    const that = this;
+    this.lightService.getStrategy().subscribe({
+      next: function (val) {
+        that.strategyLists = val;
+        that.strategyList = that.strategyLists[0];
+        // console.log(val);
       },
       complete: function () {
         // that.changeMarker(value);

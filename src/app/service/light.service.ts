@@ -40,11 +40,42 @@ export class LightService {
 
     // 临时控制路灯
     setLightsContr(id, level, stopTime): Observable<any> {
-        return this.http.post('/api/streetlight/level', {
+        return this.http.put('/api/streetlight/level', {
             'id': id,
             'level': level,
             'stopTime': stopTime
         })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    // console.log(res.json());
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 修改路灯控制策略
+    setStrategyRule(id, ruleId): Observable<any> {
+        return this.http.put('/api/streetlight/setrule', {
+            'id': id,
+            'ruleId': ruleId
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    // console.log(res.json());
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 获取策略表
+    getStrategy(): Observable<any> {
+        return this.http.get(`/api/streetlight/rule`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();
