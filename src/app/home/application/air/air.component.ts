@@ -19,7 +19,7 @@ declare let BMAP_ANCHOR_TOP_LEFT;
   templateUrl: './air.component.html',
   styleUrls: ['./air.component.scss']
 })
-export class AirComponent implements OnInit {
+export class AirComponent implements OnInit, OnDestroy {
 
   @ViewChild('map6') map_container: ElementRef;
   model: any = {}; // 存储数据
@@ -121,6 +121,7 @@ export class AirComponent implements OnInit {
   dragendOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('dragend', function () {
+      that.airdevicelist = [];
       baiduMap.clearOverlays();
       that.getAirdevices(); // 获取数据-添加标注
     });
@@ -367,7 +368,8 @@ export class AirComponent implements OnInit {
   onIndexChange() {
     this.currentAirIndex = this.indexofHtml.name;
     this.map.clearOverlays();
-    this.getAirdevices();
+    this.addCertainMarker(this.airdevicelist, this.currentAirIndex); // 添加
+    // this.getAirdevices();
   }
 
   // 省市区街道-地图级别
