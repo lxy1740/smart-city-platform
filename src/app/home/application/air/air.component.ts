@@ -133,6 +133,7 @@ export class AirComponent implements OnInit, OnDestroy {
       // if (that.isqueryPoint === true) {
       //   that.isqueryPoint = false;
       // } else {
+        that.airdevicelist = [];
         baiduMap.clearOverlays();
         that.getAirdevices(); // 添加标注
         // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
