@@ -45,4 +45,21 @@ export class AirmonitorService {
                 }
             }));
     }
+
+    // 获取历史数据的统计值
+    getStatistics(id: number, field: string, agg: string, from: string, to: string, interval: string) {
+        return this.http
+        .get(`/api/airmonitor/stat/${id}/${field}/${agg}?from=${from}&to=${to}&interval=${interval}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+
+                    const data = res.json();
+
+                    return data;
+                } else {
+
+                    return res.json().code.toString();
+                }
+            }));
+    }
 }
