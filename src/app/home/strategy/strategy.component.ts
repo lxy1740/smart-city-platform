@@ -140,7 +140,8 @@ export class StrategyComponent implements OnInit {
 
   // 弹框
   closeResult: string;
-  strategy_index: number; // 策略索引
+  strategy_index = 0; // 策略索引
+  rule_index = 0; // 策略索引
   model: any = {}; // 存储数据
   map: any; // 地图
   zTreeObj: any;
@@ -226,8 +227,9 @@ export class StrategyComponent implements OnInit {
     });
   }
   // 点击一个规则
-  selectRule(item) {
+  selectRule(item, i) {
     this.currentRule = item;
+    this.rule_index = i;
   }
   onDateSelection(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
@@ -267,7 +269,8 @@ export class StrategyComponent implements OnInit {
   }
 
   // 在左侧中点击一策略
-  selectStrategy(item) {
+  selectStrategy(item, index) {
+    this.strategy_index = index;
     const that = this;
     // console.log(this.currentRule);
     this.currentRule = []; // 切换到其他策略时，当前所选规则置空

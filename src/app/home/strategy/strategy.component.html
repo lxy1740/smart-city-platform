@@ -16,7 +16,7 @@
     </div>
     <div class="strategy-list">
       <ul >
-        <li *ngFor="let item of strategyList1" class="cur-pointer" (click)="selectStrategy(item)">
+        <li *ngFor="let item of strategyList1;let i = index" class="cur-pointer" (click)="selectStrategy(item,i)"  [ngClass]="{'active': i == strategy_index}">
           <span>{{item.name}}</span>
           <div class="modify-strategy d-inline">
               <a class="cur-pointer btn-a theme-text d-inline">修改</a>
@@ -37,7 +37,7 @@
       <ul class="nav nav-tabs">
         <li *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer"
           (click)="changeNav(i)" [ngClass]="{'active':item.id === nav_index}">
-          <a>{{item.name}}</a>
+          <a >{{item.name}}</a>
         </li>
       </ul>
     </div>
@@ -53,7 +53,7 @@
 
             </div>
             <ul *ngIf="ruleList" class="data-list">
-              <li *ngFor="let item of ruleList" class="cur-pointer" (click)="selectRule(item)">
+              <li *ngFor="let item of ruleList;let i = index" class="cur-pointer" (click)="selectRule(item, i)"  [ngClass]="{'active': i == rule_index}">
                 <span>{{item.start.month}}月{{item.start.day}}日~{{item.end.month}}月{{item.end.day}}日</span>
                 <div class="modify-strategy d-inline">
                     <a class="cur-pointer btn-a theme-text d-inline">修改</a>
@@ -97,8 +97,8 @@
                 </div>
                 <div class="col-6">
                   <!-- <span>17:00</span> -->
-                  <span *ngIf="currentRule">{{currentRule.workdayRules[0].start.hour}}时
-                    {{currentRule.workdayRules[0].start.minute}}分</span>
+                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].start.hour}}时
+                    {{currentRule.workdayRules[0].start.minute}}分</span> -->
                 </div>
               </div>
               <div class="row align-items-center justify-content-center" >
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-6">
                   <!-- <span>30</span> -->
-                  <span *ngIf="currentRule">{{currentRule.workdayRules[0].lightLevel}}</span>
+                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].lightLevel}}</span> -->
                 </div>
               </div>
 
@@ -134,8 +134,8 @@
               </div>
               <div class="col-6">
                 <!-- <span>7:00</span> -->
-                <span *ngIf="currentRule">{{currentRule.workdayRules[1].start.hour}}时
-                  {{currentRule.workdayRules[1].start.minute}}分</span>
+                <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[1].start.hour}}时
+                  {{currentRule.workdayRules[1].start.minute}}分</span> -->
               </div>
             </div>
         
@@ -157,8 +157,8 @@
               </div>
               <div class="col-6">
                 <!-- <span>17:00</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].start.hour}}时
-                  {{currentRule.holidayRules[0].start.minute}}分</span>
+                <!-- <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].start.hour}}时
+                  {{currentRule.holidayRules[0].start.minute}}分</span> -->
               </div>
             </div>
             <div class="row align-items-center justify-content-center">
@@ -167,7 +167,7 @@
               </div>
               <div class="col-6">
                 <!-- <span>30</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].lightLevel}}</span>
+                <!-- <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].lightLevel}}</span> -->
               </div>
             </div>
         
@@ -194,8 +194,8 @@
               </div>
               <div class="col-6">
                 <!-- <span>7:00</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules[1]">{{currentRule.holidayRules[1].start.hour}}时
-                  {{currentRule.holidayRules[1].start.minute}}分</span>
+                <!-- <span *ngIf="currentRule && currentRule.holidayRules[1]">{{currentRule.holidayRules[1].start.hour}}时
+                  {{currentRule.holidayRules[1].start.minute}}分</span> -->
               </div>
             </div>
         
