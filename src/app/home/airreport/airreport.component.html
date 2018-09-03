@@ -20,28 +20,33 @@
   <div class="air-right">
     <!-- 监测点信息 -->
     <div  class="point-info">
-        <!-- 右侧，上半部，头部，简短信息 -->
-        <div class="panel-default info-top" *ngIf="currentdevice">
-            <span class="title-right" >{{currentdevice.description}}</span>
-            <i class="fa fa-arrow-circle-o-left fa-2x backtoair cur-pointer color-btn-text" (click)="jumpHandle('home/application/air')"></i>
-            <div class="form-inline brief-info">
-              <!-- <div class="extral-margin">
-                <label class="form-control text-label">时间范围：</label>
-                <input type="date" class="form-control" value=""/>
-              </div> -->
-              <div class="extral-margin">
-                <label class="form-control text-label">设备名称：</label>
-                <span  class="form-control text-label">{{currentdevice.name}}</span>
-              </div>
-              <div>
-                <label class="form-control text-label">设备状态：</label>
-                <span  class="form-control text-label">{{getdevicestatus(currentdevice.offline)}}</span>
-              </div>
-            </div>
-        </div>
+
 
         <!-- 右侧，下半部-->
         <div class="panel-default info-form">
+
+            <!-- 右侧，上半部，头部，简短信息 -->
+            <div class="car-header" *ngIf="currentdevice">
+              <span class="car-title">{{currentdevice.description}}</span>
+              <button type="button" class="close" aria-label="Close">
+                <!-- <span aria-hidden="true">&times;</span> -->
+                <span>
+                  <i class="fa fa-arrow-circle-o-left cur-pointer color-btn-text" (click)="jumpHandle('home/application/air')"></i>
+                </span>
+              </button>
+              
+
+            </div>
+            <div class="extral-margin" >
+              <label class=" text-label">设备名称：</label>
+              <span class=" text-label" *ngIf="currentdevice">{{currentdevice.name}}</span>
+            </div>
+            <div class="extral-margin">
+              <label class=" text-label">设备状态：</label>
+              <span class=" text-label" *ngIf="currentdevice">{{getdevicestatus(currentdevice.offline)}}</span>
+            </div>
+            <hr>
+
 
             <div class="extral-margin">
               <label class=" text-label">开始时间：</label>
