@@ -22,7 +22,7 @@ export class AirreportComponent implements OnInit {
   SouthWest: any; // 坐标点
   closeResult: string;
   historydatalist = []; // 指定设备的历史数据集合
-  historydatalistItems: any;
+  historydatalistItems = [];
   deviceIndx = 0;
   total: any;
 
@@ -43,6 +43,14 @@ export class AirreportComponent implements OnInit {
     { id: 3, name: 'tvoc' },
     { id: 3, name: 'temperature' },
     { id: 3, name: 'humidity' },
+  ];
+
+  types = [  // 统计字段名称
+    { id: 1, name: 'PM2.5' },
+    { id: 2, name: 'PM10' },
+    { id: 3, name: 'TVOC' },
+    { id: 3, name: '温度' },
+    { id: 3, name: '湿度' },
   ];
   aggs = [ // 统计字段名称
     { id: 1, name: 'avg' },
@@ -149,29 +157,34 @@ export class AirreportComponent implements OnInit {
     const that = this;
     const id = this.currentdevice.id;
     const field = this.fields[0].name;
+    const types = this.types;
     const agg = this.aggs[0].name;
     const fromdate = this.fromdate;
     const todate = this.todate;
     const interval = this.interval[0].name;
-    this.airmonitorService.getStatistics(id, field, agg, fromdate, todate, interval).subscribe({
-    next: function (val) {
+    this.fields.map((item, index) => {
+      this.airmonitorService.getStatistics(id, item.name, agg, fromdate, todate, interval).subscribe({
+        next: function (val) {
 
-      that.echartLine(val);
-    },
-    complete: function () {
-    },
-    error: function (error) {
-      console.log(error);
-    }
-  });
+          that.echartLine(val, types[index].name, `line_container${index + 1}`);
+        },
+        complete: function () {
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+
+    });
+
   }
 
   // 可视化
-  echartLine(data) {
+  echartLine(data, type, id) {
 
     const option = {
       title: {
-        text: 'pm25'
+        text: type
       },
       tooltip: {
         trigger: 'axis'
@@ -233,7 +246,7 @@ export class AirreportComponent implements OnInit {
         }
       },
       series: {
-        name: 'pm2.5',
+        name: type,
         type: 'line',
         data: data.map(function (item) {
           return item.value;
@@ -254,7 +267,7 @@ export class AirreportComponent implements OnInit {
         }
       }
     };
-    const bmapChart = echarts.init(document.getElementById('line_container1'));
+    const bmapChart = echarts.init(document.getElementById(id));
     console.log(bmapChart);
     bmapChart.setOption(option);
   }
