@@ -96,9 +96,9 @@
               
                 </div>
                 <div class="col-6">
-                  <span>17:00</span>
-                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].start.hour}}时
-                    {{currentRule.workdayRules[0].start.minute}}分</span> -->
+                  <!-- <span>17:00</span> -->
+                  <span *ngIf="currentRule">{{currentRule.workdayRules[0].start.hour}}时
+                    {{currentRule.workdayRules[0].start.minute}}分</span>
                 </div>
               </div>
               <div class="row align-items-center justify-content-center" >
@@ -106,8 +106,8 @@
                   <label for="changeBrightness">起始亮度：</label>
                 </div>
                 <div class="col-6">
-                  <span>30</span>
-                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].lightLevel}}</span> -->
+                  <!-- <span>30</span> -->
+                  <span *ngIf="currentRule">{{currentRule.workdayRules[0].lightLevel}}</span>
                 </div>
               </div>
 
@@ -133,9 +133,9 @@
             
               </div>
               <div class="col-6">
-                <span>7:00</span>
-                <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[1].start.hour}}时
-                  {{currentRule.workdayRules[1].start.minute}}分</span> -->
+                <!-- <span>7:00</span> -->
+                <span *ngIf="currentRule">{{currentRule.workdayRules[1].start.hour}}时
+                  {{currentRule.workdayRules[1].start.minute}}分</span>
               </div>
             </div>
         
@@ -156,9 +156,9 @@
         
               </div>
               <div class="col-6">
-                <span>17:00</span>
-                <!-- <span *ngIf="currentRule">{{currentRule.holidayRules[0].start.hour}}时
-                  {{currentRule.holidayRules[0].start.minute}}分</span> -->
+                <!-- <span>17:00</span> -->
+                <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].start.hour}}时
+                  {{currentRule.holidayRules[0].start.minute}}分</span>
               </div>
             </div>
             <div class="row align-items-center justify-content-center">
@@ -166,8 +166,8 @@
                 <label for="changeBrightness">起始亮度：</label>
               </div>
               <div class="col-6">
-                <span>30</span>
-                <!-- <span *ngIf="currentRule">{{currentRule.holidayRules[0].lightLevel}}</span> -->
+                <!-- <span>30</span> -->
+                <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].lightLevel}}</span>
               </div>
             </div>
         
@@ -193,9 +193,9 @@
         
               </div>
               <div class="col-6">
-                <span>7:00</span>
-                <!-- <span *ngIf="currentRule">{{currentRule.holidayRules[1].start.hour}}时
-                  {{currentRule.holidayRules[1].start.minute}}分</span> -->
+                <!-- <span>7:00</span> -->
+                <span *ngIf="currentRule && currentRule.holidayRules[1]">{{currentRule.holidayRules[1].start.hour}}时
+                  {{currentRule.holidayRules[1].start.minute}}分</span>
               </div>
             </div>
         
