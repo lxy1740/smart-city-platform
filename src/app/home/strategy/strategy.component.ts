@@ -10,6 +10,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { VideoService } from '../../service/video.service';
@@ -28,6 +30,14 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
 declare let echarts;
 declare let BMap;
 declare let $: any;
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-strategy',
   templateUrl: './strategy.component.html',
@@ -35,10 +45,17 @@ declare let $: any;
 })
 
 export class StrategyComponent implements OnInit {
-
   @ViewChild('map2') map_container: ElementRef;
   @ViewChild('map3') map_container3: ElementRef;
 
+  numberFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+  number2FormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  matcher = new MyErrorStateMatcher();
   modelData = {
     title: '删除',
     body: 'hh',
@@ -122,8 +139,29 @@ export class StrategyComponent implements OnInit {
   hoveredDate: NgbDateStruct; // 日历
   fromDate: NgbDateStruct; // 日历
   toDate: NgbDateStruct; // 日历
-  time = { hour: 13, minute: 30 }; // 工作日时间
-  brightness = 30 ; // 亮度
+  time: any; // 工作日时间
+  brightness = 30; // 亮度
+  workday_start_time = { hour: 13, minute: 30 }; // 工作日时间
+  workday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+  workday_start_time1: any; // 工作日时间
+  workday_start_time2: any; // 工作日时间
+  workday_start_time3: any; // 工作日时间
+  workday_start_brightness = 30 ; // 亮度
+  workday_start_brightness1: any ; // 亮度
+  workday_start_brightness2: any ; // 亮度
+  workday_start_brightness3: any; // 亮度
+  end_brightness = 0;
+
+  holiday_start_time = { hour: 13, minute: 30 }; // 工作日时间
+  holiday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+  holiday_start_time1: any; // 工作日时间
+  holiday_start_time2: any; // 工作日时间
+  holiday_start_time3: any; // 工作日时间
+  holiday_start_brightness = 30; // 亮度
+  holiday_start_brightness1: any; // 亮度
+  holiday_start_brightness2: any; // 亮度
+  holiday_start_brightness3: any; // 亮度
+
   step = 1; // 步骤
 
 
@@ -228,6 +266,8 @@ export class StrategyComponent implements OnInit {
   }
   // 获取工作日中间段时间
   getWorkdayList(rule) {
+    this.workdayList = [];
+    this.holidayList = [];
     if (!rule) {
       return;
     }
@@ -339,17 +379,138 @@ export class StrategyComponent implements OnInit {
     });
   }
 
+  // 打开添加规则-弹框操作
+  openAddRule(content, index) {
+    const that = this;
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      console.log('rule-add');
+      that.addRules();  // 接口处-添加策略
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+
+  }
+
+  // 添加策略规则
+  addRules() {
+    const id = this.currentStrategy.id;
+    const start = {
+      day: this.fromDate.day,
+      month: this.fromDate.month
+    };
+    const toDate = this.toDate ? this.toDate : this.fromDate;
+    const end = {
+      day: toDate.day,
+      month: toDate.month
+    };
+    const workdayRules = [];
+    const holidayRules = [];
+
+    if (this.workday_start_time && this.workday_start_time.hour && this.workday_start_time.minute && this.workday_start_brightness) {
+      workdayRules.push({
+          'lightLevel': this.workday_start_brightness,
+          'smart': true,
+          'start': this.workday_start_time
+
+      });
+
+      if (this.workday_start_time1 && this.workday_start_time1.hour && this.workday_start_time1.minute && this.workday_start_brightness1) {
+        workdayRules.push({
+          'lightLevel': this.workday_start_brightness1,
+          'smart': true,
+          'start': this.workday_start_time1
+
+        });
+      }
+
+      if (this.workday_start_time2 && this.workday_start_time2.hour && this.workday_start_time2.minute && this.workday_start_brightness2) {
+        workdayRules.push({
+          'lightLevel': this.workday_start_brightness2,
+          'smart': true,
+          'start': this.workday_start_time2
+
+        });
+      }
+      if (this.workday_start_time3 && this.workday_start_time3.hour && this.workday_start_time3.minute && this.workday_start_brightness3) {
+        workdayRules.push({
+          'lightLevel': this.workday_start_brightness3,
+          'smart': true,
+          'start': this.workday_start_time3
+
+        });
+      }
+      if (this.workday_end_time && this.workday_end_time.hour && this.workday_end_time.minute) {
+        workdayRules.push({
+          'lightLevel': this.end_brightness,
+          'smart': true,
+          'start': this.workday_end_time
+
+        });
+      }
+    }
+
+    if (this.holiday_start_time && this.holiday_start_time.hour && this.holiday_start_time.minute && this.holiday_start_brightness) {
+      holidayRules.push({
+        'lightLevel': this.holiday_start_brightness,
+        'smart': true,
+        'start': this.holiday_start_time
+
+      });
+
+      if (this.holiday_start_time1 && this.holiday_start_time1.hour && this.holiday_start_time1.minute && this.holiday_start_brightness1) {
+        holidayRules.push({
+          'lightLevel': this.holiday_start_brightness1,
+          'smart': true,
+          'start': this.holiday_start_time1
+
+        });
+      }
+
+      if (this.holiday_start_time2 && this.holiday_start_time2.hour && this.holiday_start_time2.minute && this.holiday_start_brightness2) {
+        holidayRules.push({
+          'lightLevel': this.holiday_start_brightness2,
+          'smart': true,
+          'start': this.holiday_start_time2
+
+        });
+      }
+      if (this.holiday_start_time3 && this.holiday_start_time3.hour && this.holiday_start_time3.minute && this.holiday_start_brightness3) {
+        holidayRules.push({
+          'lightLevel': this.holiday_start_brightness3,
+          'smart': true,
+          'start': this.holiday_start_time3
+
+        });
+      }
+      if (this.holiday_end_time && this.holiday_end_time.hour && this.holiday_end_time.minute) {
+        holidayRules.push({
+          'lightLevel': this.end_brightness,
+          'smart': true,
+          'start': this.holiday_end_time
+
+        });
+      }
+    }
+
+    console.log(id);
+    console.log(start);
+    console.log(end);
+    console.log(workdayRules);
+    console.log(holidayRules);
+    console.log(this.workday_start_time1);
+
+
+  }
+
   // 关闭弹框
   colseModal() {
     this.mr.close();
   }
 
-  // 打开弹框操作
-  openAddRule(content, index) {
-    const modal = this.modalService.open(content, { size: 'lg' });
-    this.mr = modal;
 
-  }
 
 
   onDateSelection(date: NgbDateStruct) {

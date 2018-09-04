@@ -85,4 +85,55 @@ export class StrategyService {
                 }
             }));
     }
+
+    // 新增策略的日期规则
+    addRules(ruleId: number, start: any, end: any, holidayRules: any, workdayRules: any): Observable<any> {
+        return this.http.post(`/api/streetlight/rule/${ruleId}`, {
+            'start': start,
+            'end': end,
+            'holidayRules': holidayRules,
+            'workdayRules': workdayRules
+
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 新增策略的日期规则
+    updataRules(ruleId: number, start: any, end: any, holidayRules: any, workdayRules: any): Observable<any> {
+        return this.http.put(`/api/streetlight/rule/${ruleId}`, {
+            'start': start,
+            'end': end,
+            'holidayRules': holidayRules,
+            'workdayRules': workdayRules
+
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 删除策略的日期规则
+    delRules(ruleId: number): Observable<any> {
+        return this.http.delete(`/api/streetlight/rule/${ruleId}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
 }
