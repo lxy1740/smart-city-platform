@@ -44,6 +44,35 @@ export class StrategyService {
                 }
             }));
     }
+
+    // 修改策略
+    updateStrategy(id: number, name: string): Observable<any> {
+        return this.http.put(`/api/streetlight/rule`, {
+            'id': id,
+            'name': name
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 删除策略
+    delStrategy(id: number): Observable<any> {
+        return this.http.delete(`/api/streetlight/rule/${id}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
     // 获取指定策略的规则
     getRules(ruleId: number): Observable<any> {
         return this.http.get(`/api/streetlight/rule/${ruleId}`)

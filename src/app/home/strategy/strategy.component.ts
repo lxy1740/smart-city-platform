@@ -64,50 +64,17 @@ export class StrategyComponent implements OnInit {
   }
   ];
   nav_index = 0; // 菜单索引
-  sub_nav_index = 0; // 菜单索引
-  strategyList = [
-    {
-      name: '策略一',
-      date: new Date(),
-      dateList: [
 
-      ],
-    },
-    {
-      name: '策略二',
-      date: new Date(),
-      dateList: [{
-        startDate: '7月1日',
-        endDate: '7月18日'
-      },
-        {
-          startDate: '8月1日',
-          endDate: '8月18日'
-        },
-        {
-          startDate: '9月1日',
-          endDate: '9月18日'
-        }
-      ],
-    }
-  ]; // 策略
-
-  strategyList1 = []; // 从接口获取的策略列表
+  strategyList = []; // 从接口获取的策略列表
   currentStrategy: any; // 当前所选策略
   ruleList = []; // 规则集合
   currentRule: any;
+  strategy_del_id: any;
+  strategy_del_index: any;
   dateList = []; // 日期策略
 
-  holidayList = [
-    { startTime: '7:00', endTime: '12:00', intensity: '50%', date: new Date() },
-    { startTime: '12:00', endTime: '17:00', intensity: '0%', date: new Date() },
-    { startTime: '17:00', endTime: '19:00', intensity: '70%', date: new Date() }
-  ]; // 节假日策略
-  workdayList = [
-    { startTime: '7:00', endTime: '12:00', intensity: '50%', date: new Date() },
-    { startTime: '12:00', endTime: '17:00', intensity: '0%', date: new Date() },
-    { startTime: '17:00', endTime: '19:00', intensity: '70%', date: new Date() }
-  ]; // 工作时间策略
+  holidayList = []; // 节假日策略
+  workdayList = []; // 工作时间策略
   rangeList = [
     {
       id: 'SN0001',
@@ -194,7 +161,7 @@ export class StrategyComponent implements OnInit {
     });
 
 
-    this.dateList = this.strategyList[0].dateList;
+    // this.dateList = this.strategyList[0].dateList;
     // 树的操作
     // 点击
     const that = this;
@@ -208,16 +175,94 @@ export class StrategyComponent implements OnInit {
 
   ngOnInit() {
     this.getStrategyList();
-    // this.getRules(this.currentStrategy);
-    // this.currentRule = this.ruleList[0];
+
   }
   // 获取策略表
   getStrategyList() {
     const that = this;
     this.strategyService.getStrategy().subscribe({
       next: function (val) {
-        that.strategyList1 = val;
+        that.strategyList = val;
         that.currentStrategy = val[0];
+      },
+      complete: function () {
+        that.getRules(that.currentStrategy);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 点击策略及初始化时调用
+  getRules(item) {
+    const that = this;
+    const strategyId = item.id;
+    this.strategyService.getRules(strategyId).subscribe({
+      next: function (val) {
+        that.ruleList = val;
+      },
+      complete: function () {
+        that.selectRule(that.ruleList[0], 0);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 在左侧中点击一策略
+  selectStrategy(item, index) {
+    this.strategy_index = index;
+    const that = this;
+    // this.currentRule = []; // 切换到其他策略时，当前所选规则置空
+    this.currentStrategy = item;
+    this.getRules(item);
+
+  }
+  // 点击一个规则
+  selectRule(item, i) {
+    this.currentRule = item;
+    this.getWorkdayList(item);
+    this.rule_index = i;
+  }
+  // 获取工作日中间段时间
+  getWorkdayList(rule) {
+    if (!rule) {
+      return;
+    }
+    const len = rule.workdayRules && rule.workdayRules.length;
+    const len1 = rule.holidayList && rule.holidayList.length;
+    if (len > 2) {
+      this.workdayList = rule.workdayRules.slice(1, len);
+    }
+
+    if (len1 > 2) {
+      this.holidayList = rule.holidayList.slice(1, len);
+    }
+  }
+
+  // 添加策略弹框操作
+  openAddStrategy(content, index) {
+    const that = this;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+    this.strategyName = '';
+    modal.result.then((result) => {
+      console.log('strategy--add');
+      that.addStrategy();  // 接口处-添加策略
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+
+  // 接口处-添加策略
+  addStrategy() {
+    const that = this;
+    this.strategyService.addStrategy(this.strategyName).subscribe({
+      next: function (val) {
+        that.getStrategyList(); // 重新获取策略
       },
       complete: function () {
       },
@@ -226,11 +271,87 @@ export class StrategyComponent implements OnInit {
       }
     });
   }
-  // 点击一个规则
-  selectRule(item, i) {
-    this.currentRule = item;
-    this.rule_index = i;
+
+  // 更新策略-弹框操作
+  openUpdataStrategy(content, item, index) {
+    const that = this;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+    this.strategyName = item.name;
+    modal.result.then((result) => {
+      console.log('strategy -updata');
+      that.updateStrategy(item.id, that.strategyName);  // 接口处-更新策略
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
   }
+
+  // 接口处-更新策略
+  updateStrategy(id, name) {
+    const that = this;
+    this.strategyService.updateStrategy(id, name).subscribe({
+      next: function (val) {
+        that.getStrategyList(); // 重新获取策略
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 删除策略弹框
+  openDelStrategy(content, item, i) {
+    const that = this;
+    this.strategy_del_id = item.id;
+    this.strategy_del_index = i;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+
+  }
+
+  // 删除策略
+  closeDelStrategy($event) {
+    console.log($event);
+    if ($event === 'ok') {
+      this.delStrategy();
+    }
+    this.mr.close();
+  }
+
+  // 接口处-删除策略
+  delStrategy() {
+    const index = this.strategy_del_index;
+    this.strategyList.splice(index, 1);
+    const that = this;
+    const id = this.strategy_del_id;
+    this.strategyService.delStrategy(id).subscribe({
+      next: function (val) {
+        that.getStrategyList(); // 重新获取策略
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 关闭弹框
+  colseModal() {
+    this.mr.close();
+  }
+
+  // 打开弹框操作
+  openAddRule(content, index) {
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
+
+  }
+
+
   onDateSelection(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
@@ -268,185 +389,19 @@ export class StrategyComponent implements OnInit {
     d.toggle();
   }
 
-  // 在左侧中点击一策略
-  selectStrategy(item, index) {
-    this.strategy_index = index;
-    const that = this;
-    // console.log(this.currentRule);
-    this.currentRule = []; // 切换到其他策略时，当前所选规则置空
-    // console.log(this.currentRule);
-    this.currentStrategy = item;
-    // this.getRules(item);
-    this.strategyService.getRules(item.id).subscribe({
-      next: function (val) {
-        that.ruleList = val;
-      },
-      complete: function () {
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  }
-  // 点击策略及初始化时调用
-  getRules(item) {
-    const that = this;
-    const strategyId = item.id;
-    this.strategyService.getRules(strategyId).subscribe({
-      next: function (val) {
-        that.ruleList = val;
-      },
-      complete: function () {
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  }
-
-  // 日期选择后触发业务
-  onDateChange(date: NgbDateStruct) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
-
-    if (this.fromDate !== null && this.toDate !== null) {
-      console.log('from :' + this.fromDate.day);
-      console.log('to :' + this.toDate.day);
-
-      const fromStr = this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day;
-      const toStr = this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day;
-
-    }
-
-  }
-
   // 下一步
   nextStep() {
     this.step = this.step + 1;
   }
+
+  // 上一步
   preStep() {
     this.step = this.step - 1;
   }
 
-  // 删除工作日
-  closedelWorkday($event) {
 
-    console.log($event);
-    if ($event === 'ok') {
-      this.delStrategy('workday');
-    }
-    this.mr.close();
 
-  }
 
-  // 删除节假日
-  closedelHoliday($event)  {
-    console.log($event);
-    if ($event === 'ok') {
-      this.delStrategy('holiday');
-    }
-    this.mr.close();
-  }
-
-  colseModal() {
-    this.mr.close();
-  }
-
-  // 添加策略弹框操作
-  open(content, index) {
-    const modal = this.modalService.open(content, { size: 'sm' });
-    this.mr = modal;
-
-  }
-
-  // 添加策略弹框操作
-  openAddStrategy(content, index) {
-    const that = this;
-    const modal = this.modalService.open(content, { size: 'sm' });
-    this.mr = modal;
-    this.strategyName = '';
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log('strategy');
-      // that.addStrategy('strategy');
-      that.addStrategy1();  // 接口处策略
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
-  }
-
-  // 添加工作日弹框操作
-  openAddDate(content, index) {
-
-    const that = this;
-
-    const modal = this.modalService.open(content, { size: 'lg' });
-    this.mr = modal;
-    modal.result.then((result) => {
-      if (that.toDate === null) {
-        return;
-      }
-      that.addStrategy('date');
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
-  }
-
-  // 添加工作日弹框操作
-  openAddWorkday(content, index) {
-
-    const that = this;
-
-    const modal = this.modalService.open(content, { size: 'sm' });
-    this.mr = modal;
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      console.log('workday');
-      that.addStrategy('workday');
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
-  }
-  // 删除工作日弹框操作 // 删除节假日
-  opendelWorkday(content) {
-
-    const that = this;
-
-    const modal = this.modalService.open(content, { size: 'sm' });
-    this.mr = modal;
-
-  }
-
-  // 添加工作日弹框操作
-  openAddHoliday(content, index) {
-
-    const that = this;
-
-    const modal = this.modalService.open(content, { size: 'sm' });
-    this.mr = modal;
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      console.log('Holiday');
-      that.addStrategy('holiday');
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
-  }
 
 
 
@@ -460,7 +415,7 @@ export class StrategyComponent implements OnInit {
     }
   }
 
-
+  // 切换菜单项-策略时间- 策略范围
   changeNav(index) {
     this.nav_index = index;
     if (index === 1) {
@@ -471,70 +426,9 @@ export class StrategyComponent implements OnInit {
     }
   }
 
-  changeSubNav(index) {
-    this.sub_nav_index = index;
-  }
-
-  addStrategy(type) {
-
-    if (type === 'strategy') {
-      this.strategyList.push({
-        name: this.strategyName,
-        date: new Date(),
-        dateList: []
-      });
-
-    } else if (type === 'date') {
-      this.dateList.push({
-        fromDate: this.fromDate,
-        toDate: this.toDate
-      });
-    } else if (type === 'holiday') {
-      this.holidayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
-    } else if (type === 'workday') {
-      this.workdayList.push({ startTime: '17:00', endTime: '19:00', intensity: '50%', date: new Date() });
-    }
-  }
-  addStrategy1() {
-    const that = this;
-    this.strategyService.addStrategy(this.strategyName).subscribe({
-      next: function (val) {
-        // that.strategyList1 = val;
-      },
-      complete: function () {
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  }
-  delStrategy2() {
-    const that =  this;
-  }
-  delStrategy(type) {
-
-    if (type === 'strategy') {
-      this.strategyList.push({
-        name: this.strategyName,
-        date: new Date(),
-        dateList: [{
-          startDate: '7月1日',
-          endDate: '7月8日'
-        }]
-      });
-
-    } else if (type === 'date') {
-      this.dateList.splice(0, 1);
-    } else if (type === 'holiday') {
-      this.holidayList.splice(0, 1);
-    } else if (type === 'workday') {
-      this.workdayList.splice(0, 1);
-    }
-  }
-  removeStrategy() {
-    const index = this.strategy_index;
-    this.strategyList.splice(index, 1);
-  }
+  // 策略范围-策略下发
+  //
+  //
 
   // 获取城市列表
   getZoneDefault() {

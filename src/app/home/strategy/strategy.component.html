@@ -8,19 +8,14 @@
       </button>
     </div>
     <div>
-
-
-
-
-
     </div>
     <div class="strategy-list">
       <ul >
-        <li *ngFor="let item of strategyList1;let i = index" class="cur-pointer" (click)="selectStrategy(item,i)"  [ngClass]="{'active': i == strategy_index}">
+        <li *ngFor="let item of strategyList;let i = index" class="cur-pointer" (click)="selectStrategy(item,i)"  [ngClass]="{'active': i == strategy_index}">
           <span>{{item.name}}</span>
           <div class="modify-strategy d-inline">
-              <a class="cur-pointer btn-a theme-text d-inline">修改</a>
-              <a class="cur-pointer btn-a theme-text d-inline">删除</a>
+              <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataStrategy(contentUpdateStrategy, item, i)">修改</a>
+              <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelStrategy(contentDelStrategy,item, i)">删除</a>
           </div>
         </li>
       </ul>
@@ -41,15 +36,15 @@
         </li>
       </ul>
     </div>
-    <!-- 菜单一 -->
+    <!-- 菜单一  策略时间-->
     <div *ngIf="nav_index === 0" class="strategy-table">
       <!-- 日期 -->
       <div class="row">
         <div class="col-6 col-md-4 ">
           <div class=" panel-default">
             <div class="date-title">
-              <!-- <span >策略日期</span> -->
-              <button class="btn btn-bg" (click)="openAddDate(contentAddDate)">添加</button>
+              <!-- <span >策略日期规则</span> -->
+              <button class="btn btn-bg" (click)="openAddRule(contentAddRule)">添加</button>
 
             </div>
             <ul *ngIf="ruleList" class="data-list">
@@ -61,25 +56,7 @@
                 </div>
               </li>
             </ul>
-            <!-- <table class="table table-hover ">
-              <tr >
-                <td>
-                  <span>7月7日~8月8日</span>
-                </td>
-                <td>
-                  <a (click)="open(contentAddDate)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
-                </td>
-              </tr>
-            
-              <tr *ngFor="let item of dateList">
-                <td><span>{{item.fromDate.month}}月{{item.fromDate.day}}日~{{item.toDate.month}}月{{item.toDate.day}}日</span></td>
-                <td>
-                  <a (click)="open(contentAddDate)" class="cur-pointer btn-a theme-text">修改</a>
-                  <a (click)="opendelWorkday(content6)" class="cur-pointer btn-a theme-text">删除</a>
-                </td>
-              </tr>
-            </table> -->
+
           </div>
         </div>
 
@@ -97,8 +74,8 @@
                 </div>
                 <div class="col-6">
                   <!-- <span>17:00</span> -->
-                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].start.hour}}时
-                    {{currentRule.workdayRules[0].start.minute}}分</span> -->
+                  <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].start.hour}}时
+                    {{currentRule.workdayRules[0].start.minute}}分</span>
                 </div>
               </div>
               <div class="row align-items-center justify-content-center" >
@@ -107,7 +84,7 @@
                 </div>
                 <div class="col-6">
                   <!-- <span>30</span> -->
-                  <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[0].lightLevel}}</span> -->
+                  <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].lightLevel}}</span>
                 </div>
               </div>
 
@@ -121,7 +98,7 @@
                 </tr>
               </thead>
         
-              <tr *ngFor="let item of holidayList">
+              <tr *ngFor="let item of workdayList">
                 <td>{{item.startTime}}~{{item.endTime}}</td>
                 <td>{{item.intensity}}</td>
               </tr>
@@ -134,8 +111,8 @@
               </div>
               <div class="col-6">
                 <!-- <span>7:00</span> -->
-                <!-- <span *ngIf="currentRule">{{currentRule.workdayRules[1].start.hour}}时
-                  {{currentRule.workdayRules[1].start.minute}}分</span> -->
+                <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}时
+                  {{currentRule.workdayRules[1].start.minute}}分</span>
               </div>
             </div>
         
@@ -157,8 +134,8 @@
               </div>
               <div class="col-6">
                 <!-- <span>17:00</span> -->
-                <!-- <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].start.hour}}时
-                  {{currentRule.holidayRules[0].start.minute}}分</span> -->
+                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].start.hour}}时
+                  {{currentRule.holidayRules[0].start.minute}}分</span>
               </div>
             </div>
             <div class="row align-items-center justify-content-center">
@@ -167,7 +144,7 @@
               </div>
               <div class="col-6">
                 <!-- <span>30</span> -->
-                <!-- <span *ngIf="currentRule && currentRule.holidayRules[0]">{{currentRule.holidayRules[0].lightLevel}}</span> -->
+                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].lightLevel}}</span>
               </div>
             </div>
         
@@ -194,8 +171,8 @@
               </div>
               <div class="col-6">
                 <!-- <span>7:00</span> -->
-                <!-- <span *ngIf="currentRule && currentRule.holidayRules[1]">{{currentRule.holidayRules[1].start.hour}}时
-                  {{currentRule.holidayRules[1].start.minute}}分</span> -->
+                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[currentRule.workdayRules.length - 1].start.hour}}时
+                  {{currentRule.holidayRules[1].start.minute}}分</span>
               </div>
             </div>
         
@@ -210,7 +187,7 @@
 
       </div>
     </div>
-    <!-- 菜单二 -->
+    <!-- 菜单二 策略范围 -->
     <div *ngIf="nav_index === 1" class="strategy-table">
       <div class="row">
         <div class="col-3" style=" max-width: 250px; ">
@@ -296,8 +273,8 @@
       <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
-  <!-- 创建策略时间  -->
-  <ng-template #contentAddDate let-c="close" let-d="dismiss">
+  <!-- 创建策略规则  -->
+  <ng-template #contentAddRule let-c="close" let-d="dismiss">
     <div class="modal-header">
       <font class="modal-title">创建策略时间</font>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -643,65 +620,19 @@
       <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
-
-  <!-- 创建工作日志控制 -->
-  <ng-template #content2 let-c="close" let-d="dismiss">
+  
+  <!-- 修改策略 ok-->
+  <ng-template #contentUpdateStrategy let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <font class="modal-title">创建工作日志控制</font>
+      <font class="modal-title">添加策略</font>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <div>
-        <div>开始日期</div>
-        <div>结束日期</div>
-        <div>亮度
-          <select name="" id="">
-            <option value="">关</option>
-            <option value="">低亮</option>
-            <option value="">中亮</option>
-            <option value="">高亮</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="c('Save click')">确定</button>
-      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
-    </div>
-  </ng-template>
-  <!-- 修改工作日控制 -->
-  <ng-template #content3 let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <font class="modal-title">修改工作日控制</font>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <table>
-          <tr>
-            <td>开始日期:</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>结束日期：</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>亮度：</td>
-            <td>
-              <select name="" id="">
-                <option value="">关</option>
-                <option value="">低亮</option>
-                <option value="">中亮</option>
-                <option value="">高亮</option>
-              </select>
-            </td>
-          </tr>
-        </table>
+        策略名称：
+        <input type="text" [(ngModel)]="strategyName" name="strategyName">
       </div>
     </div>
     <div class="modal-footer">
@@ -712,12 +643,12 @@
 
 
 
-<!-- 删除工作日控制 -->
-  <ng-template #content6 let-c="close" let-d="dismiss">
-    <app-sq-modal [input]="modelData" (output)="closedelWorkday($event)"></app-sq-modal>
+<!-- 删除策略 ok -->
+  <ng-template #contentDelStrategy let-c="close" let-d="dismiss">
+    <app-sq-modal [input]="modelData" (output)="closeDelStrategy($event)"></app-sq-modal>
   </ng-template>
 
-<!-- 删除节假日控制 -->
-<ng-template #content7 let-c="close" let-d="dismiss">
+<!-- 删除策略规则 -->
+<ng-template #contentDelRule let-c="close" let-d="dismiss">
   <app-sq-modal [input]="modelData" (output)="closedelHoliday($event)"></app-sq-modal>
 </ng-template>
