@@ -125,7 +125,7 @@ export class StrategyService {
     }
 
     // 删除策略的日期规则
-    delRules(ruleId: number, ruleDateId: number): Observable<any> {
+    delRule(ruleId: number, ruleDateId: number): Observable<any> {
         return this.http.delete(`/api/streetlight/rule/${ruleId}?ruleDateId=${ruleDateId}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {

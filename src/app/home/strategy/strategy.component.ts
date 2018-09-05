@@ -90,6 +90,8 @@ export class StrategyComponent implements OnInit {
   currentRule: any;
   strategy_del_id: any;
   strategy_del_index: any;
+  strategy_rule_del_id: any;
+  strategy_rule_del_index: any;
   dateList = []; // 日期策略
 
   holidayList = []; // 节假日策略
@@ -531,6 +533,46 @@ export class StrategyComponent implements OnInit {
     console.log(this.workday_start_time1);
 
 
+  }
+
+  // 删除策略规则弹框
+  openDelRule(content, item, i) {
+    const that = this;
+    this.strategy_rule_del_id = item.id;
+    this.strategy_rule_del_index = i;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+
+  }
+
+  // 删除策略规则
+  closeDelRule($event) {
+    console.log($event);
+    if ($event === 'ok') {
+      this.delRule();
+    }
+    this.mr.close();
+  }
+
+  // 接口处-删除策略
+  delRule() {
+    const that = this;
+    const index = this.strategy_rule_del_index;
+    this.ruleList.splice(index, 1);
+    const id = this.currentStrategy.id;
+    const rule_data_id = this.strategy_rule_del_id;
+    this.strategyService.delRule(id, rule_data_id).subscribe({
+      next: function (val) {
+        // that.strategy_index = 0;
+        that.getRules(that.currentStrategy); // 重新获取策略
+
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   // 关闭弹框
