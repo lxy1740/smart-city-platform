@@ -47,6 +47,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class StrategyComponent implements OnInit {
   @ViewChild('map2') map_container: ElementRef;
   @ViewChild('map3') map_container3: ElementRef;
+  isOptional = false;
+  isEditable = false;
 
   numberFormControl = new FormControl('', [
     Validators.required,
@@ -187,16 +189,7 @@ export class StrategyComponent implements OnInit {
 
     config.spinners = false; // 时间控制
 
-    this.firstFormGroup = this._formBuilder.group({ // 步骤
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
 
-    this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required]
-    });
 
 
     // this.dateList = this.strategyList[0].dateList;
@@ -213,6 +206,16 @@ export class StrategyComponent implements OnInit {
 
   ngOnInit() {
     this.getStrategyList();
+    this.firstFormGroup = this._formBuilder.group({ // 步骤
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required]
+    });
 
   }
   // 获取策略表

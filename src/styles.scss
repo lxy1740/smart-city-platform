@@ -402,3 +402,61 @@ address, cite, code, em, th, i, strong {
   float: right;
 }
 
+// 红色字体
+
+.mat-error {
+    font-size: 12px;
+}
+
+.mat-step-icon, .mat-step-icon-not-touched{
+    margin-right: 8px;
+    flex: none;
+}
+
+ .mat-step-icon {
+    background-color: #673ab7;
+    color: #fff;
+}
+
+.mat-step-icon, .mat-step-icon-not-touched {
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.mat-step-icon-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.mat-step-icon-not-touched {
+    background-color: rgba(0,0,0,.38);
+    color: #fff;
+}
+
+.mat-step-icon-not-touched {
+    background-color: rgba(0,0,0,.38);
+    color: #fff;
+}
+.mat-stepper-horizontal-line {
+    border-top-width: 1px;
+    border-top-style: solid;
+    flex: auto;
+    height: 0;
+    margin: 0 -16px;
+    min-width: 32px;
+}
+
+.mat-stepper-horizontal-line {
+    border-top-color: rgba(0,0,0,.12);
+}
+.lsq-line {
+    position: relative;
+    top: -24px;
+    left: 136px;
+    width: 140px;
+}
