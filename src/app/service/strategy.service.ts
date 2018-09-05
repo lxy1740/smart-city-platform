@@ -63,10 +63,10 @@ export class StrategyService {
 
     // 删除策略
     delStrategy(id: number): Observable<any> {
-        return this.http.delete(`/api/streetlight/rule/${id}`)
+        return this.http.delete(`/api/streetlight/rule?id=${id}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = res.json();
+                    const data = { status: 200 };
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();
@@ -125,11 +125,11 @@ export class StrategyService {
     }
 
     // 删除策略的日期规则
-    delRules(ruleId: number): Observable<any> {
-        return this.http.delete(`/api/streetlight/rule/${ruleId}`)
+    delRules(ruleId: number, ruleDateId: number): Observable<any> {
+        return this.http.delete(`/api/streetlight/rule/${ruleId}?ruleDateId=${ruleDateId}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = res.json();
+                    const data = { status: 200 };
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();

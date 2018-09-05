@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-6">
                   <!-- <span>30</span> -->
-                  <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].lightLevel}}</span>
+                  <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].lightLevel}}%</span>
                 </div>
               </div>
 
@@ -99,8 +99,8 @@
               </thead>
         
               <tr *ngFor="let item of workdayList">
-                <td>{{item.startTime}}~{{item.endTime}}</td>
-                <td>{{item.intensity}}</td>
+                <td>{{item.start.hour}}时{{item.start.minute}}分</td>
+                <td>{{item.lightLevel}}%</td>
               </tr>
             </table>
 
@@ -144,7 +144,7 @@
               </div>
               <div class="col-6">
                 <!-- <span>30</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].lightLevel}}</span>
+                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].lightLevel}}%</span>
               </div>
             </div>
         
@@ -159,8 +159,8 @@
               </thead>
         
               <tr *ngFor="let item of holidayList">
-                <td>{{item.startTime}}~{{item.endTime}}</td>
-                <td>{{item.intensity}}</td>
+                <td>{{item.start.hour}}时{{item.start.minute}}分</td>
+                <td>{{item.lightLevel}}%</td>
               </tr>
             </table>
         
@@ -547,6 +547,9 @@
                                         </div>
                                         <div class="col-6">
                                           <ngb-timepicker [(ngModel)]="workday_end_time" id="workday_end_time"></ngb-timepicker>
+                                          <mat-error *ngIf="workday_end_time == null">
+                                            <strong>关灯时间为必填项</strong>
+                                          </mat-error>
                                         </div>
                                       </div>
                                   
@@ -723,6 +726,9 @@
                                 </div>
                                 <div class="col-6">
                                   <ngb-timepicker [(ngModel)]="holiday_end_time" id="holiday_end_time"></ngb-timepicker>
+                                    <mat-error *ngIf="holiday_end_time == null">
+                                      <strong>关灯时间为必填项</strong>
+                                    </mat-error>
                                 </div>
                               </div>
                           
@@ -752,8 +758,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-info" (click)="preStep()" *ngIf="step!==1">上一步</button>
-          <button type="button" class="btn btn-outline-info" (click)="nextStep()" *ngIf="step!==3" [disabled]="step ==2 && workday_start_time == null || step ==2 && !workday_start_brightness || step ==2 && workday_start_brightness == null ">下一步</button>
-        <button type="button" class="btn btn-outline-info" (click)="c('Save click')" *ngIf="step ==3">完成</button>
+          <button type="button" class="btn btn-outline-info" (click)="nextStep()" *ngIf="step!==3" 
+          [disabled]="step ==2 && workday_start_time == null || step ==2 && workday_end_time == null || step ==2 && !workday_start_brightness || step ==2 && workday_start_brightness == null ">下一步</button>
+        <button type="button" class="btn btn-outline-info" (click)="c('Save click')" *ngIf="step ==3" 
+        [disabled]="step ==3 && holiday_start_time == null || step ==3 && holiday_end_time == null || step ==3 && !holiday_start_brightness || step ==3 && holiday_start_brightness == null ">完成</button>
         <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
       </div>
     </ng-template>

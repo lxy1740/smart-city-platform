@@ -127,6 +127,7 @@ export class StrategyComponent implements OnInit {
   // 弹框
   closeResult: string;
   strategy_index = 0; // 策略索引
+  strategy_item: any; // 策略索引
   rule_index = 0; // 策略索引
   model: any = {}; // 存储数据
   map: any; // 地图
@@ -224,7 +225,8 @@ export class StrategyComponent implements OnInit {
     this.strategyService.getStrategy().subscribe({
       next: function (val) {
         that.strategyList = val;
-        that.currentStrategy = val[0];
+
+        that.currentStrategy = that.currentStrategy || val[0];
       },
       complete: function () {
         that.getRules(that.currentStrategy);
@@ -255,6 +257,7 @@ export class StrategyComponent implements OnInit {
   // 在左侧中点击一策略
   selectStrategy(item, index) {
     this.strategy_index = index;
+    this.strategy_item = item;
     const that = this;
     // this.currentRule = []; // 切换到其他策略时，当前所选规则置空
     this.currentStrategy = item;
@@ -275,14 +278,15 @@ export class StrategyComponent implements OnInit {
       return;
     }
     const len = rule.workdayRules && rule.workdayRules.length;
-    const len1 = rule.holidayList && rule.holidayList.length;
+    const len1 = rule.holidayRules && rule.holidayRules.length;
     if (len > 2) {
-      this.workdayList = rule.workdayRules.slice(1, len);
+      this.workdayList = rule.workdayRules.slice(1, len - 1);
     }
 
     if (len1 > 2) {
-      this.holidayList = rule.holidayList.slice(1, len);
+      this.holidayList = rule.holidayRules.slice(1, len - 1);
     }
+    console.log(this.holidayList);
   }
 
   // 添加策略弹框操作
@@ -335,7 +339,9 @@ export class StrategyComponent implements OnInit {
     const that = this;
     this.strategyService.updateStrategy(id, name).subscribe({
       next: function (val) {
+        that.currentStrategy.name = name;
         that.getStrategyList(); // 重新获取策略
+        // that.strategy_index = 0;
       },
       complete: function () {
       },
@@ -372,7 +378,10 @@ export class StrategyComponent implements OnInit {
     const id = this.strategy_del_id;
     this.strategyService.delStrategy(id).subscribe({
       next: function (val) {
+        that.strategy_index = 0;
+        that.currentStrategy = null;
         that.getStrategyList(); // 重新获取策略
+
       },
       complete: function () {
       },
@@ -399,6 +408,8 @@ export class StrategyComponent implements OnInit {
 
   // 添加策略规则
   addRules() {
+    const that = this;
+    const item = this.currentStrategy;
     const id = this.currentStrategy.id;
     const start = {
       day: this.fromDate.day,
@@ -498,7 +509,21 @@ export class StrategyComponent implements OnInit {
       }
     }
 
+
+    this.strategyService.addRules(id, start, end, workdayRules, holidayRules).subscribe({
+      next: function (val) {
+        // that.selectStrategy(item, i); // 重新获取策略
+        that.getRules(item);
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+
     console.log(id);
+    console.log(this.currentStrategy);
     console.log(start);
     console.log(end);
     console.log(workdayRules);
@@ -514,7 +539,15 @@ export class StrategyComponent implements OnInit {
   }
 
 
+  // 下一步
+  nextStep() {
+    this.step = this.step + 1;
+  }
 
+  // 上一步
+  preStep() {
+    this.step = this.step - 1;
+  }
 
   onDateSelection(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
@@ -553,15 +586,7 @@ export class StrategyComponent implements OnInit {
     d.toggle();
   }
 
-  // 下一步
-  nextStep() {
-    this.step = this.step + 1;
-  }
 
-  // 上一步
-  preStep() {
-    this.step = this.step - 1;
-  }
 
 
 
