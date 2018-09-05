@@ -190,6 +190,10 @@ export class StrategyComponent implements OnInit {
     this.fromDate = calendar.getToday();  // 日历
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10); // 日历
 
+    // console.log(this.fromDate);
+    // console.log(this.toDate);
+    // console.log(now.getFullYear());
+
     config.spinners = false; // 时间控制
 
 
@@ -293,6 +297,8 @@ export class StrategyComponent implements OnInit {
 
   // 添加策略弹框操作
   openAddStrategy(content, index) {
+    // 初始参数
+
     const that = this;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
@@ -323,6 +329,7 @@ export class StrategyComponent implements OnInit {
 
   // 更新策略-弹框操作
   openUpdataStrategy(content, item, index) {
+
     const that = this;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
@@ -394,7 +401,27 @@ export class StrategyComponent implements OnInit {
   }
 
   // 打开添加规则-弹框操作
-  openAddRule(content, index) {
+  openAddRule(content) {
+    this.workday_start_time = { hour: 13, minute: 30 }; // 工作日时间
+    this.workday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+    this.workday_start_time1 = null; // 工作日时间
+    this.workday_start_time2 = null; // 工作日时间
+    this.workday_start_time3 = null; // 工作日时间
+    this.workday_start_brightness = 30; // 亮度
+    this.workday_start_brightness1 = null; // 亮度
+    this.workday_start_brightness2 = null; // 亮度
+    this.workday_start_brightness3 = null; // 亮度
+    this.end_brightness = 0;
+
+    this.holiday_start_time = { hour: 13, minute: 30 }; // 工作日时间
+    this.holiday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+    this.holiday_start_time1 = null; // 工作日时间
+    this.holiday_start_time2 = null; // 工作日时间
+    this.holiday_start_time3 = null; // 工作日时间
+    this.holiday_start_brightness = 30; // 亮度
+    this.holiday_start_brightness1 = null; // 亮度
+    this.holiday_start_brightness2 = null; // 亮度
+    this.holiday_start_brightness3 = null; // 亮度
     const that = this;
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
@@ -531,6 +558,190 @@ export class StrategyComponent implements OnInit {
     console.log(workdayRules);
     console.log(holidayRules);
     console.log(this.workday_start_time1);
+
+
+  }
+
+  // 打开更新规则-弹框操作
+  openUpdataRule(content, item, index) {
+    const currentRule = this.currentRule;
+    // 初始参数
+
+    this.workday_start_time = currentRule.workdayRules && currentRule.workdayRules[0] && currentRule.workdayRules[0].start; // 工作日时间
+    const len = currentRule.workdayRules.length;
+    this.workday_end_time = currentRule.workdayRules && currentRule.workdayRules[len - 1] &&
+      currentRule.workdayRules[len - 1].start; // 工作日时间
+    this.workday_start_time1 = currentRule.workdayRules && currentRule.workdayRules[1] && currentRule.workdayRules[1].start; // 工作日时间
+    this.workday_start_time2 = currentRule.workdayRules && currentRule.workdayRules[2] && currentRule.workdayRules[2].start; // 工作日时间
+    this.workday_start_time3 = currentRule.workdayRules && currentRule.workdayRules[2] && currentRule.workdayRules[3].start; // 工作日时间
+    this.workday_start_brightness = currentRule.workdayRules && currentRule.workdayRules[0] && currentRule.workdayRules[0].lightLevel; // 亮度
+    this.workday_start_brightness1 = currentRule.workdayRules &&
+      currentRule.workdayRules[1] && currentRule.workdayRules[1].lightLevel; // 亮度
+    this.workday_start_brightness2 = currentRule.workdayRules &&
+      currentRule.workdayRules[2] && currentRule.workdayRules[2].lightLevel; // 亮度
+    this.workday_start_brightness3 = currentRule.workdayRules &&
+      currentRule.workdayRules[3] && currentRule.workdayRules[3].lightLevel; // 亮度
+    this.end_brightness = 0;
+
+    this.holiday_start_time = currentRule.holidayRules && currentRule.holidayRules[0] && currentRule.holidayRules[0].start; // 工作日时间
+    const len1 = currentRule.holidayRules.length;
+    this.holiday_end_time = currentRule.holidayRules && currentRule.holidayRules[len1 - 1] &&
+      currentRule.holidayRules[len1 - 1].start; // 工作日时间
+    this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].star; // 工作日时间
+    this.holiday_start_time2 = currentRule.holidayRules && currentRule.holidayRules[2] && currentRule.holidayRules[2].star; // 工作日时间
+    this.holiday_start_time3 = currentRule.holidayRules && currentRule.holidayRules[3] && currentRule.holidayRules[3].star; // 工作日时间
+    this.holiday_start_brightness = currentRule.holidayRules &&
+      currentRule.holidayRules[0] && currentRule.holidayRules[0].lightLevel; // 亮度
+    this.holiday_start_brightness1 = currentRule.holidayRules &&
+      currentRule.holidayRules[1] && currentRule.holidayRules[1].lightLevel; // 亮度
+    this.holiday_start_brightness2 = currentRule.holidayRules &&
+      currentRule.holidayRules[2] && currentRule.holidayRules[2].lightLevel; // 亮度
+    this.holiday_start_brightness3 = currentRule.holidayRules &&
+      currentRule.holidayRules[3] && currentRule.holidayRules[3].lightLevel; // 亮度
+
+    // this.fromDate = {
+    //   day: currentRule.start.day,
+    //   month: currentRule.start.month,
+    //   year: now.getFullYear()
+    // };
+
+    // this.toDate = {
+    //   day: currentRule.end.day,
+    //   month: currentRule.end.month,
+    //   year: now.getFullYear()
+    // };
+
+    // console.log(this.fromDate);
+    // console.log(this.toDate);
+    // console.log(now.getFullYear());
+    const that = this;
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      console.log('rule-add');
+      that.updataRules(item);  // 接口处-添加策略
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+
+  }
+
+  // 添加策略规则
+  updataRules(item) {
+    const that = this;
+    const currentStrategy = this.currentStrategy;
+    const id = this.currentStrategy.id;
+    const start = {
+      day: this.fromDate.day,
+      month: this.fromDate.month
+    };
+    const toDate = this.toDate ? this.toDate : this.fromDate;
+    const end = {
+      day: toDate.day,
+      month: toDate.month
+    };
+    const workdayRules = [];
+    const holidayRules = [];
+
+    if (this.workday_start_time && this.workday_start_time.hour && this.workday_start_time.minute && this.workday_start_brightness) {
+      workdayRules.push({
+        'lightLevel': this.workday_start_brightness,
+        'smart': true,
+        'start': this.workday_start_time
+
+      });
+
+      if (this.workday_start_time1 && this.workday_start_time1.hour && this.workday_start_time1.minute && this.workday_start_brightness1) {
+        workdayRules.push({
+          'lightLevel': this.workday_start_brightness1,
+          'smart': true,
+          'start': this.workday_start_time1
+
+        });
+      }
+
+      if (this.workday_start_time2 && this.workday_start_time2.hour && this.workday_start_time2.minute && this.workday_start_brightness2) {
+        workdayRules.push({
+          'lightLevel': this.workday_start_brightness2,
+          'smart': true,
+          'start': this.workday_start_time2
+
+        });
+      }
+      if (this.workday_start_time3 && this.workday_start_time3.hour && this.workday_start_time3.minute && this.workday_start_brightness3) {
+        workdayRules.push({
+          'lightLevel': this.workday_start_brightness3,
+          'smart': true,
+          'start': this.workday_start_time3
+
+        });
+      }
+      if (this.workday_end_time && this.workday_end_time.hour && this.workday_end_time.minute) {
+        workdayRules.push({
+          'lightLevel': this.end_brightness,
+          'smart': true,
+          'start': this.workday_end_time
+
+        });
+      }
+    }
+
+    if (this.holiday_start_time && this.holiday_start_time.hour && this.holiday_start_time.minute && this.holiday_start_brightness) {
+      holidayRules.push({
+        'lightLevel': this.holiday_start_brightness,
+        'smart': true,
+        'start': this.holiday_start_time
+
+      });
+
+      if (this.holiday_start_time1 && this.holiday_start_time1.hour && this.holiday_start_time1.minute && this.holiday_start_brightness1) {
+        holidayRules.push({
+          'lightLevel': this.holiday_start_brightness1,
+          'smart': true,
+          'start': this.holiday_start_time1
+
+        });
+      }
+
+      if (this.holiday_start_time2 && this.holiday_start_time2.hour && this.holiday_start_time2.minute && this.holiday_start_brightness2) {
+        holidayRules.push({
+          'lightLevel': this.holiday_start_brightness2,
+          'smart': true,
+          'start': this.holiday_start_time2
+
+        });
+      }
+      if (this.holiday_start_time3 && this.holiday_start_time3.hour && this.holiday_start_time3.minute && this.holiday_start_brightness3) {
+        holidayRules.push({
+          'lightLevel': this.holiday_start_brightness3,
+          'smart': true,
+          'start': this.holiday_start_time3
+
+        });
+      }
+      if (this.holiday_end_time && this.holiday_end_time.hour && this.holiday_end_time.minute) {
+        holidayRules.push({
+          'lightLevel': this.end_brightness,
+          'smart': true,
+          'start': this.holiday_end_time
+
+        });
+      }
+    }
+
+
+    this.strategyService.updataRules(id, item.id, start, end, workdayRules, holidayRules).subscribe({
+      next: function (val) {
+        // that.selectStrategy(item, i); // 重新获取策略
+        that.getRules(currentStrategy);
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
 
 
   }

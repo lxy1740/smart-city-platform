@@ -106,8 +106,8 @@ export class StrategyService {
     }
 
     // 新增策略的日期规则
-    updataRules(ruleId: number, start: any, end: any, holidayRules: any, workdayRules: any): Observable<any> {
-        return this.http.put(`/api/streetlight/rule/${ruleId}`, {
+    updataRules(ruleId: number, ruleDateId: number, start: any, end: any, holidayRules: any, workdayRules: any): Observable<any> {
+        return this.http.put(`/api/streetlight/rule/${ruleId}?ruleDateId=${ruleDateId}`, {
             'start': start,
             'end': end,
             'holidayRules': holidayRules,
