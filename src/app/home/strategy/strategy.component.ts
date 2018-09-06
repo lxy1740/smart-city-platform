@@ -123,7 +123,14 @@ export class StrategyComponent implements OnInit {
       intensity: '30%',
       status: '在线'
 
-    }
+    },
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
+    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
   ]; // 策略范围
 
   // 弹框
@@ -180,8 +187,14 @@ export class StrategyComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
+  total: any; // 分页
+  page = 1; // 分页
+
+  allCheck = true; // 全选
+
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
+  public zTreeOnCheck: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal, private strategyService: StrategyService,
      private videoService: VideoService, public element: ElementRef,
     calendar: NgbCalendar,
@@ -196,6 +209,8 @@ export class StrategyComponent implements OnInit {
 
     config.spinners = false; // 时间控制
 
+    this.total = 100; // 分页
+
 
 
 
@@ -203,12 +218,23 @@ export class StrategyComponent implements OnInit {
     // 树的操作
     // 点击
     const that = this;
-    this.zTreeOnClick = (event, treeId, treeNode) => {
-      this.city = treeNode.full_name;
+    this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
       console.log(treeNode.tId + ', ' + treeNode.full_name);
-      this.getPoint(that.map, that.city);
+      // this.getPoint(that.map, that.city);
 
     };
+    this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
+      console.log(treeNode.tId + ', ' + treeNode.full_name);
+      // this.getPoint(that.map, that.city);
+
+    };
+
+
+    // 设备列表操作
+    this.rangeList.map((item, i) => {
+      this.rangeList[i]['check'] = true;
+    });
+
   }
 
   ngOnInit() {
@@ -223,6 +249,8 @@ export class StrategyComponent implements OnInit {
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required]
     });
+
+    this.getZoneDefault(); // 获取城市
 
   }
   // 获取策略表
@@ -841,12 +869,6 @@ export class StrategyComponent implements OnInit {
 
 
 
-
-
-
-
-
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -862,9 +884,9 @@ export class StrategyComponent implements OnInit {
     this.nav_index = index;
     if (index === 1) {
       setTimeout(() => {
-        this.getZoneDefault();
+        this.getZoneTree();
+      }, 1);
 
-      }, 2);
     }
   }
 
@@ -873,19 +895,45 @@ export class StrategyComponent implements OnInit {
   //
 
   // 获取城市列表
-  getZoneDefault() {
-    const that = this;
+  getZoneTree() {
+    // const that = this;
     const setting = {// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+      view: {
+        selectedMulti: true
+      },
+      check: {
+        enable: true,
+        chkStyle: 'checkbox',
+        chkboxType: { 'Y': 'ps', 'N': 'ps' }
+      },
       callback: {
-        onClick: this.zTreeOnClick
+        onClick: this.zTreeOnClick, // 点击事件
+        onCheck: this.zTreeOnCheck // 勾选事件
       }
     };
+
+    const zNodes = this.zNodes;
+    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, zNodes);
+
+  }
+
+  // 全选
+  allCheckbox() {
+    console.log(this.allCheck);
+  }
+
+  // 单选
+  itemCheckbox(item) {
+    console.log(item.check);
+  }
+
+  getZoneDefault() {
+    const that = this;
     this.videoService.getZoneDefault()
       .subscribe({
         next: function (res) {
           that.model.ZoneDefault = res;
           that.zNodes = res.regions;
-          that.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, that.zNodes);
         },
         complete: function () {
           console.log('that.zNodes!');
@@ -897,64 +945,9 @@ export class StrategyComponent implements OnInit {
       });
   }
 
-  // 百度地图API功能
-  addBeiduMap() {
-
-    const map = this.map = new BMap.Map(this.map_container.nativeElement, {
-      enableMapClick: true,
-      minZoom: 11,
-      // maxZoom : 11
-    }); // 创建地图实例
-
-
-    // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
-    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
-
-    const marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
-
-  }
-
-  // 百度地图API功能
-  addBeiduMap2() {
-
-    const map = this.map = new BMap.Map('allmap', {
-      enableMapClick: true,
-      minZoom: 11,
-      // maxZoom : 11
-    }); // 创建地图实例
-
-
-    // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-    const point = new BMap.Point(114.064675, 22.550651); // 坐标可以通过百度地图坐标拾取器获取
-    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
-
-    const marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
-
-  }
-
-  // 解析地址- 设置中心和地图显示级别
-  getPoint(baiduMap, city) {
-    const that = this;
-    // 创建地址解析器实例
-    const myGeo = new BMap.Geocoder();
-    const name = city;
-    let pt;
-
-    // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(name, function (point) {
-      if (point) {
-
-        baiduMap.centerAndZoom(point, 19);
-        pt = point;
-        const marker = new BMap.Marker(point);  // 创建标注
-        baiduMap.addOverlay(marker);
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, '');
+ // 分页
+  pageChange() {
+    console.log(1);
   }
 
 }

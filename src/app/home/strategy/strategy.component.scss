@@ -84,7 +84,8 @@
 }
 
 .city-list{
-    max-height: 79vh;
+    // max-height: 79vh;
+    height: 750px;
     overflow-y: auto;
 }
 .strategy-top{
@@ -199,4 +200,12 @@ background-color: rgba(2, 117, 216, 0.5);
 .label-top{
     position: relative;
     top: -6px;
+}
+
+.light-form{
+    position: relative;
+}
+.form-btn{
+    position: absolute;
+    right: 0;
 }

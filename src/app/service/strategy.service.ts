@@ -136,4 +136,30 @@ export class StrategyService {
                 }
             }));
     }
+
+    // 策略范围
+    // 获取指定安装在区域内的路灯
+    getRegionLights(regionId: number): Observable<any> {
+        return this.http.delete(`/api/streetlight/region/${regionId}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+    // 设置策略覆盖区域
+    setRegion(ruleId: number): Observable<any> {
+        return this.http.delete(`/api/streetlight/rule/${ruleId}/region`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
 }
