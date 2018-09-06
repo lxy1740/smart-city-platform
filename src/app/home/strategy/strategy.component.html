@@ -65,56 +65,59 @@
             <div class="date-title">
               <span>工作日</span>
             </div>
-
-            <!-- 开灯时间： -->
-              <div class="row align-items-center justify-content-center">
-                <div class="col-4 padding-0">
-                  <label for="brightnessTime">开灯时间：</label>
-              
-                </div>
-                <div class="col-6">
-                  <!-- <span>17:00</span> -->
-                  <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].start.hour}}时
-                    {{currentRule.workdayRules[0].start.minute}}分</span>
-                </div>
-              </div>
-              <div class="row align-items-center justify-content-center" >
-                <div class="col-4 padding-0">
-                  <label for="changeBrightness">起始亮度：</label>
-                </div>
-                <div class="col-6">
-                  <!-- <span>30</span> -->
-                  <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].lightLevel}}%</span>
-                </div>
-              </div>
-
-
-            <table class="table table-hover">
-        
-              <thead>
-                <tr class="table-header">
-                  <th>中间时间段</th>
-                  <th>亮度</th>
-                </tr>
-              </thead>
-        
-              <tr *ngFor="let item of workdayList">
-                <td>{{item.start.hour}}时{{item.start.minute}}分</td>
-                <td>{{item.lightLevel}}%</td>
-              </tr>
-            </table>
-
-            <div class="row align-items-center justify-content-center">
-              <div class="col-4 padding-0">
-                <label for="brightnessTime">关灯时间：</label>
-            
-              </div>
-              <div class="col-6">
-                <!-- <span>7:00</span> -->
-                <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}时
-                  {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.minute}}分</span>
-              </div>
+            <div *ngIf="ruleList && ruleList.length > 1"> 
+                    <!-- 开灯时间： -->
+                    <div class="row align-items-center justify-content-center">
+                      <div class="col-4 padding-0">
+                        <label for="brightnessTime">开灯时间：</label>
+                    
+                      </div>
+                      <div class="col-6">
+                        <!-- <span>17:00</span> -->
+                        <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].start.hour}}时 {{currentRule.workdayRules[0].start.minute}}分
+                        </span>
+                      </div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                      <div class="col-4 padding-0">
+                        <label for="changeBrightness">起始亮度：</label>
+                      </div>
+                      <div class="col-6">
+                        <!-- <span>30</span> -->
+                        <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[0].lightLevel}}%</span>
+                      </div>
+                    </div>
+                    
+                    
+                    <table class="table table-hover">
+                    
+                      <thead>
+                        <tr class="table-header">
+                          <th>中间时间段</th>
+                          <th>亮度</th>
+                        </tr>
+                      </thead>
+                    
+                      <tr *ngFor="let item of workdayList">
+                        <td>{{item.start.hour}}时{{item.start.minute}}分</td>
+                        <td>{{item.lightLevel}}%</td>
+                      </tr>
+                    </table>
+                      <!-- 关灯时间： -->
+                    <div class="row align-items-center justify-content-center">
+                      <div class="col-4 padding-0">
+                        <label for="brightnessTime">关灯时间：</label>
+                    
+                      </div>
+                      <div class="col-6">
+                        <!-- <span>7:00</span> -->
+                        <span *ngIf="currentRule && currentRule.workdayRules">{{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}时 {{currentRule.workdayRules[currentRule.workdayRules.length
+                          - 1].start.minute}}分</span>
+                      </div>
+                    </div>
             </div>
+
+
         
           </div>
         
@@ -125,56 +128,58 @@
             <div class="date-title">
               <span>节假日</span>
             </div>
-        
-            <!-- 开灯时间： -->
-            <div class="row align-items-center justify-content-center">
-              <div class="col-4 padding-0">
-                <label for="brightnessTime">开灯时间：</label>
-        
-              </div>
-              <div class="col-6">
-                <!-- <span>17:00</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].start.hour}}时
-                  {{currentRule.holidayRules[0].start.minute}}分</span>
-              </div>
+            <div *ngIf="ruleList && ruleList.length > 1">
+                <!-- 开灯时间： -->
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-4 padding-0">
+                    <label for="brightnessTime">开灯时间：</label>
+                
+                  </div>
+                  <div class="col-6">
+                    <!-- <span>17:00</span> -->
+                    <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].start.hour}}时 {{currentRule.holidayRules[0].start.minute}}分
+                    </span>
+                  </div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-4 padding-0">
+                    <label for="changeBrightness">起始亮度：</label>
+                  </div>
+                  <div class="col-6">
+                    <!-- <span>30</span> -->
+                    <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].lightLevel}}%</span>
+                  </div>
+                </div>          
+                
+                <table class="table table-hover">
+                
+                  <thead>
+                    <tr class="table-header">
+                      <th>中间时间段</th>
+                      <th>亮度</th>
+                    </tr>
+                  </thead>
+                
+                  <tr *ngFor="let item of holidayList">
+                    <td>{{item.start.hour}}时{{item.start.minute}}分</td>
+                    <td>{{item.lightLevel}}%</td>
+                  </tr>
+                </table>
+                <!-- 关灯时间： -->
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-4 padding-0">
+                    <label for="brightnessTime">关灯时间：</label>
+                
+                  </div>
+                  <div class="col-6">
+                    <!-- <span>7:00</span> -->
+                    <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}时 {{currentRule.holidayRules[currentRule.holidayRules.length
+                      - 1].start.minute}}分</span>
+                  </div>
+                </div>
             </div>
-            <div class="row align-items-center justify-content-center">
-              <div class="col-4 padding-0">
-                <label for="changeBrightness">起始亮度：</label>
-              </div>
-              <div class="col-6">
-                <!-- <span>30</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[0].lightLevel}}%</span>
-              </div>
-            </div>
         
-        
-            <table class="table table-hover">
-        
-              <thead>
-                <tr class="table-header">
-                  <th>中间时间段</th>
-                  <th>亮度</th>
-                </tr>
-              </thead>
-        
-              <tr *ngFor="let item of holidayList">
-                <td>{{item.start.hour}}时{{item.start.minute}}分</td>
-                <td>{{item.lightLevel}}%</td>
-              </tr>
-            </table>
-        
-            <div class="row align-items-center justify-content-center">
-              <div class="col-4 padding-0">
-                <label for="brightnessTime">关灯时间：</label>
-        
-              </div>
-              <div class="col-6">
-                <!-- <span>7:00</span> -->
-                <span *ngIf="currentRule && currentRule.holidayRules">{{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}时
-                  {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.minute}}分</span>
-              </div>
-            </div>
+
         
           </div>
         
