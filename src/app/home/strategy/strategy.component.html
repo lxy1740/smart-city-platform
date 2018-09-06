@@ -7,8 +7,7 @@
         新建
       </button>
     </div>
-    <div>
-    </div>
+
     <div class="strategy-list">
       <ul >
         <li *ngFor="let item of strategyList;let i = index" class="cur-pointer" (click)="selectStrategy(item,i)"  [ngClass]="{'active': i == strategy_index}">
@@ -273,7 +272,7 @@
     <div class="modal-body">
       <div>
         策略名称：
-        <input type="text" [(ngModel)]="strategyName" name="strategyName">
+        <input type="text" [(ngModel)]="strategyName" name="strategyName" maxlength="10">
       </div>
     </div>
     <div class="modal-footer">

@@ -18,6 +18,8 @@
 
 
     .strategy-list {
+        height: calc(100% - 37px);
+        overflow-y: auto;
 
         ul {
             padding: 0px;
