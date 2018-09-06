@@ -62,6 +62,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   timer: any; // 定时器
 
   lightList = []; // 当前数据
+  lightList_check = []; // 当前数据
 
   markers: any; // 标注点
   strategyList: any; // 控制路灯当前策略
@@ -71,6 +72,16 @@ export class LightComponent implements OnInit, OnDestroy  {
   lightLevel = 0;
   prompt = false; // 提示成功
 
+  // 多设备控制
+  showDevicesControl = false; // 多灯控制默认不显示
+  showDevicesStrategyCtrl = false; // 多灯分配策略 默认不显示
+  strategyList1: any; // 多控路灯策略
+  contrL1 = false; // 临时控制
+  lightLevel1 = 0;
+  prompt1 = false; // 提示成功
+  selectedLightList = []; // 多设备控制窗口中选中的设备
+
+  allCheck = false;
 
 
   constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router,
@@ -88,8 +99,15 @@ export class LightComponent implements OnInit, OnDestroy  {
   mapClickOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
+      that.closeDevicesControl();
       that.deviceChild = null;
       this.contrL = false;
+    });
+    baiduMap.addEventListener('dragend', function () {
+      that.closeDevicesControl();
+    });
+    baiduMap.addEventListener('zoomend', function () {
+      that.closeDevicesControl();
     });
   }
 
@@ -180,6 +198,10 @@ export class LightComponent implements OnInit, OnDestroy  {
         // that.addMarker(value); // 添加
 
         that.lightList = val; // 变为新值
+        // that.selectedLightList = [];
+        that.lightList.map((item, i) => {
+          that.lightList_check.push({check: false});
+        });
       },
       complete: function () {
         // that.changeMarker(value);
@@ -368,10 +390,9 @@ export class LightComponent implements OnInit, OnDestroy  {
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
+      that.closeDevicesControl();
       that.device = val;
-
       baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
-
       setTimeout(() => {
         that.deviceAddEventListener();
       }, 0);
@@ -382,7 +403,6 @@ export class LightComponent implements OnInit, OnDestroy  {
   // 点击控制按钮
   deviceAddEventListener() {
     const that = this;
-
 
       const device = $(`#${this.device.id}`);
       device.on('click', function () {
@@ -404,6 +424,55 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   }
 
+  // 选择需要统一分配策略的路灯
+  addLightstoCtrl(light, ind) {
+    this.selectedLightList = [];
+    this.lightList_check.map((item, i) => {
+      if (item.check === true) {
+        const item1 = this.lightList[i];
+        if (item1) {
+          this.selectedLightList.push(item1);
+        }
+      }
+    });
+    // if (this.lightList_check[i].check === true) {
+    //   if (!this.selectedLightList[i]) {
+    //     this.selectedLightList.push(light);
+
+    //   } else {
+    //     this.selectedLightList.splice(i, 0, light);
+    //   }
+
+    // } else {
+    //   this.selectedLightList.splice(i, 1);
+    //   console.log(this.selectedLightList);
+    //   console.log(45454);
+    // }
+
+    console.log(this.selectedLightList);
+  }
+
+  allCheckMe() {
+    if (this.allCheck) {
+      this.selectedLightList = [];
+      this.lightList_check.map((item, i) => {
+        this.lightList_check[i].check = true;
+        const item1 = this.lightList[i];
+
+        if (item1) {
+          this.selectedLightList.push(item1);
+        }
+
+
+      });
+    }
+
+    console.log(this.selectedLightList);
+  }
+
+  addArr(arr) {
+
+  }
   // 点击关闭操作详情
   closeDetail() {
     this.deviceChild = null;
@@ -425,7 +494,27 @@ export class LightComponent implements OnInit, OnDestroy  {
 
 
   }
-
+  // 打开多灯控制
+  devicesControl() {
+    this.showDevicesControl = true;
+  }
+  // 关闭多灯控制
+  closeDevicesControl() {
+    this.showDevicesControl = false;
+    this.selectedLightList = [];
+    this.allCheck = false;
+    this.lightList_check.map((item , i) => {
+      this.lightList_check[i].check = false;
+    });
+  }
+  // 多灯策略分配
+  devicesStrategyCtrl() {
+    this.showDevicesStrategyCtrl = true;
+  }
+  // 关闭多灯策略分配框体
+  closeDevicesStrategyCtrl() {
+    this.showDevicesStrategyCtrl = false;
+  }
   // 获取数据
 
   // 获取城市列表 --ok
@@ -619,6 +708,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   // 路灯控制页选择策略
   strategyListsChange() {
     this.prompt = false;
+    this.prompt1 = false;
     console.log('策略改变');
   }
 

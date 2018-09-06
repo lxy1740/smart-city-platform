@@ -26,6 +26,52 @@
     border-bottom: 1px solid #ccc;
 }
 
+// 多控div样式
+.devices-control {
+    width: 650px;
+    height: 100%;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 5000;
+    position: absolute;
+    right: 50px;
+    top: 0px;
+    padding: 0px 15px;
+   
+    .extral-margin {
+        margin-left: 5px;
+    }
+    
+    .form-control {
+        font-size: 14px;
+        // width: auto;
+        width: 90px;
+        height: calc(1.8rem + 2px);
+        margin-right: 5px;
+    }
+    .btn-a, .control-label {
+        height: calc(1.8rem + 2px);
+    }
+}
+.lights-form {
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+
+// 多灯策略分配
+.lights-strategy-ctrl {
+    width: 350px;
+    // height: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 5000;
+    position: absolute;
+    right: 700px;
+    top: 0px;
+    padding: 0px 15px;
+}
+
 mat-slider {
   width: 250px;
 }

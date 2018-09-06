@@ -72,10 +72,153 @@
     
             <img src="../../../../assets/imgs/switch.png" alt="图片" (click)="enterFullScreen()">
         </div>
+
+        <div class="d-inline-block icon-item cur-pointer">
+            <img src="../../../../assets/imgs/control.png" style="background-color: red" 
+            alt="图片" (click)="devicesControl()">
+    
+        </div>
     
     </div>
     <!-- 地图 -->
     <div #map5 id="map_container5" class="map_container no-fulls-map"></div>
+
+    <!-- 多设备操作 -->
+    <div class="devices-control" *ngIf="showDevicesControl">
+        <div class="device-title">
+            <span>设备控制</span>
+            <span class="device-close float-right" (click)="closeDevicesControl()">X</span>
+        </div>
+        <div class="modal-body">
+            <div class="form-inline">
+                    <div class="form-inline">
+                        <label class="control-label">设备类型：</label>
+                        <select class="form-control">
+                            <option>太阳能灯</option>
+                        </select>
+                    </div>
+                    <div class="form-inline">
+                        <label class="control-label">设备位置：</label>
+                        <select class="form-control">
+                            <option>街道</option>
+                        </select>
+                    </div>
+                    <div class="form-inline">
+                        <input class="form-control" type="text">
+                        <button class="btn btn-a">搜索</button>
+                    </div>
+                    <button class="btn btn-outline-info extral-margin" (click)="devicesStrategyCtrl()">批量操作</button>
+            </div>
+            <!-- <form class="lights-form"> -->
+                <table class="table table-hover">
+                    <thead class="table-header">
+                        <tr>
+                            <th><input type="checkbox" [checked]="allCheck" [(ngModel)]="allCheck" (change)="allCheckMe()" ></th>
+                            <th>设备名称</th>
+                            <th>灯柱编号</th>
+                            <th>应用策略</th>
+                            <th>电压(mV)</th>
+                            <th>电流(mA)</th>
+                            <th>亮度</th>
+                            <th>离线</th>
+                            <th>故障</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let light of lightList; let i = index">
+                            <td><input type="checkbox" (change)="addLightstoCtrl(light, i)"
+                                 [checked]="lightList_check[i].check" [(ngModel)]="lightList_check[i].check"></td>
+                            <td>{{light.name}}</td>
+                            <td>{{light.positionNumber}}</td>
+                            <td>{{light.ruleId}}</td>
+                            <td>{{light.volt}}</td>
+                            <td>{{light.current}}</td>
+                            <td>{{light.level}}</td>
+                            <td>{{light.offline}}</td>
+                            <td>
+                                <span *ngIf="light.error">是</span>
+                                <span *ngIf="!light.error">否</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            <!-- </form> -->
+        </div>
+    </div>
+
+    <!-- 多设备策略分配 -->
+    <div *ngIf="showDevicesStrategyCtrl" class="lights-strategy-ctrl">
+        <div class="device-title">
+            <span>策略分配</span>
+            <span class="device-close float-right" (click)="closeDevicesStrategyCtrl()">X</span>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p>
+                    <span>分配策略：</span>
+                    <select [(ngModel)]="strategyList1" (change)="strategyListsChange()"
+                        class="form-control d-inline-block selece-str">
+                        <option *ngFor="let index of strategyLists" [ngValue]="index">
+                            {{ index.name }}
+                        </option>
+                    </select>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span>临时控制：</span>
+                    <label style="margin-left: 21px;">
+                        <mat-slide-toggle (change) = "changeContr()"></mat-slide-toggle>
+                    </label>
+                </p>
+            </div>
+            <div *ngIf="contrL">
+
+                <div>
+                    <p>
+                        <span>结束时间：</span>
+                        <label style="margin-left: 21px;">
+                            <ngb-timepicker [(ngModel)]="time" (change) = "changeTime()"></ngb-timepicker>
+                        </label>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span>亮度调整：</span>
+                
+                    </p>
+                    <p>
+                        <label>
+                            <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" 
+                            max="100" [(ngModel)]="lightLevel" (change) = "changeSlider()"></mat-slider>
+                        </label>
+                    </p>
+                    <div class="row control-text">
+                        <div class="col-6 text-left">
+                            <span>关</span>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span>100%</span>
+                        </div>
+                
+                
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="prompt">
+                <p class="prompt">
+                    <span>修改成功！</span>
+                </p>
+            </div>
+        </div>
+
+        <div  class="modal-footer">
+                <button type="button" class="btn btn-outline-info" (click)="lightsContr(deviceChild.id)">确定</button>
+                <button type="button" class="btn btn-outline-metal" (click)="closeDevicesStrategyCtrl()">取消</button>
+        </div>
+    </div>
 
     <!-- 设备操作 -->
     <div class="device-detail" *ngIf="deviceChild">
@@ -93,7 +236,8 @@
                     <div>
                         <p>
                             <span>当前策略：</span>
-                            <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" class="form-control d-inline-block selece-str">
+                            <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" 
+                                class="form-control d-inline-block selece-str">
                                 <option *ngFor="let index of strategyLists" [ngValue]="index">
                                     {{ index.name }}
                                 </option>
@@ -125,7 +269,8 @@
                             </p>
                             <p>
                                 <label>
-                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100" [(ngModel)]="lightLevel" (change) = "changeSlider()"></mat-slider>
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" 
+                                    max="100" [(ngModel)]="lightLevel" (change) = "changeSlider()"></mat-slider>
                                 </label>
                             </p>
                             <div class="row control-text">
