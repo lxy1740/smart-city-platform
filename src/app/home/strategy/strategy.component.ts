@@ -140,11 +140,11 @@ export class StrategyComponent implements OnInit {
   rule_index = 0; // 策略索引
   model: any = {}; // 存储数据
   map: any; // 地图
-  zTreeObj: any;
 
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-  zNodes: any;
-  city = '广州市'; // 当前选中城市
+  zTreeObj: any; // 树
+  zNodes: any; // 树结构
+
   strategyName: string; // 添加策略名称
   public mr: NgbModalRef; // 当前弹框
 
@@ -225,7 +225,11 @@ export class StrategyComponent implements OnInit {
     };
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
       console.log(treeNode.tId + ', ' + treeNode.full_name);
-      // this.getPoint(that.map, that.city);
+      // 获取当前被勾选的节点集合
+
+      const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
+      const nodes = treeObj.getCheckedNodes(true);
+      // console.log(nodes);
 
     };
 
