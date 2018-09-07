@@ -116,7 +116,7 @@ export class StrategyService {
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = res.json();
+                    const data = { status: 200 };
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();
