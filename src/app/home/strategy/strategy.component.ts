@@ -153,8 +153,8 @@ export class StrategyComponent implements OnInit {
   toDate: NgbDateStruct; // 日历
   time: any; // 工作日时间
   brightness = 30; // 亮度
-  workday_start_time = { hour: 13, minute: 30 }; // 工作日时间
-  workday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+  workday_start_time = { hour: 6, minute: 30 }; // 工作日时间
+  workday_end_time = { hour: 23, minute: 30 }; // 工作日时间
   workday_start_time1: any; // 工作日时间
   workday_start_time2: any; // 工作日时间
   workday_start_time3: any; // 工作日时间
@@ -164,8 +164,8 @@ export class StrategyComponent implements OnInit {
   workday_start_brightness3: any; // 亮度
   end_brightness = 0;
 
-  holiday_start_time = { hour: 13, minute: 30 }; // 工作日时间
-  holiday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+  holiday_start_time = { hour: 6, minute: 30 }; // 工作日时间
+  holiday_end_time = { hour: 23, minute: 30 }; // 工作日时间
   holiday_start_time1: any; // 工作日时间
   holiday_start_time2: any; // 工作日时间
   holiday_start_time3: any; // 工作日时间
@@ -322,9 +322,9 @@ export class StrategyComponent implements OnInit {
     }
 
     if (len1 > 2) {
-      this.holidayList = rule.holidayRules.slice(1, len - 1);
+      this.holidayList = rule.holidayRules.slice(1, len1 - 1);
     }
-    console.log(this.holidayList);
+    // console.log(this.holidayList);
   }
 
   // 添加策略弹框操作
@@ -434,8 +434,9 @@ export class StrategyComponent implements OnInit {
 
   // 打开添加规则-弹框操作
   openAddRule(content) {
-    this.workday_start_time = { hour: 13, minute: 30 }; // 工作日时间
-    this.workday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+    this.step = 1;
+    this.workday_start_time = { hour: 6, minute: 30 }; // 工作日时间
+    this.workday_end_time = { hour: 23, minute: 30 }; // 工作日时间
     this.workday_start_time1 = null; // 工作日时间
     this.workday_start_time2 = null; // 工作日时间
     this.workday_start_time3 = null; // 工作日时间
@@ -445,8 +446,8 @@ export class StrategyComponent implements OnInit {
     this.workday_start_brightness3 = null; // 亮度
     this.end_brightness = 0;
 
-    this.holiday_start_time = { hour: 13, minute: 30 }; // 工作日时间
-    this.holiday_end_time = { hour: 13, minute: 30 }; // 工作日时间
+    this.holiday_start_time = { hour: 6, minute: 30 }; // 工作日时间
+    this.holiday_end_time = { hour: 23, minute: 30 }; // 工作日时间
     this.holiday_start_time1 = null; // 工作日时间
     this.holiday_start_time2 = null; // 工作日时间
     this.holiday_start_time3 = null; // 工作日时间
@@ -583,22 +584,16 @@ export class StrategyComponent implements OnInit {
       }
     });
 
-    console.log(id);
-    console.log(this.currentStrategy);
-    console.log(start);
-    console.log(end);
-    console.log(workdayRules);
-    console.log(holidayRules);
-    console.log(this.workday_start_time1);
+
 
 
   }
 
   // 打开更新规则-弹框操作
   openUpdataRule(content, item, index) {
+    this.step = 1;
     const currentRule = this.currentRule;
-    console.log('currentRule');
-    console.log(currentRule);
+
     // 初始参数
 
     this.workday_start_time = currentRule.workdayRules && currentRule.workdayRules[0] && currentRule.workdayRules[0].start; // 工作日时间
@@ -634,24 +629,26 @@ export class StrategyComponent implements OnInit {
     this.end_brightness = 0;
 
     this.holiday_start_time = currentRule.holidayRules && currentRule.holidayRules[0] && currentRule.holidayRules[0].start; // 工作日时间
+
     const len1 = currentRule.holidayRules.length;
     this.holiday_end_time = currentRule.holidayRules && currentRule.holidayRules[len1 - 1] &&
       currentRule.holidayRules[len1 - 1].start; // 工作日时间
+
     if (len1 === 3) {
-      this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].star; // 工作日时间
+      this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].start; // 工作日时间
       this.holiday_start_brightness1 = currentRule.holidayRules &&
         currentRule.holidayRules[1] && currentRule.holidayRules[1].lightLevel; // 亮度
     } else if (len1 === 4) {
-      this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].star; // 工作日时间
-      this.holiday_start_time2 = currentRule.holidayRules && currentRule.holidayRules[2] && currentRule.holidayRules[2].star; // 工作日时间
+      this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].start; // 工作日时间
+      this.holiday_start_time2 = currentRule.holidayRules && currentRule.holidayRules[2] && currentRule.holidayRules[2].start; // 工作日时间
       this.holiday_start_brightness1 = currentRule.holidayRules &&
         currentRule.holidayRules[1] && currentRule.holidayRules[1].lightLevel; // 亮度
       this.holiday_start_brightness2 = currentRule.holidayRules &&
         currentRule.holidayRules[2] && currentRule.holidayRules[2].lightLevel; // 亮度
     } else if (len1 === 5) {
-      this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].star; // 工作日时间
-      this.holiday_start_time2 = currentRule.holidayRules && currentRule.holidayRules[2] && currentRule.holidayRules[2].star; // 工作日时间
-      this.holiday_start_time3 = currentRule.holidayRules && currentRule.holidayRules[3] && currentRule.holidayRules[3].star; // 工作日时间
+      this.holiday_start_time1 = currentRule.holidayRules && currentRule.holidayRules[1] && currentRule.holidayRules[1].start; // 工作日时间
+      this.holiday_start_time2 = currentRule.holidayRules && currentRule.holidayRules[2] && currentRule.holidayRules[2].start; // 工作日时间
+      this.holiday_start_time3 = currentRule.holidayRules && currentRule.holidayRules[3] && currentRule.holidayRules[3].start; // 工作日时间
       this.holiday_start_brightness1 = currentRule.holidayRules &&
         currentRule.holidayRules[1] && currentRule.holidayRules[1].lightLevel; // 亮度
       this.holiday_start_brightness2 = currentRule.holidayRules &&
@@ -671,7 +668,7 @@ export class StrategyComponent implements OnInit {
       that.updataRules(item);  // 接口处-添加策略
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
+
     });
 
   }
@@ -707,7 +704,10 @@ export class StrategyComponent implements OnInit {
         workdayRules.push({
           'lightLevel': this.workday_start_brightness1,
           'smart': true,
-          'start': this.workday_start_time1
+          'start': {
+            hour: this.workday_start_time1.hour,
+            minute: this.workday_start_time1.minute
+          }
 
         });
       }
@@ -716,7 +716,10 @@ export class StrategyComponent implements OnInit {
         workdayRules.push({
           'lightLevel': this.workday_start_brightness2,
           'smart': true,
-          'start': this.workday_start_time2
+          'start': {
+            hour: this.workday_start_time2.hour,
+            minute: this.workday_start_time2.minute
+          }
 
         });
       }
@@ -724,7 +727,10 @@ export class StrategyComponent implements OnInit {
         workdayRules.push({
           'lightLevel': this.workday_start_brightness3,
           'smart': true,
-          'start': this.workday_start_time3
+          'start': {
+            hour: this.workday_start_time3.hour,
+            minute: this.workday_start_time3.minute
+          }
 
         });
       }
@@ -750,7 +756,10 @@ export class StrategyComponent implements OnInit {
         holidayRules.push({
           'lightLevel': this.holiday_start_brightness1,
           'smart': true,
-          'start': this.holiday_start_time1
+          'start': {
+            hour: this.holiday_start_time1.hour,
+            minute: this.holiday_start_time1.minute
+          }
 
         });
       }
@@ -759,7 +768,10 @@ export class StrategyComponent implements OnInit {
         holidayRules.push({
           'lightLevel': this.holiday_start_brightness2,
           'smart': true,
-          'start': this.holiday_start_time2
+          'start': {
+            hour: this.holiday_start_time2.hour,
+            minute: this.holiday_start_time2.minute
+          }
 
         });
       }
@@ -767,7 +779,10 @@ export class StrategyComponent implements OnInit {
         holidayRules.push({
           'lightLevel': this.holiday_start_brightness3,
           'smart': true,
-          'start': this.holiday_start_time3
+          'start': {
+            hour: this.holiday_start_time3.hour,
+            minute: this.holiday_start_time3.minute
+          }
 
         });
       }
@@ -781,12 +796,6 @@ export class StrategyComponent implements OnInit {
       }
     }
 
-    console.log(start);
-    console.log(end);
-    console.log(workdayRules);
-    console.log(holidayRules);
-    console.log('workday_start_time');
-    console.log(this.workday_start_time);
 
     this.strategyService.updataRules(id, item.id, start, end, workdayRules, holidayRules).subscribe({
       next: function (val) {

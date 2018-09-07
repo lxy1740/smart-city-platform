@@ -87,7 +87,7 @@ export class StrategyService {
     }
 
     // 新增策略的日期规则
-    addRules(ruleId: number, start: any, end: any, holidayRules: any, workdayRules: any): Observable<any> {
+    addRules(ruleId: number, start: any, end: any, workdayRules: any, holidayRules: any): Observable<any> {
         return this.http.post(`/api/streetlight/rule/${ruleId}`, {
             'start': start,
             'end': end,
@@ -105,11 +105,12 @@ export class StrategyService {
             }));
     }
 
-    // 新增策略的日期规则
-    updataRules(ruleId: number, ruleDateId: number, start: any, end: any, holidayRules: any, workdayRules: any): Observable<any> {
-        return this.http.put(`/api/streetlight/rule/${ruleId}?ruleDateId=${ruleDateId}`, {
+    // 更新策略的日期规则
+    updataRules(ruleId: number, ruleDateId: number, start: any, end: any, workdayRules: any, holidayRules: any): Observable<any> {
+        return this.http.put(`/api/streetlight/rule/${ruleId}`, {
             'start': start,
             'end': end,
+            'id': ruleDateId,
             'holidayRules': holidayRules,
             'workdayRules': workdayRules
 
