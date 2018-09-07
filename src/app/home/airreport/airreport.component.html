@@ -8,9 +8,7 @@
       <div class="sidebar-inner">
           <ul class="first-menu">
               <li *ngFor="let device of devicelist; let i = index" class="cur-pointer nav-item" (click)="selectPoint(i, device)" [ngClass]="{'active': i == deviceIndx}">
-                  <a class="nav-link">
-                    <span>{{device.description}}</span>
-                  </a>
+                <span>{{device.description}}</span>
               </li>
           </ul>
       </div>

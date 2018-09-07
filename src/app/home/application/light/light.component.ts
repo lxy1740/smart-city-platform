@@ -385,7 +385,8 @@ export class LightComponent implements OnInit, OnDestroy  {
     txt = txt + `<p >亮度级别： ${val.level}%</p>`;
     txt = txt + `<p >电流强度： ${val.current}毫安(mA)</p>`;
     txt = txt + `<p >电压大小： ${val.volt}毫伏(mv)</p>`;
-    txt = txt + `<button class='btn btn-bg cur-point' style='font-size: 14px; float: right; margin: 5px'  id='${val.id}'>控制</button>`;
+    txt = txt + `<button class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px;'
+      id='${val.id}'>控制</button>`;
 
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
