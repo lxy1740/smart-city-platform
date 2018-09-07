@@ -173,10 +173,6 @@ export class StrategyComponent implements OnInit {
     this.fromDate = calendar.getToday();  // 日历
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10); // 日历
 
-    // console.log(this.fromDate);
-    // console.log(this.toDate);
-    // console.log(now.getFullYear());
-
     config.spinners = false; // 时间控制
 
 
@@ -185,12 +181,12 @@ export class StrategyComponent implements OnInit {
     // 点击
     const that = this;
     this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
-      console.log(treeNode.id + ', ' + treeNode.full_name);
+
       that.getRegionLights(treeNode.id);
 
     };
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
-      console.log(treeNode.id + ', ' + treeNode.full_name);
+
       // 获取当前被勾选的节点集合
       that.regionbody = [];
 
@@ -215,7 +211,6 @@ export class StrategyComponent implements OnInit {
 
       }
 
-      console.log(that.regionbody);
 
     };
 
@@ -307,7 +302,7 @@ export class StrategyComponent implements OnInit {
     if (len1 > 2) {
       this.holidayList = rule.holidayRules.slice(1, len1 - 1);
     }
-    // console.log(this.holidayList);
+
   }
 
   // 添加策略弹框操作
@@ -323,7 +318,6 @@ export class StrategyComponent implements OnInit {
       that.addStrategy();  // 接口处-添加策略
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
     });
   }
 
@@ -354,7 +348,7 @@ export class StrategyComponent implements OnInit {
       that.updateStrategy(item.id, that.strategyName);  // 接口处-更新策略
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
+
     });
   }
 
@@ -446,7 +440,7 @@ export class StrategyComponent implements OnInit {
       that.addRules();  // 接口处-添加策略
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
+
     });
 
   }
@@ -672,8 +666,8 @@ export class StrategyComponent implements OnInit {
     };
     const workdayRules = [];
     const holidayRules = [];
-    console.log(this.workday_start_time );
-    console.log(this.workday_start_time );
+
+
 
     if (this.workday_start_time  && this.workday_start_brightness) {
       workdayRules.push({
@@ -946,12 +940,9 @@ export class StrategyComponent implements OnInit {
     this.strategyService.getRegionLights(id, page, pageSize).subscribe({
       next: function (val) {
         that.rangeList = val;
-        console.log(val);
+
         that.rangeListItems = val.items;
         that.total = val.total; // 分页
-        console.log(that.rangeListItems);
-
-
       },
       complete: function () {
       },
@@ -961,15 +952,6 @@ export class StrategyComponent implements OnInit {
     });
   }
 
-  // 全选
-  allCheckbox() {
-    console.log(this.allCheck);
-  }
-
-  // 单选
-  itemCheckbox(item) {
-    console.log(item.check);
-  }
     // 获取城市列表
   getZoneDefault() {
     const that = this;
@@ -982,8 +964,7 @@ export class StrategyComponent implements OnInit {
 
         },
         complete: function () {
-          console.log('that.zNodes!');
-          console.log(that.zNodes);
+
         },
         error: function (error) {
           console.log(error);
