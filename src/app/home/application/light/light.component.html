@@ -64,20 +64,21 @@
     <!-- 右边按钮 -->
     <div class="btn-icon" *ngIf="visible == true">
         <div class="d-inline-block icon-item cur-pointer">
-            <img src="../../../../assets/imgs/control.png" alt="图片" (click)="jumpHandle()">
+            <img class= "img-background" src="../../../../assets/imgs/strategy.png" alt="图片" (click)="jumpHandle()">
     
-        </div>
-    
-        <div class="d-inline-block icon-item cur-pointer">
-    
-            <img src="../../../../assets/imgs/switch.png" alt="图片" (click)="enterFullScreen()">
         </div>
 
         <div class="d-inline-block icon-item cur-pointer">
-            <img src="../../../../assets/imgs/control.png" style="background-color: red" 
-            alt="图片" (click)="devicesControl()">
-    
+            <img src="../../../../assets/imgs/control.png" alt="图片" (click)="devicesControl()">
+        
         </div>
+    
+        <div class="d-inline-block icon-item cur-pointer">
+    
+            <img  src="../../../../assets/imgs/switch.png" alt="图片" (click)="enterFullScreen()">
+        </div>
+
+
     
     </div>
     <!-- 地图 -->

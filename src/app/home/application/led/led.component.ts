@@ -80,7 +80,7 @@ export class LedComponent implements OnInit {
 
 
 
-    map.setMapStyle({ style: 'dark' });
+    // map.setMapStyle({ style: 'dark' });
 
 
     // 添加控件缩放
@@ -94,13 +94,6 @@ export class LedComponent implements OnInit {
 
 
 
-    // const marker = new BMap.Marker(point);  // 创建标注
-    // map.addOverlay(marker);               // 将标注添加到地图中
-
-    // const myIcon = new BMap.Icon('../../../../assets/imgs/light-up.png', new BMap.Size(300, 157));
-    // myIcon.setAnchor(new BMap.Size(16, 38));
-    // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-    // this.map.addOverlay(marker2);
 
     this.addMarker();
 
@@ -113,13 +106,13 @@ export class LedComponent implements OnInit {
 
       let myIcon;
       if (item.is_exception && item.is_exception === 1) { // 异常
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-breakdown.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/LED3.png', new BMap.Size(300, 157));
         // console.log('异常');
       } else if (item.is_online === 0) { // 灯亮
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-up-1.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/LED2.png', new BMap.Size(300, 157));
         // console.log('掉线');
       } else { // 正常
-        myIcon = new BMap.Icon('../../../../assets/imgs/light-normal.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/LED1.png', new BMap.Size(300, 157));
         // console.log('正常');
 
       }
