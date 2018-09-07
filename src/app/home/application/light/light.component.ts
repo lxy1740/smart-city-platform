@@ -70,7 +70,8 @@ export class LightComponent implements OnInit, OnDestroy  {
   time = { hour: 13, minute: 30}; // 路灯控制时间
   contrL = false; // 临时控制
   lightLevel = 0;
-  prompt = false; // 提示成功
+  StrategyRuleMess = false; // 提示成功
+  LightsContrMess = false; // 提示成功
 
   // 多设备控制
   showDevicesControl = false; // 多灯控制默认不显示
@@ -407,7 +408,8 @@ export class LightComponent implements OnInit, OnDestroy  {
       const device = $(`#${this.device.id}`);
       device.on('click', function () {
         that.contrL = false;
-        that.prompt = false;
+        that.StrategyRuleMess = false;
+        that.LightsContrMess = false;
         that.deviceChild = that.device;
         that.lightLevel = that.device.level;
 
@@ -707,25 +709,28 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   // 路灯控制页选择策略
   strategyListsChange() {
-    this.prompt = false;
+    this.StrategyRuleMess = false;
+    this.LightsContrMess = false;
     this.prompt1 = false;
     console.log('策略改变');
   }
 
   // 临时控制切换
-  changeContr() {
-    this.contrL = !this.contrL;
-    this.prompt = false;
-  }
+  // changeContr() {
+  //   this.contrL = !this.contrL;
+  //   this.prompt = false;
+  // }
 
   // 时间改变
   changeTime() {
-    this.prompt = false;
+    this.StrategyRuleMess = false;
+    this.LightsContrMess = false;
     console.log('时间改变');
   }
   // 亮度改变
   changeSlider() {
-    this.prompt = false;
+    this.StrategyRuleMess = false;
+    this.LightsContrMess = false;
     console.log('亮度改变');
   }
 
@@ -748,13 +753,15 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   // 控制路灯
   lightsContr(id) {
+
+    this.setLightsContr(id);
+  }
+  // 下发策略
+  lightsRuleContr(id) {
     this.setStrategyRule(id);
-    if (this.contrL) {
-      this.setLightsContr(id);
-    }
   }
 
-   // 临时控制路灯
+   // 路灯- 临时控制-接口
   setLightsContr(id) {
     const that = this;
     const strategyList = this.strategyList;
@@ -762,11 +769,11 @@ export class LightComponent implements OnInit, OnDestroy  {
     const level = this.lightLevel;
     this.lightService.setLightsContr(id, level, stopTime).subscribe({
       next: function (val) {
-        that.prompt = true;
+        that.LightsContrMess = true;
         console.log('ok!');
       },
       complete: function () {
-        // that.changeMarker(value);
+
       },
       error: function (error) {
         console.log(error);
@@ -774,18 +781,18 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
 
-  // 临时控制路灯
+  // 控制路灯-下发策略-接口
   setStrategyRule(id) {
     const that = this;
     const strategyList = this.strategyList;
 
     this.lightService.setStrategyRule(id, strategyList.id).subscribe({
       next: function (val) {
-        that.prompt = true;
+        that.StrategyRuleMess = true;
         console.log('ok!');
       },
       complete: function () {
-        // that.changeMarker(value);
+
       },
       error: function (error) {
         console.log(error);

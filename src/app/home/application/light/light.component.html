@@ -87,7 +87,7 @@
     <div class="devices-control" *ngIf="showDevicesControl">
         <div class="device-title">
             <span>设备控制</span>
-            <span class="device-close float-right" (click)="closeDevicesControl()">X</span>
+            <span class="device-close float-right" (click)="closeDevicesControl()"><i class="fa fa-times" aria-hidden="true"></i></span>
         </div>
         <div class="modal-body">
             <div class="form-inline">
@@ -151,7 +151,7 @@
     <div *ngIf="showDevicesStrategyCtrl" class="lights-strategy-ctrl">
         <div class="device-title">
             <span>策略分配</span>
-            <span class="device-close float-right" (click)="closeDevicesStrategyCtrl()">X</span>
+            <span class="device-close float-right" (click)="closeDevicesStrategyCtrl()"><i class="fa fa-times" aria-hidden="true"></i></span>
         </div>
         <div class="modal-body">
             <div>
@@ -165,14 +165,14 @@
                     </select>
                 </p>
             </div>
-            <div>
+            <!-- <div>
                 <p>
                     <span>临时控制：</span>
                     <label style="margin-left: 21px;">
                         <mat-slide-toggle (change) = "changeContr()"></mat-slide-toggle>
                     </label>
                 </p>
-            </div>
+            </div> -->
             <div *ngIf="contrL">
 
                 <div>
@@ -207,7 +207,7 @@
                 </div>
 
             </div>
-            <div *ngIf="prompt">
+            <div *ngIf="prompt1">
                 <p class="prompt">
                     <span>修改成功！</span>
                 </p>
@@ -220,39 +220,51 @@
         </div>
     </div>
 
-    <!-- 设备操作 -->
+    <!-- 单灯设备操作 -->
     <div class="device-detail" *ngIf="deviceChild">
         <div class="device-title">
             <span  *ngIf="deviceChild">{{deviceChild.description}}</span>
-            <span class="device-close float-right" (click)="closeDetail()">X</span>
+            <span class="device-close float-right" (click)="closeDetail()"><i class="fa fa-times" aria-hidden="true"></i></span>
         </div>
         <div class="modal-body">
-                    <div>
+                    <!-- <div>
                         <p>
                             <span>灯杆编号：</span>
                             <span *ngIf="deviceChild">{{deviceChild.positionNumber}}</span>
                         </p>
-                    </div>
-                    <div>
+                    </div> -->
+                    <!-- <div>
                         <p>
-                            <span>当前策略：</span>
-                            <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" 
-                                class="form-control d-inline-block selece-str">
-                                <option *ngFor="let index of strategyLists" [ngValue]="index">
-                                    {{ index.name }}
-                                </option>
-                            </select>
+                            <span>策略选择</span>
                         </p>
+                    </div> -->
+                    <div class="str-body-item">
+                        <div class="body-item">
+                                <span>当前策略：</span>
+                                <select name="profile" [(ngModel)]="strategyList" (change)="strategyListsChange()" class="form-control d-inline-block selece-str">
+                                    <option *ngFor="let index of strategyLists" [ngValue]="index">
+                                        {{ index.name }}
+                                    </option>
+                                </select>
+                        </div>
+                        <div >
+                            <button type="button" class="btn btn-outline-info btn-100" (click)="setStrategyRule(deviceChild.id)">下发策略</button>
+                        </div>
+                        <mat-error *ngIf="StrategyRuleMess">
+                            <strong class="error-mass">修改成功！</strong>
+                        </mat-error>
                     </div>
-                    <div>
+
+                    <hr>
+                    <!-- <div>
                         <p>
-                            <span>临时控制：</span>
+                            <span>临时控制</span>
                             <label style="margin-left: 21px;">
                                 <mat-slide-toggle (change) = "changeContr()"></mat-slide-toggle>
                             </label>
                         </p>
-                    </div>
-                    <div *ngIf="contrL">
+                    </div> -->
+                    <div class="str-body-item">
 
                         <div>
                             <p>
@@ -283,20 +295,22 @@
                         
                         
                             </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-info btn-100" (click)="setLightsContr(deviceChild.id)">临时控制</button>
+                            </div>
+                            <mat-error *ngIf="LightsContrMess">
+                                <strong class="error-mass">修改成功！</strong>
+                            </mat-error>
                         </div>
 
                     </div>
-                    <div *ngIf="prompt">
-                        <p class="prompt">
-                            <span>修改成功！</span>
-                        </p>
-                    </div>
+
 
         </div>
 
 
         <div  class="modal-footer">
-                <button type="button" class="btn btn-outline-info" (click)="lightsContr(deviceChild.id)">确定</button>
+                <!-- <button type="button" class="btn btn-outline-info" (click)="lightsContr(deviceChild.id)">确定</button> -->
                 <button type="button" class="btn btn-outline-metal" (click)="closeDetail()">取消</button>
         </div>
 
