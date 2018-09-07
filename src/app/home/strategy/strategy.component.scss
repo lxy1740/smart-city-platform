@@ -211,3 +211,8 @@ background-color: rgba(2, 117, 216, 0.5);
     position: absolute;
     right: 0;
 }
+
+.page-list-table{
+    max-height: 750px;
+    overflow-y: auto;
+}

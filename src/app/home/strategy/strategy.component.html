@@ -201,7 +201,7 @@
           </div>
         </div>
         <div class="col-9">
-          <div class="panel-default">
+          <div class="panel-default page-list-table">
             <!-- 搜索 -->
             <form class="form-inline xy-pad light-form">
               <div class="form-group">
@@ -215,7 +215,7 @@
               </div>
             
               <button type="submit" class="btn btn-bg">搜索</button>
-              <button type="submit" class="btn btn-bg form-btn" >下发策略</button>
+              <button type="submit" class="btn btn-bg form-btn" [disabled]="regionbody.length === 0" (click)="setRegion()">下发策略</button>
             </form>
             
             <table class="table table-hover">

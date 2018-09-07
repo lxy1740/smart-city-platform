@@ -159,6 +159,9 @@ export class StrategyComponent implements OnInit {
 
   allCheck = true; // 全选
 
+  regionbody = []; // 策略覆盖区域body
+  setRegionMess = false; // 下发策略
+
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   public zTreeOnCheck: (event, treeId, treeNode) => void;
@@ -187,12 +190,32 @@ export class StrategyComponent implements OnInit {
 
     };
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
-      console.log(treeNode.tId + ', ' + treeNode.full_name);
+      console.log(treeNode.id + ', ' + treeNode.full_name);
       // 获取当前被勾选的节点集合
+      that.regionbody = [];
 
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
       const nodes = treeObj.getCheckedNodes(true);
-      // console.log(nodes);
+
+      if (nodes.length > 0) {
+        nodes.map((item, i) => {
+          const isParent = item.isParent;
+          if (!isParent) {
+            that.regionbody.push(
+              {
+                'allDevices': true,
+                'deviceIds': [
+                    0
+                ],
+                'regionId': item.id
+            }
+            );
+          }
+        });
+
+      }
+
+      console.log(that.regionbody);
 
     };
 
@@ -961,6 +984,26 @@ export class StrategyComponent implements OnInit {
         complete: function () {
           console.log('that.zNodes!');
           console.log(that.zNodes);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+  }
+
+  // 下发策略
+  setRegion() {
+    const that = this;
+    const body = this.regionbody;
+    const ruleId = this.currentStrategy.id;
+    this.strategyService.setRegion(ruleId, body)
+      .subscribe({
+        next: function (res) {
+          console.log('ok!');
+          that.setRegionMess = true;
+        },
+        complete: function () {
+
         },
         error: function (error) {
           console.log(error);
