@@ -161,6 +161,7 @@ export class StrategyComponent implements OnInit {
 
   regionbody = []; // 策略覆盖区域body
   setRegionMess = false; // 下发策略
+  currentTreeNodeId: any; // 当前选中的区域
 
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
@@ -181,11 +182,12 @@ export class StrategyComponent implements OnInit {
     // 点击
     const that = this;
     this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
-
+      that.currentTreeNodeId = treeNode.id;
       that.getRegionLights(treeNode.id);
 
     };
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
+
 
       // 获取当前被勾选的节点集合
       that.regionbody = [];
@@ -960,7 +962,8 @@ export class StrategyComponent implements OnInit {
         next: function (res) {
           that.model.ZoneDefault = res;
           that.zNodes = res.regions;
-          that.getRegionLights(res.regions[0].id);
+          const id = that.currentTreeNodeId = res.regions[0].id;
+          that.getRegionLights(id);
 
         },
         complete: function () {
@@ -994,7 +997,9 @@ export class StrategyComponent implements OnInit {
 
  // 分页
   pageChange() {
-    console.log(1);
+    const id = this.currentTreeNodeId;
+    this.getRegionLights(id);
+
   }
 
 }
