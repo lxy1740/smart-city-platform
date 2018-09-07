@@ -17,12 +17,15 @@ declare let $: any;
 declare let BMapLib;
 declare let BMAP_ANCHOR_TOP_LEFT;
 
+
+
 @Component({
-  selector: 'app-video',
-  templateUrl: './video.component.html',
-  styleUrls: ['./video.component.scss']
+  selector: 'app-echart-map',
+  templateUrl: './echart-map.component.html',
+  styleUrls: ['./echart-map.component.scss']
 })
-export class VideoComponent implements OnInit {
+
+export class EchartMapComponent implements OnInit {
   @ViewChild('map2') map_container: ElementRef;
   model: any = {}; // 存储数据
 
@@ -770,7 +773,7 @@ export class VideoComponent implements OnInit {
         }
       },
       legend: {
-        data: ['智慧照明', '环境监测', '灾害报警', '窨井管理', '智慧交通', '智慧安防', ],
+        data: ['智慧照明', '环境监测', '灾害报警', '窨井管理', '智慧交通', '智慧安防'],
         textColor: '#000',
         textStyle: {
           color: '#fff'
@@ -791,8 +794,9 @@ export class VideoComponent implements OnInit {
               color: '#fff',
               width: 1, // 这里是为了突出显示加上的
 
-        }}
-      }
+            }
+          }
+        }
       ],
       yAxis: [
         {

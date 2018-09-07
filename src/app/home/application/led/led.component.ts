@@ -1,4 +1,11 @@
+/*
 
+Copyright(c): 2018 深圳创新设计研究院
+Author: luo.shuqi@live.com
+@file: led.component.ts
+@time: 2018 /9 / 7 14: 22
+
+*/
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Point } from '../../../data/point.type';
 import { MAPLIST } from '../../../data/map-list';
@@ -8,14 +15,13 @@ declare let BMap;
 declare let $: any;
 declare let BMapLib;
 declare let BMAP_ANCHOR_TOP_LEFT;
-
 @Component({
-  selector: 'app-security',
-  templateUrl: './security.component.html',
-  styleUrls: ['./security.component.scss']
+  selector: 'app-led',
+  templateUrl: './led.component.html',
+  styleUrls: ['./led.component.scss']
 })
 
-export class SecurityComponent implements OnInit {
+export class LedComponent implements OnInit {
 
   @ViewChild('map5') map_container: ElementRef;
   model: any = {}; // 存储数据
@@ -344,11 +350,3 @@ export class SecurityComponent implements OnInit {
     this.currentBlock = null;
   }
 }
-/*
-
-Copyright(c): 2018 深圳创新设计研究院
-Author: luo.shuqi@live.com
-@file: security.component.ts
-@time: 2018 /8 / 9 9: 00
-
-*/
