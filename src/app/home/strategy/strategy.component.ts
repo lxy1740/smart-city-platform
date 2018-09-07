@@ -14,7 +14,6 @@ import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
-import { VideoService } from '../../service/video.service';
 import { StrategyService } from '../../service/strategy.service';
 
 const now = new Date();
@@ -94,44 +93,11 @@ export class StrategyComponent implements OnInit {
   strategy_rule_del_index: any;
   dateList = []; // 日期策略
 
+
   holidayList = []; // 节假日策略
   workdayList = []; // 工作时间策略
-  rangeList = [
-    {
-      id: 'SN0001',
-      name: '太阳能灯',
-      pro: '太阳能灯',
-      strategy: '策略一',
-      intensity: '30%',
-      status: '在线'
-
-    },
-    {
-      id: 'SN0002',
-      name: '太阳能灯',
-      pro: '太阳能灯',
-      strategy: '策略一',
-      intensity: '30%',
-      status: '在线'
-
-    },
-    {
-      id: 'SN0002',
-      name: '太阳能灯',
-      pro: '太阳能灯',
-      strategy: '策略一',
-      intensity: '30%',
-      status: '在线'
-
-    },
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-    { id: 'SN0002', name: '太阳能灯', pro: '太阳能灯', strategy: '策略一', intensity: '30%', status: '在线'},
-  ]; // 策略范围
+  rangeList: any; // 策略范围
+  rangeListItems = []; // 规则集合
 
   // 弹框
   closeResult: string;
@@ -189,6 +155,7 @@ export class StrategyComponent implements OnInit {
 
   total: any; // 分页
   page = 1; // 分页
+  pageSize = 10; // 分页
 
   allCheck = true; // 全选
 
@@ -196,7 +163,7 @@ export class StrategyComponent implements OnInit {
   public zTreeOnClick: (event, treeId, treeNode) => void;
   public zTreeOnCheck: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal, private strategyService: StrategyService,
-     private videoService: VideoService, public element: ElementRef,
+     public element: ElementRef,
     calendar: NgbCalendar,
     private _formBuilder: FormBuilder,
     config: NgbTimepickerConfig) {
@@ -209,18 +176,14 @@ export class StrategyComponent implements OnInit {
 
     config.spinners = false; // 时间控制
 
-    this.total = 100; // 分页
-
-
-
 
     // this.dateList = this.strategyList[0].dateList;
     // 树的操作
     // 点击
     const that = this;
     this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
-      console.log(treeNode.tId + ', ' + treeNode.full_name);
-      // this.getPoint(that.map, that.city);
+      console.log(treeNode.id + ', ' + treeNode.full_name);
+      that.getRegionLights(treeNode.id);
 
     };
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
@@ -234,10 +197,7 @@ export class StrategyComponent implements OnInit {
     };
 
 
-    // 设备列表操作
-    this.rangeList.map((item, i) => {
-      this.rangeList[i]['check'] = true;
-    });
+
 
   }
 
@@ -955,6 +915,29 @@ export class StrategyComponent implements OnInit {
 
   }
 
+  // 接口处-删除策略
+  getRegionLights(id) {
+    const that = this;
+    const page = this.page;
+    const pageSize = this.pageSize;
+    this.strategyService.getRegionLights(id, page, pageSize).subscribe({
+      next: function (val) {
+        that.rangeList = val;
+        console.log(val);
+        that.rangeListItems = val.items;
+        that.total = val.total; // 分页
+        console.log(that.rangeListItems);
+
+
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
   // 全选
   allCheckbox() {
     console.log(this.allCheck);
@@ -964,14 +947,16 @@ export class StrategyComponent implements OnInit {
   itemCheckbox(item) {
     console.log(item.check);
   }
-
+    // 获取城市列表
   getZoneDefault() {
     const that = this;
-    this.videoService.getZoneDefault()
+    this.strategyService.getZoneDefault()
       .subscribe({
         next: function (res) {
           that.model.ZoneDefault = res;
           that.zNodes = res.regions;
+          that.getRegionLights(res.regions[0].id);
+
         },
         complete: function () {
           console.log('that.zNodes!');

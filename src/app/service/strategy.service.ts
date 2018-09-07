@@ -140,12 +140,36 @@ export class StrategyService {
 
     // 策略范围
 
-    // 获取指定安装在区域内的路灯
-    getRegionLights(regionId: number): Observable<any> {
-        return this.http.get(`/api/streetlight/region/${regionId}`)
+    // 城市列表
+    getZoneDefault(): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get('/api/zone/default')
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = { status: 200 };
+                    const data = res.json();
+
+                    console.log(data.regions[0]);
+                    data.regions[0].open = true;
+                    // data.regions[0].children[0].open = true;
+                    // data.regions[0].children.map((item, index) => {
+                    //     data.regions[0].children[index].open = true;
+                    // });
+
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
+
+    // 获取指定安装在区域内的路灯
+    getRegionLights(regionId: number, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`/api/streetlight/region/${regionId}?page=${page}&pageSize=${pageSize}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();
@@ -158,7 +182,7 @@ export class StrategyService {
         return this.http.get(`/api/streetlight/rule/${ruleId}/region`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = { status: 200 };
+                    const data = res.json();
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();

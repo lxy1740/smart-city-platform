@@ -227,26 +227,35 @@
                   </th> -->
                   <th>设备名称</th>
                   <th>设备编号</th>
-                  <th>所属产品</th>
                   <th>应用策略</th>
                   <th>亮度</th>
-                  <th>状态</th>
+                  <th>电压（mv）</th>
+                  <th>电流（mA）</th>
+                  <th>是否在线</th>
+                  <th>是否故障</th>
+    
                 </tr>
               </thead>
-              <tr *ngFor="let item of rangeList;let i = index">
+              <tr *ngFor="let item of rangeListItems;let i = index">
                 <!-- <td class="">
                   <input type="checkbox" (change)="itemCheckbox(item)" [checked]= "item['check']" [(ngModel)]= "item['check']">
                 </td> -->
+                <td class="">{{item.description}}</td>
                 <td class="">{{item.name}}</td>
-                <td class="">{{item.id}}</td>
-                <td class="">{{item.pro}}</td>
-                <td class="">{{item.strategy}}</td>
-                <td class="">{{item.intensity}}</td>
-                <td class="">{{item.status}}</td>
+                <td class="">{{item.ruleId}}</td>
+                <td class="">{{item.level}}%</td>
+                <td class="">{{item.volt}}</td>
+                <td class="">{{item.current}}</td>
+                <td class="">{{item.offline}}</td>
+                <td class="">{{item.error}}</td>
               </tr>
             </table>
-            <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-              (pageChange)="pageChange()"></ngb-pagination>
+            <div *ngIf="rangeListItems.length === 0 || !rangeListItems">无数据！</div>
+            <div *ngIf="rangeListItems.length > 1">
+                  <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+                    (pageChange)="pageChange()"></ngb-pagination>
+            </div>
+
           </div>
 
         </div>
