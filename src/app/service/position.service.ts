@@ -36,8 +36,49 @@ export class PositionService {
             }));
     }
 
+    // 获取位置分页
 
+    getPosition(type: number, page: number, pagesize: number): Observable<any> {
+        return this.http.get(`/api/position?type=${type}&page=${page}&pageSize=${pagesize}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
 
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
+
+    // 新增位置信息
+
+//     {
+//     "id": 0,
+//         "installZoneId": 0,
+//             "name": "string",
+//                 "number": "string",
+//                     "point": {
+//         "lat": 0,
+//             "lng": 0
+//     },
+//     "regionId": "string",
+//      "type": 0
+// }
+    setPosition(type: number, page: number, pagesize: number): Observable<any> {
+        return this.http.get(`/api/position?type=${type}&page=${page}&pageSize=${pagesize}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
 
 
 
