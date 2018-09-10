@@ -176,6 +176,7 @@
         <table class="table table-hover">
           <thead class="table-header">
             <tr>
+              <th>序号</th>
               <th>位置名称</th>
               <th>位置编号</th>
               <th>所属类</th>
@@ -188,6 +189,7 @@
           <tbody>
 
             <tr *ngFor="let item of positionListItems; let i = index">
+              <td>{{i + 1}}</td>
               <td>{{item.name}}</td>
               <td>{{item.number}}</td>
               <td>{{item.type}}</td>
