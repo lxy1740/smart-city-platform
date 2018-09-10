@@ -36,17 +36,17 @@
     
     <div class="row modal-body">
         <!-- 左列 -->
-        <div class="info-left">
+        <div class="col-12 col-md-6">
 
-          <div class="form-inline">
+          <div class="form-inline padding-15">
             <label class="control-label">名称:</label>
             <input type="text" class="form-control" placeholder="">
           </div>
-          <div class="form-inline">
+          <div class="form-inline padding-15">
               <label class="control-label">编号:</label>
               <input type="text" class="form-control" placeholder="">
           </div>
-          <div class="form-inline">
+          <div class="form-inline padding-15">
               <label class="control-label">区域:</label>
               <!-- 选择区域 -->
               <div class="area-selection" *ngIf="visible == true">
@@ -107,28 +107,23 @@
               </div>
           </div>
           <!-- 手动输入坐标定位 -->
-          <div class="form-group">
-              <label class="control-label posi-input">位置:</label>
-              <div class="form-inline">
-                  <label class="control-label">经度:</label>
-                  <input type="text" class="form-control border-none"  autocomplete 
-                  [(ngModel)]="longitude" required/>
-              </div>
-              <div class="form-inline">
-                  <label class="control-label">纬度:</label>
-                  <input type="text" class="form-control border-none"  autocomplete 
-                  [(ngModel)]="latitude" required/>
-                  <i class="fa fa-map-marker fa-2x mapIron" (click)="addMapWithPoint()"></i>
-              </div>
+          <div class="form-inline padding-15">
+            <label class="control-label">经度:</label>
+            <input type="text" class="form-control border-none" autocomplete [(ngModel)]="longitude" required/>
           </div>
-          <div class="form-inline">
+          <div class="form-inline padding-15">
+            <label class="control-label">纬度:</label>
+            <input type="text" class="form-control border-none" autocomplete [(ngModel)]="latitude" required/>
+            <i class="fa fa-map-marker fa-2x mapIron" (click)="addMapWithPoint()"></i>
+          </div>
+          <div class="form-inline padding-15">
               <label class="control-label">所属类:</label>
               <input type="text" class="form-control" placeholder="">
           </div>
 
         </div>
         <!-- 右列 -->
-        <div class="map-right">
+        <div class="col-12 col-md-6">
             <label class="control-label">地图:</label>
             <div #map1  id="position_map" class="map_container"></div>
         </div>
@@ -181,7 +176,6 @@
         <table class="table table-hover">
           <thead class="table-header">
             <tr>
-              <th>序号</th>
               <th>位置名称</th>
               <th>位置编号</th>
               <th>所属类</th>
@@ -192,24 +186,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>深圳南山蛇口工业七路0001</td>
-              <td>SZNSSKGYQL0001</td>
-              <td>井盖</td>
-              <td>广东省深圳市南山区蛇口街道</td>
-              <td>X:975, Y83</td>
+
+            <tr *ngFor="let item of positionListItems; let i = index">
+              <td>{{item.name}}</td>
+              <td>{{item.number}}</td>
+              <td>{{item.type}}</td>
+              <td>{{item.regionId}}</td>
+              <td>{{item.point.lng}}/{{item.point.lat}}</td>
               <td>2017/07/08 17:51:31</td>
               <td style="text-align: center">
-                <div>
-                  <a class="manage-class"><i class="fa fa-eye"></i></a>
-                  <a class="manage-class"><i class="fa fa-wrench"></i></a>
-                  <a class="manage-class"><i class="fa fa-times-circle"></i></a>
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(item, i)">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(item, i)">删除</a>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
+        <div *ngIf="positionListItems.length === 0 || !positionListItems">无数据！</div>
+        <div *ngIf="positionListItems.length > 1">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            (pageChange)="pageChange()"></ngb-pagination>
+        </div>
       </div>
     </div>
   

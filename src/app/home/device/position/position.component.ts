@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MonitorService } from '../../../service/monitor.service';
+import { PositionService } from '../../../service/position.service';
 import { Point } from '../../../data/point.type';
 // baidu map
 declare let BMap;
@@ -39,15 +40,57 @@ export class PositionComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-  constructor(private modalService: NgbModal, private monitorService: MonitorService) { }
+  positionListItems = []; // 位置列表
+  positionList: any; // 位置列表
+  total: number; // 分页
+  page: number;
+  pagesize = 10;
+  deviceType: number;
+
+  constructor(private modalService: NgbModal, private monitorService: MonitorService, private positionService: PositionService) { 
+    this.page = 1;
+    this.deviceType = 0;
+  }
 
   ngOnInit() {
     // this.addBaiduMap();
+    this.getPosition(this.deviceType, this.page, this.pagesize);
   }
+
+  // 修改位置
+  openUpdataPosi() {}
+
+  // 删除位置
+  openDelPosi() {}
+
+  // 获取位置
+  getPosition(type: number, page: number, pagesize: number) {
+    const that = this;
+    this.positionService.getPosition(type, page, pagesize).subscribe({
+      next: function (val) {
+        that.positionList = val;
+        that.total = val.total;
+        that.positionListItems = val.items;
+
+      },
+      complete: function () {
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 分页
+  pageChange() {
+    this.getPosition(this.deviceType, this.page, this.pagesize);
+  }
+  // 新建位置弹框
   openNewPosition(content) {
     const that = this;
 
-    const modal = this.modalService.open( content, {windowClass: 'ex-lg-modal' });
+    // const modal = this.modalService.open( content, {windowClass: 'ex-lg-modal' });
+    const modal = this.modalService.open( content, {size: 'lg' });
     this.addBaiduMap();
     this.getCity();
     modal.result.then((result) => {
