@@ -242,7 +242,7 @@
                 </td> -->
                 <td class="">{{item.description}}</td>
                 <td class="">{{item.name}}</td>
-                <td class="">{{item.ruleId}}</td>
+                <td class="" *ngIf="item.rule && item.rule.name">{{item.rule.name}}</td>
                 <td class="">{{item.level}}%</td>
                 <td class="">{{item.volt}}</td>
                 <td class="">{{item.current}}</td>
