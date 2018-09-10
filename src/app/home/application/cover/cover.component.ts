@@ -356,7 +356,10 @@ export class CoverComponent implements OnInit, OnDestroy {
     } else {
       txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
     }
-    txt = txt + `<button class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
+    if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
+      txt = txt + `<button class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
+    }
+
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
 

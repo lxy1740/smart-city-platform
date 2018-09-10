@@ -34,8 +34,8 @@ export class TrafficComponent implements OnInit {
   currentChildren: any; // 当前城市节点
   currentBlock: any; // // 当前城市街道
 
-  Camera: any;  // 当前摄像头
-  cameraChild: any;
+  currentCamera: any;  // 当前摄像头
+
 
   visible = true; // 控制可视区域
   areashow = false; // 默认区域列表不显示
@@ -122,7 +122,7 @@ export class TrafficComponent implements OnInit {
   mapClickOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
-      that.cameraChild = null;
+      that.Camera = null;
     });
   }
   // 添加标注
@@ -211,44 +211,68 @@ export class TrafficComponent implements OnInit {
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
-      baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
-      that.Camera = camera;
-      // console.log(that.Camera);
+      that.currentCamera = camera;
+
+      // that.cameraAddEventListener();
+      // baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
       setTimeout(() => {
         that.cameraAddEventListener();
-      }, 0);
+      }, 2);
     });
 
   }
   // 点击子设备
   cameraAddEventListener() {
     const that = this;
+    let player;
+    setTimeout(() => {
+      player = new Aliplayer({
+        'id': 'video_play',
+        'source': that.currentCamera.videoUrl,
+        'width': '100%',
+        'height': '500px',
+        'autoplay': true,
+        'isLive': false,
+        'rePlay': false,
+        'playsinline': true,
+        'preload': true,
+        'controlBarVisibility': 'hover',
+        'useH5Prism': true
+      }, function (play) {
+        console.log('播放器创建了。');
+      }
+      );
+    }, 2);
 
-      const device = $(`#${this.Camera.id}`);
-      device.on('click', function () {
-        console.log('ddd');
-        that.cameraChild = that.Camera;
-        let player;
-        setTimeout(() => {
-          player = new Aliplayer({
-            'id': 'video_play',
-            'source': that.Camera.videoUrl,
-            'width': '100%',
-            'height': '500px',
-            'autoplay': true,
-            'isLive': false,
-            'rePlay': false,
-            'playsinline': true,
-            'preload': true,
-            'controlBarVisibility': 'hover',
-            'useH5Prism': true
-          }, function (play) {
-            console.log('播放器创建了。');
-          }
-          );
-        }, 2);
-      });
+      // const device = $(`#${this.Camera.id}`);
+      // device.on('click', function () {
+      //   console.log('ddd');
+      //   that.cameraChild = that.Camera;
+      //   let player;
+      //   setTimeout(() => {
+      //     player = new Aliplayer({
+      //       'id': 'video_play',
+      //       'source': that.Camera.videoUrl,
+      //       'width': '100%',
+      //       'height': '500px',
+      //       'autoplay': true,
+      //       'isLive': false,
+      //       'rePlay': false,
+      //       'playsinline': true,
+      //       'preload': true,
+      //       'controlBarVisibility': 'hover',
+      //       'useH5Prism': true
+      //     }, function (play) {
+      //       console.log('播放器创建了。');
+      //     }
+      //     );
+      //   }, 2);
+      // });
 
+  }
+  // 关闭按钮
+  closeDetail() {
+    this.currentCamera = null;
   }
 
   // 返回地图可视区域，以地理坐标表示
