@@ -76,10 +76,12 @@ export class LightComponent implements OnInit, OnDestroy  {
   // 多设备控制
   showDevicesControl = false; // 多灯控制默认不显示
   showDevicesStrategyCtrl = false; // 多灯分配策略 默认不显示
-  strategyList1: any; // 多控路灯策略
-  contrL1 = false; // 临时控制
+  strategyList1: any; // 多控路灯策略(统一分配的策略)
+  time1 = { hour: 13, minute: 30}; // 路灯控制时间
   lightLevel1 = 0;
   prompt1 = false; // 提示成功
+  StrategyRuleMess1 = false; // 提示成功
+  LightsContrMess1 = false; // 提示成功
   selectedLightList = []; // 多设备控制窗口中选中的设备
 
   allCheck = false;
@@ -381,7 +383,11 @@ export class LightComponent implements OnInit, OnDestroy  {
     } else {
       txt = txt + `<p >是否故障： 否</p>`;
     }
-
+    if (val.rule && val.rule.name) {
+      txt = txt + `<p >应用策略： ${val.rule.name}</p>`;
+    } else {
+      txt = txt + `<p >应用策略：无</p>`;
+    }
     txt = txt + `<p >亮度级别： ${val.level}%</p>`;
     txt = txt + `<p >电流强度： ${val.current}毫安(mA)</p>`;
     txt = txt + `<p >电压大小： ${val.volt}毫伏(mv)</p>`;
@@ -500,15 +506,19 @@ export class LightComponent implements OnInit, OnDestroy  {
   // 打开多灯控制
   devicesControl() {
     this.showDevicesControl = true;
+    // this.deviceChild = null;
+    // this.device = null;
   }
   // 关闭多灯控制
   closeDevicesControl() {
     this.showDevicesControl = false;
+    this.showDevicesStrategyCtrl = false;
     this.selectedLightList = [];
     this.allCheck = false;
     this.lightList_check.map((item , i) => {
       this.lightList_check[i].check = false;
     });
+    this.strategyList1 = null;
   }
   // 多灯策略分配
   devicesStrategyCtrl() {
@@ -715,6 +725,13 @@ export class LightComponent implements OnInit, OnDestroy  {
     this.prompt1 = false;
     console.log('策略改变');
   }
+  // 路灯控制页选择策略
+  strategyListsChange1() {
+    this.StrategyRuleMess1 = false;
+    this.LightsContrMess1 = false;
+    this.prompt1 = false;
+    console.log('策略改变');
+  }
 
   // 临时控制切换
   // changeContr() {
@@ -726,6 +743,11 @@ export class LightComponent implements OnInit, OnDestroy  {
   changeTime() {
     this.StrategyRuleMess = false;
     this.LightsContrMess = false;
+    console.log('时间改变');
+  }
+  changeTime1() {
+    this.StrategyRuleMess1 = false;
+    this.LightsContrMess1 = false;
     console.log('时间改变');
   }
   // 亮度改变
@@ -782,6 +804,28 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
 
+  // 多控路灯- 集体临时控制-接口
+  setLightsContr1() {
+    const that = this;
+    const stopTime = this.time1;
+    const level = this.lightLevel1;
+
+    this.selectedLightList.map((item, i) => {
+      const id = item.id;
+      that.lightService.setLightsContr(id, level, stopTime).subscribe({
+        next: function (val) {
+          that.LightsContrMess1 = true;
+        console.log('ok!');
+        },
+        complete: function () {},
+        error: function (error) {
+          console.log(error);
+        }
+  
+      });
+    });
+  }
+
   // 控制路灯-下发策略-接口
   setStrategyRule(id) {
     const that = this;
@@ -800,6 +844,32 @@ export class LightComponent implements OnInit, OnDestroy  {
       }
     });
   }
+  // 多控路灯-集体下发策略
+ setStrategyRules() {
+   const that = this;
+   const strategyList1 = that.strategyList1;
+   if (strategyList1) {
+    this.selectedLightList.map((item, i) => {
+        const id = item.id;
+        that.lightService.setStrategyRule(id, strategyList1.id).subscribe({
+          next: function (val) {
+            that.StrategyRuleMess1 = true;
+            console.log('ok!');
+            console.log(item);
+          },
+          complete: function () {},
+          error: function (error) {
+            console.log(error);
+          }
+    
+        });
+        
+    });
+  } else {
+          alert("请选择策略!");
+        }
+
+ }
 
   // 获取策略表
   getStrategy() {
