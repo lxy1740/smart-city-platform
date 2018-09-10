@@ -16,6 +16,9 @@ import { CoverService } from './cover.service';
 import { CameraService } from './camera.service';
 import { AirmonitorService } from './airmonitor.service';
 import { StrategyService } from './strategy.service';
+import { DeviceService } from './device.service';
+import { PositionService } from './position.service';
+import { ProductService } from './product.service';
 
 @NgModule({
   imports: [
@@ -24,6 +27,7 @@ import { StrategyService } from './strategy.service';
   declarations: [],
   providers: [FullScreenService, BeiduAPIService, BeiduMAPService, MonitorService,
     LightService, CoverService, AirmonitorService, CameraService, StrategyService,
+    DeviceService, PositionService, ProductService,
     MessService, MessageService, UrlService, CommunicateService, VideoService, BaiduFunService]
 })
 export class ServiceModule { }
