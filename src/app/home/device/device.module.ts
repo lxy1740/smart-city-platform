@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PositionComponent } from './position/position.component';
 import { ClassComponent } from './class/class.component';
 import { ProductComponent } from './product/product.component';
-import { SurveyComponent } from './survey/survey.component';
+
 import { FormsModule } from '@angular/forms';
 
 
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
         PositionComponent,
         ClassComponent,
         ProductComponent,
-        SurveyComponent,
+
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

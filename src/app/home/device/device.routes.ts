@@ -4,7 +4,7 @@ import { DeviceComponent } from './device.component';
 import { PositionComponent } from './position/position.component';
 import { ClassComponent } from './class/class.component';
 import { ProductComponent } from './product/product.component';
-import { SurveyComponent } from './survey/survey.component';
+
 
 import { AuthGuard } from '../../guard/auth-guard.service';
 
@@ -22,7 +22,6 @@ export const DeviceRoutes: Route[] = [
                     { path: 'position', component: PositionComponent },
                     { path: 'class', component: ClassComponent },
                     { path: 'product', component: ProductComponent },
-                    { path: 'survey', component: SurveyComponent },
 
 
                 ]

@@ -78,7 +78,8 @@
                   <div class="d-inline-block area-selection-block" (mouseleave)="arealistMouseleave()">
 
                     <span class="cl-blue cur-pointer" (mouseover)="showArea()">
-                      <span class="filter">选择区域</span>
+                      <span class="filter" *ngIf="!currentArea">选择区域</span>
+                      <span class="filter" *ngIf="currentArea">{{currentArea.name}}</span>
                     </span>
 
                     <div class="arealist-wrap dropdown_panel" *ngIf="areashow">
@@ -94,10 +95,10 @@
                               </li>
                             </ul>
 
-                            <div class="blocklist-wrap" *ngIf="currentBlock">
+                            <div class="blocklist-wrap" *ngIf="currentBlockList">
                                 <ul class="blocklist" data-type="block">
                                   <li data-val="0">不限</li>
-                                  <li *ngFor="let block of currentBlock" (click)="selecteblock(block)">{{block.name}}</li>
+                                  <li *ngFor="let block of currentBlockList" (click)="selecteblock(block)">{{block.name}}</li>
                                 </ul>
                           </div>
 
@@ -182,7 +183,6 @@
               <th>所属类</th>
               <th>区域</th>
               <th>坐标</th>
-              <th>创建时间</th>
               <th style="text-align: center">操作</th>
             </tr>
           </thead>
@@ -195,7 +195,6 @@
               <td>{{item.type}}</td>
               <td>{{item.regionId}}</td>
               <td>{{item.point.lng}}/{{item.point.lat}}</td>
-              <td>2017/07/08 17:51:31</td>
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(item, i)">修改</a>
