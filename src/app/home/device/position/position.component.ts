@@ -23,6 +23,8 @@ export class PositionComponent implements OnInit {
 
   cityList: any; // 城市列表
   deviceList = []; // 设备列表
+  deviceTypes = []; // 设备列表
+  currentType: any; // 当前搜索设备类别
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
   currentArea: any; // 当前区域
@@ -44,7 +46,7 @@ export class PositionComponent implements OnInit {
   total: number; // 分页
   page: number;
   pagesize = 10;
-  deviceType: number;
+
 
   public mr: NgbModalRef; // 当前弹框
   modelData = {
@@ -60,7 +62,6 @@ export class PositionComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private positionService: PositionService) {
     this.page = 1;
-    this.deviceType = 0;
     this.model.point = {lng: '', lat: ''};
     this.model.installZoneId = 1; // 安装区域
 
@@ -79,27 +80,50 @@ export class PositionComponent implements OnInit {
   ngOnInit() {
     this.getCity();
     this.getDevice();
-    this.getPosition(this.deviceType, this.page, this.pagesize);
+    this.getPosition(0, this.page, this.pagesize);
+  }
+
+  modelName(modelId) {
+    let modelName = null;
+    this.deviceTypes.map((item, i) => {
+      if (item.id === modelId) {
+        modelName = item.name;
+      }
+    });
+    // console.log(modelName);
+    return modelName;
+  }
+
+  deviceTypeChange() {
+    this.getPosition(this.currentType.id, this.page, this.pagesize);
+  }
+
+  // 新建位置弹框
+  openNewPosition(content) {
+    const that = this;
+    this.model.name = '';
+    this.model.number = '';
+    this.model.point = { lng: '', lat: '' };
+    this.model.installZoneId = 1; // 安装区域
+
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.addBaiduMap();
+
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+      that.setPosition();
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+
   }
 
 
     // 新增位置信息
-
-  //     {
-  //     "id": 0,
-  //      "installZoneId": 0,
-  //      "name": "string",
-  //      "number": "string",
-  //      "point": {
-  //         "lat": 0,
-  //          "lng": 0
-  //     },
-  //     "regionId": "string",
-  //      "type": 0
-  // }
   setPosition() {
     const that = this;
-    // const installZoneId = this.node.id;
     const installZoneId = this.model.installZoneId;
     const regionId = this.currentArea.id;
     const name = this.model.name;
@@ -117,7 +141,6 @@ export class PositionComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-        //  that.addBaiduMap(); // 创建地图
 
       },
       error: function (error) {
@@ -127,7 +150,58 @@ export class PositionComponent implements OnInit {
   }
 
   // 修改位置
-  openUpdataPosi() {}
+  openUpdataPosi(content, item, i) {
+    const that = this;
+    this.model.updataId = item.id;
+    this.model.installZoneId = item.installZoneId;
+    this.currentArea.id = item.regionId;
+    this.model.name = item.name;
+    this.model.number = item.number;
+    this.model.point = item.point;
+    this.model.device.id = item.type;
+    that.model.device = this.deviceList[0];
+
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.addBaiduMap();
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+      that.updataPosition();
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+
+
+  // 新增位置信息
+  updataPosition() {
+    const that = this;
+    const id = this.model.updataId;
+    const installZoneId = this.model.installZoneId;
+    const regionId = this.currentArea.id;
+    const name = this.model.name;
+    const number = this.model.number;
+    const point = this.model.point;
+    const type = this.model.device.id;
+
+    this.positionService.updataPosition(id, installZoneId, regionId, name, number, point, type).subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '修改成功！',
+        });
+        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+      },
+      complete: function () {
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
 
   // 删除位置弹框
   openDelPosi(content, item, i) {
@@ -161,7 +235,7 @@ export class PositionComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-        that.getPosition(that.deviceType, that.page, that.pagesize);
+        that.getPosition(that.currentType.id,, that.page, that.pagesize);
       },
       error: function (error) {
         console.log(error);
@@ -189,19 +263,19 @@ export class PositionComponent implements OnInit {
 
   // 分页
   pageChange() {
-    this.getPosition(this.deviceType, this.page, this.pagesize);
+    this.getPosition(this.currentType.id, this.page, this.pagesize);
   }
 
   // 获取设备列表
   getDevice() {
     const that = this;
-
     this.positionService.getDevice().subscribe({
       next: function (val) {
         that.deviceList = val;
+        that.deviceTypes = val;
+        that.deviceTypes.unshift({ id: 0, name: '不限' }); // 所有项
+        that.currentType = val[0];
         that.model.device = val[0];
-
-
       },
       complete: function () {
         //  that.addBaiduMap(); // 创建地图
@@ -241,27 +315,7 @@ export class PositionComponent implements OnInit {
       }
     });
   }
-  // 新建位置弹框
-  openNewPosition(content) {
-    const that = this;
 
-    // const modal = this.modalService.open( content, {windowClass: 'ex-lg-modal' });
-    const modal = this.modalService.open( content, {size: 'lg' });
-    this.addBaiduMap();
-
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      console.log(1111);
-
-      that.setPosition();
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
-    });
-
-  }
 
   openAddPositions(content) {
     const that = this;

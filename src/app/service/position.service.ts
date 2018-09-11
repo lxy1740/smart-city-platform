@@ -117,6 +117,29 @@ export class PositionService {
             }));
     }
 
+    // 修改位置
+    updataPosition(id, installZoneId, regionId, name, number, point, type): Observable<any> {
+        return this.http.put(`/api/position`, {
+            'id': id,
+            'installZoneId': installZoneId,
+            'name': name,
+            'number': number,
+            'point': point,
+            'regionId': regionId,
+            'type': type
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
+
 
 
 
