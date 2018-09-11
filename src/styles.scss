@@ -239,7 +239,7 @@ address, cite, code, em, th, i, strong {
 .filter{
 
     display: inline-block;
-    width: 80px;
+    width: 95px;
     text-align: center;
 }
 
@@ -320,6 +320,28 @@ address, cite, code, em, th, i, strong {
         }
     }
 
+}
+
+.area-selection {
+    // z-index: 3000;
+    z-index: 1040;
+    top: 15px;
+
+    .area-selection-block {
+        cursor: pointer;
+        position: relative;
+        background-color: #fff;
+        border: 1px solid #e3e3e3;
+        line-height: 37px;
+
+        height: 37px;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+    .arealist-wrap {
+        position: absolute;
+        top: 40px;
+    }
 }
 
 

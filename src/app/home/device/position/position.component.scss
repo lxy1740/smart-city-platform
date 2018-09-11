@@ -78,10 +78,7 @@
     .mapIron:active, .mapIron:hover {
         color: rgb(146, 4, 4);
     }
-    // .area-selection-block {
-    //     margin-right: 5px;
-    //     margin-top: 5px;
-    // }
+
     .map-right {
         width: 400px;
         padding-left: 15px;
@@ -90,27 +87,7 @@
 .row {
     margin: 0px;
 }
-.area-selection {
-    // z-index: 3000;
-    z-index: 1040;
-    top: 15px;
 
-    .area-selection-block {
-        cursor: pointer;
-        position: relative;
-        background-color: #fff;
-        border: 1px solid #e3e3e3;
-        line-height: 37px;
-        height: calc(1.8rem + 2px);
-        // height: 32px;
-        font-size: 14px;
-        margin-right: 5px;
-    }
-    .arealist-wrap {
-        position: absolute;
-        top: 40px;
-    }
-}
 
 .manage-class {
     font-size: 20px;

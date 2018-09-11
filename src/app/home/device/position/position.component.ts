@@ -26,8 +26,9 @@ export class PositionComponent implements OnInit {
   deviceList: any; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
+  currentArea: any; // 当前区域
   currentChildren: any; // 当前城市节点
-  currentBlock: any; // // 当前城市街道
+  currentBlockList: any; // // 当前城市街道列表
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
   deviceshow = false; // 默认设备列表不显示
@@ -47,13 +48,13 @@ export class PositionComponent implements OnInit {
   pagesize = 10;
   deviceType: number;
 
-  constructor(private modalService: NgbModal, private monitorService: MonitorService, private positionService: PositionService) { 
+  constructor(private modalService: NgbModal, private monitorService: MonitorService, private positionService: PositionService) {
     this.page = 1;
     this.deviceType = 0;
   }
 
   ngOnInit() {
-    // this.addBaiduMap();
+    this.getCity();
     this.getPosition(this.deviceType, this.page, this.pagesize);
   }
 
@@ -92,7 +93,7 @@ export class PositionComponent implements OnInit {
     // const modal = this.modalService.open( content, {windowClass: 'ex-lg-modal' });
     const modal = this.modalService.open( content, {size: 'lg' });
     this.addBaiduMap();
-    this.getCity();
+
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 
@@ -102,9 +103,7 @@ export class PositionComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
-    // setTimeout(() => {
-    //   that.addBaiduMap();
-    // }, 1000);
+
   }
 
   openAddPositions(content) {
@@ -167,7 +166,7 @@ export class PositionComponent implements OnInit {
 
       },
       complete: function () {
-        that.addBaiduMap(); // 创建地图
+        //  that.addBaiduMap(); // 创建地图
 
       },
       error: function (error) {
@@ -264,11 +263,13 @@ export class PositionComponent implements OnInit {
   // 选择城市
   selecteCity(city) {
     this.currentCity = city;
+    this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
     this.currentChildren = city.children;
   }
 
   selecteblock(block) {
+    this.currentArea = block;
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
   }
 
@@ -283,12 +284,12 @@ export class PositionComponent implements OnInit {
   // 选择区域
   arealistMouseover(area) {
 
-    this.currentBlock = area.children;
+    this.currentBlockList = area.children;
   }
   // 离开区域
   arealistMouseleave() {
     this.areashow = false;
-    this.currentBlock = null;
+    this.currentBlockList = null;
   }
   // 离开城市
   citylistMouseleave() {
@@ -296,7 +297,7 @@ export class PositionComponent implements OnInit {
   }
   arealistMouseNone() {
     this.areashow = true;
-    this.currentBlock = null;
+    this.currentBlockList = null;
   }
 
 }

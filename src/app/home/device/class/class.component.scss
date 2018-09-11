@@ -117,24 +117,3 @@
         margin: 0 0 5px 5px;
     }
 }
-.area-selection {
-    // z-index: 3000;
-    z-index: 1040;
-    top: 15px;
-
-    .area-selection-block {
-        cursor: pointer;
-        position: relative;
-        background-color: #fff;
-        border: 1px solid #e3e3e3;
-        line-height: 37px;
-        height: calc(1.8rem + 2px);
-        // height: 32px;
-        font-size: 14px;
-        margin-right: 5px;
-    }
-    .arealist-wrap {
-        position: absolute;
-        top: 40px;
-    }
-}
