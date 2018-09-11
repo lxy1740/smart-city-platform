@@ -81,12 +81,34 @@ export class PositionService {
 //     "regionId": "string",
 //      "type": 0
 // }
-    setPosition(type: number, page: number, pagesize: number): Observable<any> {
-        return this.http.get(`/api/position?type=${type}&page=${page}&pageSize=${pagesize}`)
+    setPosition(installZoneId, regionId, name, number, point, type): Observable<any> {
+        return this.http.post(`/api/position`, {
+            'installZoneId': installZoneId,
+            'name': name,
+            'number': number,
+            'point': point,
+            'regionId': regionId,
+            'type': type
+        })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
 
                     const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
+
+    // 删除位置 /api/position?id=1
+    delPosition(id) {
+        return this.http.delete(`/api/position?id=${id}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+
+                    const data = { status: 200};
                     return data;
                 } else if (res.status === 202) {
                     return res.json().code.toString();

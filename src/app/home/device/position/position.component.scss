@@ -4,6 +4,7 @@
     width: calc(100vw - 50px);
     height: 100vh;
     padding: 30px;
+    position: relative;
 }
 .card-header {
     border-bottom: 0px;
@@ -107,5 +108,14 @@
 }
 .padding-15{
     padding-bottom: 15px;
+}
+
+.lsq-alert{
+    position: absolute;
+    padding: 0 30px;
+    /* padding-right: 30px; */
+    width: 100%;
+    right: 0;
+    z-index: 1000;
 }
 

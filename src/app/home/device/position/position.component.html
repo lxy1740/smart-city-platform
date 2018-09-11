@@ -39,14 +39,17 @@
         <div class="col-12 col-md-6">
 
           <div class="form-inline padding-15">
+            <span class="text-danger">*</span>
             <label class="control-label">名称:</label>
-            <input type="text" class="form-control" placeholder="">
+            <input type="text" class="form-control" placeholder="" [(ngModel)]="model.name">
           </div>
           <div class="form-inline padding-15">
+              <span class="text-danger">*</span>
               <label class="control-label">编号:</label>
-              <input type="text" class="form-control" placeholder="">
+              <input type="text" class="form-control" placeholder="" [(ngModel)]="model.number">
           </div>
           <div class="form-inline padding-15">
+              <span class="text-danger">*</span>
               <label class="control-label">区域:</label>
               <!-- 选择区域 -->
               <div class="area-selection" *ngIf="visible == true">
@@ -64,7 +67,7 @@
                             <dl *ngFor="let item of cityList">
                               <dt>{{item.name}}</dt>
                               <dd *ngIf="item.children && item.children.length > 0">
-                                <a title="智慧城市" *ngFor="let itemc of item.children" (click)="selecteCity(itemc)">{{itemc.name}}</a>
+                                <a title="智慧城市" *ngFor="let itemc of item.children;let i = index" (click)="selecteCity(itemc, i)">{{itemc.name}}</a>
                               </dd>
                             </dl>
 
@@ -90,14 +93,13 @@
                               <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
                                 <em>不限</em>
                               </li>
-                              <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)" (click)="selecteblock(node)">
+                              <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
                                 <em>{{node.name}}</em>
                               </li>
                             </ul>
 
                             <div class="blocklist-wrap" *ngIf="currentBlockList">
                                 <ul class="blocklist" data-type="block">
-                                  <li data-val="0">不限</li>
                                   <li *ngFor="let block of currentBlockList" (click)="selecteblock(block)">{{block.name}}</li>
                                 </ul>
                           </div>
@@ -109,36 +111,51 @@
           </div>
           <!-- 手动输入坐标定位 -->
           <div class="form-inline padding-15">
+            <span class="text-danger">*</span>
             <label class="control-label">经度:</label>
-            <input type="text" class="form-control border-none" autocomplete [(ngModel)]="longitude" required/>
+            <input type="text" class="form-control border-none" autocomplete [(ngModel)]="model.point.lat" required/>
           </div>
           <div class="form-inline padding-15">
+            <span class="text-danger">*</span>
             <label class="control-label">纬度:</label>
-            <input type="text" class="form-control border-none" autocomplete [(ngModel)]="latitude" required/>
-            <i class="fa fa-map-marker fa-2x mapIron" (click)="addMapWithPoint()"></i>
+            <input type="text" class="form-control border-none" autocomplete [(ngModel)]="model.point.lng" required/>
+            <!-- <i class="fa fa-map-marker fa-2x mapIron" (click)="addMapWithPoint()"></i> -->
           </div>
           <div class="form-inline padding-15">
+              <span class="text-danger">*</span>
               <label class="control-label">所属类:</label>
-              <input type="text" class="form-control" placeholder="">
+              <select name="profile" [(ngModel)]="model.device" (change)="deviceChange()" class="form-control d-inline-block"
+                [ngClass]="">
+                <option *ngFor="let index of deviceList" [ngValue]="index">
+                  {{ index.name }}
+                </option>
+              </select>
           </div>
 
         </div>
         <!-- 右列 -->
         <div class="col-12 col-md-6">
-            <label class="control-label">地图:</label>
             <div #map1  id="position_map" class="map_container"></div>
         </div>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+      <button type="button" class="btn btn-outline-info" (click)="c('Close click')" 
+      [disabled]="!model.name || model.name == '' || !model.number || model.number == '' || !model.point.lat || model.point.lat == '' || !model.point.lng || model.point.lng == '' || !model.device">确认</button>
       <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
     </div>
+</ng-template>
+<!-- 删除位置 -->
+<ng-template #contentDelPosition let-c="close" let-d="dismiss">
+  <app-sq-modal  [input]="modelData" (output)="closePosition($event)"></app-sq-modal>
 </ng-template>
 
 
 
 <div class="bodyofposition">
+    <p *ngFor="let alert of alerts" class="lsq-alert">
+      <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
 
     <div class="card card-primary panel-default">
       <div class="card-header">
@@ -148,27 +165,28 @@
             <a class=" btn-a cur-pointer" (click)="openNewPosition(content2)">新建位置</a>
         </div>
       </div>
+
       <!-- 按区域搜索位置 -->
           <!-- 表单，搜索产品 -->
           <form class="card-block form-inline search-options">
             <!-- 区域选择，按城市，区域选择 -->
-            <select class="form-control">
+            <!-- <select class="form-control">
               <option>区域</option>
               <option>...</option>
-            </select>
+            </select> -->
 
             <!-- 输入框 -->
             <div class="form-group inner-addon left-addon ">
                 <div class="form-group">
-                  <i class="fa fa-search search-icon"></i>
+                  <!-- <i class="fa fa-search search-icon"></i> -->
                   <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
                 </div>
               </div>
 
               <!-- 起止日期选择 -->
-              <input type="date" class="form-control" value="Start date"/>
-              <input type="date" class="form-control" value="End date"/>
-            <button class="btn btn-bg extral-marg">清空选择</button>
+              <!-- <input type="date" class="form-control" value="Start date"/>
+              <input type="date" class="form-control" value="End date"/> -->
+            <!-- <button class="btn btn-bg extral-marg">清空选择</button> -->
             <button class="btn btn-bg extral-marg">搜索</button>
           </form>
 
@@ -198,7 +216,7 @@
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(item, i)">修改</a>
-                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(item, i)">删除</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(contentDelPosition, item, i)">删除</a>
                 </div>
               </td>
             </tr>

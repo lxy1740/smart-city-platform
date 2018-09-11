@@ -256,14 +256,12 @@ export class ClassComponent implements OnInit {
     const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
     const fullName = city.full_name;
-    console.log(city);
-
     const pt = city.center;
     const point = new BMap.Point(pt.lng, pt.lat);
     baiduMap.centerAndZoom(point, zoom);
 
 
-  
+
   }
   // 选择区域
   // 选择城市
