@@ -83,8 +83,8 @@ export class PositionComponent implements OnInit {
     this.getPosition(0, this.page, this.pagesize);
   }
 
-  modelName(modelId) {
-    let modelName = null;
+  changeName(modelId) {
+    let modelName;
     this.deviceTypes.map((item, i) => {
       if (item.id === modelId) {
         modelName = item.name;
@@ -153,7 +153,8 @@ export class PositionComponent implements OnInit {
   openUpdataPosi(content, item, i) {
     const that = this;
     this.model.updataId = item.id;
-    this.model.installZoneId = item.installZoneId;
+    // this.model.installZoneId = item.installZoneId;
+    this.model.installZoneId = 1; // 安装区域
     this.currentArea.id = item.regionId;
     this.model.name = item.name;
     this.model.number = item.number;
@@ -235,7 +236,7 @@ export class PositionComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-        that.getPosition(that.currentType.id,, that.page, that.pagesize);
+        that.getPosition(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
         console.log(error);
@@ -272,13 +273,12 @@ export class PositionComponent implements OnInit {
     this.positionService.getDevice().subscribe({
       next: function (val) {
         that.deviceList = val;
-        that.deviceTypes = val;
-        that.deviceTypes.unshift({ id: 0, name: '不限' }); // 所有项
-        that.currentType = val[0];
         that.model.device = val[0];
+        that.deviceTypes = val.map((item) => Object.assign({}, item));
+        that.deviceTypes.unshift({ id: 0, name: '不限' }); // 所有项
+        that.currentType = that.deviceTypes[0];
       },
       complete: function () {
-        //  that.addBaiduMap(); // 创建地图
 
       },
       error: function (error) {
