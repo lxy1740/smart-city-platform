@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MonitorService } from '../../../service/monitor.service';
+import { DeviceService } from '../../../service/device.service';
 import { Point } from '../../../data/point.type';
 
 declare let BMap;
@@ -47,11 +48,75 @@ export class ClassComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-  constructor(private modalService: NgbModal, private monitorService: MonitorService) { }
+  deviceslist = [];  // 设备列表
+  page: any;
+  pageSize = 10;
+  total: number;
+  deviceTypes = [];  // 设备类型列表
+  currentType: any;
+
+  constructor(private modalService: NgbModal, private monitorService: MonitorService, 
+    private deviceService: DeviceService) {
+
+      this.page = 1;
+
+      const that = this;
+      // 获取设备类型列表
+      this.monitorService.getDevice().subscribe({
+        next: function (val) {
+          that.deviceTypes = val;
+        },
+        complete: function () {},
+        error: function (error) {
+          console.log(error);
+        }
+      });
+
+
+    }
 
   ngOnInit() {
+    this.getCity();
     this.getCityDropdownList();
+    this.getDevicesList(this.page, this.pageSize);
   }
+
+  // 获取设备分页
+  getDevicesList(page, pageSize) {
+    const that = this;
+    this.deviceService.getAllDevice(page, pageSize).subscribe({
+      next: function (val) {
+        that.deviceslist = val.items;
+        that.total = val.total;
+        // console.log(that.deviceslist);
+      },
+      complete: function () {},
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 设备类型选择
+  deviceTypeChange() {
+    // console.log(this.currentType);
+  }
+  // 分页
+  pageChange() {
+    this.getDevicesList(this.page, this.pageSize);
+  }
+
+  modelName(modelId) {
+    let modelName = null;
+    this.deviceTypes.map((item, i) => {
+      if (item.id === modelId) {
+        modelName = item.name;
+      }
+    });
+    // console.log(modelName);
+    return modelName;
+  }
+
   openAddSurveys(content) {  // 批量导入
     const that = this;
     this.modalService.open(content, { windowClass: 'md-modal' }).result.then((result) => {
@@ -67,7 +132,7 @@ export class ClassComponent implements OnInit {
     const that = this;
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.addBaiduMap();
-    this.getCity();
+
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 
@@ -85,7 +150,7 @@ export class ClassComponent implements OnInit {
       // minZoom: 11
     }); // 创建地图实例
     const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
-    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
+    map.centerAndZoom(point, 17); // 设置中心和地图显示级别
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     map.setMapStyle({ style: 'normal' });
   }
@@ -113,7 +178,7 @@ export class ClassComponent implements OnInit {
 
       },
       complete: function () {
-        that.addBaiduMap(); // 创建地图
+        // that.addBaiduMap(); // 创建地图
 
       },
       error: function (error) {
@@ -134,7 +199,7 @@ export class ClassComponent implements OnInit {
         zone = 15;
         break;
       case 4:
-        zone = 19;
+        zone = 17;
         break;
       default:
         break;
@@ -193,18 +258,12 @@ export class ClassComponent implements OnInit {
     const fullName = city.full_name;
     console.log(city);
 
-    let pt;
+    const pt = city.center;
+    const point = new BMap.Point(pt.lng, pt.lat);
+    baiduMap.centerAndZoom(point, zoom);
 
-    // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(fullName, function (point) {
-      if (point) {
-        baiduMap.centerAndZoom(point, zoom);
-        pt = point;
 
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, '');
+  
   }
   // 选择区域
   // 选择城市

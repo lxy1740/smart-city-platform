@@ -40,7 +40,7 @@ export class DeviceService {
     getAllDevice(page: number, pageSize: number): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get(`/api/device/page=${page}&pageSize=${pageSize}`)
+        return this.http.get(`/api/device?page=${page}&pageSize=${pageSize}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();

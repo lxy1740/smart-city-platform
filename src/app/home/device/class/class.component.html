@@ -49,7 +49,7 @@
   <div class="modal-body">
     <div class="row">
       <!-- 左列 -->
-      <div class="col-3">
+      <div class="col-3 div-left">
         <div class="form-group">
           <label class="control-label">设备名称:</label>
           <!-- <div class="form-cont-left"> -->
@@ -148,16 +148,25 @@
           <input type="text" class="form-control extral-margin" placeholder="">
         </div>
 
+        <div #map2 id="survey_map" class="map_container"></div>
+
+        <label class="control-label">已选位置：</label>
+      </div>
+
+      <!-- 右列 -->
+      <div class="col-5">
+        <!-- <label class="control-label">地图:</label> -->
+        
         <table class="table table-bordered table-hover">
           <thead class="table-header">
-            <tr>
+              <tr>
                 <th>位置名称</th>
                 <th>位置编号</th>
                 <th>位置经纬</th>
               </tr>
           </thead>
           <tbody>
-            <tr>
+              <tr>
                 <td>深证南山蛇口0023</td>
                 <td>XXXX</td>
                 <td>X:123 Y:789</td>
@@ -170,15 +179,6 @@
           </tbody>
           
         </table>
-
-        <label class="control-label">已选位置：</label>
-      </div>
-
-      <!-- 右列 -->
-      <div class="col-5">
-        <label class="control-label">地图:</label>
-        <div #map2 id="survey_map" class="map_container"></div>
-        <!-- map -->
       </div>
     </div>
   </div>
@@ -267,16 +267,19 @@
 
         </div>
 
-        <select class="form-control">
-          <option>类</option>
-          <option>...</option>
+        <span>产品类型：</span>
+        <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()"
+            class="form-control">
+            <option *ngFor="let index of deviceTypes" [ngValue]="index">
+                {{ index.name }}
+            </option>
         </select>
-        <select class="form-control">
+        <!-- <select class="form-control">
           <option>产品</option>
           <option>...</option>
-        </select>
+        </select> -->
         <!-- 日期，功能不明 -->
-        <input type="date" class="form-control" value="2018-06-01" />
+        <!-- <input type="date" class="form-control" value="2018-06-01" /> -->
         <!-- 输入框，功能不明 -->
         <div class="form-group inner-addon left-addon ">
           <div class="form-group">
@@ -285,7 +288,7 @@
           </div>
         </div>
         <button class="btn btn-bg extral-marg">搜索</button>
-        <button class="btn btn-bg extral-marg">清空选择</button>
+        <!-- <button class="btn btn-bg extral-marg">清空选择</button> -->
       </form>
     </div>
 
@@ -297,37 +300,41 @@
               <th>序号</th>
               <th>设备名称</th>
               <th>所属产品</th>
-              <th>所属类</th>
               <th>所属区域</th>
               <th>绑定位置</th>
-              <th>制造商</th>
-              <th>创建时间</th>
               <th style="text-align: center">操作</th>
             </tr>
         </thead>
         <tbody>
-          <tr>
-              <td>1</td>
-              <td>light01</td>
-              <td>太阳能灯</td>
-              <td>灯</td>
-              <td>广东省深圳市南山区蛇口街道</td>
-              <td>X:975, Y83</td>
-              <td>佛山</td>
-              <td>2017/07/08 17:51:31</td>
+          <tr *ngFor="let device of deviceslist; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{device.name}}</td>
+              <td>{{modelName(device.modelId)}}</td>
+              <td>{{device.description}}</td>
+              <td>{{device.positionId}}</td>
               <td style="text-align: center">
-                <div>
+                <!-- <div>
                   <a class="manage-class"><i class="fa fa-eye"></i></a>
                   <a class="manage-class"><i class="fa fa-wrench"></i></a>
                   <a class="manage-class"><i class="fa fa-times-circle"></i></a>
+                </div> -->
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(item, i)">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(item, i)">删除</a>
                 </div>
               </td>
           </tr>
         </tbody>
         
+        <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
+        <div *ngIf="deviceslist.length > 1">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" 
+            [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+        </div>
       </table>
+
       <!-- 分页 开始-->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-12 col-md-12 dataTables_pager">
           <div class="bs-example" data-example-id="disabled-active-pagination">
             <nav aria-label="...">
@@ -363,7 +370,7 @@
             </nav>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- 分页 结束 -->
     </div>
   </div>

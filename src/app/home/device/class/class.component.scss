@@ -1,7 +1,7 @@
 @import '../../../../assets/css/variable.scss';
 @import '../../../../assets/css/xylg.scss';
 .map_container{
-    height: 100%;
+    height: 320px;
 }
 .bodyofclass {
     width: calc(100vw - 50px);
@@ -29,7 +29,6 @@
     // margin-bottom: 5px;
     .extral-marg {
         margin-right: 5px;
-        margin-top: 5px;
     }
     .search-options {
         //padding-left: 20px;
@@ -39,7 +38,6 @@
             width: auto;
             height: calc(1.8rem + 2px);
             margin-right: 5px;
-            margin-top: 5px;
         }
         .search-icon {
             font-size: 20px;
@@ -49,9 +47,6 @@
     .add-survey {
         margin: 0px;
         text-align: right;
-    }
-    .area-selection {
-        margin-top: 5px;
     }
 }
 .btn-survey {
@@ -117,4 +112,8 @@
     .area-selection {
         margin: 0 0 5px 5px;
     }
+}
+
+.div-left {
+    border-right: thin solid #9BD9DD;
 }
