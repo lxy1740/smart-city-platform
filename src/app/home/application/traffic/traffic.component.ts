@@ -122,7 +122,7 @@ export class TrafficComponent implements OnInit {
   mapClickOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
-      that.Camera = null;
+      that.currentCamera = null;
     });
   }
   // 添加标注
