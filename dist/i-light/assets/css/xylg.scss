@@ -37,7 +37,8 @@ body {
     color: $color-btn-text;
 }
 
-a:hover, a:active {
+// 侧边栏
+.nav-item a:hover, .nav-item a:active {
     color: #d7f8ff;   //ymZhao
     background-color: $color-sidebar-active !important; 
 }

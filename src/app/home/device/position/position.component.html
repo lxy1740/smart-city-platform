@@ -314,9 +314,10 @@
           <thead class="table-header">
             <tr>
               <th>序号</th>
-              <th>位置名称</th>
-              <th>位置编号</th>
+              <th>名称</th>
+              <th>编号</th>
               <th>所属类</th>
+              <th>安装位置</th>
               <th>区域</th>
               <th>坐标</th>
               <th style="text-align: center">操作</th>
@@ -329,6 +330,7 @@
               <td>{{item.name}}</td>
               <td>{{item.number}}</td>
               <td>{{changeName(item.type)}}</td>
+              <td>{{item.installZoneId}}</td>
               <td>{{item.regionId}}</td>
               <td>{{item.point.lng}}/{{item.point.lat}}</td>
               <td style="text-align: center">
