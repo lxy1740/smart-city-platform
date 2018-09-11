@@ -481,3 +481,39 @@ address, cite, code, em, th, i, strong {
     left: 136px;
     width: 140px;
 }
+
+// 搜索框
+.xy-pad {
+    padding-bottom: 15px;
+    .form-group {
+        padding-right:15px;
+        
+    }
+}
+
+// 搜索框
+ #sole-input {
+    width: 329px;
+    box-sizing: border-box;
+
+    line-height: 20px;
+    font-size: 16px;
+    height: 38px;
+    color: #333;
+    position: relative;
+    border-radius: 2px 0 0 2px;
+}
+
+.search-form{
+    position: relative;
+    .form-btn{
+        position: absolute;
+        right: 0;
+    }
+
+    .form-btn-1{
+        position: absolute;
+        right: 96px;
+    }
+}
+

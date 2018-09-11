@@ -60,25 +60,29 @@ export class ClassComponent implements OnInit {
 
       this.page = 1;
 
-      const that = this;
-      // 获取设备类型列表
-      this.monitorService.getDevice().subscribe({
-        next: function (val) {
-          that.deviceTypes = val;
-        },
-        complete: function () {},
-        error: function (error) {
-          console.log(error);
-        }
-      });
-
-
     }
 
   ngOnInit() {
     this.getCity();
+    this.getDevice();
     this.getCityDropdownList();
     this.getDevicesList(this.page, this.pageSize);
+  }
+
+  getDevice() {
+    const that = this;
+    // 获取设备类型列表
+    this.monitorService.getDevice().subscribe({
+      next: function (val) {
+        that.deviceTypes = val;
+        that.deviceTypes.unshift({id: 0, name: '不限'}); // 所有项
+        that.currentType = val[0];
+      },
+      complete: function () { },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   // 获取设备分页

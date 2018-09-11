@@ -160,38 +160,31 @@
     <div class="card card-primary panel-default">
       <div class="card-header">
         <span>位置管理</span>
-        <div class=" add-position">
+        <!-- <div class=" add-position">
             <a class=" btn-a cur-pointer" (click)="openAddPositions(content)">批量导入位置</a>
             <a class=" btn-a cur-pointer" (click)="openNewPosition(content2)">新建位置</a>
-        </div>
+        </div> -->
       </div>
 
       <!-- 按区域搜索位置 -->
           <!-- 表单，搜索产品 -->
-          <form class="card-block form-inline search-options">
-            <!-- 区域选择，按城市，区域选择 -->
-            <!-- <select class="form-control">
-              <option>区域</option>
-              <option>...</option>
-            </select> -->
+            <!-- 搜索 -->
 
-            <!-- 输入框 -->
-            <div class="form-group inner-addon left-addon ">
-                <div class="form-group">
-                  <!-- <i class="fa fa-search search-icon"></i> -->
-                  <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
-                </div>
-              </div>
-
-              <!-- 起止日期选择 -->
-              <!-- <input type="date" class="form-control" value="Start date"/>
-              <input type="date" class="form-control" value="End date"/> -->
-            <!-- <button class="btn btn-bg extral-marg">清空选择</button> -->
-            <button class="btn btn-bg extral-marg">搜索</button>
-          </form>
+          
 
       <!-- 显示已有位置 -->
       <div class="card-block">
+        <form class="form-inline xy-pad search-form">
+        
+          <div class="form-group">
+            <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
+              placeholder="Search" value="">
+          </div>
+        
+          <button type="submit" class="btn btn-bg">搜索</button>
+          <button type="submit" class="btn btn-bg form-btn-1" (click)="openNewPosition(content2)">批量导入位置</button>
+          <button type="submit" class="btn btn-bg form-btn" (click)="openNewPosition(content2)">新建位置</button>
+        </form>
         <table class="table table-hover">
           <thead class="table-header">
             <tr>

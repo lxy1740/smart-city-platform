@@ -216,7 +216,6 @@
             <span class="cl-blue cur-pointer" (mouseover)="showCiyt1()">
               <span class="filter" *ngIf="node1">{{node1.name}}</span>
               <span class="filter" *ngIf="!currentCity1">选择城市</span>
-              <!-- <i class="fa fa-bell-o nav-icon " aria-hidden="true"></i> -->
             </span>
             <div id="city-panel1" class="city-panel dropdown_panel" *ngIf="cityshow1">
                 <div class="dropdown_panel_inner">
@@ -283,8 +282,12 @@
         <!-- 输入框，功能不明 -->
         <div class="form-group inner-addon left-addon ">
           <div class="form-group">
-            <i class="fa fa-search search-icon"></i>
-            <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}" />
+            <!-- <i class="fa fa-search search-icon"></i> -->
+            <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}" /> -->
+
+            <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
+              placeholder="Search" value="">
+
           </div>
         </div>
         <button class="btn btn-bg extral-marg">搜索</button>
