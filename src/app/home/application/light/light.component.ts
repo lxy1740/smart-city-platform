@@ -804,25 +804,24 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
 
-  // 多控路灯- 集体临时控制-接口
+  // 多控路灯- 临时控制-接口
   setLightsContr1() {
     const that = this;
+    const ids = [];
     const stopTime = this.time1;
     const level = this.lightLevel1;
-
     this.selectedLightList.map((item, i) => {
-      const id = item.id;
-      that.lightService.setLightsContr(id, level, stopTime).subscribe({
-        next: function (val) {
-          that.LightsContrMess1 = true;
+      ids[i] = item.id;
+    });
+    this.lightService.setLightsLevel(ids, level, stopTime).subscribe({
+      next: function (val) {
+        that.LightsContrMess1 = true;
         console.log('ok!');
-        },
-        complete: function () {},
-        error: function (error) {
-          console.log(error);
-        }
-  
-      });
+      },
+      complete: function () {},
+      error: function (error) {
+        console.log(error);
+      }
     });
   }
 
@@ -848,23 +847,22 @@ export class LightComponent implements OnInit, OnDestroy  {
  setStrategyRules() {
    const that = this;
    const strategyList1 = that.strategyList1;
+   const ids = [];
    if (strategyList1) {
-    this.selectedLightList.map((item, i) => {
-        const id = item.id;
-        that.lightService.setStrategyRule(id, strategyList1.id).subscribe({
-          next: function (val) {
-            that.StrategyRuleMess1 = true;
-            console.log('ok!');
-            console.log(item);
-          },
-          complete: function () {},
-          error: function (error) {
-            console.log(error);
-          }
-    
-        });
-        
-    });
+      const ruleId = this.strategyList1.id;
+      this.selectedLightList.map((item, i) => {
+        ids[i] = item.id;
+      });
+      this.lightService.setLightsRule(ids, ruleId).subscribe({
+        next: function (val) {
+          that.StrategyRuleMess1 = true;
+          console.log('ok!');
+        },
+        complete: function () {},
+        error: function (error) {
+          console.log(error);
+        }
+      });
   } else {
           alert("请选择策略!");
         }

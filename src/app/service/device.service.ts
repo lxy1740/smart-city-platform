@@ -36,7 +36,20 @@ export class DeviceService {
             }));
     }
 
+    // 获取所有设备-分页
+    getAllDevice(page: number, pageSize: number): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
 
+        return this.http.get(`/api/device/page=${page}&pageSize=${pageSize}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
 
 
 
