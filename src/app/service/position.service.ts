@@ -36,6 +36,21 @@ export class PositionService {
             }));
     }
 
+    // 设备列表
+    getDevice(): Observable<any> {
+        return this.http.get('/api/device/type/all')
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+
+    }
+
     // 获取位置分页
 
     getPosition(type: number, page: number, pagesize: number): Observable<any> {

@@ -23,7 +23,7 @@ export class PositionComponent implements OnInit {
   map: any; // 地图对象
 
   cityList: any; // 城市列表
-  deviceList: any; // 城市列表
+  deviceList = []; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
   currentArea: any; // 当前区域
@@ -31,7 +31,7 @@ export class PositionComponent implements OnInit {
   currentBlockList: any; // // 当前城市街道列表
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
-  deviceshow = false; // 默认设备列表不显示
+
 
   visible = true; // 控制可视区域
 
@@ -86,6 +86,49 @@ export class PositionComponent implements OnInit {
   pageChange() {
     this.getPosition(this.deviceType, this.page, this.pagesize);
   }
+
+  // 获取设备列表
+  getDevice() {
+    const that = this;
+
+    this.monitorService.getZoneDefault().subscribe({
+      next: function (val) {
+        that.deviceList = val;
+
+
+      },
+      complete: function () {
+        //  that.addBaiduMap(); // 创建地图
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 获取城市列表
+  getCity() {
+    const that = this;
+
+    this.monitorService.getZoneDefault().subscribe({
+      next: function (val) {
+        that.cityList = val.regions;
+        that.currentCity = val.zone;
+        that.zoom = that.switchZone(val.zone.level);
+        that.node = that.getNode(val.regions, val.zone.region_id);
+        that.currentChildren = that.node.children;
+
+      },
+      complete: function () {
+        //  that.addBaiduMap(); // 创建地图
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
   // 新建位置弹框
   openNewPosition(content) {
     const that = this;
@@ -131,6 +174,7 @@ export class PositionComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+  // 添加地图实例
   addBaiduMap() {
     const map = this.map = new BMap.Map('position_map', {
       enableMapClick: true,
@@ -153,27 +197,7 @@ export class PositionComponent implements OnInit {
     map.setMapStyle({ style: 'normal' });
   }
 
-  getCity() {
-    const that = this;
 
-    this.monitorService.getZoneDefault().subscribe({
-      next: function (val) {
-        that.cityList = val.regions;
-        that.currentCity = val.zone;
-        that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
-        that.currentChildren = that.node.children;
-
-      },
-      complete: function () {
-        //  that.addBaiduMap(); // 创建地图
-
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
-  }
   switchZone(level) {
     let zone = 12;
     switch (level) {
