@@ -112,20 +112,16 @@ export class LightComponent implements OnInit, OnDestroy  {
     let str_posi = '';
     const queryString = this.queryString;
     const that = this;
-    let index = 0;  // 指向下一个要删除的位置
 
-    this.lightListRes = [].concat(this.lightList); // 每次查询，重新拷贝lightList（地图上所有灯）
+    this.lightListRes = [];
     this.lightList.filter((item, i) => {
       str_name = item.name;
       str_descr = item.description;
       str_posi = item.positionNumber;
       if (str_name.includes(queryString) || str_descr.includes(queryString) || str_posi.includes(queryString)) {
-        index++;
-      } else {
-        that.lightListRes.splice(index, 1); // 删除后，index不增
+        this.lightListRes.push(item);
       }
     });
-    // console.log(this.lightListRes);
   }
 
   // 监控-点击地图事件
@@ -154,7 +150,6 @@ export class LightComponent implements OnInit, OnDestroy  {
       // maxZoom : 11
     }); // 创建地图实例
 
-
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
 
     const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
@@ -162,12 +157,9 @@ export class LightComponent implements OnInit, OnDestroy  {
 
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
 
-
-
     map.setMapStyle({ style: 'dark' });
     // map.setMapStyle({ style: 'midnight' });
     // map.setMapStyle({ style: 'grayscale' });
-
 
     // 添加控件缩放
 
@@ -182,11 +174,6 @@ export class LightComponent implements OnInit, OnDestroy  {
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
     }, 5000);
-
-
-
-
-
 
     this.mapClickOff(map); // 地图点击信息框隐藏
 
@@ -205,8 +192,6 @@ export class LightComponent implements OnInit, OnDestroy  {
     this.zoom = baiduMap.getZoom(); // 地图级别
 
   }
-
-
 
   getLights() {
     const that = this;
@@ -231,6 +216,9 @@ export class LightComponent implements OnInit, OnDestroy  {
         // that.addMarker(value); // 添加
 
         that.lightList = val; // 变为新值
+        this.lightListRes = [].concat(this.lightList);
+        that.lightListRes = that.comparison1(that.lightList, that.lightListRes);
+        console.log(that.lightListRes);
 
         // that.selectedLightList = [];
         that.lightList.map((item, i) => {
@@ -267,10 +255,10 @@ export class LightComponent implements OnInit, OnDestroy  {
       }
     }
     return {
-      a_arr: a_arr,
-      b_arr: b_arr,
-      a_surplus: a_surplus,
-      b_surplus: b_surplus,
+      a_arr: a_arr, // 共同
+      b_arr: b_arr, // 共同
+      a_surplus: a_surplus, // a - 删除
+      b_surplus: b_surplus, // b - 新增
     };
   }
 
@@ -518,9 +506,16 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   }
 
+  // 搜索Enter事件
+  onKeydown(event: any) {
+    if (event.keyCode === 13) {
+      this.execQuery();
+    }
+  }
+
   // 打开多灯控制
   devicesControl() {
-    this.queryString = '检索名称编号';
+    this.queryString = '';
     this.StrategyRuleMess1 = false;
     this.LightsContrMess1 = false;
     this.showDevicesControl = true;
@@ -828,7 +823,7 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
 
-  // 多控路灯- 临时控制-接口
+  // 多控路灯- 临时控制(亮度)-接口
   setLightsContr1() {
     const that = this;
     const ids = [];
@@ -890,6 +885,23 @@ export class LightComponent implements OnInit, OnDestroy  {
     } else {
       alert("请选择策略!");
     }
+
+  }
+
+  // 交并补
+  comparison1(a, b) {
+    const a_arr: any[] = [];
+    let i = 0;
+    for (let j = 0; j < b.length; j++) {
+      while (i < a.length && a[i].id < b[j].id) {
+        i++;
+      }
+      if (a[i].id === b[j].id) {
+        a_arr.push(a[i]);
+        i++;
+      }
+    }
+    return a_arr;
   }
 
   // 获取策略表

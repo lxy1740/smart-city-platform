@@ -39,8 +39,15 @@
     top: 0px;
     padding: 0px 15px;
    
-    .extral-margin {
-        margin-left: 5px;
+    .queryDiv {
+        margin-bottom: 5px;
+        position: relative;
+
+        .extral-margin {
+            margin-left: 5px;
+            position: absolute;
+            right: 0px;
+        }
     }
     
     .form-control {

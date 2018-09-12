@@ -91,7 +91,7 @@
             <span class="device-close float-right" (click)="closeDevicesControl()"><i class="fa fa-times" aria-hidden="true"></i></span>
         </div>
         <div class="modal-body">
-            <div class="form-inline">
+            <div class="form-inline queryDiv">
                     <!-- <div class="form-inline">
                         <label class="control-label">设备类型：</label>
                         <select class="form-control">
@@ -106,15 +106,9 @@
                     </div> -->
                     <div class="form-group">
                         <input id="sole-input" class="form-control searchbox-content-common" [(ngModel)]="queryString" name="queryString" 
-                        (change)="searchStringMe()"  maxlength="20" placeholder="Search" >
+                        (change)="searchStringMe()"  maxlength="20" placeholder="检索编号、名称" (keydown)="onKeydown($event)" >
                     </div>
-                
                     <button  class="btn btn-bg" (click)="execQuery()">搜索</button>
-                    <!-- <div class="form-inline">
-                        <input class="form-control" type="text" [{ngModel}]="searchString" name="searchString" 
-                        (change)="searchStringMe()"  maxlength="128">
-                        <button class="btn btn-a">搜索</button>
-                    </div> -->
                     <button class="btn btn-outline-info extral-margin" (click)="devicesStrategyCtrl()">批量操作</button>
             </div>
             <!-- <form class="lights-form"> -->
@@ -139,7 +133,7 @@
                                  [checked]="lightList_check[i].check" [(ngModel)]="lightList_check[i].check"></td>
                             <td>{{light.name}}</td>
                             <td>{{light.positionNumber}}</td>
-                            <td *ngIf="light.rule && light.rule.name">{{light.rule.name}}</td>
+                            <td > <span *ngIf="light.rule && light.rule.name">{{light.rule.name}}</span></td>
                             <!-- <td>{{light.volt}}</td>
                             <td>{{light.current}}</td> -->
                             <td>{{light.description}}</td>
