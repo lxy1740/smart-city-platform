@@ -57,7 +57,7 @@
                   <div class="d-inline-block area-selection-block" (mouseleave)="citylistMouseleave()">
 
                     <span class="cl-blue cur-pointer" (mouseover)="showCiyt()">
-                      <span class="filter" *ngIf="node">{{node.name}}</span>
+                      <span class="filter" *ngIf="currentCity">{{currentCity.name}}</span>
                       <span class="filter" *ngIf="!currentCity">选择城市</span>
                       <!-- <i class="fa fa-bell-o nav-icon " aria-hidden="true"></i> -->
                     </span>
@@ -178,7 +178,7 @@
           <div class="d-inline-block area-selection-block" (mouseleave)="citylistMouseleave()">
 
             <span class="cl-blue cur-pointer" (mouseover)="showCiyt()">
-              <span class="filter" *ngIf="node">{{node.name}}</span>
+              <span class="filter" *ngIf="currentCity">{{currentCity.name}}</span>
               <span class="filter" *ngIf="!currentCity">选择城市</span>
               <!-- <i class="fa fa-bell-o nav-icon " aria-hidden="true"></i> -->
             </span>
@@ -330,8 +330,8 @@
               <td>{{item.name}}</td>
               <td>{{item.number}}</td>
               <td>{{changeName(item.type)}}</td>
-              <td>{{item.installZoneId}}</td>
-              <td>{{item.regionId}}</td>
+              <td>{{item.installZoneName}}</td>
+              <td>{{item.regionName}}</td>
               <td>{{item.point.lng}}/{{item.point.lat}}</td>
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">

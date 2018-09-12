@@ -39,7 +39,7 @@ export class PositionComponent implements OnInit {
   zoom: any; // 地图级数
 
   parentNode = null; // 用于递归查询JSON树 父子节点
-  node = null; // 用于递归查询JSON树 父子节点
+  node = null; // 用于递归查询JSON树 父子节点---当前城市
 
   positionListItems = []; // 位置列表
   positionList: any; // 位置列表
@@ -63,9 +63,6 @@ export class PositionComponent implements OnInit {
   constructor(private modalService: NgbModal, private positionService: PositionService) {
     this.page = 1;
     this.model.point = {lng: '', lat: ''};
-    this.model.installZoneId = 1; // 安装区域
-
-
   }
 
   public closeAlert(alert: IAlert) {
@@ -104,7 +101,10 @@ export class PositionComponent implements OnInit {
     this.model.name = '';
     this.model.number = '';
     this.model.point = { lng: '', lat: '' };
-    this.model.installZoneId = 1; // 安装区域
+
+    that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
+    that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
+    that.currentArea = that.currentChildren[0].children[0]; // 当前区域
 
     const modal = this.modalService.open(content, { size: 'lg' });
     this.addBaiduMap();
@@ -141,7 +141,7 @@ export class PositionComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-
+        that.getPosition(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
         console.log(error);
@@ -154,13 +154,36 @@ export class PositionComponent implements OnInit {
     const that = this;
     this.model.updataId = item.id;
     // this.model.installZoneId = item.installZoneId;
-    this.model.installZoneId = 1; // 安装区域
-    this.currentArea.id = item.regionId;
+    this.model.installZoneId = item.installZoneId; // 安装区域
     this.model.name = item.name;
     this.model.number = item.number;
     this.model.point = item.point;
-    this.model.device.id = item.type;
-    that.model.device = this.deviceList[0];
+
+    const id = item.type; // 类型
+    for (let index = 0; index < this.deviceList.length; index++) {
+      const element = this.deviceList[index];
+      if (id === element.id) {
+        that.model.device = this.deviceList[index];
+      }
+    }
+
+    let region_id; // 当前城市id
+    const crrentProvince = this.cityList[0]; // 当前省会
+    for (let index = 0; index < crrentProvince.children.length; index++) {
+      const element = crrentProvince.children[index];
+      if (item.installZoneId === element.installZoneId) {
+        region_id = element.id;
+      }
+    }
+    that.node = null; // 用于递归查询JSON树 父子节点
+    that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
+    that.currentChildren = that.node.children; // 当前城市下的区域列表
+    that.model.installZoneId = that.node.installZoneId; // 安装区域
+
+
+    const area_id = item.regionId; // 当前区域id
+    that.node = null; // 用于递归查询JSON树 父子节点
+    that.currentArea = that.getNode(that.cityList, area_id); // 当前区域i
 
     const modal = this.modalService.open(content, { size: 'lg' });
     this.addBaiduMap();
@@ -175,7 +198,7 @@ export class PositionComponent implements OnInit {
   }
 
 
-  // 新增位置信息
+  // 修改位置信息
   updataPosition() {
     const that = this;
     const id = this.model.updataId;
@@ -196,7 +219,7 @@ export class PositionComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-
+        that.getPosition(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
         console.log(error);
@@ -299,11 +322,11 @@ export class PositionComponent implements OnInit {
     this.positionService.getZoneDefault().subscribe({
       next: function (val) {
         that.cityList = val.regions;
-        that.currentCity = val.zone;
         that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
-        that.currentChildren = that.node.children;
-        that.currentArea = that.currentChildren[0].children[0];
+        that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
+        that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
+        that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
+        that.currentArea = that.currentChildren[0].children[0]; // 当前区域
 
       },
       complete: function () {
@@ -444,15 +467,17 @@ export class PositionComponent implements OnInit {
   // 选择区域
   // 选择城市
   selecteCity(city, i) {
+    this.model.installZoneId = city.installZoneId; // 安装区域
+    this.model.point = { lng: '', lat: '' };
     this.currentCity = city;
-    this.model.installZoneId = i + 1; // 安装区域
-    this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
     this.currentChildren = city.children;
+    this.currentArea = null;
   }
 
   selecteblock(block) {
     this.currentArea = block;
+    this.model.point = { lng: '', lat: '' };
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
   }
 
