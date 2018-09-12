@@ -60,9 +60,9 @@ export class LightComponent implements OnInit, OnDestroy  {
   light_list = LIGHTLIST.val.light_list; // 数据模拟
 
   timer: any; // 定时器
-
   lightList = []; // 当前数据
-  lightList_check = []; // 当前数据
+  lightListRes = []; // 查询结果
+  lightList1 = [];
 
   markers: any; // 标注点
   strategyList: any; // 控制路灯当前策略
@@ -82,20 +82,50 @@ export class LightComponent implements OnInit, OnDestroy  {
   prompt1 = false; // 提示成功
   StrategyRuleMess1 = false; // 提示成功
   LightsContrMess1 = false; // 提示成功
-  selectedLightList = []; // 多设备控制窗口中选中的设备
-
+  selectedLightList = []; // 选中的设备
+  
+  lightList_check = []; // 当前数据
   allCheck = false;
+
+  queryString: any;
 
 
   constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router,
     config: NgbTimepickerConfig ) {
     config.spinners = false; // 时间控制
+    
   }
 
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
     this.getStrategy(); // 获取策略表
+  }
+
+  searchStringMe() {
+    console.log(this.queryString);
+  }
+
+  execQuery() {
+    let str_name = '';
+    let str_descr = '';
+    let str_posi = '';
+    const queryString = this.queryString;
+    const that = this;
+    let index = 0;  // 指向下一个要删除的位置
+
+    this.lightListRes = [].concat(this.lightList); // 每次查询，重新拷贝lightList（地图上所有灯）
+    this.lightList.filter((item, i) => {
+      str_name = item.name;
+      str_descr = item.description;
+      str_posi = item.positionNumber;
+      if (str_name.includes(queryString) || str_descr.includes(queryString) || str_posi.includes(queryString)) {
+        index++;
+      } else {
+        that.lightListRes.splice(index, 1); // 删除后，index不增
+      }
+    });
+    // console.log(this.lightListRes);
   }
 
   // 监控-点击地图事件
@@ -201,6 +231,7 @@ export class LightComponent implements OnInit, OnDestroy  {
         // that.addMarker(value); // 添加
 
         that.lightList = val; // 变为新值
+
         // that.selectedLightList = [];
         that.lightList.map((item, i) => {
           that.lightList_check.push({check: false});
@@ -433,7 +464,7 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   }
 
-  // 选择需要统一分配策略的路灯
+  // 多选框 - 单选：选择需要统一分配策略的路灯
   addLightstoCtrl(light, ind) {
     this.selectedLightList = [];
     this.lightList_check.map((item, i) => {
@@ -444,23 +475,9 @@ export class LightComponent implements OnInit, OnDestroy  {
         }
       }
     });
-    // if (this.lightList_check[i].check === true) {
-    //   if (!this.selectedLightList[i]) {
-    //     this.selectedLightList.push(light);
-
-    //   } else {
-    //     this.selectedLightList.splice(i, 0, light);
-    //   }
-
-    // } else {
-    //   this.selectedLightList.splice(i, 1);
-    //   console.log(this.selectedLightList);
-    //   console.log(45454);
-    // }
-
-    console.log(this.selectedLightList);
+    // console.log(this.selectedLightList);
   }
-
+  // 多选框 - 全选
   allCheckMe() {
     if (this.allCheck) {
       this.selectedLightList = [];
@@ -475,18 +492,15 @@ export class LightComponent implements OnInit, OnDestroy  {
 
       });
     }
-
-    console.log(this.selectedLightList);
+    // console.log(this.selectedLightList);
   }
 
-  addArr(arr) {
+  addArr(arr) {}
 
-  }
   // 点击关闭操作详情
   closeDetail() {
     this.deviceChild = null;
     this.contrL = false;
-
   }
 
   // 解析地址- 设置中心和地图显示级别
@@ -503,12 +517,17 @@ export class LightComponent implements OnInit, OnDestroy  {
 
 
   }
+
   // 打开多灯控制
   devicesControl() {
+    this.queryString = '检索名称编号';
+    this.StrategyRuleMess1 = false;
+    this.LightsContrMess1 = false;
     this.showDevicesControl = true;
-    // this.deviceChild = null;
-    // this.device = null;
+    this.lightListRes = [].concat(this.lightList);
+    console.log(this.lightListRes);
   }
+
   // 关闭多灯控制
   closeDevicesControl() {
     this.showDevicesControl = false;
@@ -522,7 +541,12 @@ export class LightComponent implements OnInit, OnDestroy  {
   }
   // 多灯策略分配
   devicesStrategyCtrl() {
-    this.showDevicesStrategyCtrl = true;
+    if (this.selectedLightList.length > 0) {
+      this.showDevicesStrategyCtrl = true;
+    } else {
+      alert('请选择设备');
+    }
+
   }
   // 关闭多灯策略分配框体
   closeDevicesStrategyCtrl() {
@@ -844,11 +868,11 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
   // 多控路灯-集体下发策略
- setStrategyRules() {
-   const that = this;
-   const strategyList1 = that.strategyList1;
-   const ids = [];
-   if (strategyList1) {
+  setStrategyRules() {
+    const that = this;
+    const strategyList1 = that.strategyList1;
+    const ids = [];
+    if (strategyList1) {
       const ruleId = this.strategyList1.id;
       this.selectedLightList.map((item, i) => {
         ids[i] = item.id;
@@ -863,11 +887,10 @@ export class LightComponent implements OnInit, OnDestroy  {
           console.log(error);
         }
       });
-  } else {
-          alert("请选择策略!");
-        }
-
- }
+    } else {
+      alert("请选择策略!");
+    }
+  }
 
   // 获取策略表
   getStrategy() {
