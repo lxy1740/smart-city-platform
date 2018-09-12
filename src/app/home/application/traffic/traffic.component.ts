@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
 import { CameraService } from '../../../service/camera.service';
-/* import { TRAFFICLIST} from '../../../date/traffic-list'; */
+
 // baidu map
 declare let Aliplayer;
 declare let BMap;
@@ -45,8 +45,6 @@ export class TrafficComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-/*
-  traffic_list = TRAFFICLIST.val.traffic_list; */
 
   constructor(private monitorService: MonitorService, public router: Router,
     private cameraService: CameraService) { }
