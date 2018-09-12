@@ -51,28 +51,30 @@
       <!-- 左列 -->
       <div class="col-3 div-left">
         <div class="form-group">
-          <label class="control-label">设备名称:</label>
-          <!-- <div class="form-cont-left"> -->
-          <input type="text" class="form-control" id="add-product-name" placeholder="">
-          <!-- </div> -->
+            <label class="control-label">设备编号:</label>
+            <!-- <div class="form-cont-left"> -->
+            <input type="text" [(ngModel)]="newName" class="form-control" id="add-product-name" placeholder="">
+            <!-- </div> -->
         </div>
         <div class="form-group">
-          <label class="control-label">所属产品:</label>
-          <select class="form-control">
-            <option id="" placeholder="">...</option>
-          </select>
+            <label class="control-label">所属产品:</label>
+            <select name="profile" [(ngModel)]="newType" (change)="selectTypeChange()" class="form-control">
+                <option *ngFor="let index of deviceTypes" [ngValue]="index">
+                  {{ index.name }}
+                </option>
+            </select>
+        </div>
+        <!-- <div class="form-group">
+            <label class="control-label">制造商:</label>
+            <input type="text" class="form-control" placeholder="">
         </div>
         <div class="form-group">
-          <label class="control-label">制造商:</label>
-          <input type="text" class="form-control" placeholder="">
-        </div>
+            <label class="control-label">制造商联系方式:</label>
+            <input type="text" class="form-control" placeholder="">
+        </div> -->
         <div class="form-group">
-          <label class="control-label">制造商联系方式:</label>
-          <input type="text" class="form-control" placeholder="">
-        </div>
-        <div class="form-group">
-          <label class="control-label">Device name:</label>
-          <input type="text" class="form-control" placeholder="">
+            <label class="control-label">设备名称：</label>
+            <input type="text" [(ngModel)]="newDescr" class="form-control" placeholder="">
         </div>
       </div>
       <!-- 中列 -->
@@ -184,7 +186,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="addNewDevice()">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
   </div>
 </ng-template>
@@ -209,8 +211,8 @@
             </select> -->
 
         <!-- 选择区域 -->
-        <div class="area-selection" *ngIf="visible1 == true">
-          <!-- 城市列表 -->
+        <!-- <div class="area-selection" *ngIf="visible1 == true">
+          城市列表
           <div class="d-inline-block area-selection-block" (mouseleave)="citylistMouseleave1()">
 
             <span class="cl-blue cur-pointer" (mouseover)="showCiyt1()">
@@ -231,7 +233,7 @@
             </div>
           </div>
 
-          <!-- 区域列表 -->
+          区域列表
           <div class="d-inline-block area-selection-block" (mouseleave)="arealistMouseleave1()">
 
             <span class="cl-blue cur-pointer" (mouseover)="showArea1()">
@@ -264,7 +266,7 @@
           </div>
 
 
-        </div>
+        </div> -->
 
         <span>产品类型：</span>
         <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()"
@@ -282,16 +284,11 @@
         <!-- 输入框，功能不明 -->
         <div class="form-group inner-addon left-addon ">
           <div class="form-group">
-            <!-- <i class="fa fa-search search-icon"></i> -->
-            <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}" /> -->
-
-            <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
-              placeholder="Search" value="">
-
+            <input id="sole-input" class="form-control searchbox-content-common" type="text" [(ngModel)]="queryString" name="queryString" 
+              autocomplete="off" maxlength="20" placeholder="检索编号、名称" value="">
           </div>
         </div>
         <button class="btn btn-bg extral-marg">搜索</button>
-        <!-- <button class="btn btn-bg extral-marg">清空选择</button> -->
       </form>
     </div>
 
@@ -301,15 +298,15 @@
         <thead class="table-header">
           <tr>
               <th>序号</th>
-              <th>设备名称</th>
+              <th>设备编号</th>
               <th>所属产品</th>
-              <th>所属区域</th>
+              <th>设备名称</th>
               <th>绑定位置</th>
               <th style="text-align: center">操作</th>
             </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let device of deviceslist; let i = index">
+          <tr *ngFor="let device of deviceslist; let i = index" class="tr-height">
               <td>{{i + 1}}</td>
               <td>{{device.name}}</td>
               <td>{{modelName(device.modelId)}}</td>
@@ -336,45 +333,6 @@
         </div>
       </table>
 
-      <!-- 分页 开始-->
-      <!-- <div class="row">
-        <div class="col-sm-12 col-md-12 dataTables_pager">
-          <div class="bs-example" data-example-id="disabled-active-pagination">
-            <nav aria-label="...">
-              <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">«</span>
-                  </a>
-                </li>
-                <li class="active">
-                  <a href="#">1
-                    <span class="sr-only">(current)</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div> -->
-      <!-- 分页 结束 -->
     </div>
   </div>
 
