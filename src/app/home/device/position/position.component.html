@@ -22,7 +22,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
-      <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
+      <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
     </div>
 </ng-template>
 <!-- modal2:新建位置 -->
@@ -142,7 +142,7 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-info" (click)="c('Close click')" 
       [disabled]="!model.name || model.name == '' || !model.number || model.number == '' || !model.point.lat || model.point.lat == '' || !model.point.lng || model.point.lng == '' || !model.device">确认</button>
-      <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
+      <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
     </div>
 </ng-template>
 
@@ -261,7 +261,7 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-info" (click)="c('Close click')" [disabled]="!model.name || model.name == '' || !model.number || model.number == '' || !model.point.lat || model.point.lat == '' || !model.point.lng || model.point.lng == '' || !model.device">确认</button>
-    <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
+    <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
 <!-- 删除位置 -->
