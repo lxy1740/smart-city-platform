@@ -53,13 +53,7 @@ export class DevicesComponent implements OnInit {
   pageSize = 10;
   total: number;
   deviceTypes = [];  // 设备类型列表
-  currentType: any;  // 检索 - 产品类型
-
-  newType: any; // 新建设备所属产品类型
-  newName: any;
-  newDescr: any;
-
-  queryString: null; // 搜索字符
+  currentType: any;
 
   constructor(private modalService: NgbModal, private monitorService: MonitorService,
     private deviceService: DeviceService) {
@@ -105,10 +99,6 @@ export class DevicesComponent implements OnInit {
         console.log(error);
       }
     });
-  }
-
-  selectTypeChange() {
-    // console.log(this.newType);
   }
 
   // 设备类型选择
@@ -177,23 +167,6 @@ export class DevicesComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
-  }
-
-  addNewDevice() {
-    console.log(this.newName);
-    console.log(this.newType.id);
-    console.log(this.newDescr);
-    this.deviceService.addNewDevice(this.newName, this.newType.id, this.newDescr).subscribe({
-      next: function (val) {
-        
-      },
-      complete: function () {
-        // console.log();
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
   }
 
   getCity() {
