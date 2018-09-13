@@ -4,6 +4,7 @@
     width: calc(100vw - 50px);
     height: 100vh;
     padding: 30px;
+    position: relative;
 }
 .card-header {
     border-bottom: 0px;
@@ -113,4 +114,9 @@
 }
 .manage-class:active {
     background-color: $color-hover-color;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+    padding: 5px;
 }

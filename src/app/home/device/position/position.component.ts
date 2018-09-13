@@ -98,13 +98,15 @@ export class PositionComponent implements OnInit {
   // 新建位置弹框
   openNewPosition(content) {
     const that = this;
-    this.model.name = '';
-    this.model.number = '';
-    this.model.point = { lng: '', lat: '' };
+    this.model.name = ''; // name
+    this.model.number = ''; // number
+    this.model.point = { lng: '', lat: '' }; // 坐标
 
     that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
     that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
     that.currentArea = that.currentChildren[0].children[0]; // 当前区域
+
+    that.model.device = this.deviceList[0]; // 类型
 
     const modal = this.modalService.open(content, { size: 'lg' });
     this.addBaiduMap();
@@ -155,9 +157,9 @@ export class PositionComponent implements OnInit {
     this.model.updataId = item.id;
     // this.model.installZoneId = item.installZoneId;
     this.model.installZoneId = item.installZoneId; // 安装区域
-    this.model.name = item.name;
-    this.model.number = item.number;
-    this.model.point = item.point;
+    this.model.name = item.name; // name
+    this.model.number = item.number; // number
+    this.model.point = item.point; // point
 
     const id = item.type; // 类型
     for (let index = 0; index < this.deviceList.length; index++) {

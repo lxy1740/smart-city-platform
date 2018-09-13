@@ -23,7 +23,7 @@ export class ProductService {
                     data.regions[0].open = true;
 
                     return data;
-                } else if (res.status === 202) {
+                } else {
                     return res.json().code.toString();
 
                 }
@@ -37,7 +37,7 @@ export class ProductService {
                 if (res.status === 200) {
                     const data = res.json();
                     return data;
-                } else if (res.status === 202) {
+                } else  {
                     return res.json().code.toString();
 
                 }
@@ -52,13 +52,49 @@ export class ProductService {
                 if (res.status === 200) {
                     const data = res.json();
                     return data;
-                } else if (res.status === 202) {
+                } else  {
                     return res.json().code.toString();
 
                 }
             }));
     }
 
+    // 新增设备
+    setModel(name, description, type): Observable<any> {
+        return this.http.post(`/api/device/model`, {
+            'name': name,
+            'description': description,
+            'type': type
+        })
+        .pipe(map((res: Response) => {
+            if (res.status === 200) {
+                const data = res.json();
+                return data;
+            } else {
+                return res.json().code.toString();
+
+            }
+        }));
+    }
+
+    // 修改设备
+    updateModel(id, name, description, type): Observable<any> {
+        return this.http.put(`/api/device/model`, {
+            'id': id,
+            'name': name,
+            'description': description,
+            'type': type
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    return data;
+                } else {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
 
 
 

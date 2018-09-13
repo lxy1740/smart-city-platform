@@ -23,7 +23,7 @@ export class PositionService {
                     data.regions[0].open = true;
 
                     return data;
-                } else if (res.status === 202) {
+                } else  {
                     return res.json().code.toString();
 
                 }
@@ -37,7 +37,7 @@ export class PositionService {
                 if (res.status === 200) {
                     const data = res.json();
                     return data;
-                } else if (res.status === 202) {
+                } else {
                     return res.json().code.toString();
 
                 }
@@ -54,7 +54,7 @@ export class PositionService {
 
                     const data = res.json();
                     return data;
-                } else if (res.status === 202) {
+                } else  {
                     return res.json().code.toString();
 
                 }
@@ -89,7 +89,7 @@ export class PositionService {
 
                     const data = res.json();
                     return data;
-                } else if (res.status === 202) {
+                } else {
                     return res.json().code.toString();
 
                 }
@@ -104,7 +104,7 @@ export class PositionService {
 
                     const data = { status: 200};
                     return data;
-                } else if (res.status === 202) {
+                } else {
                     return res.json().code.toString();
 
                 }
@@ -127,7 +127,7 @@ export class PositionService {
 
                     const data = { status: 200 };
                     return data;
-                } else if (res.status === 202) {
+                } else {
                     return res.json().code.toString();
 
                 }

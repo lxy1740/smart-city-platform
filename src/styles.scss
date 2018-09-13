@@ -516,4 +516,14 @@ address, cite, code, em, th, i, strong {
         right: 96px;
     }
 }
+// 提示信息
+
+.lsq-alert{
+    position: absolute;
+    padding: 0 30px;
+    /* padding-right: 30px; */
+    width: 100%;
+    right: 0;
+    z-index: 1000;
+}
 
