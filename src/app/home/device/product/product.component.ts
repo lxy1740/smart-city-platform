@@ -123,7 +123,8 @@ export class ProductComponent implements OnInit {
     const name = this.model.name;
     const description = this.model.description;
     const type = this.model.device.id;
-    this.productService.setModel(name, description, type).subscribe({
+    const isGateway = type === 1 ? true : false;
+    this.productService.setModel(name, description, type, isGateway).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,
@@ -177,11 +178,12 @@ export class ProductComponent implements OnInit {
   updateModel() {
 
     const that = this;
+    const id = this.model.updateItemId;
     const name = this.model.name;
     const description = this.model.description;
     const type = this.model.device.id;
-    const id = this.model.updateItemId;
-    this.productService.updateModel(id, name, description, type).subscribe({
+    const isGateway = type === 1 ? true : false;
+    this.productService.updateModel(id, name, description, type, isGateway).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,

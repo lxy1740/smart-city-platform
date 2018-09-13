@@ -60,11 +60,12 @@ export class ProductService {
     }
 
     // 新增设备
-    setModel(name, description, type): Observable<any> {
+    setModel(name, description, type, isGateway): Observable<any> {
         return this.http.post(`/api/device/model`, {
             'name': name,
             'description': description,
-            'type': type
+            'type': type,
+            'isGateway': isGateway,
         })
         .pipe(map((res: Response) => {
             if (res.status === 200) {
@@ -78,12 +79,13 @@ export class ProductService {
     }
 
     // 修改设备
-    updateModel(id, name, description, type): Observable<any> {
+    updateModel(id, name, description, type, isGateway): Observable<any> {
         return this.http.put(`/api/device/model`, {
             'id': id,
             'name': name,
             'description': description,
-            'type': type
+            'type': type,
+            'isGateway': isGateway
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
