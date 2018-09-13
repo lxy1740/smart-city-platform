@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Input, Component, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MonitorService } from '../../../service/monitor.service';
 import { DeviceService } from '../../../service/device.service';
 import { Point } from '../../../data/point.type';
@@ -52,31 +52,47 @@ export class DevicesComponent implements OnInit {
   page: any;
   pageSize = 10;
   total: number;
-  deviceTypes = [];  // 设备类型列表
-  currentType: any;
+  deviceModels = [];  // 设备型号列表
+  deviceModels1 = [];
+  currentType: any; // 当前设备型号
+
+  device: any = {}; // 存储数据
+  public mr: NgbModalRef; // 当前弹框
+  modelData = {
+    title: '删除',
+    body: 'hh',
+  };
+
+  @Input()
+  public alerts: Array<IAlert> = [];
+
+  private backup: Array<IAlert>;
 
   constructor(private modalService: NgbModal, private monitorService: MonitorService,
     private deviceService: DeviceService) {
 
     this.page = 1;
-
+    this.device.point = {lng: '', lat: ''};
   }
 
   ngOnInit() {
     this.getCity();
-    this.getDevice();
+    // this.getDevice();
+    this.getAllDeviceModel();
     this.getCityDropdownList();
     this.getDevicesList(this.page, this.pageSize);
   }
 
-  getDevice() {
+  // 获取设备型号列表
+  getAllDeviceModel() {
     const that = this;
-    // 获取设备类型列表
-    this.monitorService.getDevice().subscribe({
+    this.deviceService.getAllDeviceModel(0, 1, 20).subscribe({
       next: function (val) {
-        that.deviceTypes = val;
-        that.deviceTypes.unshift({ id: 0, name: '不限' }); // 所有项
-        that.currentType = val[0];
+        that.deviceModels1 = val.items;
+        that.deviceModels = val.items.map((item) => Object.assign({}, item));
+        that.deviceModels.unshift({ id: 0, name: '不限' }); // 所有项
+        that.currentType = that.deviceModels[0];
+        that.device.model = that.deviceModels1[0];
       },
       complete: function () { },
       error: function (error) {
@@ -84,6 +100,21 @@ export class DevicesComponent implements OnInit {
       }
     });
   }
+  // 获取设备类型列表
+  // getDevice() {
+  //   const that = this;
+  //   this.monitorService.getDevice().subscribe({
+  //     next: function (val) {
+  //       that.deviceModels = val;
+  //       that.deviceModels.unshift({ id: 0, name: '不限' }); // 所有项
+  //       that.currentType = val[0];
+  //     },
+  //     complete: function () { },
+  //     error: function (error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
 
   // 获取设备分页
   getDevicesList(page, pageSize) {
@@ -103,6 +134,7 @@ export class DevicesComponent implements OnInit {
 
   // 设备类型选择
   deviceTypeChange() {
+    // 显示特定型号的设备列表分页
     // console.log(this.currentType);
   }
   // 分页
@@ -110,18 +142,8 @@ export class DevicesComponent implements OnInit {
     this.getDevicesList(this.page, this.pageSize);
   }
 
-  modelName(modelId) {
-    let modelName = null;
-    this.deviceTypes.map((item, i) => {
-      if (item.id === modelId) {
-        modelName = item.name;
-      }
-    });
-    // console.log(modelName);
-    return modelName;
-  }
-
-  openAddSurveys(content) {  // 批量导入
+  // 批量导入
+  openAddSurveys(content) {
     const that = this;
     this.modalService.open(content, { windowClass: 'md-modal' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -132,8 +154,12 @@ export class DevicesComponent implements OnInit {
       console.log(this.closeResult);
     });
   }
-  openNewSurvey(content) { // 新建设备
-    const that = this;
+  // 新建设备
+  openNewSurvey(content) {
+    this.device.name = '';
+    this.device.model = this.deviceModels1[0];
+    this.device.descr = '';
+
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.addBaiduMap();
 
@@ -141,10 +167,111 @@ export class DevicesComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
 
       console.log(this.closeResult);
-
+      this.addDevice();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
+    });
+  }
+  // 修改设备
+  openUpdataDevice(content, item, i) {
+    const that = this;
+    this.device.updataId = item.id;
+    this.device.name = item.name;
+    this.device.point = item.point;
+    const id = item.modelId;
+
+    for (let index = 0; index < this.deviceModels1.length; index++) {
+      const element = that.deviceModels1[index];
+      console.log(index);
+      if (id === element.id) {
+        that.device.model = that.deviceModels1[index];
+        break;
+      }
+    }
+    this.device.descr = item.description;
+
+    const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
+    this.addBaiduMap();
+
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+
+      console.log(this.closeResult);
+      that.updataDevice();
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+  // 修改设备信息
+  updataDevice() {
+    const name = this.device.name;
+    const modelId = this.device.modelId;
+    const descr = this.device.descr;
+    const lng = 133.33;
+    const lat = 33.33;
+
+    this.deviceService.updateDevice(name, modelId, descr, lng, lat).subscribe({
+      next: function (val) {},
+      complete: function () {},
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+  // 删除设备弹框
+  openDelDevice(content, item) {
+    const that = this;
+    this.device.itemDelId = item.id;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+  }
+  // 删除设备规则
+  closeDevice($event) {
+    console.log($event);
+    if ($event === 'ok') {
+      this.delDevice();
+    }
+    this.mr.close();
+  }
+  // 删除设备-接口处
+  delDevice() {
+    const that = this;
+    const id = this.device.itemDelId;
+    this.deviceService.delDevice(id).subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '删除成功！',
+        });
+        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+      },
+      complete: function () {
+        that.getDevicesList(that.page, that.pageSize);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 新增设备
+  addDevice() {
+    const name = this.device.name;
+    const modelId = this.device.model.id;
+    const descr = this.device.descr;
+    const lng = 122.22;
+    const lat = 22.22;
+
+    this.deviceService.addNewDevice(name, modelId, descr, lng, lat).subscribe({
+      next: function (val) {
+      },
+      complete: function () {},
+      error: function (error) {
+        console.log(error);
+      }
     });
   }
 
@@ -167,6 +294,18 @@ export class DevicesComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  // 根据设备型号id返回设备型号名称
+  modelName(modelId) {
+    let modelName = null;
+    this.deviceModels.map((item, i) => {
+      if (item.id === modelId) {
+        modelName = item.name;
+      }
+    });
+    // console.log(modelName);
+    return modelName;
   }
 
   getCity() {
@@ -267,6 +406,7 @@ export class DevicesComponent implements OnInit {
 
 
   }
+
   // 选择区域
   // 选择城市
   selecteCity(city) {
@@ -320,7 +460,7 @@ export class DevicesComponent implements OnInit {
       next: function (val) {
         that.cityList1 = val.regions;
         that.currentCity1 = val.zone;
-        console.log(that.cityList1);
+        // console.log(that.cityList1);
         // that.zoom = that.switchZone(val.zone.level);
         that.node1 = that.getNode(val.regions, val.zone.region_id);
         that.currentChildren1 = that.node1.children;
@@ -359,4 +499,10 @@ export class DevicesComponent implements OnInit {
     this.areashow1 = true;
     this.currentBlock1 = null;
   }
+}
+
+export interface IAlert {
+  id: number;
+  type: string;
+  message: string;
 }

@@ -53,26 +53,28 @@
         <div class="form-group">
           <label class="control-label">设备名称:</label>
           <!-- <div class="form-cont-left"> -->
-          <input type="text" class="form-control" id="add-product-name" placeholder="">
+          <input type="text" [(ngModel)]="device.descr" class="form-control" id="add-product-name" placeholder="">
           <!-- </div> -->
         </div>
         <div class="form-group">
-          <label class="control-label">所属产品:</label>
-          <select class="form-control">
-            <option id="" placeholder="">...</option>
+          <label class="control-label">设备型号:</label>
+          <select name="profile1" [(ngModel)]="device.model" class="form-control">
+            <option *ngFor="let index of deviceModels1" [ngValue]="index">
+              {{ index.name }}
+            </option>
           </select>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="control-label">制造商:</label>
           <input type="text" class="form-control" placeholder="">
         </div>
         <div class="form-group">
           <label class="control-label">制造商联系方式:</label>
           <input type="text" class="form-control" placeholder="">
-        </div>
+        </div> -->
         <div class="form-group">
-          <label class="control-label">Device name:</label>
-          <input type="text" class="form-control" placeholder="">
+          <label class="control-label">设备编号:</label>
+          <input type="text" [(ngModel)]="device.name" class="form-control" placeholder="">
         </div>
       </div>
       <!-- 中列 -->
@@ -188,7 +190,10 @@
     <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
   </div>
 </ng-template>
-
+<!-- 删除位置 -->
+<ng-template #contentDelDevice let-c="close" let-d="dismiss">
+  <app-sq-modal  [input]="modelData" (output)="closeDevice($event)"></app-sq-modal>
+</ng-template>
 <div class="bodyofclass">
 
   <div class="card card-primary panel-default ">
@@ -209,8 +214,8 @@
             </select> -->
 
         <!-- 选择区域 -->
-        <div class="area-selection" *ngIf="visible1 == true">
-          <!-- 城市列表 -->
+        <!-- <div class="area-selection" *ngIf="visible1 == true">
+          城市列表
           <div class="d-inline-block area-selection-block" (mouseleave)="citylistMouseleave1()">
 
             <span class="cl-blue cur-pointer" (mouseover)="showCiyt1()">
@@ -231,7 +236,7 @@
             </div>
           </div>
 
-          <!-- 区域列表 -->
+          区域列表
           <div class="d-inline-block area-selection-block" (mouseleave)="arealistMouseleave1()">
 
             <span class="cl-blue cur-pointer" (mouseover)="showArea1()">
@@ -264,18 +269,14 @@
           </div>
 
 
-        </div>
+        </div> -->
 
-        <span>产品类型：</span>
+        <span>设备型号：</span>
         <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()" class="form-control">
-          <option *ngFor="let index of deviceTypes" [ngValue]="index">
+          <option *ngFor="let index of deviceModels" [ngValue]="index">
             {{ index.name }}
           </option>
         </select>
-        <!-- <select class="form-control">
-          <option>产品</option>
-          <option>...</option>
-        </select> -->
         <!-- 日期，功能不明 -->
         <!-- <input type="date" class="form-control" value="2018-06-01" /> -->
         <!-- 输入框，功能不明 -->
@@ -301,14 +302,14 @@
           <tr>
             <th>序号</th>
             <th>设备名称</th>
-            <th>所属产品</th>
+            <th>设备型号</th>
             <th>所属区域</th>
             <th>绑定位置</th>
             <th style="text-align: center">操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let device of deviceslist; let i = index">
+          <tr *ngFor="let device of deviceslist; let i = index" class="lineheight">
             <td>{{i + 1}}</td>
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
@@ -321,8 +322,8 @@
                   <a class="manage-class"><i class="fa fa-times-circle"></i></a>
                 </div> -->
               <div class="modify-strategy d-inline">
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(item, i)">修改</a>
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(item, i)">删除</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>
               </div>
             </td>
           </tr>
@@ -335,45 +336,6 @@
         </div>
       </table>
 
-      <!-- 分页 开始-->
-      <!-- <div class="row">
-        <div class="col-sm-12 col-md-12 dataTables_pager">
-          <div class="bs-example" data-example-id="disabled-active-pagination">
-            <nav aria-label="...">
-              <ul class="pagination">
-                <li class="disabled">
-                  <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">«</span>
-                  </a>
-                </li>
-                <li class="active">
-                  <a href="#">1
-                    <span class="sr-only">(current)</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li>
-                  <a href="#" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div> -->
-      <!-- 分页 结束 -->
     </div>
   </div>
 
