@@ -59,7 +59,7 @@ export class ProductService {
             }));
     }
 
-    // 新增设备
+    // 新增设备型号
     setModel(name, description, type, isGateway): Observable<any> {
         return this.http.post(`/api/device/model`, {
             'name': name,
@@ -78,7 +78,7 @@ export class ProductService {
         }));
     }
 
-    // 修改设备
+    // 修改设备型号
     updateModel(id, name, description, type, isGateway): Observable<any> {
         return this.http.put(`/api/device/model`, {
             'id': id,
@@ -87,6 +87,20 @@ export class ProductService {
             'type': type,
             'isGateway': isGateway
         })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
+                    return data;
+                } else {
+                    return res.json().code.toString();
+
+                }
+            }));
+    }
+
+    // 设备型号/api/position?id=1
+    delModel(id) {
+        return this.http.delete(`/api/device/model?id=${id}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = { status: 200 };

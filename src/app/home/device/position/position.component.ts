@@ -147,6 +147,11 @@ export class PositionComponent implements OnInit {
       },
       error: function (error) {
         console.log(error);
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: '新建失败！',
+        });
       }
     });
   }
@@ -225,6 +230,11 @@ export class PositionComponent implements OnInit {
       },
       error: function (error) {
         console.log(error);
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: '修改失败！',
+        });
       }
     });
   }
@@ -265,6 +275,11 @@ export class PositionComponent implements OnInit {
       },
       error: function (error) {
         console.log(error);
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: '删除失败！',
+        });
       }
     });
   }

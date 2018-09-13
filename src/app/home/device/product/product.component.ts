@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons , NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from '../../../service/product.service';
 
 @Component({
@@ -19,6 +19,11 @@ export class ProductComponent implements OnInit {
   deviceList = []; // 设备列表
   deviceTypes = []; // 设备列表
   currentType: any; // 当前搜索设备类别
+  public mr: NgbModalRef; // 当前弹框
+  modelData = {
+    title: '删除',
+    body: 'hh',
+  };
   @Input()
   public alerts: Array<IAlert> = [];
 
@@ -117,7 +122,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  // 添加设备
+  // 添加设备型号
   setModel() {
     const that = this;
     const name = this.model.name;
@@ -146,7 +151,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  // 修改产品
+  // 修改产品型号
   openUpdataModal(content, item) {
     const that = this;
 
@@ -174,7 +179,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  // 修改设备
+  // 修改设备型号
   updateModel() {
 
     const that = this;
@@ -200,6 +205,51 @@ export class ProductComponent implements OnInit {
           id: 1,
           type: 'danger',
           message: '修改失败！',
+        });
+      }
+    });
+  }
+
+  // 删除设备型号弹框
+  openDelModal(content, item) {
+    const that = this;
+    this.model.itemDelId = item.id;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+
+  }
+
+  // 删除设备型号
+  closeModal($event) {
+    console.log($event);
+    if ($event === 'ok') {
+      this.delModal();
+    }
+    this.mr.close();
+  }
+
+  // 删除设备型号-接口处
+  delModal() {
+    const that = this;
+    const id = this.model.itemDelId;
+    this.productService.delModel(id).subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '删除成功！',
+        });
+        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+      },
+      complete: function () {
+        that.getModel(that.currentType.id, that.page, that.pagesize);
+      },
+      error: function (error) {
+        console.log(error);
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: '删除失败！',
         });
       }
     });

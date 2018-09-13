@@ -133,6 +133,12 @@
   </div>
 </ng-template>
 
+<!-- 删除位置 -->
+<ng-template #contentDel let-c="close" let-d="dismiss">
+  <app-sq-modal [input]="modelData" (output)="closeModal($event)"></app-sq-modal>
+</ng-template>
+
+
 <!-- modal下modal:增加参数 -->
 <ng-template #content2 class="modal1" let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -262,7 +268,7 @@
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentUpdate, item)">修改</a>
-                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(contentDelPosition, item, i)">删除</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
                 </div>
               </td>
 
