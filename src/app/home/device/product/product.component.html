@@ -142,9 +142,11 @@
       <div class="row card-block search-product">
           <!-- 表单，搜索产品 -->
           <form class="form-inline search-options">
-            <select class="form-control">
-              <option>类</option>
-              <option>...</option>
+            <span>所属类型：</span>
+            <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()" class="form-control" style="margin-right: 15px;">
+              <option *ngFor="let index of deviceTypes" [ngValue]="index">
+                {{ index.name }}
+              </option>
             </select>
             <!-- 日期 -->
             <!-- <input type="date" class="form-control" value="2018-06-01"/> -->
@@ -167,35 +169,36 @@
           <thead class="table-header">
             <tr>
               <th>序号</th>
-              <th>产品</th>
+              <th>产品名称</th>
+              <th>产品描述</th>
               <th>所属类</th>
-              <th>创建时间</th>
-              <th>PRODUCTNAME</th>
-              <th>PRODUCTKEY</th>
-              <th>PRODUCTSECRET</th>
               <th style="text-align: center">操作</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>太阳能灯</td>
-              <td>灯</td>
-              <td>2017/07/08 17:51:31</td>
-              <td>adsd12</td>
-              <td>a148jK0pf1H</td>
-              <td>a148jK0pdfgf1H</td>
-              <!-- 对已有的具体产品的操作 -->
+
+            <tr *ngFor="let item of productListItems; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.description}}</td>
+              <td>{{changeName(item.type)}}</td>
               <td style="text-align: center">
-                <div>
-                  <a class="manage-class"><i class="fa fa-eye"></i></a>
-                  <a class="manage-class"><i class="fa fa-wrench"></i></a>
-                  <a class="manage-class"><i class="fa fa-times-circle"></i></a>
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(contentsetPosition, item, i)">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelPosi(contentDelPosition, item, i)">删除</a>
                 </div>
               </td>
+
             </tr>
           </tbody>
         </table>
+
+        <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div>
+        <div *ngIf="productListItems.length > 1">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            (pageChange)="pageChange()"></ngb-pagination>
+        </div>
+
       </div>
     </div>
 
