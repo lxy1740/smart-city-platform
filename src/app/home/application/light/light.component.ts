@@ -102,9 +102,9 @@ export class LightComponent implements OnInit, OnDestroy  {
     this.getStrategy(); // 获取策略表
   }
 
-  searchStringMe() {
-    console.log(this.queryString);
-  }
+  // searchStringMe() {
+  //   console.log(this.queryString);
+  // }
 
   execQuery() {
     let str_name = '';
@@ -216,7 +216,7 @@ export class LightComponent implements OnInit, OnDestroy  {
         // that.addMarker(value); // 添加
 
         that.lightList = val; // 变为新值
-        this.lightListRes = [].concat(this.lightList);
+        that.lightListRes = [].concat(this.lightList);
         that.lightListRes = that.comparison1(that.lightList, that.lightListRes);
         console.log(that.lightListRes);
 

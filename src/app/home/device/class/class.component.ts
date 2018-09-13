@@ -10,11 +10,11 @@ declare let BMapLib;
 declare let BMAP_ANCHOR_TOP_LEFT;
 
 @Component({
-  selector: 'app-devices',
-  templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.scss']
+  selector: 'app-class',
+  templateUrl: './class.component.html',
+  styleUrls: ['./class.component.scss']
 })
-export class DevicesComponent implements OnInit {
+export class ClassComponent implements OnInit {
   closeResult: string;
   map: any; // 地图对象
 
@@ -53,20 +53,14 @@ export class DevicesComponent implements OnInit {
   pageSize = 10;
   total: number;
   deviceTypes = [];  // 设备类型列表
-  currentType: any;  // 检索 - 产品类型
+  currentType: any;
 
-  newType: any; // 新建设备所属产品类型
-  newName: any;
-  newDescr: any;
-
-  queryString: null; // 搜索字符
-
-  constructor(private modalService: NgbModal, private monitorService: MonitorService,
+  constructor(private modalService: NgbModal, private monitorService: MonitorService, 
     private deviceService: DeviceService) {
 
-    this.page = 1;
+      this.page = 1;
 
-  }
+    }
 
   ngOnInit() {
     this.getCity();
@@ -81,7 +75,7 @@ export class DevicesComponent implements OnInit {
     this.monitorService.getDevice().subscribe({
       next: function (val) {
         that.deviceTypes = val;
-        that.deviceTypes.unshift({ id: 0, name: '不限' }); // 所有项
+        that.deviceTypes.unshift({id: 0, name: '不限'}); // 所有项
         that.currentType = val[0];
       },
       complete: function () { },
@@ -100,15 +94,11 @@ export class DevicesComponent implements OnInit {
         that.total = val.total;
         // console.log(that.deviceslist);
       },
-      complete: function () { },
+      complete: function () {},
       error: function (error) {
         console.log(error);
       }
     });
-  }
-
-  selectTypeChange() {
-    // console.log(this.newType);
   }
 
   // 设备类型选择
@@ -177,23 +167,6 @@ export class DevicesComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
-  }
-
-  addNewDevice() {
-    console.log(this.newName);
-    console.log(this.newType.id);
-    console.log(this.newDescr);
-    this.deviceService.addNewDevice(this.newName, this.newType.id, this.newDescr).subscribe({
-      next: function (val) {
-        
-      },
-      complete: function () {
-        // console.log();
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
   }
 
   getCity() {

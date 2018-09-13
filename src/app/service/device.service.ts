@@ -51,6 +51,23 @@ export class DeviceService {
             }));
     }
 
+    // 新增设备
+    addNewDevice(name: String, modelId: Number, descr: String): Observable<any> {
+        return this.http.post('/api/device', {
+            'name': name,
+            'modelId': modelId,
+            'description': descr,
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
 
 
 

@@ -106,7 +106,7 @@
                     </div> -->
                     <div class="form-group">
                         <input id="sole-input" class="form-control searchbox-content-common" [(ngModel)]="queryString" name="queryString" 
-                        (change)="searchStringMe()"  maxlength="20" placeholder="检索编号、名称" (keydown)="onKeydown($event)" >
+                        maxlength="20" placeholder="检索编号、名称" (keydown)="onKeydown($event)" >
                     </div>
                     <button  class="btn btn-bg" (click)="execQuery()">搜索</button>
                     <button class="btn btn-outline-info extral-margin" (click)="devicesStrategyCtrl()">批量操作</button>
