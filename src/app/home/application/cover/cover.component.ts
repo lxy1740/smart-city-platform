@@ -273,14 +273,14 @@ export class CoverComponent implements OnInit, OnDestroy {
       let myIcon;
 
       if (item.alarm && item.alarm === true) { // 异常
-        // myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(300, 157));
-        myIcon = new BMap.Icon('../../../../assets/imgs/covers1.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(55, 55));
       } else if (item.offline === true) { // 掉线
-        // myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(300, 157));
-        myIcon = new BMap.Icon('../../../../assets/imgs/covers3.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(55, 55));
+
+      } else if (item.lowBattery === true) {
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-lowpower.png', new BMap.Size(55, 55));
       } else { // 正常
-        // myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(300, 157));
-        myIcon = new BMap.Icon('../../../../assets/imgs/covers2.png', new BMap.Size(300, 157));
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(55, 55));
       }
       myIcon.setAnchor(new BMap.Size(16, 38));
       const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注

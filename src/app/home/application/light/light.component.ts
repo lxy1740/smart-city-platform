@@ -83,7 +83,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   StrategyRuleMess1 = false; // 提示成功
   LightsContrMess1 = false; // 提示成功
   selectedLightList = []; // 选中的设备
-  
+
   lightList_check = []; // 当前数据
   allCheck = false;
 
@@ -93,7 +93,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router,
     config: NgbTimepickerConfig ) {
     config.spinners = false; // 时间控制
-    
+
   }
 
   ngOnInit() {
@@ -883,7 +883,7 @@ export class LightComponent implements OnInit, OnDestroy  {
         }
       });
     } else {
-      alert("请选择策略!");
+      alert('请选择策略!');
     }
 
   }

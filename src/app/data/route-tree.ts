@@ -103,7 +103,7 @@ export const ROUTETREE = [
             {
                 id: 21,
                 icon: 'fa fa-window-restore nav-icon-s',
-                routeLink: 'device/class',
+                routeLink: 'device/devices',
                 routeTitel: '设备',
             },
             // {
