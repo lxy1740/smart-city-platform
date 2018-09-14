@@ -101,8 +101,9 @@ export class DeviceService {
     }
 
     // 修改设备
-    updateDevice(name: String, modelId: Number, descr: String, lng: Number, lat: Number): Observable<any> {
-        return this.http.put(`/api/position`, {
+    updateDevice(id: Number, name: String, modelId: Number, descr: String, lng: Number, lat: Number): Observable<any> {
+        return this.http.put(`/api/device`, {
+            'id': id,
             'name': name,
             'modelId': modelId,
             'description': descr,

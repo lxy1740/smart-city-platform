@@ -75,6 +75,11 @@ export class DevicesComponent implements OnInit {
     this.device.point = {lng: '', lat: ''};
   }
 
+  public closeAlert(alert: IAlert) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+
   ngOnInit() {
     this.getCity();
     // this.getDevice();
@@ -176,16 +181,15 @@ export class DevicesComponent implements OnInit {
   // 修改设备
   openUpdataDevice(content, item, i) {
     const that = this;
-    this.device.updataId = item.id;
+    this.device.updateId = item.id;
     this.device.name = item.name;
     this.device.point = item.point;
     const id = item.modelId;
 
     for (let index = 0; index < this.deviceModels1.length; index++) {
       const element = that.deviceModels1[index];
-      console.log(index);
       if (id === element.id) {
-        that.device.model = that.deviceModels1[index];
+        that.device.model = that.deviceModels1[index]; // 设备型号为传入的item的型号
         break;
       }
     }
@@ -198,6 +202,7 @@ export class DevicesComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
 
       console.log(this.closeResult);
+      this.device.modelId = this.device.model.id; // 关闭模态框时同步modelId以便更新。device.model为双向绑定的设备类型
       that.updataDevice();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -206,15 +211,28 @@ export class DevicesComponent implements OnInit {
   }
   // 修改设备信息
   updataDevice() {
+    const that = this;
+    const id = this.device.updateId;
     const name = this.device.name;
     const modelId = this.device.modelId;
+    console.log(modelId);
+    console.log(this.modelName(modelId));
     const descr = this.device.descr;
     const lng = 133.33;
     const lat = 33.33;
 
-    this.deviceService.updateDevice(name, modelId, descr, lng, lat).subscribe({
-      next: function (val) {},
-      complete: function () {},
+    this.deviceService.updateDevice(id, name, modelId, descr, lng, lat).subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '修改成功！',
+        });
+        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+      },
+      complete: function () {
+        that.getDevicesList(that.page, that.pageSize);
+      },
       error: function (error) {
         console.log(error);
       }
@@ -259,6 +277,7 @@ export class DevicesComponent implements OnInit {
 
   // 新增设备
   addDevice() {
+    const that = this;
     const name = this.device.name;
     const modelId = this.device.model.id;
     const descr = this.device.descr;
@@ -267,8 +286,16 @@ export class DevicesComponent implements OnInit {
 
     this.deviceService.addNewDevice(name, modelId, descr, lng, lat).subscribe({
       next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '新增成功！',
+        });
+        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
-      complete: function () {},
+      complete: function () {
+        that.getDevicesList(that.page, that.pageSize);
+      },
       error: function (error) {
         console.log(error);
       }
