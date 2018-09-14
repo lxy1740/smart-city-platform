@@ -89,13 +89,13 @@
                     <span class="m-badge m-badge-danger" *ngIf="messageList">{{messageList.length}}</span>
                 </span>
             </span>
-            <div class="messagelist-wrap" *ngIf="showunstartedlist">
+            <div class="messagelist-wrap" *ngIf="showunstartedlist && messageList.length > 0">
                 <div class="dropdown_panel_inner">
                     <span class="menu_arrow_left"></span>
                     <ul class="messagelist" data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of messageList" (click)="findPoint(mess)">
                             <i class="fa fa-dot-circle-o" aria-hidden="true" style="color:#f4516c;padding-right:5px"></i>
-                            <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
+                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-{{mess.positionNumber}}-{{mess.openTime}}</span>
                         </li>
                     </ul>
                 </div>
@@ -109,14 +109,14 @@
                     <span class="m-badge m-badge-inprocess" *ngIf="messageList1">{{messageList1.length}}</span>
                 </span>
             </span>
-            <div class="messagelist-wrap" *ngIf="showonprogresslist">
+            <div class="messagelist-wrap" *ngIf="showonprogresslist && messageList1.length > 0">
                 <div class="dropdown_panel_inner">
                     <span class="menu_arrow_left"></span>
                     <ul class="messagelist" data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of messageList1" (click)="findPoint(mess)">
                             <!-- <span class="m-list-timeline__badge"></span> -->
                             <i class="fa fa-circle" aria-hidden="true" style="color:#ffb822;padding-right:5px"></i>
-                            <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
+                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-{{mess.positionNumber}}-{{mess.openTime}}</span>
                         </li>
                     </ul>
                 </div>
@@ -129,13 +129,13 @@
                     <span class="m-badge m-badge-fixed" *ngIf="messageList2">{{messageList2.length}}</span>
                 </span>
             </span>
-            <div class="messagelist-wrap" *ngIf="showfinishedlist">
+            <div class="messagelist-wrap" *ngIf="showfinishedlist && messageList2.length > 0">
                 <div class="dropdown_panel_inner">
                     <span class="menu_arrow_left"></span>
                     <ul class="messagelist " data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of messageList2" (click)="findPoint(mess)">
                             <i class="fa fa-circle" aria-hidden="true" style="color:#36a3f7;padding-right:5px"></i>
-                            <span>{{mess.address}}-{{mess.name}}-{{mess.id}}-{{mess.message}}</span>
+                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-{{mess.positionNumber}}-{{mess.openTime}}</span>
                         </li>
                     </ul>
                 </div>

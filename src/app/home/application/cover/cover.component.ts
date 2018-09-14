@@ -31,9 +31,9 @@ declare let echarts; // ymZhao
   styleUrls: ['./cover.component.scss']
 })
 export class CoverComponent implements OnInit, OnDestroy {
-  messageList: any;
-  messageList1: any;
-  messageList2: any; // 井盖三按状态生成的列表
+  messageList = []; // 待处理
+  messageList1 = []; // 处理中
+  messageList2 = []; // 已处理
   @ViewChild('map3') map_container: ElementRef;
   model: any = {}; // 存储数据
 
@@ -70,8 +70,7 @@ export class CoverComponent implements OnInit, OnDestroy {
   timer: any; // 定时器
   constructor(private coverService: CoverService, private monitorService: MonitorService,
     private messageService: MessageService, public messService: MessService, private config: NgbDropdownConfig) {
-      // config.placement = 'top-left';
-      // config.placement = 'bottom-left';
+      this.model.deviceType = 5; // 井盖
      }
 
   ngOnInit() {
@@ -83,25 +82,26 @@ export class CoverComponent implements OnInit, OnDestroy {
   // ymZhao 获取井盖异常消息列表
   getMessage() {
     const that = this;
-    this.messageService.getMessage().subscribe({
+    const deviceType = this.model.deviceType;
+    this.coverService.getIssues(deviceType, 0).subscribe({
       next: function (val) {
-        that.messageList = val.list;
+        that.messageList = val;
       },
       error: function (error) {
         console.log(error);
       }
     });
-    this.messageService.getMessage1().subscribe({
+    this.coverService.getIssues(deviceType, 1).subscribe({
       next: function (val) {
-        that.messageList1 = val.list;
+        that.messageList1 = val;
       },
       error: function (error) {
         console.log(error);
       }
     });
-    this.messageService.getMessage2().subscribe({
+    this.coverService.getIssues(deviceType, 2).subscribe({
       next: function (val) {
-        that.messageList2 = val.list;
+        that.messageList2 = val;
       },
       error: function (error) {
         console.log(error);
