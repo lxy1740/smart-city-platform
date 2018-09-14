@@ -65,11 +65,12 @@ export class DeviceService {
     }
 
     // 新增设备
-    addNewDevice(name: String, modelId: Number, descr: String, lng: Number, lat: Number): Observable<any> {
+    addNewDevice(name: String, modelId: Number, descr: String, positionId: Number, lng: Number, lat: Number): Observable<any> {
         return this.http.post('/api/device', {
             'name': name,
             'modelId': modelId,
             'description': descr,
+            'positionId': positionId,
             'point': {
                 'lat': lat,
                 'lng': lng
@@ -101,12 +102,13 @@ export class DeviceService {
     }
 
     // 修改设备
-    updateDevice(id: Number, name: String, modelId: Number, descr: String, lng: Number, lat: Number): Observable<any> {
+    updateDevice(id: Number, name: String, modelId: Number, descr: String, positionId: Number, lng: Number, lat: Number): Observable<any> {
         return this.http.put(`/api/device`, {
             'id': id,
             'name': name,
             'modelId': modelId,
             'description': descr,
+            'positionId': positionId,
             'point': {
                 'lat': lat,
                 'lng': lng
@@ -122,4 +124,29 @@ export class DeviceService {
             }));
     }
 
+    // 获取指定区域内的所有位置点-分页
+    getAllPosiByRegionId(regionId: number, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`/api/position/region/${regionId}?page=${page}&pageSize=${pageSize}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+    // 获取指定位置点
+    getPosiById(id: number): Observable<any> {
+        return this.http.get(`/api/position/${id}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
 }

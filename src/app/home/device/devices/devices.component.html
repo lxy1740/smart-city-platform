@@ -33,14 +33,14 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
-    <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
+    <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
 
 <!-- 新建设备 -->
 <ng-template #content2 let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h5 class="modal-title">新建设备</h5>
+    <h5 class="modal-title">{{addOrUpdate}}</h5>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -91,7 +91,7 @@
             <div class="d-inline-block area-selection-block" (mouseleave)="citylistMouseleave()">
 
               <span class="cl-blue cur-pointer" (mouseover)="showCiyt()">
-                <span class="filter" *ngIf="node">{{node.name}}</span>
+                <span class="filter" *ngIf="currentCity">{{currentCity.name}}</span>
                 <span class="filter" *ngIf="!currentCity">选择城市</span>
                 <!-- <i class="fa fa-bell-o nav-icon " aria-hidden="true"></i> -->
               </span>
@@ -114,7 +114,8 @@
             <div class="d-inline-block area-selection-block" (mouseleave)="arealistMouseleave()">
 
               <span class="cl-blue cur-pointer" (mouseover)="showArea()">
-                <span class="filter">选择区域</span>
+                  <span class="filter" *ngIf="!currentArea">选择区域</span>
+                  <span class="filter" *ngIf="currentArea">{{currentArea.name}}</span>
               </span>
 
               <div class="arealist-wrap dropdown_panel" *ngIf="areashow">
@@ -125,7 +126,7 @@
                     <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
                       <em>不限</em>
                     </li>
-                    <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)" (click)="selecteblock(node)">
+                    <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
                       <em>{{node.name}}</em>
                     </li>
                   </ul>
@@ -145,21 +146,22 @@
           </div>
         </div>
 
-        <div class="form-inline">
+        <!-- <div class="form-inline">
           <label class="control-label">检索产品:</label>
           <input type="text" class="form-control extral-margin" placeholder="">
-        </div>
+        </div> -->
 
         <div #map2 id="survey_map" class="map_container"></div>
 
         <label class="control-label">已选位置：</label>
+        <span *ngIf="bindedPosition">{{bindedPosition.name}}-{{bindedPosition.number}}</span>
       </div>
 
       <!-- 右列 -->
       <div class="col-5">
         <!-- <label class="control-label">地图:</label> -->
 
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover small-size">
           <thead class="table-header">
             <tr>
               <th>位置名称</th>
@@ -168,26 +170,34 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>深证南山蛇口0023</td>
-              <td>XXXX</td>
-              <td>X:123 Y:789</td>
-            </tr>
-            <tr>
-              <td>深证南山蛇口0023</td>
-              <td>XXXX</td>
-              <td>X:123 Y:789</td>
+            <!-- <tr *ngIf="curDevice">
+              <td>{{curDevice.name}}</td>
+              <td>{{curDevice.number}}</td>
+              <td>X:{{curDevice.point.lng}} Y:{{curDevice.point.lat}}</td>
+            </tr> -->
+            <tr *ngFor="let position of posiListByRegion" class="lineheight" (click)="bindPosition(position)">
+              <td>{{position.name}}</td>
+              <td>{{position.number}}</td>
+              <td><span *ngIf="position.point"></span>X:{{position.point.lng}} Y:{{position.point.lat}}</td>
             </tr>
           </tbody>
 
         </table>
+        <div *ngIf="posiListByRegion.length === 0 || !posiListByRegion">无数据！</div>
+        <div *ngIf="posiListByRegion.length > 1">
+          <ngb-pagination [collectionSize]=total1 [(page)]="pagePosi" [maxSize]="5" [rotate]="true" [ellipses]="false" 
+            [boundaryLinks]="true" (pageChange)="pageChangePosi()"></ngb-pagination>
+        </div>
+
       </div>
     </div>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
-    <button type="button" class="btn btn-outline-metal" (click)="c('Close click')">关闭</button>
+    <button type="button" class="btn btn-outline-info" (click)="c('Close click')" 
+      [disabled]="!device.descr || device.descr == '' || !device.name || device.name == '' 
+      || !bindedPosition || bindedPosition == ''">确认</button>
+    <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
 <!-- 删除位置 -->
@@ -305,8 +315,8 @@
           <tr>
             <th>序号</th>
             <th>设备名称</th>
+            <th>设备编号</th>
             <th>设备型号</th>
-            <th>所属区域</th>
             <th>绑定位置</th>
             <th style="text-align: center">操作</th>
           </tr>
@@ -314,10 +324,10 @@
         <tbody>
           <tr *ngFor="let device of deviceslist; let i = index" class="lineheight">
             <td>{{i + 1}}</td>
+            <td>{{device.description}}</td>
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
-            <td>{{device.description}}</td>
-            <td>{{device.positionId}}</td>
+            <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
             <td style="text-align: center">
               <!-- <div>
                   <a class="manage-class"><i class="fa fa-eye"></i></a>
@@ -332,13 +342,13 @@
           </tr>
         </tbody>
 
-        <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
-        <div *ngIf="deviceslist.length > 1">
-          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-            (pageChange)="pageChange()"></ngb-pagination>
-        </div>
-      </table>
 
+      </table>
+      <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
+      <div *ngIf="deviceslist.length > 1">
+        <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+          (pageChange)="pageChange()"></ngb-pagination>
+      </div>
     </div>
   </div>
 

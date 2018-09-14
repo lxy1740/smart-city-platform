@@ -123,3 +123,9 @@
 .lineheight {
     line-height: 1.0;
 }
+
+.small-size {
+    td, th {
+        padding: 0.25rem;
+    }
+}
