@@ -38,6 +38,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   deviceList: any; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
+  currentArea: any; // 当前区域
   currentChildren: any; // 当前城市节点
   currentBlock: any; // // 当前城市街道
   device: any; // // 当前设备点
@@ -552,9 +553,9 @@ export class LightComponent implements OnInit, OnDestroy  {
     this.monitorService.getZoneDefault().subscribe({
       next: function (val) {
         that.cityList = val.regions;
-        that.currentCity = val.zone;
         that.zoom = that.switchZone(val.zone.level);
         that.node = that.getNode(val.regions, val.zone.region_id);
+        that.currentCity = that.node ;
         that.currentChildren = that.node.children;
 
       },
@@ -695,6 +696,7 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   selecteblock(block) {
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
+    this.currentArea = block;
   }
 
   // 显示区域

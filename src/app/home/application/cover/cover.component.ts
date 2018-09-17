@@ -24,20 +24,16 @@ declare let BMAP_ANCHOR_TOP_LEFT;
 })
 export class CoverComponent implements OnInit, OnDestroy {
   @ViewChild('map3') map_container: ElementRef;
-  messageList = []; // 待处理
-  messageList1 = []; // 处理中
-  messageList2 = []; // 已处理
-  issueId: number;
-
   model: any = {}; // 存储数据
-
+  // issueId: number; // 消息
+  // infoW: any; // 信息框
   map: any; // 地图对象
-  coverList = [];  // 当前井盖列表
 
-  cityList: any; // 城市列表
+
   deviceList: any; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
+  currentArea: any; // 当前区域
   currentChildren: any; // 当前城市节点
   currentBlock: any; // // 当前城市街道
   device: any; // // 当前设备点
@@ -63,8 +59,13 @@ export class CoverComponent implements OnInit, OnDestroy {
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
   timer: any; // 定时器
   constructor(private coverService: CoverService, private monitorService: MonitorService, public messService: MessService) {
-      this.model.deviceType = 5; // 井盖
-     }
+    this.model.deviceType = 5; // 井盖
+    this.model.messageList = []; // 待处理
+    this.model.messageList1 = []; // 处理中
+    this.model.messageList2 = []; // 已处理
+    this.model.coverList = [];  // 当前井盖列表
+    this.model.cityList = []; // 城市列表
+  }
 
   ngOnInit() {
     this.addBeiduMap();
@@ -78,7 +79,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     const deviceType = this.model.deviceType;
     this.coverService.getIssues(deviceType, 0).subscribe({
       next: function (val) {
-        that.messageList = val;
+        that.model.messageList = val;
       },
       error: function (error) {
         console.log(error);
@@ -86,7 +87,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     });
     this.coverService.getIssues(deviceType, 1).subscribe({
       next: function (val) {
-        that.messageList1 = val;
+        that.model.messageList1 = val;
       },
       error: function (error) {
         console.log(error);
@@ -94,7 +95,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     });
     this.coverService.getIssues(deviceType, 2).subscribe({
       next: function (val) {
-        that.messageList2 = val;
+        that.model.messageList2 = val;
       },
       error: function (error) {
         console.log(error);
@@ -163,7 +164,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     this.coverService.getCovers(NorthEast, SouthWest).subscribe({
       next: function (val) {
         // value = val;
-        compar = that.comparison(that.coverList, val);
+        compar = that.comparison(that.model.coverList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
 
         that.changeMarker(value); // 替换
@@ -172,7 +173,7 @@ export class CoverComponent implements OnInit, OnDestroy {
         that.addPoint(compar.b_surplus); // 添加
         // that.addPoint(value); // 添加
 
-        that.coverList = val; // 变为新值
+        that.model.coverList = val; // 变为新值
       },
       complete: function () {
         // that.addPoint(value);
@@ -295,7 +296,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     let marker;
     const makers = this.map.getOverlays();
     const point = new BMap.Point(item.point.lng, item.point.lat);
-    this.issueId = item.id;
+    this.model.issueId = item.id;
     for (let index = 0; index < makers.length; index++) {
       const element = makers[index];
       const lat = element.point && element.point.lat;
@@ -366,7 +367,7 @@ export class CoverComponent implements OnInit, OnDestroy {
 
     marker.addEventListener('click', function () {
       that.device = mess;
-      baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+      that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
       setTimeout(() => {
         that.deviceAddEventListener(mess);
       }, 0);
@@ -384,7 +385,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     if (message_p) {
       message_p.addEventListener('click', function () {
         console.log(message_l['value']);
-        const issueId = that.issueId;
+        const issueId = that.model.issueId;
         that.setIssues(issueId, 1, message_l['value']);
       });
     }
@@ -394,7 +395,8 @@ export class CoverComponent implements OnInit, OnDestroy {
   setIssues(issueId: number, state: number, comment: string) {
     const that = this;
     this.coverService.setIssues(issueId, state, comment).subscribe({
-      next: function (val) {
+      next: function () {
+        that.model.infoW.clickclose();
       },
       complete: function () {
 
@@ -422,10 +424,10 @@ export class CoverComponent implements OnInit, OnDestroy {
 
     this.monitorService.getZoneDefault().subscribe({
       next: function (val) {
-        that.cityList = val.regions;
-        that.currentCity = val.zone;
+        that.model.cityList = val.regions;
         that.zoom = that.switchZone(val.zone.level);
         that.node = that.getNode(val.regions, val.zone.region_id);
+        that.currentCity = that.node;
         that.currentChildren = that.node.children;
 
       },
@@ -564,6 +566,7 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   selecteblock(block) {
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
+    this.currentArea = block;
   }
 
   // 显示区域
