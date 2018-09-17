@@ -25,9 +25,9 @@ export class SecurityComponent implements OnInit {
 
   @ViewChild('map5') map_container: ElementRef;
   /*
-model:object
-light_list: array // 灾害数据
-*/
+  model:object
+  light_list: array // 灾害数据
+  */
   model: any = {}; // 存储数据
 
   /*
