@@ -51,6 +51,21 @@ export class DeviceService {
             }));
     }
 
+    // 获取指定型号设备-分页
+    getAllDeviceByModel(model: number, page: number, pageSize: number): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/api/device?model=${model}&page=${page}&pageSize=${pageSize}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
     // 获取所有设备型号-分页
     getAllDeviceModel(type: number, page: number, pageSize: number): Observable<any> {
         return this.http.get(`/api/device/model?type=${type}&page=${page}&pageSize=${pageSize}`)

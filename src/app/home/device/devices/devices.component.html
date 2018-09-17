@@ -37,7 +37,7 @@
   </div>
 </ng-template>
 
-<!-- 新建设备 -->
+<!-- 新建/修改设备 -->
 <ng-template #content2 let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h5 class="modal-title">{{addOrUpdate}}</h5>
@@ -285,7 +285,7 @@
         </div> -->
 
         <span>设备型号：</span>
-        <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()" class="form-control">
+        <select name="profile" [(ngModel)]="currentModel" (change)="deviceTypeChange()" class="form-control">
           <option *ngFor="let index of deviceModels" [ngValue]="index">
             {{ index.name }}
           </option>
@@ -297,7 +297,6 @@
           <div class="form-group">
             <!-- <i class="fa fa-search search-icon"></i> -->
             <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}" /> -->
-
             <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
               placeholder="Search" value="">
 

@@ -4,6 +4,7 @@ import { MonitorService } from '../../../service/monitor.service';
 import { DeviceService } from '../../../service/device.service';
 import { Point } from '../../../data/point.type';
 import { GradOverlar } from '../../../service/grad.overlay';
+import { take } from 'rxjs/operators';
 
 declare let BMap;
 declare let $: any;
@@ -44,7 +45,7 @@ export class DevicesComponent implements OnInit {
   total: number;
   deviceModels = [];  // 设备型号列表
   deviceModels1 = [];
-  currentType: any; // 当前设备型号
+  currentModel: any; // 当前设备型号
 
   device: any = {}; // 存储数据
   public mr: NgbModalRef; // 当前弹框
@@ -59,7 +60,8 @@ export class DevicesComponent implements OnInit {
   showPosiTable = false; // 默认不显示表格内容，只显示表头
   bindedPosition: any; // 修改的设备
 
-  addOrUpdate: any;
+  addOrUpdate: any; // 新建/修改标识
+  curModelIndex: any; // 当前设备型号标识
 
   @Input()
   public alerts: Array<IAlert> = [];
@@ -71,6 +73,7 @@ export class DevicesComponent implements OnInit {
 
     this.page = 1;
     this.pagePosi = 1;
+    this.curModelIndex = 0; // 全选
     this.device.point = {lng: '', lat: ''};
   }
 
@@ -95,7 +98,8 @@ export class DevicesComponent implements OnInit {
         that.deviceModels1 = val.items;
         that.deviceModels = val.items.map((item) => Object.assign({}, item));
         that.deviceModels.unshift({ id: 0, name: '不限' }); // 所有项
-        that.currentType = that.deviceModels[0];
+        that.currentModel = that.deviceModels[0]; // 默认显示“不限”
+        that.curModelIndex = that.currentModel.id; // 标识
         that.device.model = that.deviceModels1[0];
       },
       complete: function () { },
@@ -111,7 +115,7 @@ export class DevicesComponent implements OnInit {
   //     next: function (val) {
   //       that.deviceModels = val;
   //       that.deviceModels.unshift({ id: 0, name: '不限' }); // 所有项
-  //       that.currentType = val[0];
+  //       that.currentModel = val[0];
   //     },
   //     complete: function () { },
   //     error: function (error) {
@@ -123,7 +127,7 @@ export class DevicesComponent implements OnInit {
   // 获取设备分页
   getDevicesList(page, pageSize) {
     const that = this;
-    this.deviceService.getAllDevice(page, pageSize).subscribe({
+    this.deviceService.getAllDeviceByModel(this.curModelIndex, page, pageSize).subscribe({
       next: function (val) {
         that.deviceslist = val.items;
         that.total = val.total;
@@ -138,8 +142,10 @@ export class DevicesComponent implements OnInit {
 
   // 设备类型选择
   deviceTypeChange() {
+    this.curModelIndex = this.currentModel.id;
+    this.getDevicesList(this.page, this.pageSize);
     // 显示特定型号的设备列表分页
-    // console.log(this.currentType);
+    // console.log(this.currentModel);
   }
   // 分页
   pageChange() {
@@ -217,7 +223,7 @@ export class DevicesComponent implements OnInit {
   openUpdataDevice(content, item, i) {
     this.addOrUpdate = '更新设备';
     const that = this;
-    this.getPosiById(item.positionId); // device.positionId -> position
+    this.getPosiById(item.positionId); // device.positionId -> position. (设备->位置点)
 
     this.device.updateId = item.id;
     this.device.name = item.name;
@@ -364,7 +370,7 @@ export class DevicesComponent implements OnInit {
     return modelName;
   }
 
-  // 返回指定位置点
+  // 根据positionId返回指定位置点
   getPosiById(id) {
     const that = this;
     let curPosition;
@@ -375,7 +381,7 @@ export class DevicesComponent implements OnInit {
         console.log(val);
       },
       complete: function () {
-        that.city();
+        that.updatePosiRegion();
         that.bindPosition(curPosition);
         that.getPosiByRegionId(curPosition.regionId, 1, that.pageSizePosi);
       },
@@ -385,7 +391,8 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  city() {
+  // 传入'修改设备位置点所在区域'到模态框
+  updatePosiRegion() {
 
     const that = this;
     let region_id; // 当前城市id
