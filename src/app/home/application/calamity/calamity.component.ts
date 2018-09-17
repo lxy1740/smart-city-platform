@@ -11,8 +11,6 @@ import { MonitorService } from '../../../service/monitor.service';
 import { VideoService } from '../../../service/video.service';
 // baidu map
 declare let BMap;
-declare let $: any;
-declare let BMapLib;
 declare let BMAP_ANCHOR_TOP_LEFT;
 
 @Component({
@@ -48,7 +46,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
   deviceshow = false; // 默认设备列表不显示
 
   visible = true; // 控制可视区域
-
 
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
@@ -179,7 +176,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
   }
 
   addMarker(light_list) {
-    const makers = this.map.getOverlays();
     for (let index = 0; index < light_list.length; index++) {
       const item = light_list[index];
       const point = new BMap.Point(item.point[0], item.point[1]);
@@ -221,25 +217,11 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
-    const that = this;
-    // 创建地址解析器实例
-    const myGeo = new BMap.Geocoder();
     const zoom = this.switchZone(city.level);
-    const fullName = city.full_name;
     console.log(city);
-
-    let pt;
-
-    // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(fullName, function (point) {
-      if (point) {
-        baiduMap.centerAndZoom(point, zoom);
-        pt = point;
-
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, '');
+    const pt = city.center;
+    const point = new BMap.Point(pt.lng, pt.lat);
+    baiduMap.centerAndZoom(point, zoom);
   }
 
   // 获取数据
