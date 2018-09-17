@@ -216,12 +216,8 @@ export class LightComponent implements OnInit, OnDestroy  {
         // that.addMarker(value); // 添加
 
         that.lightList = val; // 变为新值
-        // that.lightListRes = [].concat(this.lightList);
-        console.log(that.lightList);
         that.lightListRes = that.comparison1(that.lightList, that.lightListRes);
-        // console.log(that.lightListRes);
 
-        // that.selectedLightList = [];
         that.lightList.map((item, i) => {
           that.lightList_check.push({check: false});
         });
