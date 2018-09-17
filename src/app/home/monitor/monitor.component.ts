@@ -209,28 +209,7 @@ export class MonitorComponent implements OnInit {
     baiduMap.addOverlay(label);
   }
 
-  // 信息窗口
-  openMessage(marker, baiduMap, pt) {
-    const that = this;
-    // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
-    const opts = {
-      width: 100,     // 信息窗口宽度
-      // height: 100,     // 信息窗口高度
-      // title: val.name, // 信息窗口标题
-      enableMessage: true, // 设置允许信息窗发送短息
-    };
-    const txt = `
-    <ul device-mes>
-      <li class='cur-pointer '><a>灯</a> </li>
-      <li class='cur-pointer '><a>井盖</a></li>
-      <li class='cur-pointer '><a>环境箱</a></li>
-      <li class='cur-pointer '><a>气象箱</a></li>
-    </ul>
-    `;
-    const infoWindow = new BMap.InfoWindow(txt, opts);
-    baiduMap.openInfoWindow(infoWindow, pt);
 
-  }
 
 
   // 解析地址- 设置中心和地图显示级别
@@ -416,15 +395,6 @@ export class MonitorComponent implements OnInit {
   }
 
 
-  // 返回地图可视区域，以地理坐标表示
-  // getBounds(baiduMap) {
-  //   const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
-  //   this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
-  //   this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
-  //   this.zoom = baiduMap.getZoom(); // 地图级别
-
-  // }
-
   // 清除覆盖物
   remove_overlay(baiduMap) {
     baiduMap.clearOverlays();
@@ -508,10 +478,6 @@ export class MonitorComponent implements OnInit {
       const pt = new BMap.Point(item.center.lng, item.center.lat);
       const name = item.name;
       const count = item.count;
-
-      // const myIcon = this.makeIcon(item.type);
-      // const marker2 = new BMap.Marker(pt, { icon: myIcon });  // 创建标注-图片icon
-      // this.map.addOverlay(marker2);              // 将标注添加到地图中
 
       // 添加自定义覆盖物
       const mySquare = new CircleOverlarService(pt, name, count, length, color, mouseoverColor);
