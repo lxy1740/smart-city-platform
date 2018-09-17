@@ -108,19 +108,11 @@
     </div>
 
   </div>
-    <!-- 右边按钮 -->
-    <!-- <div class="btn-icon-close" *ngIf="visible == false">
 
-      <div class="d-inline-block icon-item cur-pointer">
-    
-        <img id="btnClose" src="../../../assets/imgs/switch.png" alt="图片" (click)="exitFullScreen()">
-      </div>
-    
-    </div> -->
 
 
   <!-- 地图 -->
-  <div #map1 id="map_container1" class="map_container" [ngClass]="{'no-fulls-map':visible == true,'fulls-map': visible == false}"></div>
+  <div #map1 id="map_container1" class="map_container fulls-map" ></div>
 
   <!-- 设备操作 -->
   <div class="device-detail" *ngIf="deviceChild">
@@ -153,29 +145,7 @@
 
 
   </div>
-  <div class="info-footer row" *ngIf="weather">
-      <!-- 气象播报 -->
-      <div class="mask-zt info-box " [ngClass]="{'col-10':visible == true,'col-12':visible == false}">
-        <div class="d-inline-block info-logo">
-          <span>
-            <i class="fa fa-exclamation-triangle info" aria-hidden="true"></i>
-          </span>
-        </div>
-        <div class="d-inline-block info-text">
-          <p *ngFor="let item of meteorology">
-            <span [ngClass]="{'color-red': item.priority == 1, 'color-yellow':item.priority == 2, 'color-orange':item.priority == 3}">{{item.text}}</span>
-      
-          </p>
-        </div>
-      
-      </div>
-      <!-- 打开视频监控页 -->
-      <div class="video-play col-2" *ngIf="visible == true">
 
-          <img src="../../../assets/imgs/Camera.png" alt="图片" (click)="jumpHandle()" class="cur-pointer">
-
-      </div>
-  </div>
 
 </div>
 <!-- <div class="tag-bule">

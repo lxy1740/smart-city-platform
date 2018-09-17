@@ -402,11 +402,11 @@ export class MonitorComponent implements OnInit {
 
   // 根据级别获取数据-锚点
   addMarker() {
-
+    const that = this;
     const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
     const ne = Bounds.getNorthEast(); // 返回矩形区域的东北角
     const sw = Bounds.getSouthWest(); // 返回矩形区域的西南角
-    const that = this;
+
     const zoom = this.zoom;
 
     let length, color, mouseoverColor;
@@ -742,14 +742,18 @@ export class MonitorComponent implements OnInit {
     this.type = device.id;
     this.typeName = device.name;
     console.log(this.type);
-    this.addMarker();
     this.remove_overlay(this.map);
+    this.addMarker();
+
   }
 
   // selecteDeviceNone
   selecteDeviceNone() {
     this.type = 0;
     this.typeName = null;
+    this.remove_overlay(this.map);
+    this.addMarker();
+
   }
 
   // 选择设备
