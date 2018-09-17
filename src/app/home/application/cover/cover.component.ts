@@ -8,7 +8,6 @@ Author: luo.shuqi@live.com
 */
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { Point } from '../../../data/point.type';
-import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 import { MessService } from '../../../service/mess.service';
 import { CoverService } from '../../../service/cover.service';
@@ -24,47 +23,56 @@ declare let BMAP_ANCHOR_TOP_LEFT;
 })
 export class CoverComponent implements OnInit, OnDestroy {
   @ViewChild('map3') map_container: ElementRef;
+  /*
+  model:object
+  @issueId: number// 消息
+  @infoW: any// 信息框
+  @deviceType: number// 井盖类型id
+  @messageList: array //  待处理消息
+  @messageList1: array // 处理中消息
+  @messageList2: array // 已处理消息
+
+  */
   model: any = {}; // 存储数据
-  // issueId: number; // 消息
-  // infoW: any; // 信息框
+
+  /*
+  map_model: object // 城市列表相关
+  @currentCity: any // 当前城市
+  @currentArea: any // 当前区域
+  @cityList: array // 城市列表
+  @currentChildren: array // 区域列表一级
+  @currentBlock: array // 当前城市街道 = []; // 区域列表2级
+
+
+  */
+
+  map_model: any = {}; // 存储数据
+
   map: any; // 地图对象
 
-
-  deviceList: any; // 城市列表
-  defaultZone: any; // 默认城市
-  currentCity: any; // 当前城市
-  currentArea: any; // 当前区域
-  currentChildren: any; // 当前城市节点
-  currentBlock: any; // // 当前城市街道
-  device: any; // // 当前设备点
-
-  deviceChild: any; // // 当前设备点上-被点击的子设备
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
-  deviceshow = false; // 默认设备列表不显示
+  // deviceshow = false; // 默认设备列表不显示
 
   visible = true; // 控制可视区域
-
-  zoom: any; // 地图级数
-  SouthWest: Point; // 地图视图西南角
-  NorthEast: Point; // 地图视图东北角
-  type = 0; // 设备类型
 
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-  light_list = LIGHTLIST.val.light_list; // 数据模拟
   showunstartedlist = false; // 默认不显示“未处理”的异常消息
   showonprogresslist = false; // 默认不显示“处理中”的异常消息
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
   timer: any; // 定时器
+
   constructor(private coverService: CoverService, private monitorService: MonitorService, public messService: MessService) {
     this.model.deviceType = 5; // 井盖
     this.model.messageList = []; // 待处理
     this.model.messageList1 = []; // 处理中
     this.model.messageList2 = []; // 已处理
     this.model.coverList = [];  // 当前井盖列表
-    this.model.cityList = []; // 城市列表
+    this.map_model.cityList = []; // 城市列表
+    this.map_model.currentChildren = []; // 区域列表一级
+    this.map_model.currentBlock = []; // // 当前城市街道 = []; // 区域列表2级
   }
 
   ngOnInit() {
@@ -132,12 +140,12 @@ export class CoverComponent implements OnInit, OnDestroy {
     this.addMarker();
   }
     // 返回地图可视区域，以地理坐标表示
-    getBounds(baiduMap) {
-      const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
-      this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
-      this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
-      this.zoom = baiduMap.getZoom(); // 地图级别
-    }
+    // getBounds(baiduMap) {
+    //   const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
+    //   this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    //   this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
+    //   this.zoom = baiduMap.getZoom(); // 地图级别
+    // }
 
   addMarker() {
     this.getCovers();  // 获取井盖
@@ -366,7 +374,6 @@ export class CoverComponent implements OnInit, OnDestroy {
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
-      that.device = mess;
       that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
       setTimeout(() => {
         that.deviceAddEventListener(mess);
@@ -409,7 +416,7 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
-    const zoom = this.zoom = this.switchZone(city.level);
+    const zoom  = this.switchZone(city.level);
     console.log(city);
     const pt = city.center;
     const point = new BMap.Point(pt.lng, pt.lat);
@@ -424,11 +431,11 @@ export class CoverComponent implements OnInit, OnDestroy {
 
     this.monitorService.getZoneDefault().subscribe({
       next: function (val) {
-        that.model.cityList = val.regions;
-        that.zoom = that.switchZone(val.zone.level);
+        that.map_model.cityList = val.regions;
+        // that.zoom = that.switchZone(val.zone.level);
         that.node = that.getNode(val.regions, val.zone.region_id);
-        that.currentCity = that.node;
-        that.currentChildren = that.node.children;
+        that.map_model.currentCity = that.node;
+        that.map_model.currentChildren = that.node.children;
 
       },
       complete: function () {
@@ -559,14 +566,14 @@ export class CoverComponent implements OnInit, OnDestroy {
   // 选择区域
   // 选择城市
   selecteCity(city) {
-    this.currentCity = city;
+    this.map_model.currentCity = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
-    this.currentChildren = city.children;
+    this.map_model.currentChildren = city.children;
   }
 
   selecteblock(block) {
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
-    this.currentArea = block;
+    this.map_model.currentArea = block;
   }
 
   // 显示区域
@@ -578,31 +585,31 @@ export class CoverComponent implements OnInit, OnDestroy {
     this.cityshow = true;
   }
   // 显示设备
-  showDevice() {
-    this.deviceshow = true;
-  }
+  // showDevice() {
+  //   this.deviceshow = true;
+  // }
 
   // 选择区域
   arealistMouseover(area) {
 
-    this.currentBlock = area.children;
+    this.map_model.currentBlock = area.children;
   }
   // 离开区域
   arealistMouseleave() {
     this.areashow = false;
-    this.currentBlock = null;
+    this.map_model.currentBlock = [];
   }
   // 离开城市
   citylistMouseleave() {
     this.cityshow = false;
   }
   // 离开设备
-  devicelistMouseleave() {
-    this.deviceshow = false;
-  }
+  // devicelistMouseleave() {
+  //   this.deviceshow = false;
+  // }
   arealistMouseNone() {
     this.areashow = true;
-    this.currentBlock = null;
+    this.map_model.currentBlock = [];
   }
 
   // 消息相关
