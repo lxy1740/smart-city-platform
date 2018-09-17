@@ -13,8 +13,7 @@ import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 import { LightService } from '../../../service/light.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { initChangeDetectorIfExisting } from '@angular/core/src/render3/instructions';
+
 // baidu map
 declare let BMap;
 declare let $: any;
