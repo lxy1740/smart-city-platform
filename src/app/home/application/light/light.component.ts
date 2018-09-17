@@ -453,7 +453,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   }
 
   // 多选框 - 单选：选择需要统一分配策略的路灯
-  addLightstoCtrl(light, ind) {
+  addLightstoCtrl() {
     this.selectedLightList = [];
     this.lightList_check.map((item, i) => {
       if (item.check === true) {
@@ -493,11 +493,7 @@ export class LightComponent implements OnInit, OnDestroy  {
 
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
-    const that = this;
-    // 创建地址解析器实例
-    const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
-    const fullName = city.full_name;
     console.log(city);
     const pt = city.center;
     const point = new BMap.Point(pt.lng, pt.lat);

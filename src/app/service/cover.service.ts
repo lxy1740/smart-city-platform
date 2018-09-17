@@ -61,7 +61,7 @@ export class CoverService {
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = res.json().code.toString();
+                    const data = { status: 200};
                     return data;
                 } else {
                     return res.json().code.toString();

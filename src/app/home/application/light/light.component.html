@@ -129,7 +129,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let light of lightListRes; let i = index">
-                            <td><input type="checkbox" (change)="addLightstoCtrl(light, i)"
+                            <td><input type="checkbox" (change)="addLightstoCtrl()"
                                  [checked]="lightList_check[i].check" [(ngModel)]="lightList_check[i].check"></td>
                             <td>{{light.name}}</td>
                             <td>{{light.positionNumber}}</td>

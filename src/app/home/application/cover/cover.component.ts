@@ -10,20 +10,12 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/cor
 import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
-import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-
-// ymZhao
-import { MessageService } from '../../../service/message.service';
 import { MessService } from '../../../service/mess.service';
-import { CommunicateService } from '../../../service/communicate.service';
-import { GradOverlar } from '../../../service/grad.overlay';
 import { CoverService } from '../../../service/cover.service';
 // baidu map
 declare let BMap;
-declare let $: any;
-declare let BMapLib;
 declare let BMAP_ANCHOR_TOP_LEFT;
-declare let echarts; // ymZhao
+
 
 @Component({
   selector: 'app-cover',
@@ -31,10 +23,12 @@ declare let echarts; // ymZhao
   styleUrls: ['./cover.component.scss']
 })
 export class CoverComponent implements OnInit, OnDestroy {
+  @ViewChild('map3') map_container: ElementRef;
   messageList = []; // 待处理
   messageList1 = []; // 处理中
   messageList2 = []; // 已处理
-  @ViewChild('map3') map_container: ElementRef;
+  issueId: number;
+
   model: any = {}; // 存储数据
 
   map: any; // 地图对象
@@ -68,15 +62,14 @@ export class CoverComponent implements OnInit, OnDestroy {
   showonprogresslist = false; // 默认不显示“处理中”的异常消息
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
   timer: any; // 定时器
-  constructor(private coverService: CoverService, private monitorService: MonitorService,
-    private messageService: MessageService, public messService: MessService, private config: NgbDropdownConfig) {
+  constructor(private coverService: CoverService, private monitorService: MonitorService, public messService: MessService) {
       this.model.deviceType = 5; // 井盖
      }
 
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
-    this.getMessage();  // 获取井盖异常消息列表
+
   }
 
   // ymZhao 获取井盖异常消息列表
@@ -147,10 +140,12 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   addMarker() {
     this.getCovers();  // 获取井盖
+    this.getMessage();  // 获取井盖异常消息列表
     this.timer = setInterval(() => {
       // this.map.clearOverlays();
       this.getCovers();
-    }, 5000);
+      this.getMessage();  // 获取井盖异常消息列表
+    }, 10000);
 
 
   }
@@ -237,8 +232,6 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   // 替换
   changeMarker(cover_list) {
-    // console.log(cover_list);
-    // console.log(this.coverList);
     this.deleMarker(cover_list); // 删除
     this.addPoint(cover_list); // 添加
   }
@@ -246,7 +239,6 @@ export class CoverComponent implements OnInit, OnDestroy {
   deleMarker(cover_list) {
     const makers = this.map.getOverlays();
     for (let ind = 0; ind < cover_list.length; ind++) {
-      const ele = cover_list[ind];
       const point = cover_list[ind].point;
       for (let index = 0; index < makers.length; index++) {
         const element = makers[index];
@@ -299,27 +291,26 @@ export class CoverComponent implements OnInit, OnDestroy {
 
 
   // 标注消息列表中点击的井盖事件
-  findPoint(mess) {
-    const pt = new BMap.Point(mess.lng, mess.lat);
-    const messtype = mess.handleType;
-    let myIcon;
-    if (messtype === 0) {
-      myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(16, 16));
-    } else if (messtype === 1) {
-      myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(16, 16));
-    } else if (messtype === 2) {
-      myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(16, 16));
-    } else {
-      console.log('Error messtype!');
+  findPoint(item) {
+    let marker;
+    const makers = this.map.getOverlays();
+    const point = new BMap.Point(item.point.lng, item.point.lat);
+    this.issueId = item.id;
+    for (let index = 0; index < makers.length; index++) {
+      const element = makers[index];
+      const lat = element.point && element.point.lat;
+      const lng = element.point && element.point.lng;
+      if (point.lat === lat && point.lng === lng) {
+        marker = element;
+        console.log(marker);
+        if (marker) {
+          marker.V.click();
+        }
+      }
     }
 
-    const marker = new BMap.Marker(pt, { icon: myIcon });  // 创建标注
-    this.map.addOverlay(marker);
-    this.map.centerAndZoom(pt, 18);
-    this.openSideBar(marker, this.map, mess, pt);
-    setTimeout(() => {
-      marker.V.click();
-    }, 50);
+    this.map.centerAndZoom(point, 18);
+
   }
 
   // 地图点注标-点击事件
@@ -356,9 +347,19 @@ export class CoverComponent implements OnInit, OnDestroy {
     } else {
       txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
     }
-    if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
-      txt = txt + `<button class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>处理</button>`;
+    // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
+
+    if (mess.lowBattery || mess.alarm ) {
+      const m = `massage-lsq${mess.id}`;
+      const p = `massage-post${mess.id}`;
+      txt = txt + `<hr><textarea id=${m}  rows="3"  style='width:100%;'></textarea>`;
+      txt = txt + `<p><button id=${p} class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>
+      处理</button></p>`;
+
+
     }
+
+
 
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
@@ -366,34 +367,51 @@ export class CoverComponent implements OnInit, OnDestroy {
     marker.addEventListener('click', function () {
       that.device = mess;
       baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
-      // setTimeout(() => {
-      //   that.deviceAddEventListener();
-      // }, 0);
+      setTimeout(() => {
+        that.deviceAddEventListener(mess);
+      }, 0);
     });
 
   }
 
+  // 点击处理按钮事件
+  deviceAddEventListener(mess) {
+    const that = this;
+    const m = `massage-lsq${mess.id}`;
+    const p = `massage-post${mess.id}`;
+    const message_l = document.getElementById(m);
+    const message_p = document.getElementById(p);
+    if (message_p) {
+      message_p.addEventListener('click', function () {
+        console.log(message_l['value']);
+        const issueId = that.issueId;
+        that.setIssues(issueId, 1, message_l['value']);
+      });
+    }
+  }
+
+  // 修改状态
+  setIssues(issueId: number, state: number, comment: string) {
+    const that = this;
+    this.coverService.setIssues(issueId, state, comment).subscribe({
+      next: function (val) {
+      },
+      complete: function () {
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
-    const that = this;
-    // 创建地址解析器实例
-    const myGeo = new BMap.Geocoder();
     const zoom = this.zoom = this.switchZone(city.level);
-    const fullName = city.full_name;
     console.log(city);
-
-    let pt;
-
-    // 将地址解析结果显示在地图上,并调整地图视野，获取数据-添加标注
-    myGeo.getPoint(fullName, function (point) {
-      if (point) {
-        baiduMap.centerAndZoom(point, zoom);
-        pt = point;
-
-      } else {
-        console.log('您选择地址没有解析到结果!');
-      }
-    }, '');
+    const pt = city.center;
+    const point = new BMap.Point(pt.lng, pt.lat);
+    baiduMap.centerAndZoom(point, zoom);
   }
 
   // 获取数据
@@ -412,7 +430,6 @@ export class CoverComponent implements OnInit, OnDestroy {
 
       },
       complete: function () {
-        // that.addBeiduMap(); // 创建地图
 
       },
       error: function (error) {
