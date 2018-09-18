@@ -273,12 +273,12 @@ export class CoverComponent implements OnInit, OnDestroy {
       // 添加自定义覆盖物
       let myIcon;
 
-      if (item.alarm && item.alarm === true) { // 异常
+      if (item.alarm && item.alarm === true) { // 丢失
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(36, 36));
       } else if (item.offline === true) { // 掉线
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(36, 36));
 
-      } else if (item.lowBattery === true) {
+      } else if (item.lowBattery === true) { // 低电量
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-lowpower.png', new BMap.Size(36, 36));
       } else { // 正常
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(36, 36));
@@ -346,11 +346,11 @@ export class CoverComponent implements OnInit, OnDestroy {
     } else {
       txt = txt + `<p  class='cur-pointer'> 是否报警：<span style='color: red'>是</span></p>`;
     }
-    if (mess.error === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否故障：否</p>`;
-    } else {
-      txt = txt + `<p  class='cur-pointer'> 是否故障：<span style='color: red'>是</span></p>`;
-    }
+    // if (mess.error === false) {
+    //   txt = txt + `<p  class='cur-pointer'> 是否故障：否</p>`;
+    // } else {
+    //   txt = txt + `<p  class='cur-pointer'> 是否故障：<span style='color: red'>是</span></p>`;
+    // }
     if (mess.offline === false) {
       txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
     } else {

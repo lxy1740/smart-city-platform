@@ -181,31 +181,31 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const point = new BMap.Point(item.point[0], item.point[1]);
 
       let myIcon;
-      if (item.type === 1 && item.error === 1) { // 异常
-        myIcon = new BMap.Icon('../../../../assets/imgs/Earthquake.gif', new BMap.Size(300, 157));
+      if (item.type === 1 && item.error === 1) { // 楼宇坍塌1building
+        myIcon = new BMap.Icon('../../../../assets/imgs/building.png', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
-      } else if (item.type === 2 && item.error === 1) { // 灯亮
-        myIcon = new BMap.Icon('../../../../assets/imgs/water.gif', new BMap.Size(300, 157));
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
-
-      } else if (item.type === 3 && item.error === 1) { // 正常
-        myIcon = new BMap.Icon('../../../../assets/imgs/gif001.gif', new BMap.Size(300, 157));
+      } else if (item.type === 2 && item.error === 1) { // 山体滑坡2landslide
+        myIcon = new BMap.Icon('../../../../assets/imgs/landslide.png', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
 
-      } else if (item.type === 4 && item.error === 1) { // 正常
-        myIcon = new BMap.Icon('../../../../assets/imgs/gif002.gif', new BMap.Size(300, 157));
+      } else if (item.type === 3 && item.error === 1) { // 异味臭气1odor
+        myIcon = new BMap.Icon('../../../../assets/imgs/odor.png', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
 
-      } else if (item.type === 5 && item.error === 1) { // 正常
-        myIcon = new BMap.Icon('../../../../assets/imgs/gif003.gif', new BMap.Size(300, 157));
+      } else if (item.type === 4 && item.error === 1) { // 燃气泄漏1gas
+        myIcon = new BMap.Icon('../../../../assets/imgs/gas.png', new BMap.Size(300, 157));
+        myIcon.setAnchor(new BMap.Size(16, 38));
+        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        this.map.addOverlay(marker2);
+
+      } else if (item.type === 5 && item.error === 1) { // 道路积水1hydrops
+        myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.png', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
