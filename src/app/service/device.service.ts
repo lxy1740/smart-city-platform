@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Injectable, query } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/';
 import { map } from 'rxjs/operators';
@@ -52,10 +52,10 @@ export class DeviceService {
     }
 
     // 获取指定型号设备-分页
-    getAllDeviceByModel(model: number, page: number, pageSize: number): Observable<any> {
+    getAllDeviceByModel(queryStr: String, model: number, page: number, pageSize: number): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get(`/api/device?model=${model}&page=${page}&pageSize=${pageSize}`)
+        return this.http.get(`/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();
@@ -140,8 +140,8 @@ export class DeviceService {
     }
 
     // 获取指定区域内的所有位置点-分页
-    getAllPosiByRegionId(regionId: number, page: number, pageSize: number): Observable<any> {
-        return this.http.get(`/api/position/region/${regionId}?page=${page}&pageSize=${pageSize}`)
+    getAllPosiByRegionId(queryStr: String, regionId: number, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`/api/position/region/${regionId}?queryStr=${queryStr}&page=${page}&pageSize=${pageSize}`)
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();

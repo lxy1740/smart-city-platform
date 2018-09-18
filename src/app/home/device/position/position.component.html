@@ -302,11 +302,11 @@
           </select>
         
           <div class="form-group">
-            <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
-              placeholder="Search" value="">
+            <input id="sole-input4" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" name="word" 
+              autocomplete="off" maxlength="256" placeholder="检索编号、名称">
           </div>
         
-          <button type="submit" class="btn btn-bg">搜索</button>
+          <button type="submit" class="btn btn-bg" (click)="execQuery()">搜索</button>
           <!-- <button type="submit" class="btn btn-bg form-btn-1" (click)="openNewPosition(contentsetPosition)">批量导入位置</button>
           <button type="submit" class="btn btn-bg form-btn" (click)="openNewPosition(contentsetPosition)">新建位置</button> -->
         </form>

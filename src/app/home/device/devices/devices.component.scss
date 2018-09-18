@@ -111,9 +111,27 @@
     .padding-left-zero {
         padding-left: 0px;
     }
-    .area-selection {
-        margin: 0 0 5px 5px;
+    // .area-selection {
+    //     margin: 0 0 5px 5px;
+    // }
+    .label-mid {
+        width: 65px;
+        text-align: right;
+        margin-right: 5px;
     }
+    .query-div {
+        position: relative;
+        margin-top: 5px;
+        .query-btn {
+            position: relative;
+            top: -2px;
+            right: 22px;
+        }
+        .query-btn:hover, .query-btn:active {
+            color: red;
+        }
+    }
+
 }
 
 .div-left {

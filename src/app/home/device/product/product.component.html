@@ -238,11 +238,11 @@
                 <div class="form-group">
                   <!-- <i class="fa fa-search search-icon"></i> -->
                   <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/> -->
-                  <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
-                    placeholder="Search" value="">
+                  <input id="sole-input3" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
+                    name="word" autocomplete="off" maxlength="256" placeholder="检索名称、描述">
                 </div>
             </div>
-            <button class="btn btn-bg extral-marg">搜索</button>
+            <button class="btn btn-bg extral-marg" (click)="execQuery()">搜索</button>
           </form>
       </div>
 

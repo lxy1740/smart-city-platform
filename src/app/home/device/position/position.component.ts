@@ -46,6 +46,7 @@ export class PositionComponent implements OnInit {
   total: number; // 分页
   page: number;
   pagesize = 10;
+  queryStr: any;
 
 
   public mr: NgbModalRef; // 当前弹框
@@ -61,6 +62,7 @@ export class PositionComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, private positionService: PositionService) {
+    this.queryStr = '';
     this.page = 1;
     this.model.point = {lng: '', lat: ''};
   }
@@ -78,6 +80,11 @@ export class PositionComponent implements OnInit {
     this.getCity();
     this.getDevice();
     this.getPosition(0, this.page, this.pagesize);
+  }
+  // 检索按键点击事件
+  execQuery() {
+    this.page = 1;
+    this.getPosition(this.currentType.id, 1, this.pagesize);
   }
 
   changeName(modelId) {
@@ -287,7 +294,7 @@ export class PositionComponent implements OnInit {
   // 获取位置
   getPosition(type: number, page: number, pagesize: number) {
     const that = this;
-    this.positionService.getPosition(type, page, pagesize).subscribe({
+    this.positionService.getPosition(this.queryStr, type, page, pagesize).subscribe({
       next: function (val) {
         that.positionList = val;
         that.total = val.total;

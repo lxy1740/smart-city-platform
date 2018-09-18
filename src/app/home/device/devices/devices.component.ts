@@ -46,6 +46,8 @@ export class DevicesComponent implements OnInit {
   deviceModels = [];  // 设备型号列表
   deviceModels1 = [];
   currentModel: any; // 当前设备型号
+  queryStr: any; // 检索字符串
+  queryStrPosi: any; // 按区域显示的位置点，检索字符串
 
   device: any = {}; // 存储数据
   public mr: NgbModalRef; // 当前弹框
@@ -74,6 +76,8 @@ export class DevicesComponent implements OnInit {
     this.page = 1;
     this.pagePosi = 1;
     this.curModelIndex = 0; // 全选
+    this.queryStr = '';
+    this.queryStrPosi = '';
     this.device.point = {lng: '', lat: ''};
   }
 
@@ -108,26 +112,11 @@ export class DevicesComponent implements OnInit {
       }
     });
   }
-  // 获取设备类型列表
-  // getDevice() {
-  //   const that = this;
-  //   this.monitorService.getDevice().subscribe({
-  //     next: function (val) {
-  //       that.deviceModels = val;
-  //       that.deviceModels.unshift({ id: 0, name: '不限' }); // 所有项
-  //       that.currentModel = val[0];
-  //     },
-  //     complete: function () { },
-  //     error: function (error) {
-  //       console.log(error);
-  //     }
-  //   });
-  // }
 
   // 获取设备分页
   getDevicesList(page, pageSize) {
     const that = this;
-    this.deviceService.getAllDeviceByModel(this.curModelIndex, page, pageSize).subscribe({
+    this.deviceService.getAllDeviceByModel(this.queryStr, this.curModelIndex, page, pageSize).subscribe({
       next: function (val) {
         that.deviceslist = val.items;
         that.total = val.total;
@@ -145,7 +134,10 @@ export class DevicesComponent implements OnInit {
     this.curModelIndex = this.currentModel.id;
     this.getDevicesList(this.page, this.pageSize);
     // 显示特定型号的设备列表分页
-    // console.log(this.currentModel);
+  }
+  // 检索按键点击事件
+  execQuery() {
+    this.getDevicesList(this.page, this.pageSize);
   }
   // 分页
   pageChange() {
@@ -221,6 +213,7 @@ export class DevicesComponent implements OnInit {
   }
   // 修改设备
   openUpdataDevice(content, item, i) {
+    this.queryStrPosi = '';
     this.addOrUpdate = '更新设备';
     const that = this;
     this.getPosiById(item.positionId); // device.positionId -> position. (设备->位置点)
@@ -244,9 +237,6 @@ export class DevicesComponent implements OnInit {
 
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.addBaiduMap();
-
-    // console.log(this.curDevice.regionId);
-    // this.selecteblock(this.curDevice.regionId);
 
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -526,20 +516,25 @@ export class DevicesComponent implements OnInit {
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
   }
 
-
+  // 街道点击事件
   selecteblock(block) {
+    this.queryStrPosi = '';
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
     this.currentArea = block;
-    console.log(block);
     this.device.point = { lng: '', lat: '' };
+    this.pagePosi = 1;
     this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
-    console.log(this.posiListByRegion);
   }
-
+  // 新建/修改设备中检索点击事件
+  execQueryPosi() {
+    this.pagePosi = 1;
+    this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
+  }
+  // 通过安装区域和检索字符串获取位置点
   getPosiByRegionId(regionId, page, pageSize) {
     const that = this;
     this.showPosiTable = true;
-    this.deviceService.getAllPosiByRegionId(regionId, page, pageSize).subscribe({
+    this.deviceService.getAllPosiByRegionId(this.queryStrPosi, regionId, page, pageSize).subscribe({
       next: function (val) {
         that.posiListByRegion = val.items;
         that.total1 = val.total;

@@ -24,6 +24,8 @@ export class ProductComponent implements OnInit {
     title: '删除',
     body: 'hh',
   };
+  queryStr: any;
+
   @Input()
   public alerts: Array<IAlert> = [];
 
@@ -31,6 +33,7 @@ export class ProductComponent implements OnInit {
 
   constructor(private modalService: NgbModal,  private productService: ProductService) {
     this.page = 1;
+    this.queryStr = '';
   }
 
   public closeAlert(alert: IAlert) {
@@ -47,10 +50,15 @@ export class ProductComponent implements OnInit {
     this.getModel(0, this.page, this.pagesize);
   }
 
+  // 产品关键词检索 点击事件
+  execQuery() {
+    this.page = 1;
+    this.getModel(this.currentType.id, 1, this.pagesize);
+  }
     // 获取设备型号
   getModel(type: number, page: number, pagesize: number) {
     const that = this;
-    this.productService.getModel(type, page, pagesize).subscribe({
+    this.productService.getModel(this.queryStr, type, page, pagesize).subscribe({
       next: function (val) {
         that.productList = val;
         that.total = val.total;
