@@ -61,12 +61,12 @@ export const ROUTETREE = [
                 routeLink: 'application/cover',
                 routeTitel: '窨井管理',
             },
-            {
-                id: 21,
-                icon: 'fa fa-shield nav-icon-s',
-                routeLink: 'application/security',
-                routeTitel: '智慧安防',
-            },
+            // {
+            //     id: 21,
+            //     icon: 'fa fa-shield nav-icon-s',
+            //     routeLink: 'application/security',
+            //     routeTitel: '智慧安防',
+            // },
             {
                 id: 21,
                 icon: 'fa fa-car nav-icon-s',
