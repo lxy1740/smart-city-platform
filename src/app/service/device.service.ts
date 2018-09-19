@@ -96,13 +96,13 @@ export class DeviceService {
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = res.json();
-                    console.log(res.status);
-                    console.log(11);
-                    console.log(res.json());
+                    // console.log(res.status);
+                    // console.log(11);
+                    // console.log(res.json());
                     return data;
                 } else if (res.status === 400) {
-                    console.log(12);
-                    console.log(res.json());
+                    // console.log(12);
+                    // console.log(res.json());
                     return res.json();
                     // return res.json().errors.toString();
 

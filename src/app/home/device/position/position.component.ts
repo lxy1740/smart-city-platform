@@ -55,8 +55,11 @@ export class PositionComponent implements OnInit {
     body: 'hh',
   };
 
+  errorMess = []; // 经纬度错误消息
+
   @Input()
   public alerts: Array<IAlert> = [];
+  public alertsModal: Array<IAlert> = [];
 
   private backup: Array<IAlert>;
 
@@ -70,6 +73,10 @@ export class PositionComponent implements OnInit {
   public closeAlert(alert: IAlert) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+  public closeAlertModal(alert: IAlert) {
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
   }
 
   public reset() {
@@ -105,6 +112,7 @@ export class PositionComponent implements OnInit {
   // 新建位置弹框
   openNewPosition(content) {
     const that = this;
+    this.errorMess = [];
     this.model.name = ''; // name
     this.model.number = ''; // number
     this.model.point = { lng: '', lat: '' }; // 坐标
@@ -116,15 +124,16 @@ export class PositionComponent implements OnInit {
     that.model.device = this.deviceList[0]; // 类型
 
     const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
     this.addBaiduMap();
 
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      that.setPosition();
+      // console.log(this.closeResult);
+      // that.setPosition();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
+      // console.log(this.closeResult);
     });
 
   }
@@ -140,6 +149,8 @@ export class PositionComponent implements OnInit {
     const point = this.model.point;
     const type = this.model.device.id;
 
+
+
     this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
       next: function (val) {
         that.alerts.push({
@@ -148,17 +159,19 @@ export class PositionComponent implements OnInit {
           message: '新建成功！',
         });
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.mr.close();
       },
       complete: function () {
         that.getPosition(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
-        console.log(error);
-        that.alerts.push({
+        const message = error.json().errors[0].defaultMessage;
+        that.alertsModal.push({
           id: 1,
           type: 'danger',
-          message: '新建失败！',
+          message: `新建失败: ${message}！`,
         });
+        console.log(error.json());
       }
     });
   }
@@ -166,6 +179,7 @@ export class PositionComponent implements OnInit {
   // 修改位置
   openUpdataPosi(content, item, i) {
     const that = this;
+    this.errorMess = [];
     this.model.updataId = item.id;
     // this.model.installZoneId = item.installZoneId;
     this.model.installZoneId = item.installZoneId; // 安装区域
@@ -200,11 +214,12 @@ export class PositionComponent implements OnInit {
     that.currentArea = that.getNode(that.cityList, area_id); // 当前区域i
 
     const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
     this.addBaiduMap();
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
-      that.updataPosition();
+      // that.updataPosition();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
@@ -231,17 +246,20 @@ export class PositionComponent implements OnInit {
           message: '修改成功！',
         });
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.mr.close();
       },
       complete: function () {
         that.getPosition(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
-        console.log(error);
-        that.alerts.push({
+        const message = error.json().errors[0].defaultMessage;
+        that.alertsModal.push({
           id: 1,
           type: 'danger',
-          message: '修改失败！',
+          message: `修改失败: ${message}！`,
         });
+        console.log(error.json());
+        console.log(error);
       }
     });
   }
@@ -268,6 +286,11 @@ export class PositionComponent implements OnInit {
   delPosition() {
     const that = this;
     const id = this.model.itemDelId;
+    let flag = false;
+    const pages = (this.total + this.pagesize - 1) / this.pagesize;
+    if (this.page >= pages && this.positionListItems.length === 1) {
+      flag = true;
+    }
     this.positionService.delPosition(id).subscribe({
       next: function (val) {
         that.alerts.push({
@@ -278,7 +301,12 @@ export class PositionComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-        that.getPosition(that.currentType.id, that.page, that.pagesize);
+        if (flag) {
+          that.page  = that.page - 1;
+          that.getPosition(that.currentType.id, that.page, that.pagesize);
+        } else {
+          that.getPosition(that.currentType.id, that.page, that.pagesize);
+        }
       },
       error: function (error) {
         console.log(error);
@@ -407,10 +435,57 @@ export class PositionComponent implements OnInit {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
       that.model.point = e.point;
+      // console.log(typeof(that.model.point.lat));
 
     });
   }
+  typeofPoint(lat, lng) {
+    const that = this;
+    this.errorMess = [];
+    const str1 = '纬度';
+    const str2 = '经度';
+    this.validPoint(lat, str1);
+    this.validPoint(lng, str2);
+    if (this.errorMess.length <= 0) {
+      that.errorMess.push('无错');
+    }
+  }
+  validPoint(lat, str) {
+    let maxValue;
+    if (str === '纬度') {
+      maxValue = 90;
+    } else {
+      maxValue = 180;
+    }
+    const that = this;
+    let errorMes = ''; // 错误信息提示
+    const latNum = Number(lat);
+    const latStr = latNum.toString();
 
+    if (lat && latStr === 'NaN') {
+      errorMes = str + '数错误！';
+      // console.log(errorMes);
+    } else if (lat && latStr !== 'NaN') {
+        const pointArray = latStr.split('.');
+        if (Number(pointArray[0]) >= -maxValue && Number(pointArray[0]) <= maxValue) {
+            if (pointArray[1].length > 6) {
+                errorMes = str + '取小数点后6位！';
+                const term = pointArray[1].slice(0, 6);
+                pointArray[1] = term;
+            }
+            if (str === '纬度') {
+              that.model.point.lat = pointArray[0] + '.' + pointArray[1];
+            } else {
+              that.model.point.lng = pointArray[0] + '.' + pointArray[1];
+            }
+        } else {
+            errorMes = str + '超出范围！';
+        }
+
+    }
+    errorMes === '' ? errorMes = '' : this.errorMess.push(errorMes);
+
+  }
 
 
   switchZone(level) {

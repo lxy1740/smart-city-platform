@@ -1,5 +1,8 @@
 <!-- modal:新建产品 -->
 <ng-template #contentAdd let-c="close" let-d="dismiss">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+  </p>
   <div class="modal-header">
     <h4 class="modal-title">新建产品</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -60,14 +63,18 @@
     </div>
 </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="c('Close click')" 
-    [disabled]="!model.name || model.name == '' || !model.description || model.description == ''">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="setModel()" 
+    [disabled]="!model.name || model.name == '' || !model.description || model.description == '' || model.name.length > 30 || 
+      model.description.length > 40">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
 
 <!-- modal:修改产品 -->
 <ng-template #contentUpdate let-c="close" let-d="dismiss">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+  </p>
   <div class="modal-header">
     <h4 class="modal-title">新建产品</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -128,7 +135,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="c('Close click')" [disabled]="!model.name || model.name == '' || !model.description || model.description == ''">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="updateModel()" [disabled]="!model.name || model.name == '' || 
+      !model.description || model.description == '' || model.name.length > 30 || model.description.length > 40">确认</button>
     <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>

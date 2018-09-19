@@ -57,6 +57,7 @@
           <label class="control-label">设备名称:</label>
           <!-- <div class="form-cont-left"> -->
           <input type="text" [(ngModel)]="device.descr" class="form-control" id="add-product-name" placeholder="">
+          <span *ngIf="device.descr.length > 30" class="control-label" style="color: red">长度不可大于30！</span>
           <!-- </div> -->
         </div>
         <div class="form-group">
@@ -78,6 +79,7 @@
         <div class="form-group">
           <label class="control-label">设备编号:</label>
           <input type="text" [(ngModel)]="device.name" class="form-control" placeholder="">
+          <span *ngIf="device.name.length > 30" class="control-label" style="color: red">长度不可大于30！</span>
         </div>
       </div>
       <!-- 中列 -->
@@ -180,7 +182,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let position of posiListByRegion" class="lineheight" (click)="bindPosition(position)">
+            <tr *ngFor="let position of posiListByRegion" class="lineheight cur-pointer" (click)="bindPosition(position)">
               <td>{{position.name}}</td>
               <td>{{position.number}}</td>
               <td><span *ngIf="position.point"></span>X:{{position.point.lng}} Y:{{position.point.lat}}</td>
@@ -199,9 +201,9 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="c('Close click')" 
-      [disabled]="!device.descr || device.descr == '' || !device.name || device.name == '' 
-      || !bindedPosition || bindedPosition == ''">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="addorUpdate(addOrUpdate)" 
+      [disabled]="!device.descr || device.descr == '' || !device.name || device.name == '' || !bindedPosition || bindedPosition == ''
+        || device.descr.length > 30 || device.name.length > 30">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>

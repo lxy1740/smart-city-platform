@@ -174,19 +174,26 @@ export class DevicesComponent implements OnInit {
     this.bindedPosition = null;
 
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
+    this.mr = modal;
     this.addBaiduMap();
 
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 
-      console.log(this.closeResult);
-      this.addDevice();
+      // this.addDevice();
       this.showPosiTable = false;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
       this.showPosiTable = false;
     });
+  }
+  addorUpdate(addOrUpdate) {
+    if (addOrUpdate === '新建设备') {
+      this.addDevice();
+    } else {
+      this.device.modelId = this.device.model.id; // 关闭模态框时同步modelId以便更新。device.model为双向绑定的设备类型
+      this.updataDevice();
+    }
   }
   // 新增设备
   addDevice() {
@@ -204,20 +211,20 @@ export class DevicesComponent implements OnInit {
         that.alerts.push({
           id: 1,
           type: 'success',
-          message: '新增成功！',
+          message: '新建成功！',
         });
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.mr.close();
       },
       complete: function () {
         that.getDevicesList(that.page, that.pageSize);
       },
       error: function (error) {
-
-          const message = error.json().errors[0].defaultMessage;
-                  that.alerts.push({
+        const message = error.json().errors[0].defaultMessage;
+        that.alertsModal.push({
           id: 1,
           type: 'danger',
-          message: `新增失败: ${message}！`,
+          message: `新建失败: ${message}！`,
         });
         console.log(error.json());
       }
@@ -245,17 +252,15 @@ export class DevicesComponent implements OnInit {
       }
     }
 
-
-
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
+    this.mr = modal;
     this.addBaiduMap();
 
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-
-      console.log(this.closeResult);
-      this.device.modelId = this.device.model.id; // 关闭模态框时同步modelId以便更新。device.model为双向绑定的设备类型
-      that.updataDevice();
+      // console.log(this.closeResult);
+      // this.device.modelId = this.device.model.id; // 关闭模态框时同步modelId以便更新。device.model为双向绑定的设备类型
+      // that.updataDevice();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
@@ -282,11 +287,19 @@ export class DevicesComponent implements OnInit {
           message: '修改成功！',
         });
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.mr.close();
       },
       complete: function () {
         that.getDevicesList(that.page, that.pageSize);
       },
       error: function (error) {
+        const message = error.json().errors[0].defaultMessage;
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `修改失败: ${message}！`,
+        });
+        console.log(error.json());
         console.log(error);
       }
     });
@@ -310,6 +323,11 @@ export class DevicesComponent implements OnInit {
   delDevice() {
     const that = this;
     const id = this.device.itemDelId;
+    let flag = false;
+    const pages = (this.total + this.pageSize - 1) / this.pageSize;
+    if (this.page >= pages && this.deviceslist.length === 1) {
+      flag = true;
+    }
     this.deviceService.delDevice(id).subscribe({
       next: function (val) {
         that.alerts.push({
@@ -320,7 +338,12 @@ export class DevicesComponent implements OnInit {
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
-        that.getDevicesList(that.page, that.pageSize);
+        if (flag) {
+          that.page  = that.page - 1;
+          that.getDevicesList(that.page, that.pageSize);
+        } else {
+          that.getDevicesList(that.page, that.pageSize);
+        }
       },
       error: function (error) {
         console.log(error);
