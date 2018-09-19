@@ -39,6 +39,9 @@
 
 <!-- 新建/修改设备 -->
 <ng-template #content2 let-c="close" let-d="dismiss">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+  </p>
   <div class="modal-header">
     <h5 class="modal-title">{{addOrUpdate}}</h5>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -186,7 +189,7 @@
 
         </table>
         <div *ngIf="posiListByRegion.length === 0 || !posiListByRegion">无数据！</div>
-        <div *ngIf="posiListByRegion.length > 1">
+        <div *ngIf="posiListByRegion.length > 0">
           <ngb-pagination [collectionSize]=total1 [(page)]="pagePosi" [maxSize]="5" [rotate]="true" [ellipses]="false" 
             [boundaryLinks]="true" (pageChange)="pageChangePosi()"></ngb-pagination>
         </div>
@@ -343,7 +346,7 @@
 
       </table>
       <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
-      <div *ngIf="deviceslist.length > 1">
+      <div *ngIf="deviceslist.length > 0">
         <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
           (pageChange)="pageChange()"></ngb-pagination>
       </div>

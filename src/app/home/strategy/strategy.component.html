@@ -247,7 +247,7 @@
               </tr>
             </table>
             <div *ngIf="rangeListItems.length === 0 || !rangeListItems">无数据！</div>
-            <div *ngIf="rangeListItems.length > 1">
+            <div *ngIf="rangeListItems.length > 0">
                   <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
                     (pageChange)="pageChange()"></ngb-pagination>
             </div>

@@ -277,7 +277,7 @@
         </table>
 
         <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div>
-        <div *ngIf="productListItems.length > 1">
+        <div *ngIf="productListItems.length > 0">
           <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
             (pageChange)="pageChange()"></ngb-pagination>
         </div>

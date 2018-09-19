@@ -67,6 +67,7 @@ export class DevicesComponent implements OnInit {
 
   @Input()
   public alerts: Array<IAlert> = [];
+  public alertsModal: Array<IAlert> = [];
 
   private backup: Array<IAlert>;
 
@@ -84,6 +85,10 @@ export class DevicesComponent implements OnInit {
   public closeAlert(alert: IAlert) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+  public closeAlertModal(alert: IAlert) {
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
   }
 
   ngOnInit() {
@@ -207,7 +212,14 @@ export class DevicesComponent implements OnInit {
         that.getDevicesList(that.page, that.pageSize);
       },
       error: function (error) {
-        console.log(error);
+
+          const message = error.json().errors[0].defaultMessage;
+                  that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `新增失败: ${message}！`,
+        });
+        console.log(error.json());
       }
     });
   }
