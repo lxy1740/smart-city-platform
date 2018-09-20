@@ -185,7 +185,6 @@ export class TrafficComponent implements OnInit {
     for (let index = 0; index < markers.length; index++) {
       const marker = markers[index];
       this.openSideBar(marker, val[index]);
-      console.log(val[index]);
     }
   }
 
@@ -214,10 +213,7 @@ export class TrafficComponent implements OnInit {
     marker.addEventListener('click', function () {
       that.currentCamera = camera;
       that.currentCameraShowMe = true;
-      console.log(that.currentCamera);
 
-      // that.cameraAddEventListener();
-      // baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
       setTimeout(() => {
         that.cameraAddEventListener();
       }, 2);
