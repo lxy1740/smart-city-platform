@@ -53,6 +53,19 @@ export class CoverService {
             }));
     }
 
+    // 获取指定设备的事件
+    getDeviceIssues(deviceId: number, state: number): Observable<any> {
+        return this.http.get(`/api/issue/open?deviceId=${deviceId}&state=${state}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = res.json();
+                    return data;
+                } else {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
     // 设置指定事件状态0-1
     setIssues(issueId: number, state: number, comment: string): Observable<any> {
         return this.http.post(`/api/issue/${issueId}/state`, {
@@ -62,6 +75,24 @@ export class CoverService {
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
                     const data = { status: 200};
+                    return data;
+                } else {
+                    return res.json().code.toString();
+                }
+            }));
+    }
+
+
+    // 设置指定设备事件状态
+    setDeviceIssues(deviceId: number, orgState: number, state: number, comment: string): Observable<any> {
+        return this.http.post(`/api/issue/state?deviceId=${deviceId}`, {
+            'comment': comment,
+            'orgState': orgState,
+            'state': state
+        })
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    const data = { status: 200 };
                     return data;
                 } else {
                     return res.json().code.toString();

@@ -81,7 +81,20 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   }
 
-  // ymZhao 获取井盖异常消息列表
+  // 获取指定设备的事件
+  getDeviceIssues(deviceId: number) {
+    let res ;
+    this.coverService.getDeviceIssues(deviceId, 0).subscribe({
+      next: function (val) {
+        return res = val;
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 获取井盖异常消息列表
   getMessage() {
     const that = this;
     const deviceType = this.model.deviceType;
@@ -294,7 +307,23 @@ export class CoverComponent implements OnInit, OnDestroy {
     // 点击点标注事件
     for (let index = 0; index < markers.length; index++) {
       const marker = markers[index];
-      that.openSideBar(marker, that.map, val[index], points[index]);
+      this.coverService.getDeviceIssues(val[index].id, 0).subscribe({
+        next: function (res1) {
+          that.coverService.getDeviceIssues(val[index].id, 1).subscribe({
+            next: function (res2) {
+              that.openSideBar(marker, that.map, val[index], points[index], res1, res2);
+            },
+            error: function (error) {
+              console.log(error);
+            }
+          });
+          // that.openSideBar(marker, that.map, val[index], points[index], res);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+
     }
   }
 
@@ -323,7 +352,16 @@ export class CoverComponent implements OnInit, OnDestroy {
   }
 
   // 地图点注标-点击事件
-  openSideBar(marker, baiduMap, mess, point) {
+  openSideBar(marker, baiduMap, mess, point, res1, res2) {
+    // const res = this.getDeviceIssues(mess.id);
+    /*
+    res1: 待处理
+    res2: 处理中
+    */
+    console.log('待处理');
+    console.log(res1);
+    console.log('处理');
+    console.log(res2);
     const that = this;
     const opts = {
       width: 350,     // 信息窗口宽度
@@ -333,18 +371,18 @@ export class CoverComponent implements OnInit, OnDestroy {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${mess.positionNumber} </p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${mess.name} | ${mess.id}</p>`;
 
     txt = txt + `<p  class='cur-pointer'> 设备名称：${mess.description}</p>`;
     if (mess.lowBattery === false) {
       txt = txt + `<p  class='cur-pointer'> 是否低电量：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否低电量：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p  class='cur-pointer'> 是否低电量：<span style='color: #f4516c'>是</span></p>`;
     }
     if (mess.alarm === false) {
       txt = txt + `<p  class='cur-pointer'> 是否报警：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否报警：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p  class='cur-pointer'> 是否报警：<span style='color: #f4516c'>是</span></p>`;
     }
     // if (mess.error === false) {
     //   txt = txt + `<p  class='cur-pointer'> 是否故障：否</p>`;
@@ -354,18 +392,30 @@ export class CoverComponent implements OnInit, OnDestroy {
     if (mess.offline === false) {
       txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: #f4516c'>是</span></p>`;
     }
     // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
 
-    if (mess.lowBattery || mess.alarm ) {
+    if (res1 && res1.length > 0) {
+      txt = txt + `<hr><p style='color: #f4516c;'>待处理事件：</p>`;
+      for (let index = 0; index < res1.length; index++) {
+        const element = res1[index];
+        txt = txt + `<p style='color: #f4516c;'>${element.typeName}</p>`;
+      }
       const m = `massage-lsq${mess.id}`;
       const p = `massage-post${mess.id}`;
-      txt = txt + `<hr><textarea id=${m}  rows="3"  style='width:100%;'></textarea>`;
+      txt = txt + `<label>处理信息：</label><textarea id=${m}  rows="3"  style='width:100%;'></textarea>`;
       txt = txt + `<p><button id=${p} class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>
       处理</button></p>`;
 
 
+    }
+    if (res2 && res2.length > 0) {
+      txt = txt + `<hr><p style='color: #ffb822;'>处理中事件：</p>`;
+      for (let index = 0; index < res2.length; index++) {
+        const element = res2[index];
+        txt = txt + `<p style='color: #ffb822;'>${element.typeName}</p>`;
+      }
     }
 
 
@@ -393,9 +443,25 @@ export class CoverComponent implements OnInit, OnDestroy {
       message_p.addEventListener('click', function () {
         console.log(message_l['value']);
         const issueId = that.model.issueId;
-        that.setIssues(issueId, 1, message_l['value']);
+        that.setDeviceIssues(issueId, 0, 1, message_l['value']);
       });
     }
+  }
+
+  // 设置指定设备事件状态
+  setDeviceIssues(issueId, orgState, state, comment) {
+    const that = this;
+    this.coverService.setDeviceIssues(issueId, orgState, state, comment).subscribe({
+      next: function () {
+        that.model.infoW.clickclose();
+      },
+      complete: function () {
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   // 修改状态

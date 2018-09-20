@@ -96,7 +96,7 @@
                     <ul class="messagelist" data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of model.messageList" (click)="findPoint(mess)">
                             <i class="fa fa-dot-circle-o" aria-hidden="true" style="color:#f4516c;padding-right:5px"></i>
-                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-{{mess.positionNumber}}-{{mess.openTime}}</span>
+                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>
                         </li>
                     </ul>
                 </div>
@@ -117,7 +117,7 @@
                         <li class="messagelist-item" *ngFor="let mess of model.messageList1" (click)="findPoint(mess)">
                             <!-- <span class="m-list-timeline__badge"></span> -->
                             <i class="fa fa-circle" aria-hidden="true" style="color:#ffb822;padding-right:5px"></i>
-                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-{{mess.positionNumber}}-{{mess.openTime}}</span>
+                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>
                         </li>
                     </ul>
                 </div>
@@ -136,7 +136,7 @@
                     <ul class="messagelist " data-type="area">
                         <li class="messagelist-item" *ngFor="let mess of model.messageList2" (click)="findPoint(mess)">
                             <i class="fa fa-circle" aria-hidden="true" style="color:#36a3f7;padding-right:5px"></i>
-                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-{{mess.positionNumber}}-{{mess.openTime}}</span>
+                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>
                         </li>
                     </ul>
                 </div>
