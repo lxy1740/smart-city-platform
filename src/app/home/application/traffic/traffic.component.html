@@ -70,9 +70,9 @@
     <div #map4 id="map_container4 " class="map_container no-fulls-map"></div>
 
     <!-- 设备操作 -->
-    <div class="camera-detail" *ngIf="currentCamera">
+    <div class="camera-detail" *ngIf="currentCameraShowMe">
         <div class="camera-title">
-            <span class="" *ngIf="currentCamera">{{currentCamera.description}}</span>
+            <span class="" >{{currentCamera.description}}</span>
             <span class="camera-close float-right" (click)="closeDetail()"><i class="fa fa-times" aria-hidden="true"></i></span>
 
         </div>

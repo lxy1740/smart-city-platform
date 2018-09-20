@@ -40,6 +40,8 @@ export class TrafficComponent implements OnInit {
 
   currentCamera: any;  // 当前摄像头
 
+  currentCameraShowMe = false;
+
   visible = true; // 控制可视区域
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
@@ -127,7 +129,7 @@ export class TrafficComponent implements OnInit {
   mapClickOff(baiduMap) {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
-      that.currentCamera = null;
+      // that.currentCameraShow = false;
     });
   }
   // 添加标注
@@ -159,7 +161,6 @@ export class TrafficComponent implements OnInit {
   addPoint(val) {
     const markers: any[] = [];
     const points: any[] = [];
-    const that = this;
     val.map((item, i) => {
       const point = new BMap.Point(item.point.lng, item.point.lat);
       // const name = item.name;
@@ -183,21 +184,16 @@ export class TrafficComponent implements OnInit {
     // 点击点标注事件
     for (let index = 0; index < markers.length; index++) {
       const marker = markers[index];
-      that.openSideBar(marker, that.map, val[index], points[index]);
+      this.openSideBar(marker, val[index]);
+      console.log(val[index]);
     }
   }
 
   // 地图点注标-点击事件
-  openSideBar(marker, baiduMap, camera, point) {
+  openSideBar(marker, camera) {
+    console.log(camera);
     const that = this;
-    const opts = {
-      width: 350,     // 信息窗口宽度
-      // height: 100,     // 信息窗口高度
-      // title: `${val.name} | ${val.id }`, // 信息窗口标题
-      // enableMessage: true, // 设置允许信息窗发送短息
-      enableAutoPan: true, // 自动平移
-      // border-radius: 5px,
-    };
+
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${camera.positionNumber} </p>`;
 
     txt = txt + `<p  class='cur-pointer'> 设备名称：${camera.description}</p>`;
@@ -213,10 +209,12 @@ export class TrafficComponent implements OnInit {
     }
     txt = txt + `<button class='btn btn-bg' style='font-size: 14px; float: right; margin: 5px' id='${camera.id}'>详情</button>`;
 
-    const infoWindow = new BMap.InfoWindow(txt, opts);
+    // const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
       that.currentCamera = camera;
+      that.currentCameraShowMe = true;
+      console.log(that.currentCamera);
 
       // that.cameraAddEventListener();
       // baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
@@ -229,9 +227,9 @@ export class TrafficComponent implements OnInit {
   // 点击子设备
   cameraAddEventListener() {
     const that = this;
-    let player;
+    // let player;
     setTimeout(() => {
-      player = new Aliplayer({
+      const player = new Aliplayer({
         'id': 'video_play',
         'source': that.currentCamera.videoUrl,
         'width': '100%',
@@ -277,7 +275,7 @@ export class TrafficComponent implements OnInit {
   }
   // 关闭按钮
   closeDetail() {
-    this.currentCamera = null;
+    this.currentCameraShowMe = false;
   }
 
   // 返回地图可视区域，以地理坐标表示
