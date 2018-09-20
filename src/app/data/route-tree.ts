@@ -45,7 +45,8 @@ export const ROUTETREE = [
             },
             {
                 id: 21,
-                icon: 'fa fa-snowflake-o nav-icon-s',
+                // icon: 'fa fa-snowflake-o nav-icon-s',
+                icon: 'fa fa-cloud nav-icon-s',
                 routeLink: 'application/air',
                 routeTitel: '空气质量',
             },

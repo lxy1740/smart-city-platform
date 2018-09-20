@@ -193,18 +193,18 @@ export class TrafficComponent implements OnInit {
     console.log(camera);
     const that = this;
 
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${camera.positionNumber} </p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
 
-    txt = txt + `<p  class='cur-pointer'> 设备名称：${camera.description}</p>`;
+    txt = txt + `设备编号 | ${camera.positionNumber} </p><p> 设备名称：${camera.description}</p>`;
     if (camera.offline === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
+      txt = txt + `<p> 是否离线：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p> 是否离线：<span style='color: red'>是</span></p>`;
     }
     if (camera.error === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否异常：否</p>`;
+      txt = txt + `<p> 是否异常：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否异常：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p> 是否异常：<span style='color: red'>是</span></p>`;
     }
     txt = txt + `<button class='btn btn-bg' style='font-size: 14px; float: right; margin: 5px' id='${camera.id}'>详情</button>`;
 

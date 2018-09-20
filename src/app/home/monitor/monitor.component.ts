@@ -217,7 +217,7 @@ export class MonitorComponent implements OnInit {
     const that = this;
     // 创建地址解析器实例
     const myGeo = new BMap.Geocoder();
-    const zoom = this.zoom = this.switchZone(city.level);
+    const zoom  = this.switchZone(city.level);
     const fullName = city.full_name;
     // console.log(city);
     const pt = city.center;
@@ -339,7 +339,6 @@ export class MonitorComponent implements OnInit {
     const sw = Bounds.getSouthWest(); // 返回矩形区域的西南角
     const type = this.type; // 设备类型
     const level = this.switchLevel(zoom) + 1;
-    // this.getRegions();
     this.monitorService.getRegions(sw, ne, level, type).subscribe({
       next: function (val) {
         value = val;
@@ -407,7 +406,7 @@ export class MonitorComponent implements OnInit {
     const ne = Bounds.getNorthEast(); // 返回矩形区域的东北角
     const sw = Bounds.getSouthWest(); // 返回矩形区域的西南角
 
-    const zoom = this.zoom;
+    const zoom = this.map.getZoom();
 
     let length, color, mouseoverColor;
     if (zoom <= 13) {
@@ -502,8 +501,8 @@ export class MonitorComponent implements OnInit {
 // 圆圈区域点击事件
   setZoom(marker, baiduMap, item) {
 
-    let zoom = this.zoom;
-    switch (this.zoom) {
+    let zoom = this.map.getZoom();
+    switch (zoom) {
       case 11:
       case 12:
       case 13:
@@ -538,7 +537,7 @@ export class MonitorComponent implements OnInit {
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'> 编号 | ${val.number } </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'> 编号 | ${val.number } </p>
 
     `;
     if (val.device_types) {
@@ -564,15 +563,18 @@ export class MonitorComponent implements OnInit {
 // 点击子设备
   deviceAddEventListener() {
     const that = this;
-    for (let index = 0; index < this.device.device_types.length; index++) {
-      const positionId = this.device.id;
-      const deviceType = this.device.device_types[index].id;
-      const device = $(`#${deviceType}`);
-      device.on('click', function () {
+    if (this.device.device_types) {
+      for (let index = 0; index < this.device.device_types.length; index++) {
+        const positionId = this.device.id;
+        const deviceType = this.device.device_types[index].id;
+        const device = $(`#${deviceType}`);
+        device.on('click', function () {
 
-        that.getDeviceDetails(positionId, deviceType);
-      });
+          that.getDeviceDetails(positionId, deviceType);
+        });
+      }
     }
+
   }
 
   // 点击关闭操作详情

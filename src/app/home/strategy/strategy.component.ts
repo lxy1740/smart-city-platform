@@ -13,7 +13,7 @@ import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-
+import { Router } from '@angular/router';
 
 import { StrategyService } from '../../service/strategy.service';
 
@@ -168,7 +168,7 @@ export class StrategyComponent implements OnInit {
   public zTreeOnClick: (event, treeId, treeNode) => void;
   public zTreeOnCheck: (event, treeId, treeNode) => void;
   constructor(private modalService: NgbModal, private strategyService: StrategyService,
-     public element: ElementRef,
+     public element: ElementRef, public router: Router,
     calendar: NgbCalendar,
     private _formBuilder: FormBuilder,
     config: NgbTimepickerConfig) {
@@ -1001,6 +1001,10 @@ export class StrategyComponent implements OnInit {
     const id = this.currentTreeNodeId;
     this.getRegionLights(id);
 
+  }
+  // 路由跳转
+  jumpHandle(url) {
+    this.router.navigate([url]);
   }
 
 }

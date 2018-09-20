@@ -315,17 +315,17 @@ export class AirComponent implements OnInit, OnDestroy {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };  // ${airDevice.id} ${airDevice.description}
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${airDevice.name} </p>`;
-    txt = txt + `<p class='cur-pointer'> 设备名称：${airDevice.description}</p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
+    txt = txt + `设备编号 | ${airDevice.name} </p><p> 设备名称：${airDevice.description}</p>`;
     if (airDevice.offline === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
+      txt = txt + `<p> 是否离线：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p> 是否离线：<span style='color: red'>是</span></p>`;
     }
     if (airDevice.error === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否异常：否</p>`;
+      txt = txt + `<p> 是否异常：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否异常：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p> 是否异常：<span style='color: red'>是</span></p>`;
     }
     const infoWindow = new BMap.InfoWindow(txt, opts);
     marker.V.addEventListener('click', function () {

@@ -395,11 +395,11 @@ export class LightComponent implements OnInit, OnDestroy  {
       enableAutoPan: true, // 自动平移
     };
     let txt = `
-    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>${val.description} </p>
+    <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>${val.description} </p>
 
     `;
     txt = txt +
-      `<p  class='cur-pointer' >灯杆编号： ${val.positionNumber}</p>
+      `<p>灯杆编号： ${val.positionNumber}</p>
      `;
 
     if (val.offline === true) {// 离线

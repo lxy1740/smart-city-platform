@@ -371,28 +371,28 @@ export class CoverComponent implements OnInit, OnDestroy {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc;'>设备编号 | ${mess.name} | ${mess.id}</p>`;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
 
-    txt = txt + `<p  class='cur-pointer'> 设备名称：${mess.description}</p>`;
+    txt = txt + `设备编号 | ${mess.name} | ${mess.id}</p><p> 设备名称：${mess.description}</p>`;
     if (mess.lowBattery === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否低电量：否</p>`;
+      txt = txt + `<p> 是否低电量：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否低电量：<span style='color: #f4516c'>是</span></p>`;
+      txt = txt + `<p> 是否低电量：<span style='color: #f4516c'>是</span></p>`;
     }
     if (mess.alarm === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否报警：否</p>`;
+      txt = txt + `<p> 是否报警：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否报警：<span style='color: #f4516c'>是</span></p>`;
+      txt = txt + `<p> 是否报警：<span style='color: #f4516c'>是</span></p>`;
     }
     // if (mess.error === false) {
-    //   txt = txt + `<p  class='cur-pointer'> 是否故障：否</p>`;
+    //   txt = txt + `<p> 是否故障：否</p>`;
     // } else {
-    //   txt = txt + `<p  class='cur-pointer'> 是否故障：<span style='color: red'>是</span></p>`;
+    //   txt = txt + `<p> 是否故障：<span style='color: red'>是</span></p>`;
     // }
     if (mess.offline === false) {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：否</p>`;
+      txt = txt + `<p> 是否离线：否</p>`;
     } else {
-      txt = txt + `<p  class='cur-pointer'> 是否离线：<span style='color: #f4516c'>是</span></p>`;
+      txt = txt + `<p> 是否离线：<span style='color: #f4516c'>是</span></p>`;
     }
     // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
 
