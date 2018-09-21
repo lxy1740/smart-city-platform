@@ -141,39 +141,47 @@ export class PositionComponent implements OnInit {
 
     // 新增位置信息
   setPosition() {
-    const that = this;
-    const installZoneId = this.model.installZoneId;
-    const regionId = this.currentArea.id;
-    const name = this.model.name;
-    const number = this.model.number;
-    const point = this.model.point;
-    const type = this.model.device.id;
+    this.typeofPoint();
+    if (this.errorMess[0] === '无错') {
+        const that = this;
+        const installZoneId = this.model.installZoneId;
+        const regionId = this.currentArea.id;
+        const name = this.model.name;
+        const number = this.model.number;
+        const point = this.model.point;
+        const type = this.model.device.id;
 
-
-
-    this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
-      next: function (val) {
-        that.alerts.push({
-          id: 1,
-          type: 'success',
-          message: '新建成功！',
+        this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
+          next: function (val) {
+            that.alerts.push({
+              id: 1,
+              type: 'success',
+              message: '新建成功！',
+            });
+            that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+            that.mr.close();
+          },
+          complete: function () {
+            that.getPosition(that.currentType.id, that.page, that.pagesize);
+          },
+          error: function (error) {
+            const message = error.json().errors[0].defaultMessage;
+            that.alertsModal.push({
+              id: 1,
+              type: 'danger',
+              message: `新建失败: ${message}！`,
+            });
+            console.log(error.json());
+          }
         });
-        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
-        that.mr.close();
-      },
-      complete: function () {
-        that.getPosition(that.currentType.id, that.page, that.pagesize);
-      },
-      error: function (error) {
-        const message = error.json().errors[0].defaultMessage;
-        that.alertsModal.push({
-          id: 1,
-          type: 'danger',
-          message: `新建失败: ${message}！`,
-        });
-        console.log(error.json());
-      }
-    });
+    } else {
+      this.alertsModal.push({
+        id: 1,
+        type: 'danger',
+        message: '请输入正确的经纬度！',
+      });
+    }
+
   }
 
   // 修改位置
@@ -229,39 +237,48 @@ export class PositionComponent implements OnInit {
 
   // 修改位置信息
   updataPosition() {
-    const that = this;
-    const id = this.model.updataId;
-    const installZoneId = this.model.installZoneId;
-    const regionId = this.currentArea.id;
-    const name = this.model.name;
-    const number = this.model.number;
-    const point = this.model.point;
-    const type = this.model.device.id;
+    this.typeofPoint();
+    if (this.errorMess[0] === '无错') {
+          const that = this;
+          const id = this.model.updataId;
+          const installZoneId = this.model.installZoneId;
+          const regionId = this.currentArea.id;
+          const name = this.model.name;
+          const number = this.model.number;
+          const point = this.model.point;
+          const type = this.model.device.id;
 
-    this.positionService.updataPosition(id, installZoneId, regionId, name, number, point, type).subscribe({
-      next: function (val) {
-        that.alerts.push({
-          id: 1,
-          type: 'success',
-          message: '修改成功！',
-        });
-        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
-        that.mr.close();
-      },
-      complete: function () {
-        that.getPosition(that.currentType.id, that.page, that.pagesize);
-      },
-      error: function (error) {
-        const message = error.json().errors[0].defaultMessage;
-        that.alertsModal.push({
-          id: 1,
-          type: 'danger',
-          message: `修改失败: ${message}！`,
-        });
-        console.log(error.json());
-        console.log(error);
-      }
-    });
+          this.positionService.updataPosition(id, installZoneId, regionId, name, number, point, type).subscribe({
+            next: function (val) {
+              that.alerts.push({
+                id: 1,
+                type: 'success',
+                message: '修改成功！',
+              });
+              that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+              that.mr.close();
+            },
+            complete: function () {
+              that.getPosition(that.currentType.id, that.page, that.pagesize);
+            },
+            error: function (error) {
+              const message = error.json().errors[0].defaultMessage;
+              that.alertsModal.push({
+                id: 1,
+                type: 'danger',
+                message: `修改失败: ${message}！`,
+              });
+              console.log(error);
+            }
+          });
+    } else {
+      this.alertsModal.push({
+        id: 1,
+        type: 'danger',
+        message: '请输入正确的经纬度！',
+      });
+    }
+
   }
 
   // 删除位置弹框
@@ -309,12 +326,13 @@ export class PositionComponent implements OnInit {
         }
       },
       error: function (error) {
-        console.log(error);
+        const message = error.json().errors[0].defaultMessage;
         that.alerts.push({
           id: 1,
           type: 'danger',
-          message: '删除失败！',
+          message: `修改失败: ${message}！`,
         });
+        console.log(error);
       }
     });
   }
@@ -439,17 +457,19 @@ export class PositionComponent implements OnInit {
 
     });
   }
-  typeofPoint(lat, lng) {
+
+  typeofPoint() {
     const that = this;
     this.errorMess = [];
     const str1 = '纬度';
     const str2 = '经度';
-    this.validPoint(lat, str1);
-    this.validPoint(lng, str2);
+    this.validPoint(this.model.point.lat, str1);
+    this.validPoint(this.model.point.lng, str2);
     if (this.errorMess.length <= 0) {
       that.errorMess.push('无错');
     }
   }
+  // 验证坐标输入合法性
   validPoint(lat, str) {
     let maxValue;
     if (str === '纬度') {

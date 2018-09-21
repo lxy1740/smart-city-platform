@@ -234,7 +234,7 @@
           <!-- 表单，搜索产品 -->
           <form class="form-inline search-options">
             <span>所属类型：</span>
-            <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()" class="form-control" style="margin-right: 15px;">
+            <select name="profile" [(ngModel)]="currentType" (change)="deviceTypeChange()" class="form-control">
               <option *ngFor="let index of deviceTypes" [ngValue]="index">
                 {{ index.name }}
               </option>
@@ -250,7 +250,7 @@
                     name="word" autocomplete="off" maxlength="256" placeholder="检索名称、描述">
                 </div>
             </div>
-            <button class="btn btn-bg extral-marg" (click)="execQuery()">搜索</button>
+            <button class="btn btn-bg" (click)="execQuery()">搜索</button>
           </form>
       </div>
 

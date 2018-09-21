@@ -275,12 +275,13 @@ export class ProductComponent implements OnInit {
         }
       },
       error: function (error) {
-        console.log(error);
+        const message = error.json().errors[0].defaultMessage;
         that.alerts.push({
           id: 1,
           type: 'danger',
-          message: '删除失败！',
+          message: `修改失败: ${message}`,
         });
+        console.log(error);
       }
     });
   }
