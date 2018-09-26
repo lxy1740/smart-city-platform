@@ -333,12 +333,9 @@
           <thead class="table-header">
             <tr>
               <th>序号</th>
-              <th>名称</th>
-              <th>编号</th>
-              <th>所属类型</th>
-              <th>安装位置</th>
-              <th>区域</th>
-              <th>坐标</th>
+              <th>用户</th>
+              <th>密码</th>
+
               <th style="text-align: center">操作</th>
             </tr>
           </thead>
@@ -347,11 +344,8 @@
             <tr *ngFor="let item of positionListItems; let i = index">
               <td>{{i + 1}}</td>
               <td>{{item.name}}</td>
-              <td>{{item.number}}</td>
-              <td>{{changeName(item.type)}}</td>
-              <td>{{item.installZoneName}}</td>
-              <td>{{item.regionName}}</td>
-              <td>{{item.point.lng}}/{{item.point.lat}}</td>
+              <td>{{item.password}}</td>
+
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataPosi(contentUpdataPosition, item, i)">修改</a>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
-import { MatButtonModule, MatStepperModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatStepperModule, MatInputModule, MatCardModule , MatSliderModule, MatSlideToggleModule} from '@angular/material';
 
 import { DeviceModule } from './device/device.module';
 import { ApplicationModule } from './application/application.module';
@@ -25,7 +25,8 @@ import { LedTestComponent } from './led-test/led-test.component';
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
          DeviceModule, UserModule, GridsterModule, ApplicationModule, SharedModule,
-        MatStepperModule, MatButtonModule, MatInputModule, MatCardModule
+        MatStepperModule, MatButtonModule, MatInputModule, MatCardModule,
+        MatSliderModule, MatSlideToggleModule
 
     ],
     declarations: [

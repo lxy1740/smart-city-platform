@@ -1,4 +1,131 @@
-<p>
-  led-test works!
-</p>
-<div *ngIf="model.user">{{model.user.mess}}</div>
+<div class="panel-default row">
+
+  <div class="col-md-4">
+    <div>
+      <p>web模拟生成任务：</p>
+
+    </div>
+    <hr>
+    <!-- 开关屏 -->
+    <div>
+      <p>开关屏</p>
+      <p>id: <input type="text" [(ngModel)]="task1.id"></p>
+      <div>
+        <p><span>控制开关：</span>
+          <label style="margin-left: 21px;">
+            <mat-slide-toggle (change)="changeContr1()"></mat-slide-toggle>
+          </label>
+        </p>
+      </div>
+      <button class="btn btn-bg" (click)="createTask1()" [disabled]="!task1.id">post</button>
+
+    </div>
+    <hr>
+    <!-- 设置亮度 -->
+    <div>
+      <p>设置亮度</p>
+      <p>id: <input type="text" [(ngModel)]="task2.id"></p>
+
+      <div>
+        <p><span>自动模式开关：</span>
+          <label style="margin-left: 21px;">
+            <mat-slide-toggle (change)="changeContr2()"></mat-slide-toggle>
+          </label>
+        </p>
+      </div>
+      <!-- 亮度值：<input type="text" [(ngModel)]="task.value"> -->
+      <p>
+        <label>
+          <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="30" min="0" max="100" [(ngModel)]="task2.value"
+            (change)="changeSlider(task2.value)"></mat-slider>
+        </label>
+      </p>
+
+      <button class="btn btn-bg" (click)="createTask2()" [disabled]="!task2.id">post</button>
+
+    </div>
+    <hr>
+    <div>
+      <p>终端模拟请求数据：</p>
+    
+    </div>
+    <hr>
+  </div>
+  <div class="col-md-8">
+        <table class="table table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>序号</th>
+              <th>id</th>
+              <th>任务类型</th>
+              <th>状态</th>
+        
+              <th style="text-align: center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr *ngFor="let item of tasks; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{item.id}}</td>
+              <td><span>{{item.datagram.request}}</span></td>
+              <td>{{item.status}}</td>
+        
+              <td style="text-align: center">
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline">删除</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="tasks.length === 0 || !tasks">无数据！</div>
+        <div *ngIf="tasks.length > 0">
+          <ngb-pagination [collectionSize]=total_1 [(page)]="page_1" [maxSize]="5" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" (pageChange)="pageChange_1()"></ngb-pagination>
+        </div>
+  </div>
+
+
+</div>
+
+  <!-- 用户 -->
+  <!-- <div>
+      <input type="text" [(ngModel)]="user.name">
+      <button  class="btn btn-bg" (click)="createUser()">添加</button>
+    </div>
+    <div>
+            <table class="table table-hover">
+              <thead class="table-header">
+                <tr>
+                  <th>序号</th>
+                  <th>用户</th>
+                  <th>密码</th>
+            
+                  <th style="text-align: center">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+            
+                <tr *ngFor="let item of users; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.password}}</td>
+            
+                  <td style="text-align: center">
+                    <div class="modify-strategy d-inline">
+                      <a class="cur-pointer btn-a theme-text d-inline" >修改</a>
+                      <a class="cur-pointer btn-a theme-text d-inline" >删除</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="users.length === 0 || !users">无数据！</div>
+            <div *ngIf="users.length > 0">
+              <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+            </div>
+    </div> -->
+
