@@ -1,5 +1,11 @@
 {
     "/api": {
         "target": "http://172.18.1.133:10002"
+    },
+    "/led-api": {
+        "target": "http://127.1.1.1:3000",
+        "pathRewrite": {
+            "^/led-api": ""
+        }
     }
 }

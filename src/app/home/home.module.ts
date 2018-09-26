@@ -20,6 +20,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AirreportComponent } from './airreport/airreport.component';
 import { EchartComponent } from './echart/echart.component';
 import { EchartMapComponent } from './echart-map/echart-map.component';
+import { LedTestComponent } from './led-test/led-test.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
@@ -29,7 +30,7 @@ import { EchartMapComponent } from './echart-map/echart-map.component';
     ],
     declarations: [
      DashbordComponent,
-     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent, EchartComponent, EchartMapComponent,
+     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent, EchartComponent, EchartMapComponent, LedTestComponent,
 
 
     ],
