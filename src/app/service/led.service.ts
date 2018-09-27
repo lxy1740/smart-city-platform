@@ -104,6 +104,74 @@ export class LedService {
 
 
     }
+    searchAllTask(id, currentPage, pageSize): Observable<any> {
+        return this.http.get(`/led-api/tasks/searchTask?id=${id}&pageSize=${pageSize}&currentPage=${currentPage}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    console.log(res);
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+
+}
+
+    searchTask(body): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.post('/led-api/tasks/searchTask', body)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    console.log(res);
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+
+
+    }
+
+    createMedia(body): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.post('/led-api/medias/createMedia', body)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    console.log(res);
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+
+
+    }
+
+    getMedias(currentPage, pageSize): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/led-api/medias/getMedia?pageSize=${pageSize}&currentPage=${currentPage}`)
+            .pipe(map((res: Response) => {
+                if (res.status === 200) {
+                    console.log(res);
+                    const data = res.json();
+                    return data;
+                } else if (res.status === 202) {
+                    return res.json().code.toString();
+
+                }
+            }));
+
+
+    }
 
 
 
