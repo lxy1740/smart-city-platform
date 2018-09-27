@@ -16,7 +16,8 @@
     }
 }
 .card-block {
-    margin: 5px 0px;
+    margin: 5px 0px 0px;
+    min-height: 38px;
 }
 .search-icon {
     font-size: 20px;
@@ -27,9 +28,8 @@
     .form-control {
         font-size: 14px;
         width: auto;
-        height: calc(1.8rem + 2px);
+        height: 38px;
         margin-right: 5px;
-        margin-top: 5px;
     }
 }
 .th-top-border {
@@ -112,4 +112,7 @@
     padding: 15px 30px;
     width: calc(100vw - 80px);
     margin: 0 15px;
+}
+.lineheight {
+    line-height: 1.0;
 }
