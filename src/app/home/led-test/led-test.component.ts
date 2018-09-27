@@ -68,6 +68,7 @@ export class LedTestComponent implements OnInit {
     this.searchTaskBody.id = 1;
     this.searchTaskBody.task = [];
     this.currentType = this.playTypes[0];
+    this.model.airdevicelist = [];
    }
 
   ngOnInit() {
