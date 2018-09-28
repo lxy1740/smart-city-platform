@@ -116,3 +116,16 @@
 .lineheight {
     line-height: 1.0;
 }
+.modal-body {
+    text-align: center;
+    width: 100%;
+
+    .role-info {
+        margin: 0px auto;
+        width: 280px;
+
+        .control-label {
+            min-width: 90px;
+        }
+    }
+}

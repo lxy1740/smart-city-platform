@@ -37,6 +37,10 @@
     .user-info {
         margin: 0px auto;
         width: 280px;
+
+        .control-label {
+            min-width: 90px;
+        }
     }
 }
 .add-user-modal {

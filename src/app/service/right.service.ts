@@ -41,14 +41,14 @@ export class RightService {
             }));
     }
     // 修改角色
-    updateRole(id: number, name: String): Observable<any> {
+    updateRole(id: String, name: String): Observable<any> {
         return this.http.put('/security/role', {
             'id': id,
             'name': name
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = res.json();
+                    const data = {status: 200};
                     return data;
                 } else if (res.status === 400) {
                     return res.json();

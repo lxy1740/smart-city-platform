@@ -31,8 +31,11 @@ export class RightComponent implements OnInit {
   page: any;
   pageSize = 10;
   total: any;
+  AddorUpdate: any; // 新增/修改标识
+
   @Input()
   public alerts: Array<IAlert> = [];
+  public alertsModal: Array<IAlert> = [];
 
   constructor(private modalService: NgbModal, private rightService: RightService) {
 
@@ -58,25 +61,100 @@ export class RightComponent implements OnInit {
       }
     });
   }
-  // 弹框操作
-  open(content) {
+  // 打开新增角色 框
+  openAddRole(content) {
     const that = this;
-    const modal = this.modalService.open(content, { size: 'lg' });
-    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
+    this.AddorUpdate = '新增角色';
+    this.role.name = '';
+
+    const modal = this.modalService.open(content, { windowClass: 'md' });
+    this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
-
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
-    const that1 = this;
-    this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
-    this.zTreeObj = $.fn.zTree.init($('#guitree'), this.setting, this.zNodes);
   }
-  openUpdateRole(content, item) {
 
+  // 新增角色
+  addRole() {
+    const that = this;
+    this.rightService.addNewRole(this.role.name).subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '新增成功！',
+        });
+        that.mr.close();
+      },
+      complete: function () {
+        that.getRoleList();
+      },
+      error: function (error) {
+        const message = error.json().errors[0].defaultMessage;
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `新增失败：${message}！`,
+        });
+        console.log(error);
+      }
+    });
+  }
+  // 打开修改角色 框
+  openUpdateRole(content, item) {
+    const that = this;
+    this.AddorUpdate = '修改角色';
+    this.role.curRole = item;
+    this.role.name = item.name;
+
+    const modal = this.modalService.open(content, { windowClass: 'md' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log(this.closeResult);
+    });
+  }
+  // 修改角色
+  updateRole() {
+    const that = this;
+    this.rightService.updateRole(this.role.curRole.id, this.role.name).subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '修改成功！',
+        });
+        that.mr.close();
+      },
+      complete: function () {
+        that.getRoleList();
+      },
+      error: function (error) {
+        const message = error.json().errors[0].defaultMessage;
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `修改失败：${message}！`,
+        });
+        console.log(error);
+      }
+    });
+  }
+  // 新增/修改角色 - 模态框 确认点击事件
+  addorUpdt() {
+    const that = this;
+    if (this.AddorUpdate === '新增角色') {
+      that.addRole();
+    } else {
+      that.updateRole();
+    }
   }
   // 删除 弹框
   openDelRole(content, item) {
@@ -140,6 +218,10 @@ export class RightComponent implements OnInit {
   public closeAlert(alert: IAlert) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+  public closeAlertModal(alert: IAlert) {
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
   }
 }
 

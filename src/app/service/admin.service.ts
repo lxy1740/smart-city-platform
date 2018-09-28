@@ -40,7 +40,7 @@ export class AdminService {
             'mobile': mobile,
             'fullName': fullName,
             'nickName': nickName,
-            'userRoleIds': roleIds
+            'roles': roleIds
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
@@ -64,11 +64,11 @@ export class AdminService {
             'mobile': mobile,
             'fullName': fullName,
             'nickName': nickName,
-            'userRoleIds': roleIds
+            'roles': roleIds
         })
             .pipe(map((res: Response) => {
                 if (res.status === 200) {
-                    const data = res.json();
+                    const data = {status: 200};
                     return data;
                 } else if (res.status === 400) {
                     return res.json();
