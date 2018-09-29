@@ -59,6 +59,7 @@
       <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
     </div>
   </ng-template>
+<!-- 新增、修改角色 -->
 <ng-template #content1 let-c="close" let-d="dismiss">
   <p *ngFor="let alert of alertsModal" class="lsq-alert">
     <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
@@ -105,11 +106,13 @@
       <!-- 搜索输入框 -->
       <div class="form-group inner-addon left-addon ">
           <div class="form-group">
-            <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/>
-            <i class="fa fa-search search-icon"></i>
+            <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/> -->
+            <input type="text" class="form-control border-none" name="search-content" id="roleQuery" [(ngModel)]="queryStr" 
+              autocomplete="off" maxlength="256" placeholder="检索角色名"/>
+            <i class="fa fa-search search-icon" (click)="execQuery()"></i>
           </div>
       </div>
-      <input type="date" class="form-control" value="" />
+      <!-- <input type="date" class="form-control" value="" /> -->
     </form>
 
     <div class="card-block">

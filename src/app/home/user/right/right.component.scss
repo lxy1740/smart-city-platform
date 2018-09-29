@@ -24,6 +24,11 @@
     margin: 5px;
     margin-left: 0px;
 }
+.search-icon:hover, .search-icon:active {
+    color: #007bff;
+    cursor: pointer;
+    // background-color: #007bff;
+}
 .right-manage {
     .form-control {
         font-size: 14px;

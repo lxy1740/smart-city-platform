@@ -24,6 +24,11 @@
     margin: 5px;
     margin-left: 0px;
 }
+.search-icon:hover, .search-icon:active {
+    color: #007bff;
+    cursor: pointer;
+    // background-color: #007bff;
+}
 .modal-body {
     .form-control {
         font-size: 14px;
@@ -39,9 +44,26 @@
         width: 280px;
 
         .control-label {
-            min-width: 90px;
+            // min-width: 90px;
+            width: 90px;
         }
     }
+    .role-check {
+        // position: relative;
+        // .role-check-list {
+        //     position: relative;
+        //     left: 90px;
+        // }
+
+        .checkbox-inline {
+            padding-right: 10px;
+            padding-bottom: 5px;
+        }
+        .role-check-list {
+            max-width: 188px;
+        }
+    }
+
 }
 .add-user-modal {
     text-align: center;

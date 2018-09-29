@@ -27,7 +27,7 @@ export class RightComponent implements OnInit {
   // 弹框
   closeResult: string;
   roleList = []; // 角色表
-  queryStr = '';
+  queryStr = ''; // 检索字符串
   page: any;
   pageSize = 10;
   total: any;
@@ -205,6 +205,9 @@ export class RightComponent implements OnInit {
 
   pageChange() {}
 
+  execQuery() {
+    this.getRoleList();
+  }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
