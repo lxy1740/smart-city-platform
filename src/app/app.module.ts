@@ -42,8 +42,8 @@ import { WindowRef } from './windowserver';
 
 
 import { PageNotFoundComponent } from './not-found.component';
-
-
+import { InterceptorService } from './interceptorService';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -73,12 +73,15 @@ import { PageNotFoundComponent } from './not-found.component';
     MaterialModule,
 
     ServiceModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
 
   ],
   exports: [
   ],
-  providers: [AuthGuard, AuthService, WindowRef, ],
+  providers: [AuthGuard, AuthService, WindowRef,
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent],
 
 })
