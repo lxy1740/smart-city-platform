@@ -8,7 +8,6 @@ Author: luo.shuqi@live.com
 */
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
-import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 import { LightService } from '../../../service/light.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -55,7 +54,7 @@ export class LightComponent implements OnInit, OnDestroy  {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
-  light_list = LIGHTLIST.val.light_list; // 数据模拟
+
 
   timer: any; // 定时器
   lightList = []; // 当前数据
