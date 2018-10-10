@@ -30,11 +30,13 @@ export class InterceptorService implements HttpInterceptor { //  implements Http
         const that = this;
         switch (event.status) {
             case 200:
-            // console.log(`mergeMap response: ${event.status} ${event.url}`);
+            const jwt = event.headers.get('jwt');
+            if (jwt) {
+                localStorage.setItem('token', jwt);
+            }
             return of(event); // break;
+
             case 500: // 过期状态码
-            // console.log('500错误：');
-            // console.log(event);
             if (event['error'].message && event['error'].message.indexOf('expired')) {
                 that.goTo('/login');
             }
