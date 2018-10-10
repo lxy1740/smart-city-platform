@@ -2,19 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
-
-
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Router } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { CookieModule } from 'ngx-cookie';
 
 import { GridsterModule } from 'angular-gridster2';
-
-
 
 
 import { HomeModule } from './home/home.module';
@@ -33,7 +28,7 @@ import { ApplicationComponent } from './home/application/application.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
-import { LoginRoutingModule } from './login/login-routing.module';
+
 
 
 import { AuthGuard } from './guard/auth-guard.service';
@@ -42,7 +37,7 @@ import { WindowRef } from './windowserver';
 
 
 import { PageNotFoundComponent } from './not-found.component';
-// import { InterceptorService } from './interceptorService';
+
 import { HttpClientModule } from '@angular/common/http'; // HTTP_INTERCEPTORS,
 import { JwtModule } from '@auth0/angular-jwt';
 import { httpInterceptorProviders } from './index';
