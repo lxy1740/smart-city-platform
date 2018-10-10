@@ -7,7 +7,6 @@ Author: luo.shuqi@live.com
 
 */
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import { Point } from '../../../data/point.type';
 import { MonitorService } from '../../../service/monitor.service';
 import { MessService } from '../../../service/mess.service';
 import { CoverService } from '../../../service/cover.service';

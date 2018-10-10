@@ -8,7 +8,6 @@ Author: luo.shuqi@live.com
 */
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
-import { Point } from '../../../data/point.type';
 import { LIGHTLIST } from '../../../data/light-list';
 import { MonitorService } from '../../../service/monitor.service';
 import { LightService } from '../../../service/light.service';
@@ -49,8 +48,8 @@ export class LightComponent implements OnInit, OnDestroy  {
   visible = true; // 控制可视区域
 
   zoom: any; // 地图级数
-  SouthWest: Point; // 地图视图西南角
-  NorthEast: Point; // 地图视图东北角
+  SouthWest: any; // 地图视图西南角
+  NorthEast: any; // 地图视图东北角
   type = 0; // 设备类型
 
   parentNode = null; // 用于递归查询JSON树 父子节点

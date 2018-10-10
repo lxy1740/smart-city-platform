@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { Router } from '@angular/router';
 import { MonitorService } from '../../../service/monitor.service';
 import { AirmonitorService } from '../../../service/airmonitor.service';
-// import { AIRDATALIST } from '../../../data/air-data';
-import { Point } from '../../../data/point.type';
 import { CircleOverlarAirService } from '../../../service/circle-overlay-air.service';
 
 // baidu map

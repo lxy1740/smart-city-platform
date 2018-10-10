@@ -1,12 +1,9 @@
 import { Input, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { PositionService } from '../../../service/position.service';
-import { Point } from '../../../data/point.type';
+
 // baidu map
 declare let BMap;
-declare let $: any;
-declare let BMapLib;
-declare let BMAP_ANCHOR_TOP_LEFT;
 
 @Component({
   selector: 'app-position',

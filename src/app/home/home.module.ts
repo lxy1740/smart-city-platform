@@ -12,14 +12,11 @@ import { UserModule } from './user/user.module';
 
 import { SharedModule } from '../shared/shared.module';
 
-
-import { DashbordComponent } from './dashbord/dashbord.component';
 import { MapComponent } from './map/map.component';
 import { StrategyComponent } from './strategy/strategy.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AirreportComponent } from './airreport/airreport.component';
-import { EchartComponent } from './echart/echart.component';
-import { EchartMapComponent } from './echart-map/echart-map.component';
+
 import { LedTestComponent } from './led-test/led-test.component';
 
 @NgModule({
@@ -30,8 +27,7 @@ import { LedTestComponent } from './led-test/led-test.component';
 
     ],
     declarations: [
-     DashbordComponent,
-     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent, EchartComponent, EchartMapComponent, LedTestComponent,
+     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent,  LedTestComponent,
 
 
     ],

@@ -8,7 +8,7 @@ import { MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModu
 
 import { CoverComponent } from './cover/cover.component';
 import { CalamityComponent } from './calamity/calamity.component';
-import { EnvironmentComponent } from './environment/environment.component';
+
 import { LightComponent } from './light/light.component';
 import { SecurityComponent } from './security/security.component';
 import { TrafficComponent } from './traffic/traffic.component';
@@ -22,7 +22,7 @@ import { LedComponent } from './led/led.component';
         MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule,
     ],
     declarations: [
-        CoverComponent, CalamityComponent, EnvironmentComponent,
+        CoverComponent, CalamityComponent,
         LightComponent, SecurityComponent, TrafficComponent, WaterComponent, AirComponent, LedComponent,
 ],
     schemas: [

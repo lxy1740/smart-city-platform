@@ -1,16 +1,9 @@
 
-import { Component, Injectable, EventEmitter } from '@angular/core';
+import {  Injectable,} from '@angular/core';
 import { Observable } from 'rxjs/';
 import { HttpClient } from '@angular/common/http';
-import { Http, Headers, Response } from '@angular/http';
-import { CookieService } from 'ngx-cookie';
+// import { Http, Headers, Response } from '@angular/http';
 
-import { of } from 'rxjs/';
-import { tap, delay } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { WindowRef } from '../windowserver';
-
-// import { Point } from '../data/point.type';
 import { map } from 'rxjs/operators';
 
 

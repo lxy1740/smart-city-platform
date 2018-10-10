@@ -1,9 +1,9 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { GUIZTREENODE } from '../../../data/gui-z-tree';
+
 import { RightService } from '../../../service/right.service';
 
-declare var $: any;
+
 @Component({
   selector: 'app-right',
   templateUrl: './right.component.html',
@@ -16,7 +16,7 @@ export class RightComponent implements OnInit {
   setting = {}; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-  zNodes = GUIZTREENODE;
+
 
   role: any = {}; // 存储数据
   public mr: NgbModalRef; // 当前弹框

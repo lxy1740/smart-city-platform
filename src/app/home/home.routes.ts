@@ -7,15 +7,15 @@ import { DeviceRoutes } from './device/device.routes';
 import { UserRoutes } from './user/user.routes';
 
 import { ApplicationRoutes } from './application/application.routes';
-import { DashbordRoutes } from './dashbord/dashbord.routes';
+
 import { HomepageRoutes } from './homepage/homepage.routes';
 import { StrategyRoutes } from './strategy/strategy.routes';
 import { AirreportRoutes } from './airreport/airreport.routes';
 
-import { EchartMapRoutes } from './echart-map/echart-map.routes';
+
 import { MapRoutes } from './map/map.routes';
 import { LedRoutes } from './led-test/led.routes';
-import { EchartRoutes } from './echart/echart.routes';
+
 export const HomeRoutes: Route[] = [
     {
         path: '',
@@ -32,13 +32,10 @@ export const HomeRoutes: Route[] = [
             ...DeviceRoutes,
             ...UserRoutes,
             ...ApplicationRoutes,
-            ...DashbordRoutes,
             ...HomepageRoutes,
             ...StrategyRoutes,
             ...AirreportRoutes,
             ...MapRoutes,
-            ...EchartRoutes,
-            ...EchartMapRoutes,
             ...LedRoutes
         ]
     },

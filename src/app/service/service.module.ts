@@ -5,12 +5,12 @@ import { DialogService } from './dialog.service';
 import { BeiduAPIService } from './servers/baiduApi';
 import { BeiduMAPService } from './servers/baiduMap';
 import { MonitorService } from './monitor.service';
-import { MessageService } from './message.service';
+
 import { MessService } from './mess.service';
 import { UrlService } from './url.service';
 import { CommunicateService } from './communicate.service';
 import { VideoService } from './video.service';
-import { BaiduFunService } from './baidu-fun.service';
+
 import { LightService } from './light.service';
 import { CoverService } from './cover.service';
 import { CameraService } from './camera.service';
@@ -31,6 +31,6 @@ import { RightService } from './right.service';
   providers: [FullScreenService, BeiduAPIService, BeiduMAPService, MonitorService,
     LightService, CoverService, AirmonitorService, CameraService, StrategyService,
     DeviceService, PositionService, ProductService, LedService, DialogService, AdminService, RightService,
-    MessService, MessageService, UrlService, CommunicateService, VideoService, BaiduFunService]
+    MessService, UrlService, CommunicateService, VideoService, ]
 })
 export class ServiceModule { }

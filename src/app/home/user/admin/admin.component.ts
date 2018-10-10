@@ -1,7 +1,7 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from '../../../service/admin.service';
-import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
+
 
 declare var $: any;
 @Component({

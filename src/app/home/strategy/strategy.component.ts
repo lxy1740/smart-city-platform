@@ -27,8 +27,7 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
   !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
     ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 
-declare let echarts;
-declare let BMap;
+
 declare let $: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */

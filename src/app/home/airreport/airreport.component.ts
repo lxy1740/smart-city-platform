@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AirmonitorService } from '../../service/airmonitor.service';
 import { saveAs } from 'file-saver';
-declare let echarts;
+
 
 const now = new Date();
 
