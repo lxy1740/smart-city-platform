@@ -69,6 +69,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     this.model.messageList1 = []; // 处理中
     this.model.messageList2 = []; // 已处理
     this.model.coverList = [];  // 当前井盖列表
+    this.model.userList = []; // 用户列表
     this.map_model.cityList = []; // 城市列表
     this.map_model.currentChildren = []; // 区域列表一级
     this.map_model.currentBlock = []; // // 当前城市街道 = []; // 区域列表2级
@@ -77,9 +78,22 @@ export class CoverComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.addBeiduMap();
     this.getCity(); // 获取城市列表
+    this.getUserList();
 
   }
 
+  getUserList() {
+    const that = this;
+    this.coverService.getAllUser().subscribe({
+      next: function(val) {
+        that.model.userList = val;
+      },
+      complete: function() {},
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
   // 获取指定设备的事件
   getDeviceIssues(deviceId: number) {
     let res ;
@@ -366,6 +380,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
+    this.model.deviceId = mess.id;
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
 
     txt = txt + `设备编号 | ${mess.name} | ${mess.id}</p><p> 设备名称：${mess.description}</p>`;
@@ -399,6 +414,14 @@ export class CoverComponent implements OnInit, OnDestroy {
       }
       const m = `massage-lsq${mess.id}`;
       const p = `massage-post${mess.id}`;
+      const selId = `select${mess.id}`;
+      txt = txt + `
+      <div class="form-inline">
+        <label class="control-label" style='font-size: 14px; margin: 5px'>
+          指派人员：<span style="color: red;">*</span>
+        </label>
+        <select name="assignUser" class="cur-pointer form-control" style='font-size: 14px; margin: 5px'
+          id="${selId}"></select></div>`; // onchange="${that.model.curUser}=options[selectedIndex].value"
       txt = txt + `<label>处理信息：</label><textarea id=${m}  rows="3"  style='width:100%;'></textarea>`;
       txt = txt + `<p><button id=${p} class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>
       处理</button></p>`;
@@ -413,13 +436,19 @@ export class CoverComponent implements OnInit, OnDestroy {
       }
     }
 
-
-
-
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
       that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+
+      const obj = document.getElementById(`select${mess.id}`);
+      if (obj) {
+        // obj.append(new Option('请选择处理用户', ''));
+        for (let i = 0; i < that.model.userList.length; i++) {
+          console.log('option');
+          obj.append(new Option(that.model.userList[i].userName, that.model.userList[i].userName));
+        }
+      }
       setTimeout(() => {
         that.deviceAddEventListener(mess);
       }, 0);
@@ -432,23 +461,38 @@ export class CoverComponent implements OnInit, OnDestroy {
     const that = this;
     const m = `massage-lsq${mess.id}`;
     const p = `massage-post${mess.id}`;
+    const selId = `select${mess.id}`;
     const message_l = document.getElementById(m);
     const message_p = document.getElementById(p);
+    const selectUser = document.getElementById(selId); // 用户下拉列表
+    let curUser = '';
+    if (selectUser) {
+      selectUser.addEventListener('change', function () { // 用户下拉列表 - 监听事件
+        const selIndex = selectUser['selectedIndex'];
+        curUser = that.model.userList[selIndex].id;
+      });
+    }
     if (message_p) {
-      message_p.addEventListener('click', function () {
-        console.log(message_l['value']);
-        const issueId = that.model.issueId;
-        that.setDeviceIssues(issueId, 0, 1, message_l['value']);
+      message_p.addEventListener('click', function () { // 处理按键 - 监听事件
+        if (curUser) {
+          const issueId = that.model.deviceId;
+          console.log('issueId');
+          console.log(issueId);
+          that.setDeviceIssues(issueId, 0, 1, message_l['value'], curUser);
+        }
       });
     }
   }
 
   // 设置指定设备事件状态
-  setDeviceIssues(issueId, orgState, state, comment) {
+  setDeviceIssues(issueId, orgState, state, comment, curUser) {
     const that = this;
-    this.coverService.setDeviceIssues(issueId, orgState, state, comment).subscribe({
+    this.coverService.setDeviceIssues(issueId, orgState, state, comment, curUser).subscribe({
       next: function () {
-        that.model.infoW.clickclose();
+        if (that.model.infoW) {
+          that.model.infoW.clickclose();
+        }
+
       },
       complete: function () {
 

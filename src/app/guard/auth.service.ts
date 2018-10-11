@@ -69,30 +69,6 @@ export class AuthService {
                 }
             })
         );
-
-        // return this.http.post('/manager/auth/login', JSON.stringify({ loginName: username, password: password }))
-        //     .map((res: Response) => {
-        //         if (res.status === 200) {
-        //             const token = res.json() && res.json().token;
-        //             const userId = res.json() && res.json().userId;
-        //             if (token) {
-        //                 this.token = token;
-        //                 this.userId = userId;
-        //                 // 设置全局变量
-        //                 this.winRef.nativeWindow.userId = this.userId;
-        //                 this._cookieService.putObject('currentUser',
-        //  JSON.stringify({ loginName: username, token: token, userId: userId }));
-        //                 this.isLoggedIn = true;
-        //                 return true;
-        //             } else {
-        //                 this.isLoggedIn = false;
-        //                 return false;
-        //             }
-        //         } else if (res.status === 202) {
-        //             return res.json().code.toString();
-
-        //         }
-        //     });
     }
 
     login1(userName: String, password: String): Observable<any> {

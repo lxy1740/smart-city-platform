@@ -60,11 +60,13 @@ export class CoverService {
 
 
     // 设置指定设备事件状态
-    setDeviceIssues(deviceId: number, orgState: number, state: number, comment: string): Observable<any> {
+    setDeviceIssues(deviceId: number, orgState: number, state: number, comment: string,
+        assigneeId: string): Observable<any> {
         return this.http.post(`/api/issue/state?deviceId=${deviceId}`, {
             'comment': comment,
             'orgState': orgState,
-            'state': state
+            'state': state,
+            'assigneeId': assigneeId
         })
             .pipe(map((res) => {
                 const data = { status: 200 };
@@ -80,6 +82,14 @@ export class CoverService {
             'state': state
         })
             .pipe(map((res) => {
+                return res;
+            }));
+    }
+
+    // 获取所有用户 - 分页
+    getAllUser(): Observable<any> {
+        return this.http.get(`/security/user/all`)
+            .pipe(map((res: Response) => {
                 return res;
             }));
     }
