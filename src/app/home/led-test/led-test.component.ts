@@ -82,7 +82,7 @@ export class LedTestComponent implements OnInit {
   ngOnInit() {
     // this.getUsers();
     this.getTasks();
-    this.getMedias();
+    // this.getMedias();
     this.getPrograms();
     this.searchAllTask();
     this.getAirdevices();
@@ -1024,6 +1024,7 @@ export class LedTestComponent implements OnInit {
     const body = {
 
       'id': tid || 'DE1700220125',
+      'proid': id,
       'status': 'PENDING',
       'datagram': {
         'request': 'update_program',

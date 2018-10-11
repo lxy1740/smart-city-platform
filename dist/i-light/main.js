@@ -5050,28 +5050,6 @@ var AuthService = /** @class */ (function () {
                 }
             }
         }));
-        // return this.http.post('/manager/auth/login', JSON.stringify({ loginName: username, password: password }))
-        //     .map((res: Response) => {
-        //         if (res.status === 200) {
-        //             const token = res.json() && res.json().token;
-        //             const userId = res.json() && res.json().userId;
-        //             if (token) {
-        //                 this.token = token;
-        //                 this.userId = userId;
-        //                 // 设置全局变量
-        //                 this.winRef.nativeWindow.userId = this.userId;
-        //                 this._cookieService.putObject('currentUser',
-        //  JSON.stringify({ loginName: username, token: token, userId: userId }));
-        //                 this.isLoggedIn = true;
-        //                 return true;
-        //             } else {
-        //                 this.isLoggedIn = false;
-        //                 return false;
-        //             }
-        //         } else if (res.status === 202) {
-        //             return res.json().code.toString();
-        //         }
-        //     });
     };
     AuthService.prototype.login1 = function (userName, password) {
         var _this = this;
@@ -6602,6 +6580,7 @@ var CoverComponent = /** @class */ (function () {
         this.model.messageList1 = []; // 处理中
         this.model.messageList2 = []; // 已处理
         this.model.coverList = []; // 当前井盖列表
+        this.model.userList = []; // 用户列表
         this.map_model.cityList = []; // 城市列表
         this.map_model.currentChildren = []; // 区域列表一级
         this.map_model.currentBlock = []; // // 当前城市街道 = []; // 区域列表2级
@@ -6609,6 +6588,19 @@ var CoverComponent = /** @class */ (function () {
     CoverComponent.prototype.ngOnInit = function () {
         this.addBeiduMap();
         this.getCity(); // 获取城市列表
+        this.getUserList();
+    };
+    CoverComponent.prototype.getUserList = function () {
+        var that = this;
+        this.coverService.getAllUser().subscribe({
+            next: function (val) {
+                that.model.userList = val;
+            },
+            complete: function () { },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     };
     // 获取指定设备的事件
     CoverComponent.prototype.getDeviceIssues = function (deviceId) {
@@ -6869,6 +6861,7 @@ var CoverComponent = /** @class */ (function () {
             // enableMessage: true, // 设置允许信息窗发送短息
             enableAutoPan: true,
         };
+        this.model.deviceId = mess.id;
         var txt = "<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>";
         txt = txt + ("\u8BBE\u5907\u7F16\u53F7 | " + mess.name + " | " + mess.id + "</p><p> \u8BBE\u5907\u540D\u79F0\uFF1A" + mess.description + "</p>");
         if (mess.lowBattery === false) {
@@ -6903,6 +6896,8 @@ var CoverComponent = /** @class */ (function () {
             }
             var m = "massage-lsq" + mess.id;
             var p = "massage-post" + mess.id;
+            var selId = "select" + mess.id;
+            txt = txt + ("\n      <div class=\"form-inline\">\n        <label class=\"control-label\" style='font-size: 14px; margin: 5px'>\n          \u6307\u6D3E\u4EBA\u5458\uFF1A<span style=\"color: red;\">*</span>\n        </label>\n        <select name=\"assignUser\" class=\"cur-pointer form-control\" style='font-size: 14px; margin: 5px'\n          id=\"" + selId + "\"></select></div>"); // onchange="${that.model.curUser}=options[selectedIndex].value"
             txt = txt + ("<label>\u5904\u7406\u4FE1\u606F\uFF1A</label><textarea id=" + m + "  rows=\"3\"  style='width:100%;'></textarea>");
             txt = txt + ("<p><button id=" + p + " class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>\n      \u5904\u7406</button></p>");
         }
@@ -6916,6 +6911,14 @@ var CoverComponent = /** @class */ (function () {
         var infoWindow = new BMap.InfoWindow(txt, opts);
         marker.addEventListener('click', function () {
             that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+            var obj = document.getElementById("select" + mess.id);
+            if (obj) {
+                // obj.append(new Option('请选择处理用户', ''));
+                for (var i = 0; i < that.model.userList.length; i++) {
+                    console.log('option');
+                    obj.append(new Option(that.model.userList[i].userName, that.model.userList[i].userName));
+                }
+            }
             setTimeout(function () {
                 that.deviceAddEventListener(mess);
             }, 0);
@@ -6926,22 +6929,36 @@ var CoverComponent = /** @class */ (function () {
         var that = this;
         var m = "massage-lsq" + mess.id;
         var p = "massage-post" + mess.id;
+        var selId = "select" + mess.id;
         var message_l = document.getElementById(m);
         var message_p = document.getElementById(p);
+        var selectUser = document.getElementById(selId); // 用户下拉列表
+        var curUser = '';
+        if (selectUser) {
+            selectUser.addEventListener('change', function () {
+                var selIndex = selectUser['selectedIndex'];
+                curUser = that.model.userList[selIndex].id;
+            });
+        }
         if (message_p) {
             message_p.addEventListener('click', function () {
-                console.log(message_l['value']);
-                var issueId = that.model.issueId;
-                that.setDeviceIssues(issueId, 0, 1, message_l['value']);
+                if (curUser) {
+                    var issueId = that.model.deviceId;
+                    console.log('issueId');
+                    console.log(issueId);
+                    that.setDeviceIssues(issueId, 0, 1, message_l['value'], curUser);
+                }
             });
         }
     };
     // 设置指定设备事件状态
-    CoverComponent.prototype.setDeviceIssues = function (issueId, orgState, state, comment) {
+    CoverComponent.prototype.setDeviceIssues = function (issueId, orgState, state, comment, curUser) {
         var that = this;
-        this.coverService.setDeviceIssues(issueId, orgState, state, comment).subscribe({
+        this.coverService.setDeviceIssues(issueId, orgState, state, comment, curUser).subscribe({
             next: function () {
-                that.model.infoW.clickclose();
+                if (that.model.infoW) {
+                    that.model.infoW.clickclose();
+                }
             },
             complete: function () {
             },
@@ -11542,7 +11559,7 @@ var LedTestComponent = /** @class */ (function () {
     LedTestComponent.prototype.ngOnInit = function () {
         // this.getUsers();
         this.getTasks();
-        this.getMedias();
+        // this.getMedias();
         this.getPrograms();
         this.searchAllTask();
         this.getAirdevices();
@@ -12391,6 +12408,7 @@ var LedTestComponent = /** @class */ (function () {
         var tid = this.task3.id;
         var body = {
             'id': tid || 'DE1700220125',
+            'proid': id,
             'status': 'PENDING',
             'datagram': {
                 'request': 'update_program',
@@ -15394,6 +15412,7 @@ var InterceptorService = /** @class */ (function () {
                 return Object(rxjs___WEBPACK_IMPORTED_MODULE_4__["of"])(event); // break;
             case 500:// 过期状态码
                 if (event['error'].message && event['error'].message.indexOf('expired')) {
+                    localStorage.removeItem('token');
                     that.goTo('/login');
                 }
                 return Object(rxjs___WEBPACK_IMPORTED_MODULE_4__["throwError"])(event); // break;
@@ -15519,7 +15538,6 @@ var LoginComponent = /** @class */ (function () {
             },
             complete: function () { },
             error: function (error) {
-                console.log('error.json().toString()');
                 console.log(error.json());
                 that.error = error.json().errors[0].defaultMessage;
                 that.loading = false;
@@ -16267,11 +16285,12 @@ var CoverService = /** @class */ (function () {
         }));
     };
     // 设置指定设备事件状态
-    CoverService.prototype.setDeviceIssues = function (deviceId, orgState, state, comment) {
+    CoverService.prototype.setDeviceIssues = function (deviceId, orgState, state, comment, assigneeId) {
         return this.http.post("/api/issue/state?deviceId=" + deviceId, {
             'comment': comment,
             'orgState': orgState,
-            'state': state
+            'state': state,
+            'assigneeId': assigneeId
         })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) {
             var data = { status: 200 };
@@ -16284,6 +16303,13 @@ var CoverService = /** @class */ (function () {
             'comment': comment,
             'state': state
         })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) {
+            return res;
+        }));
+    };
+    // 获取所有用户 - 分页
+    CoverService.prototype.getAllUser = function () {
+        return this.http.get("/security/user/all")
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) {
             return res;
         }));
@@ -16673,7 +16699,7 @@ GradOverlar.prototype.toggle = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LedService", function() { return LedService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -16777,7 +16803,7 @@ var LedService = /** @class */ (function () {
     };
     LedService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], LedService);
     return LedService;
 }());

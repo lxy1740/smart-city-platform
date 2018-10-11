@@ -446,7 +446,7 @@ export class CoverComponent implements OnInit, OnDestroy {
         // obj.append(new Option('请选择处理用户', ''));
         for (let i = 0; i < that.model.userList.length; i++) {
           console.log('option');
-          obj.append(new Option(that.model.userList[i].userName, that.model.userList[i].userName));
+          (<any>obj).append(new Option(that.model.userList[i].userName, that.model.userList[i].userName));
         }
       }
       setTimeout(() => {
