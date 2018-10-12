@@ -37,7 +37,7 @@ export class InterceptorService implements HttpInterceptor { //  implements Http
             return of(event); // break;
 
             case 500: // 过期状态码
-            if (event['error'].message && event['error'].message.indexOf('expired')) {
+            if (event['error'].message && event['error'].message.indexOf('expired') > 0) {
                 localStorage.removeItem('token');
                 that.goTo('/login');
             }
