@@ -15411,7 +15411,7 @@ var InterceptorService = /** @class */ (function () {
                 }
                 return Object(rxjs___WEBPACK_IMPORTED_MODULE_4__["of"])(event); // break;
             case 500:// 过期状态码
-                if (event['error'].message && event['error'].message.indexOf('expired')) {
+                if (event['error'].message && event['error'].message.indexOf('expired') > 0) {
                     localStorage.removeItem('token');
                     that.goTo('/login');
                 }
