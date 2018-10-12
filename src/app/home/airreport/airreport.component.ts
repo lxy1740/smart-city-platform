@@ -195,7 +195,7 @@ export class AirreportComponent implements OnInit {
     const that = this;
     this.dashtrue = true;
     this.getStatistics();
-    this.jumpHandle('home/dashbord');
+    this.jumpHandle('home/dashboard');
   }
 
 

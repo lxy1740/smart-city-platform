@@ -10,6 +10,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/cor
 import { MonitorService } from '../../../service/monitor.service';
 import { MessService } from '../../../service/mess.service';
 import { CoverService } from '../../../service/cover.service';
+import { Router } from '@angular/router';
 // baidu map
 declare let BMap;
 declare let BMAP_ANCHOR_TOP_LEFT;
@@ -63,7 +64,8 @@ export class CoverComponent implements OnInit, OnDestroy {
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
   timer: any; // 定时器
 
-  constructor(private coverService: CoverService, private monitorService: MonitorService, public messService: MessService) {
+  constructor(private coverService: CoverService, private monitorService: MonitorService, public messService: MessService,
+    public router: Router) {
     this.model.deviceType = 5; // 井盖
     this.model.messageList = []; // 待处理
     this.model.messageList1 = []; // 处理中
@@ -641,6 +643,11 @@ export class CoverComponent implements OnInit, OnDestroy {
     return that.node;
   }
 
+  // 进入数据监控页面
+  jumpHandle() {
+    this.router.navigate([`home/issuedata`]);
+
+  }
 
   // 进入全屏
   enterFullScreen() {

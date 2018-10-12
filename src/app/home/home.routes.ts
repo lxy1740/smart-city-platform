@@ -15,6 +15,8 @@ import { AirreportRoutes } from './airreport/airreport.routes';
 
 import { MapRoutes } from './map/map.routes';
 import { LedRoutes } from './led-test/led.routes';
+import { IssuedataRoutes } from './issuedata/issuedata.routes';
+import { DashboardRoutes } from './dashboard/dashboard.routes';
 
 export const HomeRoutes: Route[] = [
     {
@@ -35,6 +37,8 @@ export const HomeRoutes: Route[] = [
             ...HomepageRoutes,
             ...StrategyRoutes,
             ...AirreportRoutes,
+            ...IssuedataRoutes,
+            ...DashboardRoutes,
             ...MapRoutes,
             ...LedRoutes
         ]

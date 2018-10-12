@@ -22,6 +22,7 @@ import { ProductService } from './product.service';
 import { LedService } from './led.service';
 import { AdminService } from './admin.service';
 import { RightService } from './right.service';
+import { IssuedataService } from './issuedata.service';
 
 @NgModule({
   imports: [
@@ -31,6 +32,6 @@ import { RightService } from './right.service';
   providers: [FullScreenService, BeiduAPIService, BeiduMAPService, MonitorService,
     LightService, CoverService, AirmonitorService, CameraService, StrategyService,
     DeviceService, PositionService, ProductService, LedService, DialogService, AdminService, RightService,
-    MessService, UrlService, CommunicateService, VideoService, ]
+    MessService, UrlService, CommunicateService, VideoService, IssuedataService ]
 })
 export class ServiceModule { }

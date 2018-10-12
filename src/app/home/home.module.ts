@@ -18,6 +18,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AirreportComponent } from './airreport/airreport.component';
 
 import { LedTestComponent } from './led-test/led-test.component';
+import { IssuedataComponent } from './issuedata/issuedata.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
@@ -27,7 +29,8 @@ import { LedTestComponent } from './led-test/led-test.component';
 
     ],
     declarations: [
-     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent,  LedTestComponent,
+     MapComponent, StrategyComponent, HomepageComponent, AirreportComponent,  LedTestComponent, IssuedataComponent,
+     DashboardComponent,
 
 
     ],
