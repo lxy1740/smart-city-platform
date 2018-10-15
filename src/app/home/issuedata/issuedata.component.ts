@@ -3,6 +3,7 @@ import { IssuedataService } from '../../service/issuedata.service';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 const now = new Date();
 
@@ -29,7 +30,7 @@ export class IssuedataComponent implements OnInit {
   fromdate: any; // 开始日期
   todate: any; // 结束日期
 
-  constructor(public issuedataService: IssuedataService) {
+  constructor(public issuedataService: IssuedataService, public router: Router) {
     this.page = 1;
     this.issue.posNum = '';
   }
@@ -76,5 +77,9 @@ export class IssuedataComponent implements OnInit {
   // 换页
   pageChange() {
     this.getIssueHistoryList();
+  }
+  // 路由跳转
+  jumpHandle(url) {
+    this.router.navigate([url]);
   }
 }

@@ -5344,7 +5344,7 @@ var AirreportComponent = /** @class */ (function () {
         var that = this;
         this.dashtrue = true;
         this.getStatistics();
-        this.jumpHandle('home/dashbord');
+        this.jumpHandle('home/dashboard');
     };
     AirreportComponent.prototype.getDismissReason = function (reason) {
         if (reason === _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ModalDismissReasons"].ESC) {
@@ -6274,31 +6274,31 @@ var CalamityComponent = /** @class */ (function () {
             var point = new BMap.Point(item.point[0], item.point[1]);
             var myIcon = void 0;
             if (item.type === 1 && item.error === 1) {
-                myIcon = new BMap.Icon('../../../../assets/imgs/building.png', new BMap.Size(300, 157));
+                myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
                 myIcon.setAnchor(new BMap.Size(16, 38));
                 var marker2 = new BMap.Marker(point, { icon: myIcon }); // 创建标注
                 this.map.addOverlay(marker2);
             }
             else if (item.type === 2 && item.error === 1) {
-                myIcon = new BMap.Icon('../../../../assets/imgs/landslide.png', new BMap.Size(300, 157));
+                myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
                 myIcon.setAnchor(new BMap.Size(16, 38));
                 var marker2 = new BMap.Marker(point, { icon: myIcon }); // 创建标注
                 this.map.addOverlay(marker2);
             }
             else if (item.type === 3 && item.error === 1) {
-                myIcon = new BMap.Icon('../../../../assets/imgs/odor.png', new BMap.Size(300, 157));
+                myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(300, 157));
                 myIcon.setAnchor(new BMap.Size(16, 38));
                 var marker2 = new BMap.Marker(point, { icon: myIcon }); // 创建标注
                 this.map.addOverlay(marker2);
             }
             else if (item.type === 4 && item.error === 1) {
-                myIcon = new BMap.Icon('../../../../assets/imgs/gas.png', new BMap.Size(300, 157));
+                myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(300, 157));
                 myIcon.setAnchor(new BMap.Size(16, 38));
                 var marker2 = new BMap.Marker(point, { icon: myIcon }); // 创建标注
                 this.map.addOverlay(marker2);
             }
             else if (item.type === 5 && item.error === 1) {
-                myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.png', new BMap.Size(300, 157));
+                myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(300, 157));
                 myIcon.setAnchor(new BMap.Size(16, 38));
                 var marker2 = new BMap.Marker(point, { icon: myIcon }); // 创建标注
                 this.map.addOverlay(marker2);
@@ -6489,7 +6489,7 @@ var CalamityComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- 地图 -->\r\n<div class=\"map_warp\">\r\n    <!-- 选择区域 -->\r\n    <div class=\"Selection-Region\" *ngIf=\"visible == true\">\r\n        <!-- 城市列表 -->\r\n        <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"citylistMouseleave()\">\r\n\r\n                <span class=\"cl-blue cur-pointer\" (mouseover)=\"showCiyt()\">\r\n                  <span class=\"filter\" *ngIf=\"map_model.currentCity\">{{map_model.currentCity.name}}</span>\r\n                  <span class=\"filter\" *ngIf=\"!map_model.currentCity\">选择城市</span>\r\n                  <!-- <i class=\"fa fa-bell-o nav-icon \" aria-hidden=\"true\"></i> -->\r\n                </span>\r\n                <div id=\"city-panel\" class=\"city-panel dropdown_panel\" *ngIf=\"cityshow\" >\r\n                  <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <dl *ngFor=\"let item of map_model.cityList\">\r\n                      <dt>{{item.name}}</dt>\r\n                      <dd *ngIf=\"item.children && item.children.length > 0\">\r\n                        <a title=\"智慧城市\" *ngFor=\"let itemc of item.children\" (click)=\"selecteCity(itemc)\">{{itemc.name}}</a>\r\n                      </dd>\r\n                    </dl>\r\n                  </div>\r\n      \r\n                </div>\r\n      \r\n        </div>\r\n      \r\n        <!-- 区域列表 -->\r\n        <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"arealistMouseleave()\">\r\n\r\n        <span class=\"cl-blue cur-pointer\" (mouseover)=\"showArea()\">\r\n            <span class=\"filter\" *ngIf=\"!map_model.currentArea\">选择区域</span>\r\n            <span class=\"filter\" *ngIf=\"map_model.currentArea\">{{map_model.currentArea.name}}</span>\r\n        </span>\r\n\r\n        <div class=\"arealist-wrap dropdown_panel\"  *ngIf=\"areashow\">\r\n            <div class=\"dropdown_panel_inner\">\r\n                <span class=\"menu_arrow_left\"></span>\r\n                <ul class=\"arealist\" data-type=\"area\">\r\n                <!-- <li data-val=\"0\" class=\"arealist-item\" (mouseover)=\"arealistMouseNone()\">\r\n                    <em>不限</em>\r\n                </li> -->\r\n                <li class=\"arealist-item\" *ngFor=\"let node of map_model.currentChildren\" (mouseover)=\"arealistMouseover(node)\" (click)=\"selecteblock(node)\">\r\n                    <em>{{node.name}}</em>\r\n                </li>\r\n                \r\n                </ul>\r\n                <div class=\"blocklist-wrap\" *ngIf=\"map_model.currentBlock.length > 0\">\r\n                <ul class=\"blocklist\"  data-type=\"block\">\r\n                    <!-- <li data-val=\"0\">不限</li> -->\r\n                    <li *ngFor=\"let block of map_model.currentBlock\" (click)=\"selecteblock(block)\">{{block.name}}</li>\r\n                \r\n                </ul>\r\n                </div>\r\n\r\n\r\n            </div>\r\n\r\n\r\n        </div>\r\n\r\n        </div>\r\n\r\n\r\n    </div>\r\n\r\n\r\n    <!-- <div ngbDropdown class=\"dropup nav-user\">\r\n            <div class=\"cl-blue display-inoneline\" id=\"dropdownBasic2\" ngbDropdownToggle>\r\n              <i class=\"fa fa-user-circle-o nav-icon cl-blue\" aria-hidden=\"true\"></i>\r\n              <span class=\"currentUsername\">{{loginName}}</span>\r\n            </div>\r\n            <ul ngbDropdownMenu aria-labelledby=\"dropdownBasic2\" class=\"user-menus\">\r\n              <li class=\"dropdown-item\">\r\n                <span class=\"dropdown-menu-list\">用户管理</span>\r\n              </li>\r\n              <li class=\"dropdown-item\">\r\n                <a (click)=\"logout()\" class=\"cur-pointer \">\r\n                  <span class=\"dropdown-menu-list\">退出登录</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </div> -->\r\n    <!-- 井盖消息处理三按键 -->\r\n    <div class=\"cover-issues\">\r\n        <!-- 待处理 -->\r\n        <div class=\"d-inline-block cover-issues-block\" (mouseleave)=\"messageListMouseleave_1()\">\r\n            <span class=\"cl-blue cur-pointer\" (mouseover)=\"showUntartedList()\">\r\n                <span class=\"filter\">待处理\r\n                    <span class=\"m-badge m-badge-danger\" >{{model.messageList.length}}</span>\r\n                </span>\r\n            </span>\r\n            <div class=\"messagelist-wrap\" *ngIf=\"showunstartedlist && model.messageList.length > 0\">\r\n                <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <ul class=\"messagelist\" data-type=\"area\">\r\n                        <li class=\"messagelist-item\" *ngFor=\"let mess of model.messageList\" (click)=\"findPoint(mess)\">\r\n                            <i class=\"fa fa-dot-circle-o\" aria-hidden=\"true\" style=\"color:#f4516c;padding-right:5px\"></i>\r\n                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n        <!-- 处理中 -->\r\n        <div class=\"d-inline-block cover-issues-block\" (mouseleave)=\"messageListMouseleave_2()\">\r\n            <span class=\"cl-blue cur-pointer\" (mouseover)=\"showOnprogressList()\">\r\n                <span class=\"filter\">处理中\r\n                    <span class=\"m-badge m-badge-inprocess\" >{{model.messageList1.length}}</span>\r\n                </span>\r\n            </span>\r\n            <div class=\"messagelist-wrap\" *ngIf=\"showonprogresslist && model.messageList1.length > 0\">\r\n                <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <ul class=\"messagelist\" data-type=\"area\">\r\n                        <li class=\"messagelist-item\" *ngFor=\"let mess of model.messageList1\" (click)=\"findPoint(mess)\">\r\n                            <!-- <span class=\"m-list-timeline__badge\"></span> -->\r\n                            <i class=\"fa fa-circle\" aria-hidden=\"true\" style=\"color:#ffb822;padding-right:5px\"></i>\r\n                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <!-- 已处理 -->\r\n        <div class=\"d-inline-block cover-issues-block\" (mouseleave)=\"messageListMouseleave_3()\">\r\n            <span class=\"cl-blue cur-pointer\" (mouseover)=\"showFinishedList()\">\r\n                <span class=\"filter\">已处理\r\n                    <span class=\"m-badge m-badge-fixed\" >{{model.messageList2.length}}</span>\r\n                </span>\r\n            </span>\r\n            <div class=\"messagelist-wrap\" *ngIf=\"showfinishedlist && model.messageList2.length > 0\">\r\n                <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <ul class=\"messagelist \" data-type=\"area\">\r\n                        <li class=\"messagelist-item\" *ngFor=\"let mess of model.messageList2\" (click)=\"findPoint(mess)\">\r\n                            <i class=\"fa fa-circle\" aria-hidden=\"true\" style=\"color:#36a3f7;padding-right:5px\"></i>\r\n                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div> \r\n\r\n\r\n    <!-- 右边按钮 -->\r\n    <div class=\"btn-icon\" *ngIf=\"visible == true\">\r\n        <!-- <div class=\"d-inline-block icon-item cur-pointer\">\r\n            <img src=\"../../../../assets/imgs/control.png\" alt=\"图片\">\r\n        \r\n        </div> -->\r\n\r\n        <!-- <div class=\"d-inline-block icon-item cur-pointer\">\r\n\r\n            <img src=\"../../../../assets/imgs/switch.png\" alt=\"图片\" (click)=\"enterFullScreen()\">\r\n        </div> -->\r\n\r\n    </div>\r\n    <!-- 地图 -->\r\n    <div #map3 id=\"map_container3\" class=\"map_container no-fulls-map map-has-footer\"></div>\r\n    \r\n</div>"
+module.exports = "<!-- 地图 -->\r\n<div class=\"map_warp\">\r\n    <!-- 选择区域 -->\r\n    <div class=\"Selection-Region\" *ngIf=\"visible == true\">\r\n        <!-- 城市列表 -->\r\n        <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"citylistMouseleave()\">\r\n\r\n                <span class=\"cl-blue cur-pointer\" (mouseover)=\"showCiyt()\">\r\n                  <span class=\"filter\" *ngIf=\"map_model.currentCity\">{{map_model.currentCity.name}}</span>\r\n                  <span class=\"filter\" *ngIf=\"!map_model.currentCity\">选择城市</span>\r\n                  <!-- <i class=\"fa fa-bell-o nav-icon \" aria-hidden=\"true\"></i> -->\r\n                </span>\r\n                <div id=\"city-panel\" class=\"city-panel dropdown_panel\" *ngIf=\"cityshow\" >\r\n                  <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <dl *ngFor=\"let item of map_model.cityList\">\r\n                      <dt>{{item.name}}</dt>\r\n                      <dd *ngIf=\"item.children && item.children.length > 0\">\r\n                        <a title=\"智慧城市\" *ngFor=\"let itemc of item.children\" (click)=\"selecteCity(itemc)\">{{itemc.name}}</a>\r\n                      </dd>\r\n                    </dl>\r\n                  </div>\r\n      \r\n                </div>\r\n      \r\n        </div>\r\n      \r\n        <!-- 区域列表 -->\r\n        <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"arealistMouseleave()\">\r\n\r\n        <span class=\"cl-blue cur-pointer\" (mouseover)=\"showArea()\">\r\n            <span class=\"filter\" *ngIf=\"!map_model.currentArea\">选择区域</span>\r\n            <span class=\"filter\" *ngIf=\"map_model.currentArea\">{{map_model.currentArea.name}}</span>\r\n        </span>\r\n\r\n        <div class=\"arealist-wrap dropdown_panel\"  *ngIf=\"areashow\">\r\n            <div class=\"dropdown_panel_inner\">\r\n                <span class=\"menu_arrow_left\"></span>\r\n                <ul class=\"arealist\" data-type=\"area\">\r\n                <!-- <li data-val=\"0\" class=\"arealist-item\" (mouseover)=\"arealistMouseNone()\">\r\n                    <em>不限</em>\r\n                </li> -->\r\n                <li class=\"arealist-item\" *ngFor=\"let node of map_model.currentChildren\" (mouseover)=\"arealistMouseover(node)\" (click)=\"selecteblock(node)\">\r\n                    <em>{{node.name}}</em>\r\n                </li>\r\n                \r\n                </ul>\r\n                <div class=\"blocklist-wrap\" *ngIf=\"map_model.currentBlock.length > 0\">\r\n                <ul class=\"blocklist\"  data-type=\"block\">\r\n                    <!-- <li data-val=\"0\">不限</li> -->\r\n                    <li *ngFor=\"let block of map_model.currentBlock\" (click)=\"selecteblock(block)\">{{block.name}}</li>\r\n                \r\n                </ul>\r\n                </div>\r\n\r\n\r\n            </div>\r\n\r\n\r\n        </div>\r\n\r\n        </div>\r\n\r\n\r\n    </div>\r\n\r\n\r\n    <!-- <div ngbDropdown class=\"dropup nav-user\">\r\n            <div class=\"cl-blue display-inoneline\" id=\"dropdownBasic2\" ngbDropdownToggle>\r\n              <i class=\"fa fa-user-circle-o nav-icon cl-blue\" aria-hidden=\"true\"></i>\r\n              <span class=\"currentUsername\">{{loginName}}</span>\r\n            </div>\r\n            <ul ngbDropdownMenu aria-labelledby=\"dropdownBasic2\" class=\"user-menus\">\r\n              <li class=\"dropdown-item\">\r\n                <span class=\"dropdown-menu-list\">用户管理</span>\r\n              </li>\r\n              <li class=\"dropdown-item\">\r\n                <a (click)=\"logout()\" class=\"cur-pointer \">\r\n                  <span class=\"dropdown-menu-list\">退出登录</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </div> -->\r\n    <!-- 井盖消息处理三按键 -->\r\n    <div class=\"cover-issues\">\r\n        <!-- 待处理 -->\r\n        <div class=\"d-inline-block cover-issues-block\" (mouseleave)=\"messageListMouseleave_1()\">\r\n            <span class=\"cl-blue cur-pointer\" (mouseover)=\"showUntartedList()\">\r\n                <span class=\"filter\">待处理\r\n                    <span class=\"m-badge m-badge-danger\" >{{model.messageList.length}}</span>\r\n                </span>\r\n            </span>\r\n            <div class=\"messagelist-wrap\" *ngIf=\"showunstartedlist && model.messageList.length > 0\">\r\n                <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <ul class=\"messagelist\" data-type=\"area\">\r\n                        <li class=\"messagelist-item\" *ngFor=\"let mess of model.messageList\" (click)=\"findPoint(mess)\">\r\n                            <i class=\"fa fa-dot-circle-o\" aria-hidden=\"true\" style=\"color:#f4516c;padding-right:5px\"></i>\r\n                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n        <!-- 处理中 -->\r\n        <div class=\"d-inline-block cover-issues-block\" (mouseleave)=\"messageListMouseleave_2()\">\r\n            <span class=\"cl-blue cur-pointer\" (mouseover)=\"showOnprogressList()\">\r\n                <span class=\"filter\">处理中\r\n                    <span class=\"m-badge m-badge-inprocess\" >{{model.messageList1.length}}</span>\r\n                </span>\r\n            </span>\r\n            <div class=\"messagelist-wrap\" *ngIf=\"showonprogresslist && model.messageList1.length > 0\">\r\n                <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <ul class=\"messagelist\" data-type=\"area\">\r\n                        <li class=\"messagelist-item\" *ngFor=\"let mess of model.messageList1\" (click)=\"findPoint(mess)\">\r\n                            <!-- <span class=\"m-list-timeline__badge\"></span> -->\r\n                            <i class=\"fa fa-circle\" aria-hidden=\"true\" style=\"color:#ffb822;padding-right:5px\"></i>\r\n                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <!-- 已处理 -->\r\n        <div class=\"d-inline-block cover-issues-block\" (mouseleave)=\"messageListMouseleave_3()\">\r\n            <span class=\"cl-blue cur-pointer\" (mouseover)=\"showFinishedList()\">\r\n                <span class=\"filter\">已处理\r\n                    <span class=\"m-badge m-badge-fixed\" >{{model.messageList2.length}}</span>\r\n                </span>\r\n            </span>\r\n            <div class=\"messagelist-wrap\" *ngIf=\"showfinishedlist && model.messageList2.length > 0\">\r\n                <div class=\"dropdown_panel_inner\">\r\n                    <span class=\"menu_arrow_left\"></span>\r\n                    <ul class=\"messagelist \" data-type=\"area\">\r\n                        <li class=\"messagelist-item\" *ngFor=\"let mess of model.messageList2\" (click)=\"findPoint(mess)\">\r\n                            <i class=\"fa fa-circle\" aria-hidden=\"true\" style=\"color:#36a3f7;padding-right:5px\"></i>\r\n                            <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div> \r\n\r\n    <div class=\"issue-history-data\">\r\n        <button class=\"btn btn-bg iss-hist\" (click)=\"jumpHandle()\">消息记录</button>\r\n    </div>\r\n\r\n    <!-- 右边按钮 -->\r\n    <div class=\"btn-icon\" *ngIf=\"visible == true\">\r\n        <!-- <div class=\"d-inline-block icon-item cur-pointer\">\r\n            <img src=\"../../../../assets/imgs/control.png\" alt=\"图片\">\r\n        \r\n        </div> -->\r\n\r\n        <!-- <div class=\"d-inline-block icon-item cur-pointer\">\r\n\r\n            <img src=\"../../../../assets/imgs/switch.png\" alt=\"图片\" (click)=\"enterFullScreen()\">\r\n        </div> -->\r\n\r\n    </div>\r\n    <!-- 地图 -->\r\n    <div #map3 id=\"map_container3\" class=\"map_container no-fulls-map map-has-footer\"></div>\r\n    \r\n</div>"
 
 /***/ }),
 
@@ -6500,7 +6500,7 @@ module.exports = "<!-- 地图 -->\r\n<div class=\"map_warp\">\r\n    <!-- 选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@charset \"UTF-8\";\n.map_container {\n  height: 100vh;\n  width: 100%; }\n.map-has-footer {\n  height: calc(100vh); }\n.mes-list {\n  border: 1px solid #ccc;\n  background: #3c3c3c;\n  color: #fff; }\n.mes-list .mes-list-title {\n    padding-left: 40px;\n    padding-top: 20px; }\n.mes-list .mes-list-detail {\n    height: 80%;\n    overflow: auto; }\n.list-item {\n  padding-top: 12px; }\n.cover-tabel {\n  background: #3c3c3c;\n  padding: 0; }\n.block-padding {\n  padding: 0; }\n.table-body {\n  margin-bottom: 0;\n  background: #404a59;\n  padding: 0; }\n.mess-num td {\n  color: #fff; }\n.sel-area-block, .cover-issues-block {\n  border-radius: 5px; }\n.cover-issues {\n  position: absolute;\n  z-index: 3000;\n  top: 15px;\n  right: 170px; }\n.cover-issues .cover-issues-block {\n    width: 85px;\n    cursor: pointer;\n    position: relative;\n    background-color: #fff;\n    border: 1px solid #e3e3e3;\n    line-height: 32px;\n    height: 32px;\n    font-size: 14px;\n    margin-left: 21px;\n    text-align: center; }\n.cover-issues .filter {\n    width: 76px; }\n.cover-issues .messagelist-wrap {\n    position: absolute;\n    padding: 7px 0;\n    margin: 0px;\n    top: 31px;\n    right: 0;\n    z-index: 99;\n    text-align: left; }\n.cover-issues .messagelist-wrap .dropdown_panel_inner {\n      box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);\n      background-color: #fff;\n      padding: 20px;\n      font-size: 12px;\n      border-radius: 4px; }\n.cover-issues .messagelist-wrap .menu_arrow_left:before {\n      display: block;\n      border-width: 7px;\n      position: absolute;\n      top: -7px;\n      right: 35px;\n      border-style: solid dashed dashed;\n      border-color: transparent transparent #fff transparent;\n      font-size: 0;\n      line-height: 0;\n      content: \"\"; }\n.cover-issues .messagelist {\n    position: relative;\n    padding: 0;\n    margin: 0px;\n    margin-bottom: 0;\n    width: -webkit-max-content;\n    width: -moz-max-content;\n    width: max-content;\n    font-size: 12px;\n    z-index: 99;\n    max-height: 300px;\n    overflow-y: auto;\n    cursor: pointer; }\n.cover-issues .messagelist-item {\n    font-size: 12px;\n    margin: 5px 0;\n    padding: 0 10px; }\n.cover-issues .messagelist .messagelist-item:hover {\n    background: #f6f6f6;\n    color: #f60; }\n.cover-issues .messagelist .messagelist-item:hover .blocklist {\n      display: block; }\n.cover-issues .messagelist .messagelist-item:hover em {\n    color: #f60; }\n.m-badge {\n  font-size: 0.8rem;\n  line-height: 20px;\n  min-height: 20px;\n  min-width: 20px;\n  vertical-align: middle;\n  text-align: center;\n  display: inline-block;\n  padding: 0px 3px;\n  border-radius: .75rem; }\n.m-badge-danger {\n  background: #f4516c;\n  color: #fff; }\n.m-badge-inprocess {\n  background: #ffb822;\n  color: #111; }\n.m-badge-fixed {\n  background: #36a3f7;\n  color: #fff; }\n"
+module.exports = "@charset \"UTF-8\";\n.map_container {\n  height: 100vh;\n  width: 100%; }\n.map-has-footer {\n  height: calc(100vh); }\n.mes-list {\n  border: 1px solid #ccc;\n  background: #3c3c3c;\n  color: #fff; }\n.mes-list .mes-list-title {\n    padding-left: 40px;\n    padding-top: 20px; }\n.mes-list .mes-list-detail {\n    height: 80%;\n    overflow: auto; }\n.list-item {\n  padding-top: 12px; }\n.cover-tabel {\n  background: #3c3c3c;\n  padding: 0; }\n.block-padding {\n  padding: 0; }\n.table-body {\n  margin-bottom: 0;\n  background: #404a59;\n  padding: 0; }\n.mess-num td {\n  color: #fff; }\n.sel-area-block, .cover-issues-block {\n  border-radius: 5px; }\n.cover-issues {\n  position: absolute;\n  z-index: 3000;\n  top: 15px;\n  right: 170px; }\n.cover-issues .cover-issues-block {\n    width: 85px;\n    cursor: pointer;\n    position: relative;\n    background-color: #fff;\n    border: 1px solid #e3e3e3;\n    line-height: 32px;\n    height: 32px;\n    font-size: 14px;\n    margin-left: 21px;\n    text-align: center; }\n.cover-issues .filter {\n    width: 76px; }\n.cover-issues .messagelist-wrap {\n    position: absolute;\n    padding: 7px 0;\n    margin: 0px;\n    top: 31px;\n    right: 0;\n    z-index: 99;\n    text-align: left; }\n.cover-issues .messagelist-wrap .dropdown_panel_inner {\n      box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);\n      background-color: #fff;\n      padding: 20px;\n      font-size: 12px;\n      border-radius: 4px; }\n.cover-issues .messagelist-wrap .menu_arrow_left:before {\n      display: block;\n      border-width: 7px;\n      position: absolute;\n      top: -7px;\n      right: 35px;\n      border-style: solid dashed dashed;\n      border-color: transparent transparent #fff transparent;\n      font-size: 0;\n      line-height: 0;\n      content: \"\"; }\n.cover-issues .messagelist {\n    position: relative;\n    padding: 0;\n    margin: 0px;\n    margin-bottom: 0;\n    width: -webkit-max-content;\n    width: -moz-max-content;\n    width: max-content;\n    font-size: 12px;\n    z-index: 99;\n    max-height: 300px;\n    overflow-y: auto;\n    cursor: pointer; }\n.cover-issues .messagelist-item {\n    font-size: 12px;\n    margin: 5px 0;\n    padding: 0 10px; }\n.cover-issues .messagelist .messagelist-item:hover {\n    background: #f6f6f6;\n    color: #f60; }\n.cover-issues .messagelist .messagelist-item:hover .blocklist {\n      display: block; }\n.cover-issues .messagelist .messagelist-item:hover em {\n    color: #f60; }\n.m-badge {\n  font-size: 0.8rem;\n  line-height: 20px;\n  min-height: 20px;\n  min-width: 20px;\n  vertical-align: middle;\n  text-align: center;\n  display: inline-block;\n  padding: 0px 3px;\n  border-radius: .75rem; }\n.m-badge-danger {\n  background: #f4516c;\n  color: #fff; }\n.m-badge-inprocess {\n  background: #ffb822;\n  color: #111; }\n.m-badge-fixed {\n  background: #36a3f7;\n  color: #fff; }\n.issue-history-data {\n  position: absolute;\n  top: 15px;\n  right: 70px;\n  z-index: 3000; }\n.issue-history-data .iss-hist {\n    padding: 4px 8px; }\n"
 
 /***/ }),
 
@@ -6518,6 +6518,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _service_monitor_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../service/monitor.service */ "./src/app/service/monitor.service.ts");
 /* harmony import */ var _service_mess_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../service/mess.service */ "./src/app/service/mess.service.ts");
 /* harmony import */ var _service_cover_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../service/cover.service */ "./src/app/service/cover.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6539,11 +6540,13 @@ Author: luo.shuqi@live.com
 
 
 
+
 var CoverComponent = /** @class */ (function () {
-    function CoverComponent(coverService, monitorService, messService) {
+    function CoverComponent(coverService, monitorService, messService, router) {
         this.coverService = coverService;
         this.monitorService = monitorService;
         this.messService = messService;
+        this.router = router;
         /*
         model:object
         @issueId: number// 消息
@@ -7085,6 +7088,10 @@ var CoverComponent = /** @class */ (function () {
         // };
         return that.node;
     };
+    // 进入数据监控页面
+    CoverComponent.prototype.jumpHandle = function () {
+        this.router.navigate(["home/issuedata"]);
+    };
     // 进入全屏
     CoverComponent.prototype.enterFullScreen = function () {
         console.log('进入全屏');
@@ -7189,7 +7196,8 @@ var CoverComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./cover.component.html */ "./src/app/home/application/cover/cover.component.html"),
             styles: [__webpack_require__(/*! ./cover.component.scss */ "./src/app/home/application/cover/cover.component.scss")]
         }),
-        __metadata("design:paramtypes", [_service_cover_service__WEBPACK_IMPORTED_MODULE_3__["CoverService"], _service_monitor_service__WEBPACK_IMPORTED_MODULE_1__["MonitorService"], _service_mess_service__WEBPACK_IMPORTED_MODULE_2__["MessService"]])
+        __metadata("design:paramtypes", [_service_cover_service__WEBPACK_IMPORTED_MODULE_3__["CoverService"], _service_monitor_service__WEBPACK_IMPORTED_MODULE_1__["MonitorService"], _service_mess_service__WEBPACK_IMPORTED_MODULE_2__["MessService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], CoverComponent);
     return CoverComponent;
 }());
@@ -7205,7 +7213,7 @@ var CoverComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- 地图 -->\n<div class=\"map_warp\">\n  <!-- 选择区域 -->\n    <div class=\"Selection-Region\" *ngIf=\"visible == true\">\n      <!-- 城市列表 -->\n      <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"citylistMouseleave()\">\n    \n        <span class=\"cl-blue cur-pointer\" (mouseover)=\"showCiyt()\">\n          <span class=\"filter\" *ngIf=\"map_model.currentCity\">{{map_model.currentCity.name}}</span>\n          <span class=\"filter\" *ngIf=\"!map_model.currentCity\">选择城市</span>\n          <!-- <i class=\"fa fa-bell-o nav-icon \" aria-hidden=\"true\"></i> -->\n        </span>\n        <div id=\"city-panel\" class=\"city-panel dropdown_panel\" *ngIf=\"cityshow\">\n          <div class=\"dropdown_panel_inner\">\n            <span class=\"menu_arrow_left\"></span>\n            <dl *ngFor=\"let item of map_model.cityList\">\n              <dt>{{item.name}}</dt>\n              <dd *ngIf=\"item.children && item.children.length > 0\">\n                <a title=\"智慧城市\" *ngFor=\"let itemc of item.children\" (click)=\"selecteCity(itemc)\">{{itemc.name}}</a>\n              </dd>\n            </dl>\n          </div>\n    \n        </div>\n    \n      </div>\n    \n      <!-- 区域列表 -->\n      <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"arealistMouseleave()\">\n    \n        <span class=\"cl-blue cur-pointer\" (mouseover)=\"showArea()\">\n          <span class=\"filter\" *ngIf=\"!map_model.currentArea\">选择区域</span>\n          <span class=\"filter\" *ngIf=\"map_model.currentArea\">{{map_model.currentArea.name}}</span>\n        </span>\n    \n        <div class=\"arealist-wrap dropdown_panel\" *ngIf=\"areashow\">\n          <div class=\"dropdown_panel_inner\">\n            <span class=\"menu_arrow_left\"></span>\n            <ul class=\"arealist\" data-type=\"area\">\n              <!-- <li data-val=\"0\" class=\"arealist-item\" (mouseover)=\"arealistMouseNone()\">\n                        <em>不限</em>\n                    </li> -->\n              <li class=\"arealist-item\" *ngFor=\"let node of map_model.currentChildren\" (mouseover)=\"arealistMouseover(node)\"\n                (click)=\"selecteblock(node)\">\n                <em>{{node.name}}</em>\n              </li>\n    \n            </ul>\n            <div class=\"blocklist-wrap\" *ngIf=\"map_model.currentBlock.length > 0\">\n              <ul class=\"blocklist\" data-type=\"block\">\n                <!-- <li data-val=\"0\">不限</li> -->\n                <li *ngFor=\"let block of map_model.currentBlock\" (click)=\"selecteblock(block)\">{{block.name}}</li>\n    \n              </ul>\n            </div>\n    \n    \n          </div>\n    \n    \n        </div>\n    \n      </div>\n    \n    \n    </div>\n\n  <!-- 右边按钮 -->\n  <div class=\"btn-icon\" *ngIf=\"visible == true\">\n    <div class=\"d-inline-block icon-item cur-pointer\">\n      <img src=\"../../../../assets/imgs/control.png\" alt=\"图片\">\n\n    </div>\n\n    <!-- <div class=\"d-inline-block icon-item cur-pointer\">\n\n      <img src=\"../../../../assets/imgs/switch.png\" alt=\"图片\" (click)=\"enterFullScreen()\">\n    </div> -->\n\n  </div>\n  <!-- 地图 -->\n  <div #map5 id=\"map_container5\" class=\"map_container no-fulls-map\"></div>\n</div>"
+module.exports = "<!-- 地图 -->\r\n<div class=\"map_warp\">\r\n  <!-- 选择区域 -->\r\n    <div class=\"Selection-Region\" *ngIf=\"visible == true\">\r\n      <!-- 城市列表 -->\r\n      <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"citylistMouseleave()\">\r\n    \r\n        <span class=\"cl-blue cur-pointer\" (mouseover)=\"showCiyt()\">\r\n          <span class=\"filter\" *ngIf=\"map_model.currentCity\">{{map_model.currentCity.name}}</span>\r\n          <span class=\"filter\" *ngIf=\"!map_model.currentCity\">选择城市</span>\r\n          <!-- <i class=\"fa fa-bell-o nav-icon \" aria-hidden=\"true\"></i> -->\r\n        </span>\r\n        <div id=\"city-panel\" class=\"city-panel dropdown_panel\" *ngIf=\"cityshow\">\r\n          <div class=\"dropdown_panel_inner\">\r\n            <span class=\"menu_arrow_left\"></span>\r\n            <dl *ngFor=\"let item of map_model.cityList\">\r\n              <dt>{{item.name}}</dt>\r\n              <dd *ngIf=\"item.children && item.children.length > 0\">\r\n                <a title=\"智慧城市\" *ngFor=\"let itemc of item.children\" (click)=\"selecteCity(itemc)\">{{itemc.name}}</a>\r\n              </dd>\r\n            </dl>\r\n          </div>\r\n    \r\n        </div>\r\n    \r\n      </div>\r\n    \r\n      <!-- 区域列表 -->\r\n      <div class=\"d-inline-block sel-area-block\" (mouseleave)=\"arealistMouseleave()\">\r\n    \r\n        <span class=\"cl-blue cur-pointer\" (mouseover)=\"showArea()\">\r\n          <span class=\"filter\" *ngIf=\"!map_model.currentArea\">选择区域</span>\r\n          <span class=\"filter\" *ngIf=\"map_model.currentArea\">{{map_model.currentArea.name}}</span>\r\n        </span>\r\n    \r\n        <div class=\"arealist-wrap dropdown_panel\" *ngIf=\"areashow\">\r\n          <div class=\"dropdown_panel_inner\">\r\n            <span class=\"menu_arrow_left\"></span>\r\n            <ul class=\"arealist\" data-type=\"area\">\r\n              <!-- <li data-val=\"0\" class=\"arealist-item\" (mouseover)=\"arealistMouseNone()\">\r\n                        <em>不限</em>\r\n                    </li> -->\r\n              <li class=\"arealist-item\" *ngFor=\"let node of map_model.currentChildren\" (mouseover)=\"arealistMouseover(node)\"\r\n                (click)=\"selecteblock(node)\">\r\n                <em>{{node.name}}</em>\r\n              </li>\r\n    \r\n            </ul>\r\n            <div class=\"blocklist-wrap\" *ngIf=\"map_model.currentBlock.length > 0\">\r\n              <ul class=\"blocklist\" data-type=\"block\">\r\n                <!-- <li data-val=\"0\">不限</li> -->\r\n                <li *ngFor=\"let block of map_model.currentBlock\" (click)=\"selecteblock(block)\">{{block.name}}</li>\r\n    \r\n              </ul>\r\n            </div>\r\n    \r\n    \r\n          </div>\r\n    \r\n    \r\n        </div>\r\n    \r\n      </div>\r\n    \r\n    \r\n    </div>\r\n\r\n  <!-- 右边按钮 -->\r\n  <div class=\"btn-icon\" *ngIf=\"visible == true\">\r\n    <div class=\"d-inline-block icon-item cur-pointer\">\r\n      <img src=\"../../../../assets/imgs/control.png\" alt=\"图片\">\r\n\r\n    </div>\r\n\r\n    <!-- <div class=\"d-inline-block icon-item cur-pointer\">\r\n\r\n      <img src=\"../../../../assets/imgs/switch.png\" alt=\"图片\" (click)=\"enterFullScreen()\">\r\n    </div> -->\r\n\r\n  </div>\r\n  <!-- 地图 -->\r\n  <div #map5 id=\"map_container5\" class=\"map_container no-fulls-map\"></div>\r\n</div>"
 
 /***/ }),
 
@@ -7885,14 +7893,14 @@ var LightComponent = /** @class */ (function () {
             ("<p>\u706F\u6746\u7F16\u53F7\uFF1A " + val.positionNumber + "</p>\n     ");
         if (val.offline === true) {
             // 离线或异常
-            txt = txt + "   <p >\u662F\u5426\u5728\u7EBF\uFF1A \u5426</p>";
+            txt = txt + "   <p style=\"color: red\">\u662F\u5426\u5728\u7EBF\uFF1A \u5426</p>";
         }
         else {
             txt = txt + "   <p >\u662F\u5426\u5728\u7EBF\uFF1A \u662F</p>";
         }
         if (val.error === true) {
             // 离线或异常
-            txt = txt + "<p >\u662F\u5426\u6545\u969C\uFF1A \u662F</p>";
+            txt = txt + "<p style=\"color: red\">\u662F\u5426\u6545\u969C\uFF1A \u662F</p>";
         }
         else {
             txt = txt + "<p >\u662F\u5426\u6545\u969C\uFF1A \u5426</p>";
@@ -9121,7 +9129,7 @@ Author: luo.shuqi@live.com
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"xif-iframe\">\n  <iframe src=\"https://www.ecomo.io/xl\" frameborder=\"0\" width=\"100%\" height=\"100%\" ></iframe>\n</div>\n"
+module.exports = "<div class=\"xif-iframe\">\r\n  <iframe src=\"https://www.ecomo.io/xl\" frameborder=\"0\" width=\"100%\" height=\"100%\" ></iframe>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -9173,6 +9181,259 @@ var WaterComponent = /** @class */ (function () {
     return WaterComponent;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/home/dashboard/dashboard.component.html":
+/*!*********************************************************!*\
+  !*** ./src/app/home/dashboard/dashboard.component.html ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- 报表 -->\r\n<div class=\"panel-default info-form dash\" >\r\n  <div >\r\n    <div class=\"car-header\">\r\n          <span class=\"car-title\">可视化报表</span>\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\">\r\n            <!-- <span aria-hidden=\"true\">&times;</span> -->\r\n            <span>\r\n              <i class=\"fa fa-arrow-circle-o-left cur-pointer color-btn-text\" (click)=\"jumpHandle('home/airreport')\"></i>\r\n            </span>\r\n          </button>\r\n    </div>\r\n    <hr>\r\n    <div class=\"dash-type\">\r\n          <label for=\"profile\">统计方式：</label>\r\n          <select name=\"profile\" [(ngModel)]=\"agg\" (change)=\"aggsChange()\" class=\"form-control d-inline-block sel-area-block select-item\">\r\n            <option *ngFor=\"let item of aggs\" [ngValue]=\"item\">\r\n              {{ item.type }}\r\n            </option>\r\n          </select>\r\n\r\n          <label for=\"profile\">时间间隔：</label>\r\n          <select name=\"profile\" [(ngModel)]=\"interval\" (change)=\"aggsChange()\" class=\"form-control d-inline-block sel-area-block select-item\">\r\n            <option *ngFor=\"let item of intervals\" [ngValue]=\"item\">\r\n              {{ item.type }}\r\n            </option>\r\n          </select>\r\n    </div>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <div class=\"row\" style=\" margin-bottom: 15px; \">\r\n      <div class=\"col-6\">\r\n        <mat-card>\r\n          <div id=\"line_container1\" style=\"height: 500px;\">\r\n          </div>\r\n        </mat-card>\r\n\r\n      </div>\r\n      <div class=\"col-6\">\r\n        <mat-card>\r\n          <div id=\"line_container2\" style=\"height: 500px;\">\r\n          </div>\r\n        </mat-card>\r\n\r\n      </div>\r\n\r\n    </div>\r\n    <div class=\"row\" style=\" margin-bottom: 15px; \">\r\n      <div class=\"col-12\">\r\n        <mat-card>\r\n          <div id=\"line_container3\" style=\"height: 500px;\">\r\n          </div>\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div class=\"row\">\r\n      <div class=\"col-6\">\r\n        <mat-card>\r\n          <div id=\"line_container4\" style=\"height: 500px;\">\r\n          </div>\r\n        </mat-card>\r\n      </div>\r\n      <div class=\"col-6\">\r\n        <mat-card>\r\n          <div id=\"line_container5\" style=\"height: 500px;\">\r\n          </div>\r\n        </mat-card>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/home/dashboard/dashboard.component.scss":
+/*!*********************************************************!*\
+  !*** ./src/app/home/dashboard/dashboard.component.scss ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".dash {\n  width: calc(100% - 50px); }\n\n.dash-type label {\n  margin-left: 15px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/home/dashboard/dashboard.component.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/home/dashboard/dashboard.component.ts ***!
+  \*******************************************************/
+/*! exports provided: DashboardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _service_airmonitor_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../service/airmonitor.service */ "./src/app/service/airmonitor.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/*
+
+Copyright(c): 2018 深圳创新设计研究院
+Author: luo.shuqi@live.com
+@file: light.component.ts
+@time: 2018 /8 / 9 9: 00
+
+*/
+
+
+
+var DashboardComponent = /** @class */ (function () {
+    function DashboardComponent(airmonitorService, router) {
+        this.airmonitorService = airmonitorService;
+        this.router = router;
+        this.model = {}; // 存储数据
+        this.fields = [
+            { id: 1, name: 'pm25', type: 'PM2.5' },
+            { id: 2, name: 'pm10', type: 'PM10' },
+            { id: 3, name: 'tvoc', type: 'TVOC' },
+            { id: 3, name: 'temperature', type: '温度' },
+            { id: 3, name: 'humidity', type: '湿度' },
+        ];
+        this.aggs = [
+            { id: 1, name: 'avg', type: '平均值' },
+            { id: 2, name: 'max', type: '最大值' },
+            { id: 3, name: 'min', type: '最小值' },
+        ];
+        this.intervals = [
+            { id: 1, name: 'm', type: '分钟' },
+            { id: 2, name: 'h', type: '小时' },
+            { id: 3, name: 'd', type: '天' },
+        ];
+        // JSON.stringify({ id: id, agg, fromdate, todate, interval })
+        this.dashData = JSON.parse(localStorage.getItem('dash_data'));
+        var fromdate = this.dashData.fromdate.slice(0, 10);
+        var todate = this.dashData.todate.slice(0, 10);
+        if (fromdate === todate) {
+            this.intervals = [
+                { id: 1, name: 'm', type: '分钟' },
+                { id: 2, name: 'h', type: '小时' },
+            ];
+        }
+        this.agg = this.aggs[0];
+        this.interval = this.intervals[0];
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+        if (this.dashData) {
+            this.getStatistics();
+        }
+    };
+    // 获取历史数据的统计值
+    DashboardComponent.prototype.getStatistics = function () {
+        // id: number, field: string, agg: string, from: string, to: string, interval: string
+        var _this = this;
+        var that = this;
+        var id = this.dashData.id;
+        var fromdate = this.dashData.fromdate;
+        var todate = this.dashData.todate;
+        var field = this.fields[0].name;
+        var agg = this.agg.name;
+        var interval = this.interval.name;
+        this.fields.map(function (item, index) {
+            _this.airmonitorService.getStatistics(id, item.name, agg, fromdate, todate, interval).subscribe({
+                next: function (val) {
+                    that.echartLine(val, item.type, "line_container" + (index + 1));
+                },
+                complete: function () {
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    };
+    DashboardComponent.prototype.aggsChange = function () {
+        this.getStatistics();
+    };
+    // 可视化
+    DashboardComponent.prototype.echartLine = function (data, type, id) {
+        var option = {
+            title: {
+                text: type
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                data: data.map(function (item) {
+                    return item.label;
+                })
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                }
+            },
+            toolbox: {
+                left: 'center',
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [{
+                    startValue: '2014-06-01'
+                }, {
+                    type: 'inside'
+                }],
+            visualMap: {
+                top: 10,
+                right: 10,
+                pieces: [{
+                        gt: 0,
+                        lte: 50,
+                        color: '#096'
+                    }, {
+                        gt: 50,
+                        lte: 100,
+                        color: '#ffde33'
+                    }, {
+                        gt: 100,
+                        lte: 150,
+                        color: '#ff9933'
+                    }, {
+                        gt: 150,
+                        lte: 200,
+                        color: '#cc0033'
+                    }, {
+                        gt: 200,
+                        lte: 300,
+                        color: '#660099'
+                    }, {
+                        gt: 300,
+                        color: '#7e0023'
+                    }],
+                outOfRange: {
+                    color: '#999'
+                }
+            },
+            series: {
+                name: type,
+                type: 'line',
+                data: data.map(function (item) {
+                    return item.value;
+                }),
+                markLine: {
+                    silent: true,
+                    data: [{
+                            yAxis: 50
+                        }, {
+                            yAxis: 100
+                        }, {
+                            yAxis: 150
+                        }, {
+                            yAxis: 200
+                        }, {
+                            yAxis: 300
+                        }]
+                }
+            }
+        };
+        var bmapChart = echarts.init(document.getElementById(id));
+        bmapChart.setOption(option);
+    };
+    // 路由跳转
+    DashboardComponent.prototype.jumpHandle = function (url) {
+        this.router.navigate([url]);
+    };
+    DashboardComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dashboard',
+            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/home/dashboard/dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./dashboard.component.scss */ "./src/app/home/dashboard/dashboard.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_service_airmonitor_service__WEBPACK_IMPORTED_MODULE_1__["AirmonitorService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], DashboardComponent);
+    return DashboardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/home/dashboard/dashboard.routes.ts":
+/*!****************************************************!*\
+  !*** ./src/app/home/dashboard/dashboard.routes.ts ***!
+  \****************************************************/
+/*! exports provided: DashboardRoutes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardRoutes", function() { return DashboardRoutes; });
+/* harmony import */ var _dashboard_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard.component */ "./src/app/home/dashboard/dashboard.component.ts");
+
+var DashboardRoutes = [
+    {
+        path: 'dashboard',
+        component: _dashboard_component__WEBPACK_IMPORTED_MODULE_0__["DashboardComponent"],
+    }
+];
 
 
 /***/ }),
@@ -11050,12 +11311,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./homepage/homepage.component */ "./src/app/home/homepage/homepage.component.ts");
 /* harmony import */ var _airreport_airreport_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./airreport/airreport.component */ "./src/app/home/airreport/airreport.component.ts");
 /* harmony import */ var _led_test_led_test_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./led-test/led-test.component */ "./src/app/home/led-test/led-test.component.ts");
+/* harmony import */ var _issuedata_issuedata_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./issuedata/issuedata.component */ "./src/app/home/issuedata/issuedata.component.ts");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/home/dashboard/dashboard.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -11082,7 +11347,8 @@ var HomeModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSliderModule"], _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSlideToggleModule"]
             ],
             declarations: [
-                _map_map_component__WEBPACK_IMPORTED_MODULE_10__["MapComponent"], _strategy_strategy_component__WEBPACK_IMPORTED_MODULE_11__["StrategyComponent"], _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_12__["HomepageComponent"], _airreport_airreport_component__WEBPACK_IMPORTED_MODULE_13__["AirreportComponent"], _led_test_led_test_component__WEBPACK_IMPORTED_MODULE_14__["LedTestComponent"],
+                _map_map_component__WEBPACK_IMPORTED_MODULE_10__["MapComponent"], _strategy_strategy_component__WEBPACK_IMPORTED_MODULE_11__["StrategyComponent"], _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_12__["HomepageComponent"], _airreport_airreport_component__WEBPACK_IMPORTED_MODULE_13__["AirreportComponent"], _led_test_led_test_component__WEBPACK_IMPORTED_MODULE_14__["LedTestComponent"], _issuedata_issuedata_component__WEBPACK_IMPORTED_MODULE_15__["IssuedataComponent"],
+                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__["DashboardComponent"],
             ],
             schemas: [
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["CUSTOM_ELEMENTS_SCHEMA"],
@@ -11118,6 +11384,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _airreport_airreport_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./airreport/airreport.routes */ "./src/app/home/airreport/airreport.routes.ts");
 /* harmony import */ var _map_map_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./map/map.routes */ "./src/app/home/map/map.routes.ts");
 /* harmony import */ var _led_test_led_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./led-test/led.routes */ "./src/app/home/led-test/led.routes.ts");
+/* harmony import */ var _issuedata_issuedata_routes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./issuedata/issuedata.routes */ "./src/app/home/issuedata/issuedata.routes.ts");
+/* harmony import */ var _dashboard_dashboard_routes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dashboard/dashboard.routes */ "./src/app/home/dashboard/dashboard.routes.ts");
+
+
 
 
 
@@ -11141,7 +11411,7 @@ var HomeRoutes = [
         canActivate: [_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"]],
         children: [
             { path: '', redirectTo: 'homepage', pathMatch: 'full' }
-        ].concat(_monitor_monitor_routes__WEBPACK_IMPORTED_MODULE_2__["MonitorRoutes"], _device_device_routes__WEBPACK_IMPORTED_MODULE_3__["DeviceRoutes"], _user_user_routes__WEBPACK_IMPORTED_MODULE_4__["UserRoutes"], _application_application_routes__WEBPACK_IMPORTED_MODULE_5__["ApplicationRoutes"], _homepage_homepage_routes__WEBPACK_IMPORTED_MODULE_6__["HomepageRoutes"], _strategy_strategy_routes__WEBPACK_IMPORTED_MODULE_7__["StrategyRoutes"], _airreport_airreport_routes__WEBPACK_IMPORTED_MODULE_8__["AirreportRoutes"], _map_map_routes__WEBPACK_IMPORTED_MODULE_9__["MapRoutes"], _led_test_led_routes__WEBPACK_IMPORTED_MODULE_10__["LedRoutes"])
+        ].concat(_monitor_monitor_routes__WEBPACK_IMPORTED_MODULE_2__["MonitorRoutes"], _device_device_routes__WEBPACK_IMPORTED_MODULE_3__["DeviceRoutes"], _user_user_routes__WEBPACK_IMPORTED_MODULE_4__["UserRoutes"], _application_application_routes__WEBPACK_IMPORTED_MODULE_5__["ApplicationRoutes"], _homepage_homepage_routes__WEBPACK_IMPORTED_MODULE_6__["HomepageRoutes"], _strategy_strategy_routes__WEBPACK_IMPORTED_MODULE_7__["StrategyRoutes"], _airreport_airreport_routes__WEBPACK_IMPORTED_MODULE_8__["AirreportRoutes"], _issuedata_issuedata_routes__WEBPACK_IMPORTED_MODULE_11__["IssuedataRoutes"], _dashboard_dashboard_routes__WEBPACK_IMPORTED_MODULE_12__["DashboardRoutes"], _map_map_routes__WEBPACK_IMPORTED_MODULE_9__["MapRoutes"], _led_test_led_routes__WEBPACK_IMPORTED_MODULE_10__["LedRoutes"])
     },
 ];
 /*
@@ -11163,7 +11433,7 @@ Author: luo.shuqi@live.com
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"homepage row align-items-center justify-content-center\">\n  <div class=\"dash\">\n\n    <div class=\"row dash-row\" >\n      <div [class]=\"item.col\" *ngFor=\"let item of routes\">\n        <div class=\"row dash-parent\" *ngFor=\"let sub of item.row\">\n              <div [class]=\"last.col\"  *ngFor=\"let last of sub.children\"  (click)=\"goToZheRoute(last.routeLink)\">\n              \n                <div  [class] = \"last.class\">\n                  <div class=\"col-12 content\" >\n                    <p>\n                      <span>\n                        <i [class]=\"last.icon\"></i>\n                      </span>\n                    </p>\n                    <p>{{last.routeTitel}}</p>\n                  </div>\n                </div>\n              \n              </div>\n        </div>\n\n\n      </div>\n\n\n    </div>\n\n\n\n\n\n\n</div>\n"
+module.exports = "<div class=\"homepage row align-items-center justify-content-center\">\r\n  <div class=\"dash\">\r\n\r\n    <div class=\"row dash-row\" >\r\n      <div [class]=\"item.col\" *ngFor=\"let item of routes\">\r\n        <div class=\"row dash-parent\" *ngFor=\"let sub of item.row\">\r\n              <div [class]=\"last.col\"  *ngFor=\"let last of sub.children\"  (click)=\"goToZheRoute(last.routeLink)\">\r\n              \r\n                <div  [class] = \"last.class\">\r\n                  <div class=\"col-12 content\" >\r\n                    <p>\r\n                      <span>\r\n                        <i [class]=\"last.icon\"></i>\r\n                      </span>\r\n                    </p>\r\n                    <p>{{last.routeTitel}}</p>\r\n                  </div>\r\n                </div>\r\n              \r\n              </div>\r\n        </div>\r\n\r\n\r\n      </div>\r\n\r\n\r\n    </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -11451,6 +11721,137 @@ var ROUTELIST = [
 
 /***/ }),
 
+/***/ "./src/app/home/issuedata/issuedata.component.html":
+/*!*********************************************************!*\
+  !*** ./src/app/home/issuedata/issuedata.component.html ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"bodyofissuedata\">\r\n  <div class=\"card card-primary panel-default\" style=\"min-height: 400px;\">\r\n    <div class=\"card-header\">\r\n      <span>消息记录</span>\r\n    </div>\r\n\r\n    <form class=\"card-block form-inline admin-manage\">\r\n      <!-- <div class=\"d-inline\"> -->\r\n            \r\n          <div class=\"d-inline-block extral-margin\">\r\n            <div class=\"input-group\">\r\n                <label class=\" text-label\">开始时间：</label>\r\n                <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" name=\"dp\" [(ngModel)]=\"startDate\" ngbDatepicker\r\n                    #ad=\"ngbDatepicker\">\r\n                <div class=\"input-group-append\">\r\n                  <button class=\"btn btn-primary \" (click)=\"ad.toggle()\" type=\"button\">\r\n                    <i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>\r\n                  </button>\r\n                </div>\r\n\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"d-inline-block extral-margin\">\r\n            <div class=\"input-group\">\r\n                <label class=\" text-label\">结束时间：</label>\r\n                <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" name=\"dp\" [(ngModel)]=\"endDate\" ngbDatepicker #bd=\"ngbDatepicker\">\r\n                <div class=\"input-group-append\">\r\n                  <button class=\"btn btn-primary \" (click)=\"bd.toggle()\" type=\"button\">\r\n                    <i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>\r\n                  </button>\r\n                </div>\r\n        \r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"d-inline-block extral-margin\">\r\n            <input type=\"text\" class=\"form-control border-none\" name=\"search-content\" id=\"issueQuery\" [(ngModel)]=\"issue.posNum\" \r\n              autocomplete=\"off\" maxlength=\"256\" placeholder=\"按位置编号检索\"/>\r\n            <!-- <i class=\"fa fa-search search-icon\" (click)=\"execQuery()\"></i> -->\r\n          </div>\r\n\r\n          <div class=\"d-inline-block extral-margin\">\r\n              <button class=\"btn btn-bg extral-margin search-btn\" (click)=\"execQuery()\">搜索</button>\r\n              <!-- [disabled]=\"!issue.posNum || issue.posNum == ''\" -->\r\n          </div>\r\n      \r\n    </form>\r\n\r\n    <div class=\"card-block\">\r\n        <!-- 消息记录表 -->\r\n        <table class=\"table table-hover\">\r\n            <thead class=\"table-header\">\r\n              <tr>\r\n                <th>序号</th>\r\n                <th>事件ID</th>\r\n                <th>状态</th>\r\n                <th>附言</th>\r\n                <th>负责人ID</th>\r\n                <!-- <th>操作</th> -->\r\n              </tr>\r\n            </thead>\r\n            <tbody *ngIf=\"issueList\">\r\n              <tr *ngFor=\"let item of issueList; let i = index\" class=\"lineheight\">\r\n                <td>{{i+1}}</td>\r\n                <td>{{item.issueId}}</td>\r\n                <td><span *ngIf=\"item.state === 0\">未处理</span>\r\n                  <span *ngIf=\"item.state === 1\">处理中</span>\r\n                  <span *ngIf=\"item.state === 2\">已处理</span></td>\r\n                <td>{{item.comment}}</td>\r\n                <td><span *ngIf=\"!item.assigneeId || item.assigneeId === null\">null</span>\r\n                  <span *ngIf=\"item.assigneeId\">{{item.assigneeId}}</span></td>\r\n                <!-- <td>\r\n                  <div class=\"modify-strategy d-inline\">\r\n                    <a class=\"cur-pointer btn-a theme-text d-inline\">修改</a>\r\n                    <a class=\"cur-pointer btn-a theme-text d-inline\">删除</a>\r\n                  </div>\r\n\r\n                </td> -->\r\n              </tr>\r\n            </tbody>\r\n        </table>\r\n        <div *ngIf=\"issueList.length === 0 || !issueList\">无数据！</div>\r\n        <div *ngIf=\"issueList.length > 0\">\r\n          <ngb-pagination [collectionSize]=total [(page)]=\"page\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\" [boundaryLinks]=\"true\"\r\n            (pageChange)=\"pageChange()\"></ngb-pagination>\r\n        </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/home/issuedata/issuedata.component.scss":
+/*!*********************************************************!*\
+  !*** ./src/app/home/issuedata/issuedata.component.scss ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/*\r\n  Font Styles: \r\n*/\n/*\r\n  Measurements: \r\n*/\n/*\r\n  Shadows: \r\n*/\n.bodyofissuedata {\n  width: calc(100vw - 50px); }\n.card-header {\n  border-bottom: 0px;\n  position: relative; }\n.card-block {\n  margin: 5px 0px 0px;\n  min-height: 38px; }\n.lineheight {\n  line-height: 1.0; }\n.extral-margin {\n  margin-right: 10px; }\n.input-group .form-control {\n  width: 120px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/home/issuedata/issuedata.component.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/home/issuedata/issuedata.component.ts ***!
+  \*******************************************************/
+/*! exports provided: IssuedataComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IssuedataComponent", function() { return IssuedataComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _service_issuedata_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../service/issuedata.service */ "./src/app/service/issuedata.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var now = new Date();
+var IssuedataComponent = /** @class */ (function () {
+    function IssuedataComponent(issuedataService) {
+        this.issuedataService = issuedataService;
+        this.issueList = [];
+        this.issue = {};
+        this.pageSize = 10;
+        this.startDate = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
+        this.endDate = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
+        this.startTime = { hour: 0, minute: 0, second: 0 };
+        this.endTime = { hour: 23, minute: 59, second: 59 };
+        this.seconds = true;
+        this.page = 1;
+        this.issue.posNum = '';
+    }
+    IssuedataComponent.prototype.ngOnInit = function () { };
+    // 获取消息记录
+    IssuedataComponent.prototype.getIssueHistoryList = function () {
+        var that = this;
+        var smonth = this.startDate.month.toString().length > 1 ? this.startDate.month.toString() : "0" + this.startDate.month.toString();
+        var sday = this.startDate.day.toString().length > 1 ? this.startDate.day.toString() : "0" + this.startDate.day.toString();
+        var shour = this.startTime.hour.toString().length > 1 ? this.startTime.hour.toString() : "0" + this.startTime.hour.toString();
+        var sminute = this.startTime.minute.toString().length > 1 ? this.startTime.minute.toString() : "0" + this.startTime.minute.toString();
+        var emonth = this.endDate.month.toString().length > 1 ? this.endDate.month.toString() : "0" + this.endDate.month.toString();
+        var eday = this.endDate.day.toString().length > 1 ? this.endDate.day.toString() : "0" + this.endDate.day.toString();
+        var ehour = this.endTime.hour.toString().length > 1 ? this.endTime.hour.toString() : "0" + this.endTime.hour.toString();
+        var eminute = this.endTime.minute.toString().length > 1 ? this.endTime.minute.toString() : "0" + this.endTime.minute.toString();
+        var fromdate = this.fromdate =
+            this.startDate.year + "-" + smonth + "-" + sday + "T" + shour + ":" + sminute;
+        var todate = this.todate = this.endDate.year + "-" + emonth + "-" + eday + "T" + ehour + ":" + eminute;
+        this.issuedataService.getIssueHistoryData(this.issue.posNum, fromdate, todate, this.page, this.pageSize).subscribe({
+            next: function (val) {
+                that.issueList = val.items;
+                that.total = val.total;
+            },
+            complete: function () { },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+    // 搜索按键点击事件
+    IssuedataComponent.prototype.execQuery = function () {
+        this.getIssueHistoryList();
+    };
+    // 换页
+    IssuedataComponent.prototype.pageChange = function () {
+        this.getIssueHistoryList();
+    };
+    IssuedataComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-issuedata',
+            template: __webpack_require__(/*! ./issuedata.component.html */ "./src/app/home/issuedata/issuedata.component.html"),
+            styles: [__webpack_require__(/*! ./issuedata.component.scss */ "./src/app/home/issuedata/issuedata.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_service_issuedata_service__WEBPACK_IMPORTED_MODULE_1__["IssuedataService"]])
+    ], IssuedataComponent);
+    return IssuedataComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/home/issuedata/issuedata.routes.ts":
+/*!****************************************************!*\
+  !*** ./src/app/home/issuedata/issuedata.routes.ts ***!
+  \****************************************************/
+/*! exports provided: IssuedataRoutes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IssuedataRoutes", function() { return IssuedataRoutes; });
+/* harmony import */ var _issuedata_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./issuedata.component */ "./src/app/home/issuedata/issuedata.component.ts");
+
+var IssuedataRoutes = [
+    {
+        path: 'issuedata',
+        component: _issuedata_component__WEBPACK_IMPORTED_MODULE_0__["IssuedataComponent"],
+    }
+];
+
+
+/***/ }),
+
 /***/ "./src/app/home/led-test/led-test.component.html":
 /*!*******************************************************!*\
   !*** ./src/app/home/led-test/led-test.component.html ***!
@@ -11458,7 +11859,7 @@ var ROUTELIST = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-default\">\n  <div class=\"row\">\n      <div class=\"col-md-4\">\n        <div>\n          <p>web模拟生成任务：</p>\n      \n        </div>\n        <hr>\n        <!-- 开关屏 -->\n        <div>\n          <p>开关屏</p>\n          <p>LED_ID: <input type=\"text\" [(ngModel)]=\"task1.id\"></p>\n          <div>\n            <p><span>控制开关：</span>\n              <label style=\"margin-left: 21px;\">\n                <mat-slide-toggle (change)=\"changeContr1()\"></mat-slide-toggle>\n              </label>\n            </p>\n          </div>\n          <button class=\"btn btn-bg\" (click)=\"createTask1()\" [disabled]=\"!task1.id\">生成开关屏任务</button>\n      \n        </div>\n        <hr>\n        <!-- 设置亮度 -->\n        <div>\n          <p>设置亮度</p>\n          <p>LED_ID: <input type=\"text\" [(ngModel)]=\"task2.id\"></p>\n      \n          <div>\n            <p><span>自动模式开关：</span>\n              <label style=\"margin-left: 21px;\">\n                <mat-slide-toggle (change)=\"changeContr2()\"></mat-slide-toggle>\n              </label>\n            </p>\n          </div>\n          <!-- 亮度值：<input type=\"text\" [(ngModel)]=\"task.value\"> -->\n          <p>\n            <label>\n              <mat-slider thumbLabel [displayWith]=\"formatLabel\" tickInterval=\"10\" min=\"0\" max=\"66\" [(ngModel)]=\"task2.value\"\n                (change)=\"changeSlider(task2.value)\"></mat-slider>\n            </label>\n          </p>\n      \n          <button class=\"btn btn-bg\" (click)=\"createTask2()\" [disabled]=\"!task2.id\">生成亮度调节</button>\n      \n        </div>\n        <hr>\n\n      \n      </div>\n      <div class=\"col-md-8\">\n        <p>服务端任务列表</p>\n        <table class=\"table table-hover\">\n          <thead class=\"table-header\">\n            <tr>\n              <th>序号</th>\n              <th>LED_ID</th>\n              <th>任务_ID</th>\n              <th>任务类型</th>\n              <th>状态</th>\n      \n              <th style=\"text-align: center\">操作</th>\n            </tr>\n          </thead>\n          <tbody>\n      \n            <tr *ngFor=\"let item of tasks; let i = index\">\n              <td>{{i + 1}}</td>\n              <td>{{item.id}}</td>\n              <td>{{item._id}}</td>\n              <td><span>{{item.datagram.request}}</span></td>\n              <td>{{item.status}}</td>\n      \n              <td style=\"text-align: center\">\n                <div class=\"modify-strategy d-inline\">\n                  <a class=\"cur-pointer btn-a theme-text d-inline\">修改</a>\n                  <a class=\"cur-pointer btn-a theme-text d-inline\">删除</a>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n        <div *ngIf=\"tasks.length === 0 || !tasks\">无数据！</div>\n        <div *ngIf=\"tasks.length > 0\">\n          <ngb-pagination [collectionSize]=total_1 [(page)]=\"page_1\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\n            [boundaryLinks]=\"true\" (pageChange)=\"pageChange_1()\"></ngb-pagination>\n        </div>\n      </div>\n\n  </div>\n  <hr>\n  <div class=\"row\">\n    <div class=\"col-md-4\">\n      <!-- 开关屏 -->\n      <div>\n        <p>更新节目单</p>\n        <!-- <p>LED_ID: <input type=\"text\" [(ngModel)]=\"task3.id\"></p> -->\n        <button class=\"btn btn-bg\" (click)=\"gProgram1()\" >生成通用节目单任务</button>\n\n      \n      </div>\n    </div>\n    <div class=\"col-md-8\">\n      <p>节目单列表</p>\n      <table class=\"table table-hover\">\n        <thead class=\"table-header\">\n          <tr>\n    \n            <th>节目_ID</th>\n            <th>名称</th>\n            <th>宽度</th>\n            <th>高度</th>\n            <th>布局数</th>\n    \n    \n            <th style=\"text-align: center\">操作</th>\n          </tr>\n        </thead>\n        <tbody>\n    \n          <tr *ngFor=\"let item of programs; let i = index\">\n            <td>{{item._id}}</td>\n            <td><span>{{item.name}}</span></td>\n            <td>{{item.width}}</td>\n            <td>{{item.height}}</td>\n            <td>{{item.regions.length}}\n              <a (click)=\"viewRegions(item.regions)\" class=\"cur-pointer\" style=\"color: blue;\">查看</a>\n    \n            </td>\n    \n            <td style=\"text-align: center\">\n              <div class=\"modify-strategy d-inline\">\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"createTask3(item._id)\">生成更新节目任务</a>\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"getProgram(item)\">下载文件</a>\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"gFiles(item)\">生成节目文件</a>\n    \n              </div>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div *ngIf=\"programs.length === 0 || !programs\">无数据！</div>\n      <div *ngIf=\"programs.length > 0\">\n        <ngb-pagination [collectionSize]=total_4 [(page)]=\"page_4\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\n          [boundaryLinks]=\"true\" (pageChange)=\"pageChange_4()\"></ngb-pagination>\n      </div>\n      <hr>\n      <table class=\"table table-hover\">\n        <thead class=\"table-header\">\n          <tr>\n    \n            <th>节目_ID</th>\n            <th>名称</th>\n            <th>x</th>\n            <th>y</th>\n            <th>宽度</th>\n            <th>高度</th>\n            <th>类型</th>\n            <th>内容</th>\n    \n    \n            <th style=\"text-align: center\">操作</th>\n          </tr>\n        </thead>\n        <tbody>\n    \n          <tr *ngFor=\"let item of regions_list; let i = index\">\n            <td>{{item.id}}</td>\n            <td><span>{{item.name}}</span></td>\n            <td>{{item.x}}</td>\n            <td>{{item.y}}</td>\n            <td>{{item.width}}</td>\n            <td>{{item.height}}</td>\n            <td>{{item.item[0].type}}\n            <td>{{item.item[0].contents[0].content}}\n              <!-- <a (click)=\"viewRegions(item.regions)\" class=\"cur-pointer\" style=\"color: aqua;\">查看</a> -->\n    \n            </td>\n    \n            <td style=\"text-align: center\">\n              <div class=\"modify-strategy d-inline\">\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"gProgram(item)\">生成节目文件</a>\n    \n              </div>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  </div>\n \n\n  <hr>\n  <div class=\"row\">\n    <div class=\"col-md-4\">\n      <div>\n        <p>节目播放内容空气质量：</p>\n  \n      </div>\n      <hr>\n      <!-- 文本 -->\n      <div>\n        <!-- <p>\n          <span>节目播放内容类型：</span>\n          <select name=\"profile\" [(ngModel)]=\"currentType\" (change)=\"playTypeChange()\" style=\"margin-right: 5px;\">\n            <option *ngFor=\"let item of playTypes\" [ngValue]=\"item\">\n              {{ item.type }}\n            </option>\n          </select>\n        </p> -->\n  \n        <p>节目播放内容类型：text</p>\n        <p>名称: <input type=\"text\" [(ngModel)]=\"airs.name\"></p>\n        <!-- <p>内容/文件路径名称: <input type=\"text\" [(ngModel)]=\"plays.contents\"></p> -->\n        <p>播放时长: <input type=\"text\" [(ngModel)]=\"airs.length\"></p>\n        <!-- <button class=\"btn btn-bg\" (click)=\"createMedia()\" [disabled]=\"!plays.name || !plays.contents || !plays.length\">post</button> -->\n      </div>\n      <hr>\n    </div>\n    <div class=\"col-md-8\">\n      <p>空气质量列表</p>\n      <table class=\"table table-hover\">\n        <thead class=\"table-header\">\n          <tr>\n\n            <th>设备_ID</th>\n            <th>名称</th>\n            <th>pm10</th>\n            <th>pm25</th>\n            <th>tvoc</th>\n            <th>temperature</th>\n            <th>humidity</th>\n  \n            <th style=\"text-align: center\">操作</th>\n          </tr>\n        </thead>\n        <tbody>\n  \n          <tr *ngFor=\"let item of model.airdevicelist; let i = index\">\n            <td>{{item.id}}</td>\n            <td><span>{{item.description}}</span></td>\n            <td>{{item.pm10}}</td>\n            <td>{{item.pm25}}</td>\n            <td>{{item.tvoc}}</td>\n            <td>{{item.temperature}}</td>\n            <td>{{item.humidity}}</td>\n  \n            <td style=\"text-align: center\">\n              <div class=\"modify-strategy d-inline\">\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"gProgram(item)\">存储</a>\n\n              </div>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n      <div *ngIf=\"model.airdevicelist.length === 0 || !model.airdevicelist\">无数据！</div>\n    </div>\n  \n  </div>\n  <hr>\n\n  <div class=\"row\">\n      <div class=\"col-md-4\">\n        <div>\n          <p>终端模拟请求数据：</p>\n        \n        </div>\n        <hr>\n\n        <!-- 常规请求 -->\n        <div>\n          <p>常规请求</p>\n          <button class=\"btn btn-bg\" (click)=\"searchTask(1)\">post</button>\n        </div>\n        <hr>\n        <!-- 终端任务执行中请求： -->\n        <div>\n          <p>终端任务执行中请求：</p>\n          <button class=\"btn btn-bg\" (click)=\"searchTask(2)\" >post</button>\n        </div>\n        <hr>\n        <!-- 终端任务执行中 -->\n        <div>\n          <p>终端任务执行成功请求：</p>\n          <button class=\"btn btn-bg\" (click)=\"searchTask(3)\" >post</button>\n        </div>\n        <hr>\n      </div>\n      <div class=\"col-md-8\">\n        <p>终端任务列表</p>\n        <!-- 常规请求->搜索任务 -->\n        <div>\n          <p>LED_ID: <input type=\"text\" [(ngModel)]=\"searchTaskBody.id\" placeholder=\"检索LED_ID\">\n          <button class=\"btn btn-bg\" (click)=\"searchAllTask()\" [disabled]=\"!searchTaskBody.id\">search</button>\n        </p>\n          \n        </div>\n\n\n        <table class=\"table table-hover\">\n          <thead class=\"table-header\">\n            <tr>\n              <th>序号</th>\n              <th>选择</th>\n              <th>IED_ID</th>\n              <th>任务_ID</th>\n              <th>任务类型</th>\n              <th>状态</th>\n    \n            </tr>\n          </thead>\n          <tbody>\n      \n            <tr *ngFor=\"let item of search_tasks; let i = index\">\n              <td>{{i + 1}}</td>\n              <td><input type=\"checkbox\" (change)=\"addTaskCtrl()\" [(ngModel)]=\"search_tasks_check[i].check\"></td>\n              <td>{{item.id}}</td>\n              <td>{{item._id}}</td>\n              <td><span>{{item.datagram.request}}</span></td>\n              <td>{{item.status}}</td>\n      \n            </tr>\n          </tbody>\n        </table>\n        <div *ngIf=\"search_tasks.length === 0 || !search_tasks\">无数据！</div>\n        <div *ngIf=\"search_tasks.length > 0\">\n          <ngb-pagination [collectionSize]=total_2 [(page)]=\"page_2\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\n            [boundaryLinks]=\"true\" (pageChange)=\"pageChange_2()\"></ngb-pagination>\n        </div>\n      </div>\n  </div>\n\n\n\n\n\n\n</div>\n\n  <!-- 用户 -->\n  <!-- <div>\n      <input type=\"text\" [(ngModel)]=\"user.name\">\n      <button  class=\"btn btn-bg\" (click)=\"createUser()\">添加</button>\n    </div>\n    <div>\n            <table class=\"table table-hover\">\n              <thead class=\"table-header\">\n                <tr>\n                  <th>序号</th>\n                  <th>用户</th>\n                  <th>密码</th>\n            \n                  <th style=\"text-align: center\">操作</th>\n                </tr>\n              </thead>\n              <tbody>\n            \n                <tr *ngFor=\"let item of users; let i = index\">\n                  <td>{{i + 1}}</td>\n                  <td>{{item.name}}</td>\n                  <td>{{item.password}}</td>\n            \n                  <td style=\"text-align: center\">\n                    <div class=\"modify-strategy d-inline\">\n                      <a class=\"cur-pointer btn-a theme-text d-inline\" >修改</a>\n                      <a class=\"cur-pointer btn-a theme-text d-inline\" >删除</a>\n                    </div>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n            <div *ngIf=\"users.length === 0 || !users\">无数据！</div>\n            <div *ngIf=\"users.length > 0\">\n              <ngb-pagination [collectionSize]=total [(page)]=\"page\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\n                [boundaryLinks]=\"true\" (pageChange)=\"pageChange()\"></ngb-pagination>\n            </div>\n    </div> -->\n\n"
+module.exports = "<div class=\"panel-default\">\r\n  <div class=\"row\">\r\n      <div class=\"col-md-4\">\r\n        <div>\r\n          <p>web模拟生成任务：</p>\r\n      \r\n        </div>\r\n        <hr>\r\n        <!-- 开关屏 -->\r\n        <div>\r\n          <p>开关屏</p>\r\n          <p>LED_ID: <input type=\"text\" [(ngModel)]=\"task1.id\"></p>\r\n          <div>\r\n            <p><span>控制开关：</span>\r\n              <label style=\"margin-left: 21px;\">\r\n                <mat-slide-toggle (change)=\"changeContr1()\"></mat-slide-toggle>\r\n              </label>\r\n            </p>\r\n          </div>\r\n          <button class=\"btn btn-bg\" (click)=\"createTask1()\" [disabled]=\"!task1.id\">生成开关屏任务</button>\r\n      \r\n        </div>\r\n        <hr>\r\n        <!-- 设置亮度 -->\r\n        <div>\r\n          <p>设置亮度</p>\r\n          <p>LED_ID: <input type=\"text\" [(ngModel)]=\"task2.id\"></p>\r\n      \r\n          <div>\r\n            <p><span>自动模式开关：</span>\r\n              <label style=\"margin-left: 21px;\">\r\n                <mat-slide-toggle (change)=\"changeContr2()\"></mat-slide-toggle>\r\n              </label>\r\n            </p>\r\n          </div>\r\n          <!-- 亮度值：<input type=\"text\" [(ngModel)]=\"task.value\"> -->\r\n          <p>\r\n            <label>\r\n              <mat-slider thumbLabel [displayWith]=\"formatLabel\" tickInterval=\"10\" min=\"0\" max=\"66\" [(ngModel)]=\"task2.value\"\r\n                (change)=\"changeSlider(task2.value)\"></mat-slider>\r\n            </label>\r\n          </p>\r\n      \r\n          <button class=\"btn btn-bg\" (click)=\"createTask2()\" [disabled]=\"!task2.id\">生成亮度调节</button>\r\n      \r\n        </div>\r\n        <hr>\r\n\r\n      \r\n      </div>\r\n      <div class=\"col-md-8\">\r\n        <p>服务端任务列表</p>\r\n        <table class=\"table table-hover\">\r\n          <thead class=\"table-header\">\r\n            <tr>\r\n              <th>序号</th>\r\n              <th>LED_ID</th>\r\n              <th>任务_ID</th>\r\n              <th>任务类型</th>\r\n              <th>状态</th>\r\n      \r\n              <th style=\"text-align: center\">操作</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n      \r\n            <tr *ngFor=\"let item of tasks; let i = index\">\r\n              <td>{{i + 1}}</td>\r\n              <td>{{item.id}}</td>\r\n              <td>{{item._id}}</td>\r\n              <td><span>{{item.datagram.request}}</span></td>\r\n              <td>{{item.status}}</td>\r\n      \r\n              <td style=\"text-align: center\">\r\n                <div class=\"modify-strategy d-inline\">\r\n                  <a class=\"cur-pointer btn-a theme-text d-inline\">修改</a>\r\n                  <a class=\"cur-pointer btn-a theme-text d-inline\">删除</a>\r\n                </div>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div *ngIf=\"tasks.length === 0 || !tasks\">无数据！</div>\r\n        <div *ngIf=\"tasks.length > 0\">\r\n          <ngb-pagination [collectionSize]=total_1 [(page)]=\"page_1\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\r\n            [boundaryLinks]=\"true\" (pageChange)=\"pageChange_1()\"></ngb-pagination>\r\n        </div>\r\n      </div>\r\n\r\n  </div>\r\n  <hr>\r\n  <div class=\"row\">\r\n    <div class=\"col-md-4\">\r\n      <!-- 开关屏 -->\r\n      <div>\r\n        <p>更新节目单</p>\r\n        <!-- <p>LED_ID: <input type=\"text\" [(ngModel)]=\"task3.id\"></p> -->\r\n        <button class=\"btn btn-bg\" (click)=\"gProgram1()\" >生成通用节目单任务</button>\r\n\r\n      \r\n      </div>\r\n    </div>\r\n    <div class=\"col-md-8\">\r\n      <p>节目单列表</p>\r\n      <table class=\"table table-hover\">\r\n        <thead class=\"table-header\">\r\n          <tr>\r\n    \r\n            <th>节目_ID</th>\r\n            <th>名称</th>\r\n            <th>宽度</th>\r\n            <th>高度</th>\r\n            <th>布局数</th>\r\n    \r\n    \r\n            <th style=\"text-align: center\">操作</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n    \r\n          <tr *ngFor=\"let item of programs; let i = index\">\r\n            <td>{{item._id}}</td>\r\n            <td><span>{{item.name}}</span></td>\r\n            <td>{{item.width}}</td>\r\n            <td>{{item.height}}</td>\r\n            <td>{{item.regions.length}}\r\n              <a (click)=\"viewRegions(item.regions)\" class=\"cur-pointer\" style=\"color: blue;\">查看</a>\r\n    \r\n            </td>\r\n    \r\n            <td style=\"text-align: center\">\r\n              <div class=\"modify-strategy d-inline\">\r\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"createTask3(item._id)\">生成更新节目任务</a>\r\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"getProgram(item)\">下载文件</a>\r\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"gFiles(item)\">生成节目文件</a>\r\n    \r\n              </div>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <div *ngIf=\"programs.length === 0 || !programs\">无数据！</div>\r\n      <div *ngIf=\"programs.length > 0\">\r\n        <ngb-pagination [collectionSize]=total_4 [(page)]=\"page_4\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\r\n          [boundaryLinks]=\"true\" (pageChange)=\"pageChange_4()\"></ngb-pagination>\r\n      </div>\r\n      <hr>\r\n      <table class=\"table table-hover\">\r\n        <thead class=\"table-header\">\r\n          <tr>\r\n    \r\n            <th>节目_ID</th>\r\n            <th>名称</th>\r\n            <th>x</th>\r\n            <th>y</th>\r\n            <th>宽度</th>\r\n            <th>高度</th>\r\n            <th>类型</th>\r\n            <th>内容</th>\r\n    \r\n    \r\n            <th style=\"text-align: center\">操作</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n    \r\n          <tr *ngFor=\"let item of regions_list; let i = index\">\r\n            <td>{{item.id}}</td>\r\n            <td><span>{{item.name}}</span></td>\r\n            <td>{{item.x}}</td>\r\n            <td>{{item.y}}</td>\r\n            <td>{{item.width}}</td>\r\n            <td>{{item.height}}</td>\r\n            <td>{{item.item[0].type}}\r\n            <td>{{item.item[0].contents[0].content}}\r\n              <!-- <a (click)=\"viewRegions(item.regions)\" class=\"cur-pointer\" style=\"color: aqua;\">查看</a> -->\r\n    \r\n            </td>\r\n    \r\n            <td style=\"text-align: center\">\r\n              <div class=\"modify-strategy d-inline\">\r\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"gProgram(item)\">生成节目文件</a>\r\n    \r\n              </div>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n  </div>\r\n \r\n\r\n  <hr>\r\n  <div class=\"row\">\r\n    <div class=\"col-md-4\">\r\n      <div>\r\n        <p>节目播放内容空气质量：</p>\r\n  \r\n      </div>\r\n      <hr>\r\n      <!-- 文本 -->\r\n      <div>\r\n        <!-- <p>\r\n          <span>节目播放内容类型：</span>\r\n          <select name=\"profile\" [(ngModel)]=\"currentType\" (change)=\"playTypeChange()\" style=\"margin-right: 5px;\">\r\n            <option *ngFor=\"let item of playTypes\" [ngValue]=\"item\">\r\n              {{ item.type }}\r\n            </option>\r\n          </select>\r\n        </p> -->\r\n  \r\n        <p>节目播放内容类型：text</p>\r\n        <p>名称: <input type=\"text\" [(ngModel)]=\"airs.name\"></p>\r\n        <!-- <p>内容/文件路径名称: <input type=\"text\" [(ngModel)]=\"plays.contents\"></p> -->\r\n        <p>播放时长: <input type=\"text\" [(ngModel)]=\"airs.length\"></p>\r\n        <!-- <button class=\"btn btn-bg\" (click)=\"createMedia()\" [disabled]=\"!plays.name || !plays.contents || !plays.length\">post</button> -->\r\n      </div>\r\n      <hr>\r\n    </div>\r\n    <div class=\"col-md-8\">\r\n      <p>空气质量列表</p>\r\n      <table class=\"table table-hover\">\r\n        <thead class=\"table-header\">\r\n          <tr>\r\n\r\n            <th>设备_ID</th>\r\n            <th>名称</th>\r\n            <th>pm10</th>\r\n            <th>pm25</th>\r\n            <th>tvoc</th>\r\n            <th>temperature</th>\r\n            <th>humidity</th>\r\n  \r\n            <th style=\"text-align: center\">操作</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n  \r\n          <tr *ngFor=\"let item of model.airdevicelist; let i = index\">\r\n            <td>{{item.id}}</td>\r\n            <td><span>{{item.description}}</span></td>\r\n            <td>{{item.pm10}}</td>\r\n            <td>{{item.pm25}}</td>\r\n            <td>{{item.tvoc}}</td>\r\n            <td>{{item.temperature}}</td>\r\n            <td>{{item.humidity}}</td>\r\n  \r\n            <td style=\"text-align: center\">\r\n              <div class=\"modify-strategy d-inline\">\r\n                <a class=\"cur-pointer btn-a theme-text d-inline\" (click)=\"gProgram(item)\">存储</a>\r\n\r\n              </div>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <div *ngIf=\"model.airdevicelist.length === 0 || !model.airdevicelist\">无数据！</div>\r\n    </div>\r\n  \r\n  </div>\r\n  <hr>\r\n\r\n  <div class=\"row\">\r\n      <div class=\"col-md-4\">\r\n        <div>\r\n          <p>终端模拟请求数据：</p>\r\n        \r\n        </div>\r\n        <hr>\r\n\r\n        <!-- 常规请求 -->\r\n        <div>\r\n          <p>常规请求</p>\r\n          <button class=\"btn btn-bg\" (click)=\"searchTask(1)\">post</button>\r\n        </div>\r\n        <hr>\r\n        <!-- 终端任务执行中请求： -->\r\n        <div>\r\n          <p>终端任务执行中请求：</p>\r\n          <button class=\"btn btn-bg\" (click)=\"searchTask(2)\" >post</button>\r\n        </div>\r\n        <hr>\r\n        <!-- 终端任务执行中 -->\r\n        <div>\r\n          <p>终端任务执行成功请求：</p>\r\n          <button class=\"btn btn-bg\" (click)=\"searchTask(3)\" >post</button>\r\n        </div>\r\n        <hr>\r\n      </div>\r\n      <div class=\"col-md-8\">\r\n        <p>终端任务列表</p>\r\n        <!-- 常规请求->搜索任务 -->\r\n        <div>\r\n          <p>LED_ID: <input type=\"text\" [(ngModel)]=\"searchTaskBody.id\" placeholder=\"检索LED_ID\">\r\n          <button class=\"btn btn-bg\" (click)=\"searchAllTask()\" [disabled]=\"!searchTaskBody.id\">search</button>\r\n        </p>\r\n          \r\n        </div>\r\n\r\n\r\n        <table class=\"table table-hover\">\r\n          <thead class=\"table-header\">\r\n            <tr>\r\n              <th>序号</th>\r\n              <th>选择</th>\r\n              <th>IED_ID</th>\r\n              <th>任务_ID</th>\r\n              <th>任务类型</th>\r\n              <th>状态</th>\r\n    \r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n      \r\n            <tr *ngFor=\"let item of search_tasks; let i = index\">\r\n              <td>{{i + 1}}</td>\r\n              <td><input type=\"checkbox\" (change)=\"addTaskCtrl()\" [(ngModel)]=\"search_tasks_check[i].check\"></td>\r\n              <td>{{item.id}}</td>\r\n              <td>{{item._id}}</td>\r\n              <td><span>{{item.datagram.request}}</span></td>\r\n              <td>{{item.status}}</td>\r\n      \r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div *ngIf=\"search_tasks.length === 0 || !search_tasks\">无数据！</div>\r\n        <div *ngIf=\"search_tasks.length > 0\">\r\n          <ngb-pagination [collectionSize]=total_2 [(page)]=\"page_2\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\r\n            [boundaryLinks]=\"true\" (pageChange)=\"pageChange_2()\"></ngb-pagination>\r\n        </div>\r\n      </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n</div>\r\n\r\n  <!-- 用户 -->\r\n  <!-- <div>\r\n      <input type=\"text\" [(ngModel)]=\"user.name\">\r\n      <button  class=\"btn btn-bg\" (click)=\"createUser()\">添加</button>\r\n    </div>\r\n    <div>\r\n            <table class=\"table table-hover\">\r\n              <thead class=\"table-header\">\r\n                <tr>\r\n                  <th>序号</th>\r\n                  <th>用户</th>\r\n                  <th>密码</th>\r\n            \r\n                  <th style=\"text-align: center\">操作</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n            \r\n                <tr *ngFor=\"let item of users; let i = index\">\r\n                  <td>{{i + 1}}</td>\r\n                  <td>{{item.name}}</td>\r\n                  <td>{{item.password}}</td>\r\n            \r\n                  <td style=\"text-align: center\">\r\n                    <div class=\"modify-strategy d-inline\">\r\n                      <a class=\"cur-pointer btn-a theme-text d-inline\" >修改</a>\r\n                      <a class=\"cur-pointer btn-a theme-text d-inline\" >删除</a>\r\n                    </div>\r\n                  </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <div *ngIf=\"users.length === 0 || !users\">无数据！</div>\r\n            <div *ngIf=\"users.length > 0\">\r\n              <ngb-pagination [collectionSize]=total [(page)]=\"page\" [maxSize]=\"5\" [rotate]=\"true\" [ellipses]=\"false\"\r\n                [boundaryLinks]=\"true\" (pageChange)=\"pageChange()\"></ngb-pagination>\r\n            </div>\r\n    </div> -->\r\n\r\n"
 
 /***/ }),
 
@@ -16688,6 +17089,53 @@ GradOverlar.prototype.toggle = function () {
 
 /***/ }),
 
+/***/ "./src/app/service/issuedata.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/service/issuedata.service.ts ***!
+  \**********************************************/
+/*! exports provided: IssuedataService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IssuedataService", function() { return IssuedataService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var IssuedataService = /** @class */ (function () {
+    function IssuedataService(http) {
+        this.http = http;
+    }
+    IssuedataService.prototype.getIssueHistoryData = function (posNum, from, to, page, pageSize) {
+        return this.http
+            .get("/api/issuehistory/all?posNum=" + posNum + "&from=" + from + "&to=" + to + "&page=" + page + "&pageSize=" + pageSize)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) {
+            return res;
+        }));
+    };
+    IssuedataService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], IssuedataService);
+    return IssuedataService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/service/led.service.ts":
 /*!****************************************!*\
   !*** ./src/app/service/led.service.ts ***!
@@ -17598,12 +18046,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _led_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./led.service */ "./src/app/service/led.service.ts");
 /* harmony import */ var _admin_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./admin.service */ "./src/app/service/admin.service.ts");
 /* harmony import */ var _right_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./right.service */ "./src/app/service/right.service.ts");
+/* harmony import */ var _issuedata_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./issuedata.service */ "./src/app/service/issuedata.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -17638,7 +18088,7 @@ var ServiceModule = /** @class */ (function () {
             providers: [_full_screen_service__WEBPACK_IMPORTED_MODULE_2__["FullScreenService"], _servers_baiduApi__WEBPACK_IMPORTED_MODULE_4__["BeiduAPIService"], _servers_baiduMap__WEBPACK_IMPORTED_MODULE_5__["BeiduMAPService"], _monitor_service__WEBPACK_IMPORTED_MODULE_6__["MonitorService"],
                 _light_service__WEBPACK_IMPORTED_MODULE_11__["LightService"], _cover_service__WEBPACK_IMPORTED_MODULE_12__["CoverService"], _airmonitor_service__WEBPACK_IMPORTED_MODULE_14__["AirmonitorService"], _camera_service__WEBPACK_IMPORTED_MODULE_13__["CameraService"], _strategy_service__WEBPACK_IMPORTED_MODULE_15__["StrategyService"],
                 _device_service__WEBPACK_IMPORTED_MODULE_16__["DeviceService"], _position_service__WEBPACK_IMPORTED_MODULE_17__["PositionService"], _product_service__WEBPACK_IMPORTED_MODULE_18__["ProductService"], _led_service__WEBPACK_IMPORTED_MODULE_19__["LedService"], _dialog_service__WEBPACK_IMPORTED_MODULE_3__["DialogService"], _admin_service__WEBPACK_IMPORTED_MODULE_20__["AdminService"], _right_service__WEBPACK_IMPORTED_MODULE_21__["RightService"],
-                _mess_service__WEBPACK_IMPORTED_MODULE_7__["MessService"], _url_service__WEBPACK_IMPORTED_MODULE_8__["UrlService"], _communicate_service__WEBPACK_IMPORTED_MODULE_9__["CommunicateService"], _video_service__WEBPACK_IMPORTED_MODULE_10__["VideoService"],]
+                _mess_service__WEBPACK_IMPORTED_MODULE_7__["MessService"], _url_service__WEBPACK_IMPORTED_MODULE_8__["UrlService"], _communicate_service__WEBPACK_IMPORTED_MODULE_9__["CommunicateService"], _video_service__WEBPACK_IMPORTED_MODULE_10__["VideoService"], _issuedata_service__WEBPACK_IMPORTED_MODULE_22__["IssuedataService"]]
         })
     ], ServiceModule);
     return ServiceModule;
@@ -18046,7 +18496,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- 删除工作日控制 -->\n<div class=\"modal-header\">\n  <font class=\"modal-title\">删除</font>\n  <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"click('cancel')\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n<div class=\"modal-body\">\n  <div>\n    <div>\n      确定要删除该条记录吗？\n    </div>\n  </div>\n</div>\n<div class=\"modal-footer\">\n  <button type=\"button\" class=\"btn btn-outline-info\" (click)=\"click('ok')\">确定</button>\n  <button type=\"button\" class=\"btn btn-outline-metal\" (click)=\"click('cancel')\">取消</button>\n</div>\n\n"
+module.exports = "<!-- 删除工作日控制 -->\r\n<div class=\"modal-header\">\r\n  <font class=\"modal-title\">删除</font>\r\n  <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"click('cancel')\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body\">\r\n  <div>\r\n    <div>\r\n      确定要删除该条记录吗？\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-outline-info\" (click)=\"click('ok')\">确定</button>\r\n  <button type=\"button\" class=\"btn btn-outline-metal\" (click)=\"click('cancel')\">取消</button>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -18213,7 +18663,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\d0109\smart-city-platform\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\dev\smart-city-platform\src\main.ts */"./src/main.ts");
 
 
 /***/ })
