@@ -102,7 +102,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
     this.getLights(); // 获取地图上的点
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
-    }, 10000);
+    }, 10000 * 60);
 
 
 
