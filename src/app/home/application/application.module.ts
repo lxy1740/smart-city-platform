@@ -14,7 +14,7 @@ import { SecurityComponent } from './security/security.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { WaterComponent } from './water/water.component';
 import { AirComponent } from './air/air.component';
-import { LedComponent } from './led/led.component';
+import { ElectricalComponent } from './electrical/electrical.component';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { LedComponent } from './led/led.component';
     ],
     declarations: [
         CoverComponent, CalamityComponent,
-        LightComponent, SecurityComponent, TrafficComponent, WaterComponent, AirComponent, LedComponent,
+        LightComponent, SecurityComponent, TrafficComponent, WaterComponent, AirComponent, ElectricalComponent,
 ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

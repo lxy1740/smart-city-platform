@@ -6,10 +6,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-// import { HttpModule } from '@angular/http';
+
 import { CookieModule } from 'ngx-cookie';
 
-import { GridsterModule } from 'angular-gridster2';
 
 
 import { HomeModule } from './home/home.module';
@@ -64,12 +63,10 @@ export function tokenGetter() {
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    // HttpModule,
     CookieModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
     HomeModule,
-    GridsterModule,
     MaterialModule,
 
     ServiceModule,

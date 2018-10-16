@@ -45,6 +45,12 @@ export const ROUTETREE = [
             },
             {
                 id: 21,
+                icon: 'fa fa-eye nav-icon-s',
+                routeLink: 'application/electrical',
+                routeTitel: '电气安全',
+            },
+            {
+                id: 21,
                 // icon: 'fa fa-snowflake-o nav-icon-s',
                 icon: 'fa fa-cloud nav-icon-s',
                 routeLink: 'application/air',
