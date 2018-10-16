@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { CookieModule } from 'ngx-cookie';
 
 import { GridsterModule } from 'angular-gridster2';
@@ -64,7 +64,7 @@ export function tokenGetter() {
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    HttpModule,
+    // HttpModule,
     CookieModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,

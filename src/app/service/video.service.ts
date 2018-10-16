@@ -1,9 +1,7 @@
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/';
 import { of } from 'rxjs/';
-import { map } from 'rxjs/operators';
 import { CALAMITYLIST } from '../data/calamity-list';
 
 
@@ -11,18 +9,10 @@ import { CALAMITYLIST } from '../data/calamity-list';
 @Injectable()
 export class VideoService {
     public url: string;
-    constructor(private http: Http) {
+    constructor() {
 
     }
-    // 城市列表
-    getZoneDefault(): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get('/api/zone/default')
-            .pipe(map((res: Response) => {
-                return res;
-            }));
-    }
 
     getCalamity(): Observable<any> {
         const list = CALAMITYLIST.light_list;
