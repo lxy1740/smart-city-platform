@@ -316,7 +316,7 @@ export class StrategyComponent implements OnInit {
   }
 
   // 添加策略弹框操作
-  openAddStrategy(content, index) {
+  openAddStrategy(content) {
 
     // 初始参数
     const that = this;

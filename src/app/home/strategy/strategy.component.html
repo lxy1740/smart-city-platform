@@ -3,9 +3,7 @@
   <div class="strategy-left">
     <div class="strategy-add">
       <span class="strategy-title">策略表</span>
-      <button type="button" class="btn btn-bg" (click)="openAddStrategy(contentAddStrategy)">
-        新建
-      </button>
+      <button type="button" class="btn btn-bg" (click)="openAddStrategy(contentAddStrategy)">新建</button>
     </div>
 
     <div class="strategy-list">
@@ -283,7 +281,7 @@
   <!-- 添加策略 ok-->
   <ng-template #contentAddStrategy let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <font class="modal-title">添加策略</font>
+      <h4 class="modal-title">添加策略</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -303,7 +301,7 @@
   <!-- 修改策略 ok-->
   <ng-template #contentUpdateStrategy let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <font class="modal-title">添加策略</font>
+      <h4 class="modal-title">添加策略</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -330,7 +328,7 @@
   <!-- 创建策略规则 ok -->
   <ng-template #contentAddRule let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <font class="modal-title">创建策略时间</font>
+      <h4 class="modal-title">创建策略时间</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -834,7 +832,7 @@
   <!-- 更改策略规则 ok -->
   <ng-template #contentUpdataRule let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <font class="modal-title">更改策略时间</font>
+      <h4 class="modal-title">更改策略时间</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
