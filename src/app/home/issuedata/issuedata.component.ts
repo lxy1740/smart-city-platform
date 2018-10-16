@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IssuedataService } from '../../service/issuedata.service';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
@@ -35,7 +34,9 @@ export class IssuedataComponent implements OnInit {
     this.issue.posNum = '';
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getIssueHistoryList();
+  }
 
   // 获取消息记录
   getIssueHistoryList() {
