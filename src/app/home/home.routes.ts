@@ -12,11 +12,11 @@ import { HomepageRoutes } from './homepage/homepage.routes';
 import { StrategyRoutes } from './strategy/strategy.routes';
 import { AirreportRoutes } from './airreport/airreport.routes';
 
-
-import { MapRoutes } from './map/map.routes';
-import { LedRoutes } from './led-test/led.routes';
 import { IssuedataRoutes } from './issuedata/issuedata.routes';
 import { DashboardRoutes } from './dashboard/dashboard.routes';
+
+// import { MapRoutes } from './map/map.routes';
+// import { LedRoutes } from './led-test/led.routes';
 
 export const HomeRoutes: Route[] = [
     {
@@ -39,8 +39,8 @@ export const HomeRoutes: Route[] = [
             ...AirreportRoutes,
             ...IssuedataRoutes,
             ...DashboardRoutes,
-            ...MapRoutes,
-            ...LedRoutes
+            // ...MapRoutes,
+            // ...LedRoutes
         ]
     },
 ];

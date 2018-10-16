@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 
 import { StrategyService } from '../../service/strategy.service';
 
-const now = new Date();
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;
 const before = (one: NgbDateStruct, two: NgbDateStruct) =>

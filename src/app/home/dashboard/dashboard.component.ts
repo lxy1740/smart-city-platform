@@ -6,7 +6,7 @@ Author: luo.shuqi@live.com
 @time: 2018 /8 / 9 9: 00
 
 */
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { AirmonitorService } from '../../service/airmonitor.service';
 import { Router } from '@angular/router';
 // baidu map

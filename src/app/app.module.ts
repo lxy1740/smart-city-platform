@@ -39,7 +39,7 @@ import { PageNotFoundComponent } from './not-found.component';
 
 import { HttpClientModule } from '@angular/common/http'; // HTTP_INTERCEPTORS,
 import { JwtModule } from '@auth0/angular-jwt';
-import { httpInterceptorProviders } from './index';
+import { httpInterceptorProviders } from './interceptor/index';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
