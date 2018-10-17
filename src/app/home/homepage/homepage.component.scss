@@ -20,6 +20,11 @@
     width: calc(100vw - 50px);
     // background: #000;
     background: linear-gradient(to right, #233A38, #233A38, #45939d);
+    background: -webkit-linear-gradient(to right,#233A38, #233A38, #45939d);
+  /* Opera 11.1 - 12.0 */
+    background: -o-linear-gradient(to right,#233A38, #233A38, #45939d);
+    /* Firefox 3.6 - 15 */
+    background: -moz-linear-gradient(to right,#233A38, #233A38, #45939d);
     color: #fff;
     padding-left: 100px;
     padding-right: 100px;
