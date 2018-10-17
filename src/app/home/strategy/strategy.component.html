@@ -215,7 +215,7 @@
         <div class="col-9">
           <div class="panel-default page-list-table">
             <!-- 搜索 -->
-            <form class="form-inline xy-pad search-form">
+            <!-- <form class="form-inline xy-pad search-form">
 
               <div class="form-group">
                 <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" 
@@ -224,7 +224,11 @@
             
               <button type="submit" class="btn btn-bg">搜索</button>
               <button type="submit" class="btn btn-bg form-btn" [disabled]="regionbody.length === 0" (click)="setRegion()">下发策略</button>
-            </form>
+            </form> -->
+
+            <div class="search-lsq">
+              <button type="submit" class="btn btn-bg form-btn search-btn-lsq" [disabled]="regionbody.length === 0" (click)="setRegion()">下发策略</button>
+            </div>
             
             <table class="table table-hover">
             

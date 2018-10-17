@@ -869,8 +869,8 @@ export class StrategyComponent implements OnInit {
       console.log('from :' + this.fromDate.day);
       console.log('to :' + this.toDate.day);
 
-      const fromStr = this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day;
-      const toStr = this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day;
+      // const fromStr = this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day;
+      // const toStr = this.toDate.year + '-' + this.toDate.month + '-' + this.toDate.day;
 
     }
   }
@@ -1037,6 +1037,7 @@ export class StrategyComponent implements OnInit {
         next: function (res) {
           that.model.ZoneDefault = res;
           that.zNodes = res.regions;
+          that.zNodes['open'] = true;
           const id = that.currentTreeNodeId = res.regions[0].id;
           that.getRegionLights(id);
 

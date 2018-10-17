@@ -311,7 +311,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       } else { // 正常
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(36, 36));
       }
-      myIcon.setAnchor(new BMap.Size(16, 38));
+      // myIcon.setAnchor(new BMap.Size(16, 38));
       const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker2);
 
