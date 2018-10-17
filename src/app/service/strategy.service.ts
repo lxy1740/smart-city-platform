@@ -144,8 +144,9 @@ export class StrategyService {
     getZtreeRegion(ruleId: number): Observable<any> {
         return this.http.get(`/api/streetlight/rule/${ruleId}/region`)
             .pipe(map((res: Response) => {
-                const data = res.json();
-                return data;
+                return res;
+                // const data = res.json();
+                // return data;
             }));
     }
 }
