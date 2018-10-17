@@ -1,7 +1,7 @@
 @media (max-width: 575.98px) { 
-    .product-name , .product-title, .login-left{
-        display: none;
-    }
+    // .product-name , .product-title, .login-left{
+    //     display: none;
+    // }
     .login-right {
         background: rgba(255, 255, 255, 0.7) !important;
         top: 160px !important;
@@ -58,37 +58,46 @@
 }
 //左侧定位：产品、系统名称
 .login-left {
+    background-image: url(../../assets/imgs/login-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     position: absolute;
     width: calc(100vw - 300px);
-    background: rgba(0, 0, 0, 0.5);
-    top: 36px;
     left: 30px;
+    // background: rgba(0, 0, 0, 0.5);
+    top: 36px;
     height: 93vh;
+    // height: 140px;
+    // bottom: 0;
     color: #fff;
     font-size: 36px;
-    .product-name {
-        position: absolute;
-        top: 20px;
-        left: 40px;
-    }
+
     .product-title {
         position: absolute;
         // float: right;
-        text-align: right;
-        bottom: 100px;
-        right: 80px;
+        // text-align: right;
+        bottom: 0;
+        // right: 80px;
     }
+}
+
+.product-name {
+    position: absolute;
+    top: 20px;
+    // left: 40px;
+    right: 40px;
 }
 .login-center {
  height: 100vh;
  margin: 0;
- background-image: url(../../assets/imgs/login-bg.jpg);
- background-repeat: no-repeat;
- background-size: cover;
+ background: #d7d8d2;
+//  background-image: url(../../assets/imgs/login-bg.jpg);
+//  background-repeat: no-repeat;
+//  background-size: cover;
  position: relative;
 }
-.login-titel {
-    margin-bottom: 40px;
+.login-title {
+    // margin-bottom: 40px;
     font-size: 23px
 }
 .login-icon{
