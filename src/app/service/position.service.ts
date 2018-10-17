@@ -23,8 +23,8 @@ export class PositionService {
     }
 
     // 设备列表
-    getDevice(): Observable<any> {
-        return this.http.get('/api/device/type/all')
+    getPositionType(): Observable<any> {
+        return this.http.get('/api/position/type')
             .pipe(map((res: Response) => {
                 return res;
             }));

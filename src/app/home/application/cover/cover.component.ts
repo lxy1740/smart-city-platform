@@ -387,14 +387,14 @@ export class CoverComponent implements OnInit, OnDestroy {
 
     txt = txt + `设备编号 | ${mess.name} | ${mess.id}</p><p> 设备名称：${mess.description}</p>`;
     if (mess.lowBattery === false) {
-      txt = txt + `<p> 是否低电量：否</p>`;
+      txt = txt + `<p> <span style='color: blue'>电量：正常</span></p>`;
     } else {
-      txt = txt + `<p> 是否低电量：<span style='color: #f4516c'>是</span></p>`;
+      txt = txt + `<p> <span style='color: red'>电量：低</span></p>`;
     }
     if (mess.alarm === false) {
-      txt = txt + `<p> 是否报警：否</p>`;
+      txt = txt + `<p> <span style='color: blue'>警报：正常</span></p>`;
     } else {
-      txt = txt + `<p> 是否报警：<span style='color: #f4516c'>是</span></p>`;
+      txt = txt + `<p> <span style='color: red'>警报：异常</span></p>`;
     }
     // if (mess.error === false) {
     //   txt = txt + `<p> 是否故障：否</p>`;
@@ -402,17 +402,17 @@ export class CoverComponent implements OnInit, OnDestroy {
     //   txt = txt + `<p> 是否故障：<span style='color: red'>是</span></p>`;
     // }
     if (mess.offline === false) {
-      txt = txt + `<p> 是否离线：否</p>`;
+      txt = txt + `<p> <span style='color: blue'>在线</span></p>`;
     } else {
-      txt = txt + `<p> 是否离线：<span style='color: #f4516c'>是</span></p>`;
+      txt = txt + `<p> <span style='color: red'>离线</span></p>`;
     }
     // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
 
     if (res1 && res1.length > 0) {
-      txt = txt + `<hr><p style='color: #f4516c;'>待处理事件：</p>`;
+      txt = txt + `<hr><p style='color: red;'>待处理事件：</p>`;
       for (let index = 0; index < res1.length; index++) {
         const element = res1[index];
-        txt = txt + `<p style='color: #f4516c;'>${element.typeName}</p>`;
+        txt = txt + `<p style='color: red;'>${element.typeName}</p>`;
       }
       const m = `massage-lsq${mess.id}`;
       const p = `massage-post${mess.id}`;

@@ -316,14 +316,14 @@ export class AirComponent implements OnInit, OnDestroy {
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
     txt = txt + `设备编号 | ${airDevice.name} </p><p> 设备名称：${airDevice.description}</p>`;
     if (airDevice.offline === false) {
-      txt = txt + `<p> 是否离线：否</p>`;
+      txt = txt + `<p> <span style='color: blue'>在线</span></p>`;
     } else {
-      txt = txt + `<p> 是否离线：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p> <span style='color: red'>离线</span></p>`;
     }
     if (airDevice.error === false) {
-      txt = txt + `<p> 是否异常：否</p>`;
+      txt = txt + `<p><span style='color: blue'>状态：正常</span></p>`;
     } else {
-      txt = txt + `<p> 是否异常：<span style='color: red'>是</span></p>`;
+      txt = txt + `<p> <span style='color: red'>状态：异常</span></p>`;
     }
     const infoWindow = new BMap.InfoWindow(txt, opts);
     marker.V.addEventListener('click', function () {

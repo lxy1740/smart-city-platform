@@ -400,16 +400,16 @@ export class LightComponent implements OnInit, OnDestroy  {
 
     if (val.offline === true) {// 离线
         // 离线或异常
-      txt = txt + `   <p style="color: red">是否在线： 否</p>`;
+      txt = txt + `   <p><span style='color: red'>离线</span></p>`;
       } else {
-      txt = txt + `   <p >是否在线： 是</p>`;
+      txt = txt + `   <p><span style='color: blue'>在线</span></p>`;
       }
 
     if (val.error === true) {// 离线
       // 离线或异常
-      txt = txt + `<p style="color: red">是否故障： 是</p>`;
+      txt = txt + `<p><span style='color: red'>状态：故障</span></p>`;
     } else {
-      txt = txt + `<p >是否故障： 否</p>`;
+      txt = txt + `<p ><span style='color: blue'>状态：正常</span></p>`;
     }
     if (val.rule && val.rule.name) {
       txt = txt + `<p >应用策略： ${val.rule.name}</p>`;

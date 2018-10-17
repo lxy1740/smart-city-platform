@@ -82,7 +82,7 @@ export class PositionComponent implements OnInit {
 
   ngOnInit() {
     this.getCity();
-    this.getDevice();
+    this.getPositionType();
     this.getPosition(0, this.page, this.pagesize);
   }
   // 检索按键点击事件
@@ -357,10 +357,10 @@ export class PositionComponent implements OnInit {
     this.getPosition(this.currentType.id, this.page, this.pagesize);
   }
 
-  // 获取设备列表
-  getDevice() {
+  // 获取位置类型列表
+  getPositionType() {
     const that = this;
-    this.positionService.getDevice().subscribe({
+    this.positionService.getPositionType().subscribe({
       next: function (val) {
         that.deviceList = val;
         that.model.device = val[0];
