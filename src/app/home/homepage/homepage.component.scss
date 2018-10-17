@@ -18,7 +18,8 @@
 .homepage {
     height: 100vh;
     width: calc(100vw - 50px);
-    background: #000;
+    // background: #000;
+    background: linear-gradient(to right, #233A38, #233A38, #45939d);
     color: #fff;
     padding-left: 100px;
     padding-right: 100px;
@@ -45,7 +46,8 @@
 .dash-item-first {
     height: 100%;
     text-align: center;
-    background: #41AEE6;
+    // background: #41AEE6;
+    background: #6FB9BE;
 
 }
 
@@ -53,9 +55,17 @@
     height: 30%;
     margin-bottom: 16px;
     text-align: center;
-    background: #506173;
+    // background: #506173;
+    background: #45939D;
     cursor: pointer;
+    &:hover {
+        background: #6FB9BE;
+    }
 
+}
+
+.dash-item-second :hover {
+    background: #6FB9BE;
 }
 .content {
     i {
