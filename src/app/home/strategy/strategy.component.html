@@ -218,8 +218,8 @@
             <form class="form-inline xy-pad search-form">
 
               <div class="form-group">
-                <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off" maxlength="256"
-                  placeholder="Search" value="">
+                <input id="sole-input" class="form-control searchbox-content-common" type="text" name="word" 
+                  autocomplete="off" maxlength="30" placeholder="Search" value="">
               </div>
             
               <button type="submit" class="btn btn-bg">搜索</button>
@@ -301,7 +301,7 @@
   <!-- 修改策略 ok-->
   <ng-template #contentUpdateStrategy let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">添加策略</h4>
+      <h4 class="modal-title">修改策略</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -309,7 +309,7 @@
     <div class="modal-body">
       <div>
         策略名称：
-        <input type="text" [(ngModel)]="strategyName" name="strategyName">
+        <input type="text" [(ngModel)]="strategyName" name="strategyName" maxlength="10">
       </div>
     </div>
     <div class="modal-footer">

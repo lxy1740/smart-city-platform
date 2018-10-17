@@ -44,12 +44,14 @@
           <div class="form-inline padding-15">
             <span class="text-danger">*</span>
             <label class="control-label">名称:</label>
-            <input type="text" class="form-control" placeholder="" [(ngModel)]="model.name">
+            <input type="text" class="form-control" placeholder="" [(ngModel)]="model.name"
+              maxlength="50">
           </div>
           <div class="form-inline padding-15">
               <span class="text-danger">*</span>
               <label class="control-label">编号:</label>
-              <input type="text" class="form-control" placeholder="" [(ngModel)]="model.number">
+              <input type="text" class="form-control" placeholder="" [(ngModel)]="model.number"
+                maxlength="30">
           </div>
           <div class="form-inline padding-15">
               <span class="text-danger">*</span>
@@ -174,12 +176,14 @@
       <div class="form-inline padding-15">
         <span class="text-danger">*</span>
         <label class="control-label">名称:</label>
-        <input type="text" class="form-control" placeholder="" [(ngModel)]="model.name">
+        <input type="text" class="form-control" placeholder="" [(ngModel)]="model.name"
+         maxlength="50">
       </div>
       <div class="form-inline padding-15">
         <span class="text-danger">*</span>
         <label class="control-label">编号:</label>
-        <input type="text" class="form-control" placeholder="" [(ngModel)]="model.number">
+        <input type="text" class="form-control" placeholder="" [(ngModel)]="model.number"
+          maxlength="30">
       </div>
       <div class="form-inline padding-15">
         <span class="text-danger">*</span>
@@ -304,12 +308,6 @@
         </div>
       </div>
 
-      <!-- 按区域搜索位置 -->
-          <!-- 表单，搜索产品 -->
-            <!-- 搜索 -->
-
-          
-
       <!-- 显示已有位置 -->
       <div class="card-block">
         <form class="form-inline xy-pad search-form">
@@ -322,7 +320,7 @@
         
           <div class="form-group" style="padding-right: 5px;">
             <input id="sole-input4" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" name="word" 
-              autocomplete="off" maxlength="256" placeholder="检索编号、名称">
+              autocomplete="off" maxlength="30" placeholder="检索编号、名称">
           </div>
         
           <button type="submit" class="btn btn-bg" (click)="execQuery()">搜索</button>

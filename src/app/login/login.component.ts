@@ -56,6 +56,7 @@ export class LoginComponent {
       },
       complete: function() {},
       error: function(error) {
+        console.log(error);
         const errormes = JSON.parse(error.error);
         that.error = errormes.errors[0].defaultMessage;
         that.loading = false;

@@ -179,13 +179,13 @@ export class AdminComponent implements OnInit {
         that.getUserList();
       },
       error: function(error) {
-        const message = error.json().errors[0].defaultMessage;
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
         that.alertsModal.push({
           id: 1,
           type: 'danger',
           message: `新增失败：${message}！`,
         });
-        console.log(error);
       }
     });
   }
@@ -242,13 +242,13 @@ export class AdminComponent implements OnInit {
         that.getUserList();
       },
       error: function(error) {
-        const message = error.json().errors[0].defaultMessage;
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
         that.alertsModal.push({
           id: 1,
           type: 'danger',
           message: `修改失败：${message}！`,
         });
-        console.log(error);
       }
     });
   }

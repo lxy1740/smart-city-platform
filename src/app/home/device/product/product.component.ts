@@ -156,13 +156,13 @@ export class ProductComponent implements OnInit {
         that.getModel(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
-        const message = error.json().errors[0].defaultMessage;
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
         that.alertsModal.push({
           id: 1,
           type: 'danger',
           message: `新建失败: ${message}！`,
         });
-        console.log(error.json());
       }
     });
   }
@@ -218,14 +218,13 @@ export class ProductComponent implements OnInit {
         that.getModel(that.currentType.id, that.page, that.pagesize);
       },
       error: function (error) {
-        const message = error.json().errors[0].defaultMessage;
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
         that.alertsModal.push({
           id: 1,
           type: 'danger',
           message: `修改失败: ${message}！`,
         });
-        console.log(error.json());
-        console.log(error);
       }
     });
   }
@@ -275,13 +274,13 @@ export class ProductComponent implements OnInit {
         }
       },
       error: function (error) {
-        const message = error.json().errors[0].defaultMessage;
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
         that.alerts.push({
           id: 1,
           type: 'danger',
           message: `修改失败: ${message}`,
         });
-        console.log(error);
       }
     });
   }
