@@ -1,7 +1,20 @@
-app-homepage {
-    background: #000;
-    color: #fff;
+@media (max-width: 575.98px) { 
+
+    .homepage {
+        width: 100vw !important;
+        height: 100% !important;
+        margin: 0;
+        padding: 0 !important;
+    }
+    .row-first {
+        display: none;
+    }
+    .dash {
+        height: 100% !important;
+        width: 100vw !important;
+    }
 }
+
 .homepage {
     height: 100vh;
     width: calc(100vw - 50px);
@@ -19,34 +32,29 @@ app-homepage {
     height: 80%;
     width: 100%;
 }
-.dash-pad {
-    padding: 0px;
+.row-first {
+    height: 128px;
+    margin-bottom: 30px;
 }
-.dash-parent {
-    height: 30%;
-    width: 100%;
-    margin-bottom: 15px;
-    a {
-        display: inline-block;
-    }
-}
-.dash-row {
-    height: 100%;
-    width: 100%;
-}
-.dash-item {
-   
-    height: 100%;
-    text-align: center;
-    background: #506173;
-    cursor: pointer;
+
+.row-second {
+    height: calc(100% - 160px);
 
 }
+
 .dash-item-first {
-   
     height: 100%;
     text-align: center;
     background: #41AEE6;
+
+}
+
+.dash-item-second {
+    height: 30%;
+    margin-bottom: 16px;
+    text-align: center;
+    background: #506173;
+    cursor: pointer;
 
 }
 .content {
@@ -54,7 +62,73 @@ app-homepage {
         font-size: 32px;
     }
 }
-.padding-0{
-    padding: 0;
+.padding-left-0{
+    padding-left: 0;
 }
+.margin-right-33 {
+    margin-right: 30px;
+}
+
+
+// app-homepage {
+//     background: #000;
+//     color: #fff;
+// }
+// .homepage {
+//     height: 100vh;
+//     width: calc(100vw - 50px);
+//     background: #000;
+//     color: #fff;
+//     padding-left: 100px;
+//     padding-right: 100px;
+//     .row {
+//         margin-left: 0;
+//         margin-right: 0;
+//     }
+// }
+
+// .dash{
+//     height: 80%;
+//     width: 100%;
+// }
+// .dash-pad {
+//     padding: 0px;
+// }
+// .dash-parent {
+//     height: 30%;
+//     width: 100%;
+//     margin-bottom: 15px;
+//     a {
+//         display: inline-block;
+//     }
+// }
+// .dash-row {
+//     height: 100%;
+//     width: 100%;
+// }
+// .dash-item {
+   
+//     // height: 100%;
+//     height: 80%;
+//     text-align: center;
+//     background: #506173;
+//     cursor: pointer;
+
+// }
+// .dash-item-first {
+   
+//     // height: 100%;
+//     height: 128px;
+//     text-align: center;
+//     background: #41AEE6;
+
+// }
+// .content {
+//     i {
+//         font-size: 32px;
+//     }
+// }
+// .padding-0{
+//     padding: 0;
+// }
 

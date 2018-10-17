@@ -1,28 +1,28 @@
 export const ROUTELIST = [
     { // 三列
         id: 1,
-        col: 'col-5 dash-pad',
+        col: 'col-6 dash-pad',
         row: [ // 三行
             {
                 id: 11,
                 children: [
                     {
                         id: 11,
-                        col: 'col-4',
+                        col: 'col-12',
                         class: 'row  align-items-center justify-content-center dash-item-first',
                         icon: 'fa  fa-building',
                         routeLink: '/home/homepage',
                         routeTitel: '智慧城市',
                         hasClick: true,
                     },
-                    {
-                        id: 11,
-                        col: 'col-8',
-                        class: 'row  align-items-center justify-content-center dash-item',
-                        icon: 'fa fa-bolt',
-                        routeLink: 'home/application/calamity',
-                        routeTitel: '灾害报警',
-                    },
+                    // {
+                    //     id: 11,
+                    //     col: 'col-8',
+                    //     class: 'row  align-items-center justify-content-center dash-item',
+                    //     icon: 'fa fa-bolt',
+                    //     routeLink: 'home/application/calamity',
+                    //     routeTitel: '灾害报警',
+                    // },
 
 
                 ]
@@ -84,28 +84,28 @@ export const ROUTELIST = [
     },
     {
         id: 2,
-        col: 'col-5 dash-pad',
+        col: 'col-3 dash-pad',
         row: [
             {
                 id: 11,
                 children: [
                     {
                         id: 11,
-                        col: 'col-8',
+                        col: 'col-12',
                         class: 'row  align-items-center justify-content-center dash-item-first',
                         icon: 'fa fa-map nav-icon',
                         routeLink: '/home/homepage',
                         routeTitel: '设备管理',
                         hasClick: true,
                     },
-                    {
-                        id: 11,
-                        col: 'col-4',
-                        class: 'row  align-items-center justify-content-center dash-item',
-                        icon: 'fa fa-desktop nav-icon',
-                        routeLink: 'home/monitor',
-                        routeTitel: '设备监控',
-                    },
+                    // {
+                    //     id: 11,
+                    //     col: 'col-4',
+                    //     class: 'row  align-items-center justify-content-center dash-item',
+                    //     icon: 'fa fa-desktop nav-icon',
+                    //     routeLink: 'home/monitor',
+                    //     routeTitel: '设备监控',
+                    // },
 
 
                 ]
@@ -151,7 +151,7 @@ export const ROUTELIST = [
     },
     {
         id: 3,
-        col: 'col-2 dash-pad',
+        col: 'col-3 dash-pad',
         row: [
             {
                 id: 11,
