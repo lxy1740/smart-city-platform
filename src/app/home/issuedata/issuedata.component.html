@@ -1,5 +1,9 @@
 <div class="bodyofissuedata">
+
   <div class="card card-primary panel-default" style="min-height: 400px;">
+    <p *ngFor="let alert of alerts" class="lsq-alert">
+      <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
     <div class="card-header">
       <span>消息记录</span>
       <button type="button" class="close" aria-label="Close">

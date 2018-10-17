@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 import { IssuedataService } from '../../service/issuedata.service';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -28,6 +28,9 @@ export class IssuedataComponent implements OnInit {
   seconds = true;
   fromdate: any; // 开始日期
   todate: any; // 结束日期
+
+  @Input()
+  public alerts: Array<IAlert> = [];
 
   constructor(public issuedataService: IssuedataService, public router: Router) {
     this.page = 1;
@@ -67,6 +70,12 @@ export class IssuedataComponent implements OnInit {
       complete: function() {},
       error: function(error) {
         console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `查询失败：${message}！`,
+        });
       }
     });
   }
@@ -83,4 +92,14 @@ export class IssuedataComponent implements OnInit {
   jumpHandle(url) {
     this.router.navigate([url]);
   }
+
+  public closeAlert(alert: IAlert) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+}
+export interface IAlert {
+  id: number;
+  type: string;
+  message: string;
 }

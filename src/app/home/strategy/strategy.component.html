@@ -92,7 +92,7 @@
                     </div>
                     
                     
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="border: 2px #ccc solid;">
                     
                       <thead>
                         <tr class="table-header">
@@ -106,7 +106,10 @@
                         <td>{{item.lightLevel}}%</td>
                       </tr>
                     </table>
-                    <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 5px;">无数据！</div>
+                    <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 5px;">无数据！
+                      <hr style=" height:2px;border:none;border-top:2px solid #ccc;" />
+                    </div>
+                    
                       <!-- 关灯时间： -->
                     <div class="row align-items-center justify-content-center">
                       <div class="col-4 padding-0">
@@ -159,7 +162,7 @@
                   </div>
                 </div>          
                 
-                <table class="table table-hover">
+                <table class="table table-hover" style="border: 2px #ccc solid;">
                 
                   <thead>
                     <tr class="table-header">
@@ -173,7 +176,9 @@
                     <td>{{item.lightLevel}}%</td>
                   </tr>
                 </table>
-                <div *ngIf="holidayList.length === 0 || !holidayList" style="margin-bottom: 5px;">无数据！</div>
+                <div *ngIf="holidayList.length === 0 || !holidayList" style="margin-bottom: 5px;">无数据！
+                  <hr style=" height:2px;border:none;border-top:2px solid #ccc;" />
+                </div>
                 <!-- 关灯时间： -->
                 <div class="row align-items-center justify-content-center">
                   <div class="col-4 padding-0">
@@ -206,7 +211,7 @@
     <!-- 菜单二 策略范围 -->
     <div *ngIf="nav_index === 1" class="strategy-table">
       <div class="row">
-        <div class="col-3" style=" max-width: 250px; ">
+        <div class="col-3">
           <!-- 搜索列表 -->
           <div class="city-list panel-default">
             <ul id="treeDemo" class="ztree"></ul>

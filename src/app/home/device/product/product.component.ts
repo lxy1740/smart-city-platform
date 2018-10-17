@@ -296,6 +296,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  // 搜索Enter事件
+  onKeydown(event: any) {
+    if (event.keyCode === 13) {
+      this.execQuery();
+    }
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

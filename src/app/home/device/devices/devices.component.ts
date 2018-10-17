@@ -391,6 +391,13 @@ export class DevicesComponent implements OnInit {
     return modelName;
   }
 
+  // 搜索Enter事件
+  onKeydown(event: any) {
+    if (event.keyCode === 13) {
+      this.execQuery();
+    }
+  }
+
   // 根据positionId返回指定位置点
   getPosiById(id) {
     const that = this;

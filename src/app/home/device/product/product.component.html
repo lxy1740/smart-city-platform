@@ -251,7 +251,7 @@
                   <!-- <i class="fa fa-search search-icon"></i> -->
                   <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}"/> -->
                   <input id="sole-input3" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
-                    name="word" autocomplete="off" maxlength="30" placeholder="检索名称、描述">
+                    name="word" autocomplete="off" maxlength="30" placeholder="检索名称、描述" (keydown)="onKeydown($event)">
                 </div>
             </div>
             <button class="btn btn-bg" (click)="execQuery()">搜索</button>

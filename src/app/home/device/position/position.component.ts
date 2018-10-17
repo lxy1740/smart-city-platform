@@ -506,6 +506,13 @@ export class PositionComponent implements OnInit {
   }
 
 
+  // 搜索Enter事件
+  onKeydown(event: any) {
+    if (event.keyCode === 13) {
+      this.execQuery();
+    }
+  }
+
   switchZone(level) {
     let zone = 12;
     switch (level) {

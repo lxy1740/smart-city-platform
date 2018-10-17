@@ -328,6 +328,12 @@ export class AdminComponent implements OnInit {
     const index: number = this.alertsModal.indexOf(alert);
     this.alertsModal.splice(index, 1);
   }
+  // 搜索Enter事件
+  onKeydown(event: any) {
+    if (event.keyCode === 13) {
+      this.execQuery();
+    }
+  }
 
 }
 

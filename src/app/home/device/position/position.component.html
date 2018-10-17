@@ -320,7 +320,7 @@
         
           <div class="form-group" style="padding-right: 5px;">
             <input id="sole-input4" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" name="word" 
-              autocomplete="off" maxlength="30" placeholder="检索编号、名称">
+              autocomplete="off" maxlength="30" placeholder="检索编号、名称" (keydown)="onKeydown($event)">
           </div>
         
           <button type="submit" class="btn btn-bg" (click)="execQuery()">搜索</button>
