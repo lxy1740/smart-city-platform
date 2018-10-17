@@ -93,21 +93,9 @@
         </div>
         <div class="modal-body">
             <div class="form-inline queryDiv">
-                    <!-- <div class="form-inline">
-                        <label class="control-label">设备类型：</label>
-                        <select class="form-control">
-                            <option>太阳能灯</option>
-                        </select>
-                    </div>
-                    <div class="form-inline">
-                        <label class="control-label">设备位置：</label>
-                        <select class="form-control">
-                            <option>街道</option>
-                        </select>
-                    </div> -->
                     <div class="form-group">
                         <input id="sole-input" class="form-control searchbox-content-common" [(ngModel)]="queryString" name="queryString" 
-                        maxlength="20" placeholder="检索编号、名称" (keydown)="onKeydown($event)" >
+                        maxlength="30" placeholder="检索编号、名称" (keydown)="onKeydown($event)" >
                     </div>
                     <button  class="btn btn-bg" (click)="execQuery()">搜索</button>
                     <button class="btn btn-outline-info extral-margin" (click)="devicesStrategyCtrl()">批量操作</button>
