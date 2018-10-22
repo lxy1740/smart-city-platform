@@ -23,7 +23,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
 // import { MapComponent } from './map/map.component';
-// import { LedTestComponent } from './led-test/led-test.component';
+import { LedTestComponent } from './led-test/led-test.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
@@ -32,7 +32,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 
     ],
     declarations: [
-      HomepageComponent,
+    HomepageComponent,
+    LedTestComponent,
     //   IssuedataComponent,
     //  DashboardComponent,
         // MapComponent, LedTestComponent,

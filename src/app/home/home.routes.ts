@@ -16,7 +16,7 @@ import { IssuedataRoutes } from './issuedata/issuedata.routes';
 import { DashboardRoutes } from './dashboard/dashboard.routes';
 
 // import { MapRoutes } from './map/map.routes';
-// import { LedRoutes } from './led-test/led.routes';
+import { LedRoutes } from './led-test/led.routes';
 
 export const HomeRoutes: Route[] = [
     {
@@ -40,7 +40,7 @@ export const HomeRoutes: Route[] = [
             ...IssuedataRoutes,
             ...DashboardRoutes,
             // ...MapRoutes,
-            // ...LedRoutes
+            ...LedRoutes
         ]
     },
 ];
