@@ -39,13 +39,14 @@
         }
         .currentUsername {
             color: $color-sidebar-text;
-            padding-left: 20px;
+            padding-left: 24px;
             font-size: 20px;
             // line-height: 24px;
         }
         .dropdown-item {
             // width: 50%;
             color: $color-sidebar-text;
+            cursor: pointer;
         }
         .dropdown-item:hover, .dropdown-item:active {
             color: #d7f8ff;   //ymZhao

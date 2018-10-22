@@ -391,10 +391,10 @@ export class CoverComponent implements OnInit, OnDestroy {
     } else {
       txt = txt + `<p> <span style='color: red'>电量：低</span></p>`;
     }
-    if (mess.alarm === false) {
+    if (mess.alarm === 0) {
       txt = txt + `<p> <span style='color: blue'>警报：正常</span></p>`;
     } else {
-      txt = txt + `<p> <span style='color: red'>警报：异常</span></p>`;
+      txt = txt + `<p> <span style='color: red'>警报：${mess.alarm}级</span></p>`;
     }
     // if (mess.error === false) {
     //   txt = txt + `<p> 是否故障：否</p>`;

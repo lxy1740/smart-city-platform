@@ -465,8 +465,8 @@
                                               <strong *ngIf="numberFormControl.hasError('required')">起始亮度为必填项</strong>
                                             </mat-error>
                                           </mat-form-field>
-                                          <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 0">
-                                            <strong >亮度数值为0 ~ 100</strong>
+                                          <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 1">
+                                            <strong >起始亮度数值为1 ~ 100</strong>
                                           </mat-error>
                                         </form>
                                       </div>
@@ -653,8 +653,8 @@
                                       <strong>起始亮度为必填项</strong>
                                     </mat-error>
                                   </mat-form-field>
-                                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 0">
-                                    <strong >亮度数值为0 ~ 100</strong>
+                                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 1">
+                                    <strong >起始亮度数值为1 ~ 100</strong>
                                   </mat-error>
                                 </form>
                               </div>
@@ -967,8 +967,8 @@
                       <strong>起始亮度为必填项</strong>
                     </mat-error>
                   </mat-form-field>
-                  <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 0">
-                    <strong >亮度数值为0 ~ 100</strong>
+                  <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 1">
+                    <strong >起始亮度数值为1 ~ 100</strong>
                   </mat-error>
                 </form>
               </div>
@@ -1155,8 +1155,8 @@
                       <strong>起始亮度为必填项</strong>
                     </mat-error>
                   </mat-form-field>
-                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 0">
-                    <strong >亮度数值为0 ~ 100</strong>
+                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 1">
+                    <strong >起始亮度数值为1 ~ 100</strong>
                   </mat-error>
                 </form>
               </div>
