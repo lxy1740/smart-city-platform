@@ -11,67 +11,74 @@
   </div>
   <div class="modal-body add-user-modal">
     <!-- 新建信息表单 -->
-    <div class="user-info">
-      <div class="form-inline">
-        <label class="control-label"><span style="color: red;">*</span>账户名称：</label>
-        <input type="text" [(ngModel)]="user.userName" name="userName" class="form-control" placeholder=""
-          maxlength="50">
+    <div class="row user-info">
+      <div class="col-4">
+          <img src="../../../../assets/imgs/user-profile.png" alt="..." class="img-circle">
+          <div><a href="">上传头像</a></div>
       </div>
-      <div class="form-inline">
-        <label class="control-label"><span style="color: red;">*</span>密码：</label>
-        <input type="text" [(ngModel)]="user.password" name="password" class="form-control" placeholder=""
-          maxlength="60">
-      </div>
-      <!-- <div *ngIf="addOrUpdate === '修改用户'" class="form-inline">
-        <label class="control-label"><span style="color: red;">*</span>确认密码：</label>
-        <input type="text" [(ngModel)]="user.password1" name="password1" class="form-control" placeholder="">
-      </div> -->
-      <div class="form-inline">
-        <label class="control-label">Email：</label>
-        <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder=""
-          maxlength="255">
-      </div>
-      <div class="form-inline">
-        <label class="control-label">联系方式：</label>
-        <input type="text" [(ngModel)]="user.mobile" name="mobile" class="form-control" placeholder=""
-          maxlength="13">
-      </div>
-      <div class="form-inline">
-        <label class="control-label">姓名：</label>
-        <input type="text" [(ngModel)]="user.fullName" name="fullName" class="form-control" placeholder=""
-          maxlength="50">
-      </div>
-      <div class="form-inline">
-        <label class="control-label">昵称：</label>
-        <input type="text" [(ngModel)]="user.nickName" name="nickName" class="form-control" placeholder=""
-          maxlength="50">
-      </div>
-      <div class="form-inline">
-        <label class="control-label"><span style="color: red;">*</span>性别：</label>
-        <!-- <input type="text" [(ngModel)]="user.gender" name="gender" class="form-control" placeholder=""> -->
-        <select name="profile1" [(ngModel)]="user.gender" class="cur-pointer form-control">
-          <option *ngFor="let index of genderData" [ngValue]="index">
-              {{ index.name }}
-            </option>
-      </select>
-      </div>
-      <div class="form-inline">
-        <label class="control-label">AvatarUrl：</label>
-        <input type="text" [(ngModel)]="user.avatar" name="avatar" class="form-control" placeholder=""
-          maxlength="255">
-      </div>
+      <div class="col-8">
+            <div class="form-inline">
+            <label class="control-label"><span style="color: red;">*</span>账户名称：</label>
+            <input type="text" [(ngModel)]="user.userName" name="userName" class="form-control" placeholder=""
+              maxlength="50">
+          </div>
+          <div class="form-inline">
+            <label class="control-label"><span style="color: red;">*</span>密码：</label>
+            <input type="text" [(ngModel)]="user.password" name="password" class="form-control" placeholder=""
+              maxlength="60">
+          </div>
+          <!-- <div *ngIf="addOrUpdate === '修改用户'" class="form-inline">
+            <label class="control-label"><span style="color: red;">*</span>确认密码：</label>
+            <input type="text" [(ngModel)]="user.password1" name="password1" class="form-control" placeholder="">
+          </div> -->
+          <div class="form-inline">
+            <label class="control-label">Email：</label>
+            <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder=""
+              maxlength="255">
+          </div>
+          <div class="form-inline">
+            <label class="control-label">联系方式：</label>
+            <input type="text" [(ngModel)]="user.mobile" name="mobile" class="form-control" placeholder=""
+              maxlength="13">
+          </div>
+          <div class="form-inline">
+            <label class="control-label">姓名：</label>
+            <input type="text" [(ngModel)]="user.fullName" name="fullName" class="form-control" placeholder=""
+              maxlength="50">
+          </div>
+          <div class="form-inline">
+            <label class="control-label">昵称：</label>
+            <input type="text" [(ngModel)]="user.nickName" name="nickName" class="form-control" placeholder=""
+              maxlength="50">
+          </div>
+          <div class="form-inline">
+            <label class="control-label"><span style="color: red;">*</span>性别：</label>
+            <!-- <input type="text" [(ngModel)]="user.gender" name="gender" class="form-control" placeholder=""> -->
+            <select name="profile1" [(ngModel)]="user.gender" class="cur-pointer form-control">
+              <option *ngFor="let index of genderData" [ngValue]="index">
+                  {{ index.name }}
+                </option>
+          </select>
+          </div>
+          <!-- <div class="form-inline">
+            <label class="control-label">AvatarUrl：</label>
+            <input type="text" [(ngModel)]="user.avatar" name="avatar" class="form-control" placeholder=""
+              maxlength="255">
+          </div> -->
 
-      <div class="form-inline role-check">
-        <label class="control-label"><span style="color: red;">*</span>角色：</label>
-        <div class="form-inline role-check-list">
-            <div *ngFor="let role of roleList1; let i = index">
-                <label class="checkbox-inline">
-                  <input type="checkbox" [checked]="user.roleListCheck[i].check" [(ngModel)]="user.roleListCheck[i].check"
-                    (change)="addRoleToUser()">{{role.name}}
-                </label>
+          <div class="form-inline role-check">
+            <label class="control-label"><span style="color: red;">*</span>角色：</label>
+            <div class="form-inline role-check-list">
+                <div *ngFor="let role of roleList1; let i = index">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" [checked]="user.roleListCheck[i].check" [(ngModel)]="user.roleListCheck[i].check"
+                        (change)="addRoleToUser()">{{role.name}}
+                    </label>
+                </div>
             </div>
-        </div>
+          </div>
       </div>
+      
 
     </div>
             

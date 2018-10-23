@@ -411,7 +411,7 @@ export class PositionComponent implements OnInit {
   openAddPositions(content) {
     const that = this;
 
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'md-modal' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 
       console.log(this.closeResult);

@@ -143,7 +143,7 @@ export class AdminComponent implements OnInit {
       that.user.roleListCheck.push({check: false}); // 一一对应角色表roleList1
     });
 
-    const modal = this.modalService.open(content, { windowClass: 'md' });
+    const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
