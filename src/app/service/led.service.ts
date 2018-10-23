@@ -68,7 +68,8 @@ export class LedService {
     getPrograms(currentPage, pageSize): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get(`/led-api/programs/getPrograms?pageSize=${pageSize}&currentPage=${currentPage}`)
+        return this.http
+        .get(`/led-api/programs/getPrograms?pageSize=${pageSize}&currentPage=${currentPage}&timestamp=${new Date().getTime()}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -96,7 +97,7 @@ export class LedService {
     getTasks(currentPage, pageSize): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get(`/led-api/tasks/getTasks?pageSize=${pageSize}&currentPage=${currentPage}`)
+        return this.http.get(`/led-api/tasks/getTasks?pageSize=${pageSize}&currentPage=${currentPage}&timestamp=${new Date().getTime()}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
