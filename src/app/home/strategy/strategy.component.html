@@ -66,70 +66,42 @@
             <div class="date-title">
               <span>工作日</span>
             </div>
-            <div *ngIf="ruleList && ruleList.length > 0"> 
-                    <!-- 开灯时间： -->
-                    <div class="row align-items-center justify-content-center">
-                      <div class="col-4 padding-0">
-                        <label for="brightnessTime">开灯时间：</label>
-                    
-                      </div>
-                      <div class="col-6 span-marg-bot">
-                        <!-- <span>17:00</span> -->
-                        <span *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">
-                          {{currentRule.workdayRules[0].start.hour}}时 {{currentRule.workdayRules[0].start.minute}}分
-                        </span>
-                      </div>
-                    </div>
-                    <div class="row align-items-center justify-content-center">
-                      <div class="col-4 padding-0">
-                        <label for="changeBrightness">起始亮度：</label>
-                      </div>
-                      <div class="col-6 span-marg-bot">
-                        <!-- <span>30</span> -->
-                        <span *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">
-                          {{currentRule.workdayRules[0].lightLevel}}%</span>
-                      </div>
-                    </div>
-                    
-                    
-                    <table class="table table-hover" style="border: 2px #ccc solid;">
+            <div *ngIf="ruleList && ruleList.length > 0">                                        
+                    <!-- 表开始 -->
+                    <table class="table table-hover">
                     
                       <thead>
                         <tr class="table-header">
-                          <th>中间时间段</th>
+                          <th></th>
+                          <th>时间</th>
                           <th>亮度</th>
                         </tr>
                       </thead>
-                    
+                      <tr>
+                        <td for="brightnessTime">开灯时间</td>
+                        <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].start.hour}}时 {{currentRule.workdayRules[0].start.minute}}分</td>
+                        <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].lightLevel}}%</td>
+                      </tr>
                       <tr *ngFor="let item of workdayList">
+                        <td>时间</td>
                         <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                         <td>{{item.lightLevel}}%</td>
                       </tr>
+                      <tr for="brightnessTime">
+                        <td>关灯时间</td>
+                        <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[currentRule.workdayRules.length - 1]">
+                            {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}
+                            时 {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.minute}}分
+                        </td>
+                        <td>0</td>
+                      </tr>
                     </table>
-                    <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 5px;">无数据！
+                    <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 2px;"><span style="margin-left:12px;">无数据！</span>
                       <hr style=" height:2px;border:none;border-top:2px solid #ccc;" />
-                    </div>
-                    
-                      <!-- 关灯时间： -->
-                    <div class="row align-items-center justify-content-center">
-                      <div class="col-4 padding-0">
-                        <label for="brightnessTime">关灯时间：</label>
-                    
-                      </div>
-                      <div class="col-6 span-marg-bot">
-                        <!-- <span>7:00</span> -->
-                        <span *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[currentRule.workdayRules.length - 1]">
-                          {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}
-                          时 {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.minute}}分</span>
-                      </div>
-                    </div>
+                    </div>                                
             </div>
-            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 5px;">无数据！</div>
-
-
-        
-          </div>
-        
+            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 1px;">无数据！</div>        
+          </div>        
         </div>
 
         <div class="col-6 col-md-4 ">
@@ -137,77 +109,52 @@
             <div class="date-title">
               <span>节假日</span>
             </div>
-            <div *ngIf="ruleList && ruleList.length > 0">
-                <!-- 开灯时间： -->
-                <div class="row align-items-center justify-content-center">
-                  <div class="col-4 padding-0">
-                    <label for="brightnessTime">开灯时间：</label>
-                
-                  </div>
-                  <div class="col-6 span-marg-bot">
-                    <!-- <span>17:00</span> -->
-                    <span *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[0]">
-                      {{currentRule.holidayRules[0].start.hour}}时 {{currentRule.holidayRules[0].start.minute}}分
-                    </span>
-                  </div>
-                </div>
-                <div class="row align-items-center justify-content-center">
-                  <div class="col-4 padding-0">
-                    <label for="changeBrightness">起始亮度：</label>
-                  </div>
-                  <div class="col-6 span-marg-bot">
-                    <!-- <span>30</span> -->
-                    <span *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[0]">
-                      {{currentRule.holidayRules[0].lightLevel}}%</span>
-                  </div>
-                </div>          
-                
-                <table class="table table-hover" style="border: 2px #ccc solid;">
+            <div *ngIf="ruleList && ruleList.length > 0">                                         
+                <!-- 表数据 -->
+                <table class="table table-hover">
                 
                   <thead>
                     <tr class="table-header">
-                      <th>中间时间段</th>
+                      <th> </th>
+                      <th>时间</th>
                       <th>亮度</th>
                     </tr>
                   </thead>
-                
+
+                  <tr>
+                    <td for="brightnessTime">开灯时间</td>
+                    <td *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[0]">
+                        {{currentRule.holidayRules[0].start.hour}}时 {{currentRule.holidayRules[0].start.minute}}分
+                    </td>
+                    <td *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[0]">
+                        {{currentRule.holidayRules[0].lightLevel}}%
+                    </td>
+                  </tr>
                   <tr *ngFor="let item of holidayList">
+                    <td>时间</td>
                     <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                     <td>{{item.lightLevel}}%</td>
                   </tr>
+                  <tr>
+                    <td for="brightnessTime">关灯时间</td>
+                    <td *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[currentRule.holidayRules.length - 1]">
+                        {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}
+                        时 {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.minute}}分
+                    </td>
+                    <td>0</td>
+                  </tr>
                 </table>
-                <div *ngIf="holidayList.length === 0 || !holidayList" style="margin-bottom: 5px;">无数据！
+
+                <div *ngIf="holidayList.length === 0 || !holidayList" style="margin-bottom: 1px;">无数据！
                   <hr style=" height:2px;border:none;border-top:2px solid #ccc;" />
-                </div>
-                <!-- 关灯时间： -->
-                <div class="row align-items-center justify-content-center">
-                  <div class="col-4 padding-0">
-                    <label for="brightnessTime">关灯时间：</label>
-                
-                  </div>
-                  <div class="col-6 span-marg-bot">
-                    <!-- <span>7:00</span> -->
-                    <span *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[currentRule.holidayRules.length - 1]">
-                      {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}
-                      时 {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.minute}}分</span>
-                  </div>
-                </div>
+                </div>                
             </div>
-            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 5px;">无数据！</div>
-        
-
-        
-          </div>
-        
+            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 1px;">无数据！</div>               
+          </div>        
         </div>
-
-
-
-
-
-
       </div>
     </div>
+
     <!-- 菜单二 策略范围 -->
     <div *ngIf="nav_index === 1" class="strategy-table">
       <div class="row">
@@ -465,8 +412,8 @@
                                               <strong *ngIf="numberFormControl.hasError('required')">起始亮度为必填项</strong>
                                             </mat-error>
                                           </mat-form-field>
-                                          <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 1">
-                                            <strong >起始亮度数值为1 ~ 100</strong>
+                                          <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 0">
+                                            <strong >亮度数值为0 ~ 100</strong>
                                           </mat-error>
                                         </form>
                                       </div>
@@ -653,8 +600,8 @@
                                       <strong>起始亮度为必填项</strong>
                                     </mat-error>
                                   </mat-form-field>
-                                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 1">
-                                    <strong >起始亮度数值为1 ~ 100</strong>
+                                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 0">
+                                    <strong >亮度数值为0 ~ 100</strong>
                                   </mat-error>
                                 </form>
                               </div>
@@ -967,8 +914,8 @@
                       <strong>起始亮度为必填项</strong>
                     </mat-error>
                   </mat-form-field>
-                  <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 1">
-                    <strong >起始亮度数值为1 ~ 100</strong>
+                  <mat-error *ngIf="workday_start_brightness > 100 || workday_start_brightness < 0">
+                    <strong >亮度数值为0 ~ 100</strong>
                   </mat-error>
                 </form>
               </div>
@@ -1155,8 +1102,8 @@
                       <strong>起始亮度为必填项</strong>
                     </mat-error>
                   </mat-form-field>
-                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 1">
-                    <strong >起始亮度数值为1 ~ 100</strong>
+                  <mat-error *ngIf="holiday_start_brightness > 100 || holiday_start_brightness < 0">
+                    <strong >亮度数值为0 ~ 100</strong>
                   </mat-error>
                 </form>
               </div>
