@@ -56,7 +56,7 @@
                 </div>
               </li>
             </ul>
-            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 5px;">无数据！</div>
+            <!-- <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 5px;">无数据！</div> -->
 
           </div>
         </div>
@@ -93,14 +93,14 @@
                             {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}
                             时 {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.minute}}分
                         </td>
-                        <td>0</td>
+                        <td></td>
                       </tr>
                     </table>
-                    <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 2px;"><span style="margin-left:12px;">无数据！</span>
+                    <!-- <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 2px;"><span style="margin-left:12px;">无数据！</span>
                       <hr style=" height:2px;border:none;border-top:2px solid #ccc;" />
-                    </div>                                
+                    </div>                                 -->
             </div>
-            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 1px;">无数据！</div>        
+            <!-- <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 1px;">无数据！</div>         -->
           </div>        
         </div>
 
@@ -141,15 +141,15 @@
                         {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}
                         时 {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.minute}}分
                     </td>
-                    <td>0</td>
+                    <td></td>
                   </tr>
                 </table>
 
-                <div *ngIf="holidayList.length === 0 || !holidayList" style="margin-bottom: 1px;">无数据！
+                <!-- <div *ngIf="holidayList.length === 0 || !holidayList" style="margin-bottom: 1px;">无数据！
                   <hr style=" height:2px;border:none;border-top:2px solid #ccc;" />
-                </div>                
+                </div>                 -->
             </div>
-            <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 1px;">无数据！</div>               
+            <!-- <div *ngIf="ruleList.length === 0 || !ruleList" style="margin-bottom: 1px;">无数据！</div>                -->
           </div>        
         </div>
       </div>
