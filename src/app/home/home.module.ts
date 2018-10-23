@@ -14,6 +14,7 @@ import { StrategyModule } from './strategy/strategy.module';
 import { AirreportModule } from './airreport/airreport.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { IssuedataModule } from './issuedata/issuedata.module';
+import { LedModule } from './led-test/led.module';
 
 import { HomepageComponent } from './homepage/homepage.component';
 // import { AirreportComponent } from './airreport/airreport.component';
@@ -23,17 +24,18 @@ import { HomepageComponent } from './homepage/homepage.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
 // import { MapComponent } from './map/map.component';
-import { LedTestComponent } from './led-test/led-test.component';
+// import { LedTestComponent } from './led-test/led-test.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
          DeviceModule, UserModule, ApplicationModule, SharedModule,
-        StrategyModule, AirreportModule, DashboardModule, IssuedataModule
+        StrategyModule, AirreportModule, DashboardModule, IssuedataModule,
+        LedModule
 
     ],
     declarations: [
     HomepageComponent,
-    LedTestComponent,
+    // LedTestComponent,
     //   IssuedataComponent,
     //  DashboardComponent,
         // MapComponent, LedTestComponent,

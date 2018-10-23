@@ -24,6 +24,26 @@ export class LedService {
 
     }
 
+    createAir(): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/led-api/files/createAir`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+
+
+    }
+
+
+
+    delProgram(id): Observable<any>  {
+        return this.http.delete(`/led-api/programs/delProgram?id=${id}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
     getProgram(id): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
@@ -34,11 +54,10 @@ export class LedService {
 
 
     }
-
-    createUser(body): Observable<any> {
+    createProgram(body): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.post('/led-api/users/createUser', body)
+        return this.http.post('/led-api/programs/createProgram', body)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -46,10 +65,10 @@ export class LedService {
 
     }
 
-    getUsers(currentPage, pageSize): Observable<any> {
+    getPrograms(currentPage, pageSize): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get(`/led-api/users/getUser?pageSize=${pageSize}&currentPage=${currentPage}`)
+        return this.http.get(`/led-api/programs/getPrograms?pageSize=${pageSize}&currentPage=${currentPage}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -57,6 +76,12 @@ export class LedService {
 
     }
 
+    delTask(id): Observable<any> {
+        return this.http.delete(`/led-api/tasks/delTask?id=${id}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
     createTask(body): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
@@ -78,39 +103,15 @@ export class LedService {
 
 
     }
-    searchAllTask(id, currentPage, pageSize): Observable<any> {
-        return this.http.get(`/led-api/tasks/searchAllTask?id=${id}&pageSize=${pageSize}&currentPage=${currentPage}`)
-            .pipe(map((res: Response) => {
-                return res;
-            }));
 
-}
 
-    searchTask(body): Observable<any> {
+
+
+
+    createUser(body): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.post('/led-api/tasks/searchTask', body)
-            .pipe(map((res: Response) => {
-                return res;
-            }));
-
-
-    }
-
-    createMedia(body): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
-
-        return this.http.post('/led-api/medias/createMedia', body)
-            .pipe(map((res: Response) => {
-                return res;
-            }));
-
-
-    }
-    getMedias(currentPage, pageSize): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
-
-        return this.http.get(`/led-api/medias/getMedia?pageSize=${pageSize}&currentPage=${currentPage}`)
+        return this.http.post('/led-api/users/createUser', body)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -118,21 +119,10 @@ export class LedService {
 
     }
 
-    createProgram(body): Observable<any> {
+    getUsers(currentPage, pageSize): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
-        return this.http.post('/led-api/programs/createProgram', body)
-            .pipe(map((res: Response) => {
-                return res;
-            }));
-
-
-    }
-
-    getPrograms(currentPage, pageSize): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
-
-        return this.http.get(`/led-api/programs/getPrograms?pageSize=${pageSize}&currentPage=${currentPage}`)
+        return this.http.get(`/led-api/users/getUser?pageSize=${pageSize}&currentPage=${currentPage}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
