@@ -1,3 +1,5 @@
+@import '../../assets/css/variable.scss';
+
 @media (max-width: 773px /*575.98px*/) { 
     // .product-name , .product-title, .login-left{
     //     display: none;
@@ -41,8 +43,9 @@
 }
 .btn-login {
     display: inline-block;
-    background-color: #434f5c;
-    border-color: #434f5c;
+    // background-color: #434f5c;
+    background-color: $color-theme-text;
+    border-color: $color-theme-text;
     color: #fff;
     font-size: 18px;
 }
@@ -94,12 +97,14 @@
         // float: right;
         // text-align: right;
         bottom: 0;
+        padding: 0 20px;
+        text-shadow:5px 2px 6px #000;
         // right: 80px;
     }
-        .product-title p {
-            color: #506173;
-            margin-left: 12px;
-        }
+        // .product-title p {
+        //     color: #506173;
+        //     margin-left: 12px;
+        // }
 }
 
 .product-name {
