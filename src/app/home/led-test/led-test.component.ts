@@ -9,7 +9,7 @@ import { AirmonitorService } from '../../service/airmonitor.service';
   styleUrls: ['./led-test.component.scss']
 })
 export class LedTestComponent implements OnInit {
-  url = 'http://172.18.8.44:9600/programs/getProgram';
+  url = 'http://172.18.1.133:9600/programs/getProgram';
   model: any = {}; // 存储数据
 
   user: any = {}; // 用户列表

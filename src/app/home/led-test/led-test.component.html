@@ -55,7 +55,8 @@
             <tr>
               <th>序号</th>
               <th>LED_ID</th>
-              <th>任务_ID</th>
+              <!-- <th>任务_ID</th> -->
+              <th>任务名称</th>
               <th>任务类型</th>
               <th>状态</th>
       
@@ -67,7 +68,8 @@
             <tr *ngFor="let item of tasks; let i = index">
               <td>{{i + 1}}</td>
               <td>{{item.id}}</td>
-              <td>{{item._id}}</td>
+              <!-- <td>{{item._id}}</td> -->
+              <td><span>{{item.name}}</span></td>
               <td><span>{{item.datagram.request}}</span></td>
               <td>{{item.status}}</td>
       
