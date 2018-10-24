@@ -5,19 +5,19 @@
 .map-has-footer {
     height: calc(100vh);
 }
-// .cover-footer {
+// .calamity-footer {
 //     height: 400px;
 //     width: calc(100vw - 100px);
 //     margin-right: 0;
 //     margin-left: 0;
 // }
-// .cover_td_1 {
+// .calamity_td_1 {
 //     background-color: red;
 // }
-// .cover_td_2 {
+// .calamity_td_2 {
 //     background-color: yellow;
 // }
-// .cover_td_3{
+// .calamity_td_3{
 //     background-color: green;
 // }
 
@@ -38,7 +38,7 @@
 .list-item{
     padding-top: 12px;
 }
-.cover-tabel {
+.calamity-tabel {
     // height: 100px;
     background: #3c3c3c;
     padding: 0;
@@ -58,7 +58,7 @@
 
 }
 // 圆角+透明度
-.sel-area-block, .cover-issues-block {
+.sel-area-block, .calamity-issues-block {
     border-radius: 5px;
     // filter: alpha(opacity=90);
     // -moz-opacity: 0.9;
@@ -67,13 +67,13 @@
 }
 
 // 消息相关
-.cover-issues {
+.calamity-issues {
     position: absolute;
     z-index: 3000;
     top: 15px;
     right: 170px;
 
-    .cover-issues-block {
+    .calamity-issues-block {
         width: 85px;
         cursor: pointer;
         position: relative;

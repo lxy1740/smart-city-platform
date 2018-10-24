@@ -65,9 +65,9 @@
     
     </div>
   <!-- 灾害消息处理三按键 -->
-  <div class="cover-issues">
+  <div class="calamity-issues">
       <!-- 待处理 -->
-      <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_1()">
+      <div class="d-inline-block calamity-issues-block" (mouseleave)="messageListMouseleave_1()">
           <span class="cl-blue cur-pointer" (mouseover)="showUntartedList()">
               <span class="filter">待处理
                   <span class="m-badge m-badge-danger" >{{model.messageList.length}}</span>
@@ -87,7 +87,7 @@
           </div>
       </div>
       <!-- 处理中 -->
-      <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_2()">
+      <div class="d-inline-block calamity-issues-block" (mouseleave)="messageListMouseleave_2()">
           <span class="cl-blue cur-pointer" (mouseover)="showOnprogressList()">
               <span class="filter">处理中
                   <span class="m-badge m-badge-inprocess" >{{model.messageList1.length}}</span>
@@ -98,7 +98,7 @@
                   <span class="menu_arrow_left"></span>
                   <ul class="messagelist" data-type="area">
                       <li class="messagelist-item" *ngFor="let mess of model.messageList1" (click)="findPoint(mess)">
-                          <!-- <span class="m-list-timeline__badge"></span> -->
+                          <span class="m-list-timeline__badge"></span>
                           <i class="fa fa-circle" aria-hidden="true" style="color:#ffb822;padding-right:5px"></i>
                           <span>{{mess.deviceDescription}}-{{mess.typeName}}-设备ID：{{mess.deviceId}}-{{mess.openTime}}</span>
                       </li>
@@ -107,7 +107,7 @@
           </div>
       </div>
       <!-- 已处理 -->
-      <div class="d-inline-block cover-issues-block" (mouseleave)="messageListMouseleave_3()">
+      <div class="d-inline-block calamity-issues-block" (mouseleave)="messageListMouseleave_3()">
           <span class="cl-blue cur-pointer" (mouseover)="showFinishedList()">
               <span class="filter">已处理
                   <span class="m-badge m-badge-fixed" >{{model.messageList2.length}}</span>

@@ -9,6 +9,7 @@ Author: luo.shuqi@live.com
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core'; // 要求实现方法
 import { MonitorService } from '../../../service/monitor.service';
 import { VideoService } from '../../../service/video.service';
+import { Router } from '@angular/router';
 // baidu map
 declare let BMap;
 declare let BMAP_ANCHOR_TOP_LEFT;
@@ -25,6 +26,11 @@ export class CalamityComponent implements OnInit, OnDestroy {
   /*
   model:object
   light_list: array // 灾害数据
+
+  @deviceType: number// 井盖类型id
+  @messageList: array //  待处理消息
+  @messageList1: array // 处理中消息
+  @messageList2: array // 已处理消息
   */
   model: any = {}; // 存储数据
 
@@ -51,9 +57,18 @@ export class CalamityComponent implements OnInit, OnDestroy {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
 
+  showunstartedlist = false; // 默认不显示“未处理”的异常消息
+  showonprogresslist = false; // 默认不显示“处理中”的异常消息
+  showfinishedlist = false; // 默认不显示“已处理”的异常消息
 
-  constructor(private monitorService: MonitorService, private videoService: VideoService ) {
-    this.model.light_list = []; // 城市列表
+  constructor(private monitorService: MonitorService, private videoService: VideoService,
+    public router: Router) {
+    this.model.deviceType = 8; // 灾害
+    this.model.messageList = []; // 待处理
+    this.model.messageList1 = []; // 处理中
+    this.model.messageList2 = []; // 已处理
+
+    this.model.light_list = []; // 当前灾害列表
     this.map_model.cityList = []; // 城市列表
     this.map_model.currentChildren = []; // 区域列表一级
     this.map_model.currentBlock = []; // // 当前城市街道 = []; // 区域列表2级
@@ -63,10 +78,61 @@ export class CalamityComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.addBeiduMap(); // 百度地图API功能
     this.getCity(); // 获取城市列表
-
+    this.getUserList();// 获取用户列表
+  }
+   // 用户列表
+   getUserList() {
+    const that = this;
+    this.videoService.getAllUser().subscribe({
+      next: function(val) {
+        that.model.userList = val;
+      },
+      complete: function() {},
+      error: function(error) {
+        console.log(error);
+      }
+    });
   }
 
+  // 获取井盖异常消息列表
+  getMessage() {
+    const that = this;
+    const deviceType = this.model.deviceType;
+    // 待处理
+    this.videoService.getIssues(deviceType, 0).subscribe({
+      next: function (val) {
+        console.log("deviceType",deviceType);       
+        console.log("0val",val);
+        that.model.messageList = val;
 
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+    // 处理中
+    this.videoService.getIssues(deviceType, 1).subscribe({
+      next: function (val) {
+        console.log("deviceType",deviceType);
+        console.log("1val",val);
+        that.model.messageList1 = val;
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+    // 已处理
+    this.videoService.getIssues(deviceType, 2).subscribe({
+      next: function (val) {
+        console.log("deviceType",deviceType);
+        console.log("2val",val);
+        that.model.messageList2 = val;
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
 
   // 百度地图API功能
   addBeiduMap() {
@@ -100,36 +166,24 @@ export class CalamityComponent implements OnInit, OnDestroy {
     });
     map.addControl(navigationControl);
 
+    
 
-
-    this.getLights(); // 获取地图上的点
-    this.timer = setInterval(() => {
-      this.getLights(); // 获取地图上的点
-    }, 10000 * 60);
-
-
+    this.addThing();// 将自己添加的东西放到地图上
 
   }
+  addThing(){
+    this.getLights(); // 获取地图上的点
+    this.getMessage(); //获取井盖异常消息列表
+    this.timer = setInterval(() => {
+      this.getLights(); // 获取地图上的点
+      this.getMessage(); //获取井盖异常消息列表
+    }, 10000 * 60);
+  }
 
-
+  // 获取地图上的灾害点
   getLights() {
     const that = this;
 
-    // this.videoService.getCalamity().subscribe({
-    //   next: function (val) {
-    //     that.model.light_list = val;
-    //     const compar = that.judgeChange(that.model.light_list);
-    //     console.log(compar);
-    //     that.deleMarker(compar.a0); // 删除
-    //     that.changeMarker(compar.b1); // 替换
-
-    //   },
-    //   complete: function () {
-    //   },
-    //   error: function (error) {
-    //     console.log(error);
-    //   }
-    // });
     const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
     const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
     const SouthWest = Bounds.getSouthWest();
@@ -271,8 +325,12 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
   // 添加点标注
   addMarker(light_list) {
+    const markers: any[] = [];
+    const points: any[] = [];
+    const that = this;
+
     for (let index = 0; index < light_list.length; index++) {
-      const item = light_list[index];
+      const item = light_list[index];// 点消息
       const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
 
       let myIcon;
@@ -280,40 +338,225 @@ export class CalamityComponent implements OnInit, OnDestroy {
         // console.log(111111111);
         myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
+        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // this.map.addOverlay(marker2);
       } else if (item.deviceModelId === 33 && item.alarm === 1) { // 山体滑坡2landslide
        
         myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
+        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // this.map.addOverlay(marker2);
 
       } else if (item.deviceModelId === 34 && item.alarm === 1) { // 异味臭气1odor
         myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
+        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // this.map.addOverlay(marker2);
 
       } else if (item.deviceModelId === 35 && item.alarm === 1) { // 燃气泄漏1gas
         myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
+        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // this.map.addOverlay(marker2);
 
       } else if (item.deviceModelId === 36 && item.alarm === 1) { // 道路积水1hydrops
         myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
+        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // this.map.addOverlay(marker2);
 
       }
+      const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      this.map.addOverlay(marker2);
+
+      markers.push(marker2); // 聚合
+      points.push(point); // 聚合
+
+    }
+
+    // 点击点标注事件
+    for (let index = 0; index < markers.length; index++) {
+      const marker = markers[index];
+      this.videoService.getDeviceIssues(light_list[index].id, 0).subscribe({
+        next: function (res1) {
+          that.videoService.getDeviceIssues(light_list[index].id, 1).subscribe({
+            next: function (res2) {
+              that.openSideBar(marker, that.map, light_list[index], points[index], res1, res2);
+            },
+            error: function (error) {
+              console.log(error);
+            }
+          });
+          // that.openSideBar(marker, that.map, val[index], points[index], res);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
 
     }
   }
-  // addMarker(val) {
+  
+  // 标注消息列表中点击的灾害事件（点击靠近那个点）
+  findPoint(item) {
+    console.log("item",item);
+    let marker;
+    const makers = this.map.getOverlays();
+    const point = new BMap.Point(item.point.lng, item.point.lat);
+    this.model.issueId = item.id;
+    for (let index = 0; index < makers.length; index++) {
+      const element = makers[index];
+      const lat = element.point && element.point.lat;
+      const lng = element.point && element.point.lng;
+      if (point.lat === lat && point.lng === lng) {
+        marker = element;
+        console.log("marker",marker);
+        
+        if (marker) {
+          marker.V.click();
+        }
+      }
+      
+    }
 
-  // }
+    this.map.centerAndZoom(point, 18);
+
+  }
+
+  // 地图点注标-点击事件
+  openSideBar(marker, baiduMap, mess, point, res1, res2) {
+    // const res = this.getDeviceIssues(mess.id);
+    /*
+    res1: 待处理
+    res2: 处理中
+    */
+    const that = this;
+    const opts = {
+      width: 350,     // 信息窗口宽度
+      // height: 100,     // 信息窗口高度
+      // title: `${val.name} | ${val.id }`, // 信息窗口标题
+      // enableMessage: true, // 设置允许信息窗发送短息
+      enableAutoPan: true, // 自动平移
+      // border-radius: 5px,
+    };
+    console.log("mess-start",mess);
+    this.model.deviceId = mess.id;
+    let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
+
+    txt = txt + `灾害编号 | ${mess.name} | ${mess.id}</p><p> 灾害名称：${mess.description}</p>`;
+    if (mess.alarm === 0) {
+      txt = txt + `<p> <span style='color: blue'>警报：正常</span></p>`;
+    } else {
+      txt = txt + `<p> <span style='color: red'>警报：${mess.alarm}级</span></p>`;
+    }
+    if (mess.error === false) {
+      txt = txt + `<p> 是否危险：<span style='color: red'>是</span></p>`;
+    } else {
+      txt = txt + `<p> 是否危险：否</p>`;
+    }
+    if (mess.offline === false) {
+      txt = txt + `<p> <span style='color: blue'>在线</span></p>`;
+    } else {
+      txt = txt + `<p> <span style='color: red'>离线</span></p>`;
+    }
+    // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
+
+    if (res1 && res1.length > 0) {
+      txt = txt + `<hr><p style='color: red;'>待处理事件：</p>`;
+      for (let index = 0; index < res1.length; index++) {
+        const element = res1[index];
+        txt = txt + `<p style='color: red;'>${element.typeName}</p>`;
+      }
+      const m = `massage-lsq${mess.id}`;
+      const p = `massage-post${mess.id}`;
+      const selId = `select${mess.id}`;
+      txt = txt + `
+      <div class="form-inline">
+        <label class="control-label" style='font-size: 14px; margin: 5px'>
+          指派人员：<span style="color: red;">*</span>
+        </label>
+        <select name="assignUser" class="cur-pointer form-control" style='font-size: 14px; margin: 5px'
+          id="${selId}"></select></div>`; // onchange="${that.model.curUser}=options[selectedIndex].value"
+      txt = txt + `<label>处理信息：</label><textarea id=${m}  rows="3"  style='width:100%;'></textarea>`;
+      txt = txt + `<p><button id=${p} class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px'>
+      处理</button></p>`;
+
+
+    }
+    if (res2 && res2.length > 0) {
+      txt = txt + `<hr><p style='color: #ffb822;'>处理中事件：</p>`;
+      for (let index = 0; index < res2.length; index++) {
+        const element = res2[index];
+        txt = txt + `<p style='color: #ffb822;'>${element.typeName}</p>`;
+        
+      }
+    }
+
+    const infoWindow = new BMap.InfoWindow(txt, opts);
+
+    marker.addEventListener('click', function () {
+      that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+
+      const obj = document.getElementById(`select${mess.id}`);
+      if (obj) {
+        // obj.append(new Option('请选择处理用户', ''));
+        for (let i = 0; i < that.model.userList.length; i++) {
+          // console.log('option');
+          (<any>obj).append(new Option(that.model.userList[i].userName, that.model.userList[i].userName));
+        }
+      }
+      setTimeout(() => {
+        that.deviceAddEventListener(mess);
+      }, 0);
+      console.log("mess-end",mess);
+    });
+
+  }
+  // 点击处理按钮事件
+  deviceAddEventListener(mess) {
+    const that = this;
+    const m = `massage-lsq${mess.id}`;
+    const p = `massage-post${mess.id}`;
+    const selId = `select${mess.id}`;
+    const message_l = document.getElementById(m);
+    const message_p = document.getElementById(p);
+    const selectUser = document.getElementById(selId); // 用户下拉列表
+    let curUser = '';
+    if (selectUser) {
+      selectUser.addEventListener('change', function () { // 用户下拉列表 - 监听事件
+        const selIndex = selectUser['selectedIndex'];
+        curUser = that.model.userList[selIndex].id;
+      });
+    }
+    if (message_p) {
+      message_p.addEventListener('click', function () { // 处理按键 - 监听事件
+        if (curUser) {
+          const issueId = that.model.deviceId;
+          console.log('issueId');
+          console.log(issueId);
+          that.setDeviceIssues(issueId, 0, 1, message_l['value'], curUser);
+        }
+      });
+    }
+  }
+  // 设置指定设备事件状态
+  setDeviceIssues(issueId, orgState, state, comment, curUser) {
+    const that = this;
+    this.videoService.setDeviceIssues(issueId, orgState, state, comment, curUser).subscribe({
+      next: function () {
+        if (that.model.infoW) {
+          that.model.infoW.clickclose();
+        }
+
+      },
+      complete: function () {
+
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
 
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
@@ -432,7 +675,11 @@ export class CalamityComponent implements OnInit, OnDestroy {
     return that.node;
   }
 
+// 进入数据监控页面
+jumpHandle() {
+  this.router.navigate([`home/issuedata`]);
 
+}
   // 进入全屏
   enterFullScreen() {
     console.log('进入全屏');
@@ -498,6 +745,33 @@ export class CalamityComponent implements OnInit, OnDestroy {
     this.areashow = true;
     this.map_model.currentBlock = [];
   }
+
+  // 消息相关
+  // 显示 未处理 消息
+  showUntartedList() {
+    this.showunstartedlist = true;
+  }
+  // 显示 处理中 消息
+  showOnprogressList() {
+    this.showonprogresslist = true;
+  }
+  // 显示 已处理消息
+  showFinishedList() {
+    this.showfinishedlist = true;
+  }
+  // 离开 未处理
+  messageListMouseleave_1() {
+    this.showunstartedlist = false;
+  }
+  // 离开 处理中
+  messageListMouseleave_2() {
+    this.showonprogresslist = false;
+  }
+  // 离开 已处理
+  messageListMouseleave_3() {
+    this.showfinishedlist = false;
+  }
+
 
   ngOnDestroy() {
     window.clearInterval(this.timer);
