@@ -136,6 +136,15 @@ export class CoverComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     });
+    // this.coverService.getIssues(8, 2).subscribe({
+    //   next: function (val) {
+    //     console.log('(type: 8, state: 2): ');
+    //     console.log(val);
+    //   },
+    //   error: function (error) {
+    //     console.log(error);
+    //   }
+    // });
   }
   // 百度地图API功能
   addBeiduMap() {
@@ -198,7 +207,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     let value;
     this.coverService.getCovers(NorthEast, SouthWest).subscribe({
       next: function (val) {
-        console.log(val);
+        // console.log(val);
         // value = val;
         compar = that.comparison(that.model.coverList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
@@ -355,7 +364,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       const lng = element.point && element.point.lng;
       if (point.lat === lat && point.lng === lng) {
         marker = element;
-        console.log(marker);
+        // console.log(marker);
         if (marker) {
           marker.V.click();
         }
