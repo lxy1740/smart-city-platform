@@ -277,13 +277,13 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
       let myIcon;
       if (item.deviceModelId === 32 && item.alarm === 1) { // 楼宇坍塌1building
-        console.log(111111111);
+        // console.log(111111111);
         myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
       } else if (item.deviceModelId === 33 && item.alarm === 1) { // 山体滑坡2landslide
-        console.log(111111111);
+       
         myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
