@@ -12,7 +12,6 @@ export class LightService {
 
     constructor(private http: HttpClient) {
 
-
     }
 
 

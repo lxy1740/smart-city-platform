@@ -6,13 +6,14 @@ Author: luo.shuqi@live.com
 @time: 2018 /8 / 9 9: 00
 
 */
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core'; // 要求实现方法
 import { MonitorService } from '../../../service/monitor.service';
 import { VideoService } from '../../../service/video.service';
 // baidu map
 declare let BMap;
 declare let BMAP_ANCHOR_TOP_LEFT;
 
+// 装饰器函数
 @Component({
   selector: 'app-calamity',
   templateUrl: './calamity.component.html',
@@ -58,8 +59,9 @@ export class CalamityComponent implements OnInit, OnDestroy {
     this.map_model.currentBlock = []; // // 当前城市街道 = []; // 区域列表2级
    }
 
+  // 放置初始化逻辑
   ngOnInit() {
-    this.addBeiduMap();
+    this.addBeiduMap(); // 百度地图API功能
     this.getCity(); // 获取城市列表
 
   }
@@ -91,6 +93,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
     // 添加控件缩放
 
     const offset = new BMap.Size(20, 55);
+    // 平移缩放控件
     const navigationControl = new BMap.NavigationControl({
       anchor: BMAP_ANCHOR_TOP_LEFT,
       offset: offset,
@@ -112,22 +115,69 @@ export class CalamityComponent implements OnInit, OnDestroy {
   getLights() {
     const that = this;
 
-    this.videoService.getCalamity().subscribe({
+    // this.videoService.getCalamity().subscribe({
+    //   next: function (val) {
+    //     that.model.light_list = val;
+    //     const compar = that.judgeChange(that.model.light_list);
+    //     console.log(compar);
+    //     that.deleMarker(compar.a0); // 删除
+    //     that.changeMarker(compar.b1); // 替换
+
+    //   },
+    //   complete: function () {
+    //   },
+    //   error: function (error) {
+    //     console.log(error);
+    //   }
+    // });
+    const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
+    const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
+    const SouthWest = Bounds.getSouthWest();
+
+    // let compar;
+    // let value;
+    this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
       next: function (val) {
-        that.model.light_list = val;
-        const compar = that.judgeChange(that.model.light_list);
-        console.log(compar);
-        that.deleMarker(compar.a0); // 删除
-        that.changeMarker(compar.b1); // 替换
+        // value = val;
+        console.log(val);
+        // compar = that.comparison(that.model.coverList, val);
+        // value = that.judgeChange(compar.a_arr, compar.b_arr);
+
+        // that.changeMarker(value); // 替换
+        // that.deleMarker(compar.a_surplus); // 删除
+        // // that.deleMarker(value); // 删除
+        // that.addMarker(compar.b_surplus); // 添加
+        // // that.addPoint(value); // 添加
+
+        // that.model.light_list = val; // 变为新值
+        that.addMarker(val);
 
       },
       complete: function () {
+        // that.addPoint(value);
       },
       error: function (error) {
         console.log(error);
       }
-    });
 
+    });
+    // this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
+    //   next: function (val) {
+    //     console.log('val:', val);
+    //     that.model.light_list = val; // 将val的值存储在light_list
+    //     const compar = that.judgeChange(that.model.light_list); // 声明compar，判断变化值
+
+    //     console.log('compar', compar); // 打印出存储在compar的数据
+    //     that.deleMarker(compar.a0); // 删除
+    //     that.changeMarker(compar.b1); // 替换
+
+    //   },
+    //   complete: function () {
+    //   },
+    //   error: function (error) {
+    //     console.log(error);
+    //   }
+    // });
 
 
   }
@@ -140,7 +190,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       if (element.error === 1) {
         b1.push(element);
       } else {
-        a0.push(element);
+        a0.push(element); // 将值push到a0中
       }
     }
     return {
@@ -148,14 +198,59 @@ export class CalamityComponent implements OnInit, OnDestroy {
       b1: b1
     };
   }
+  // 交并补
+  comparison(a, b) {
+    const a_arr: any[] = [];
+    const b_arr: any[] = [];
+    const a_surplus: any[] = [];
+    const b_surplus: any[] = [];
+    let i = 0;
+    for (let j = 0; j < b.length; j++) {
+      while (i < a.length && a[i].id < b[j].id) {
+        a_surplus.push(a[i]);
+        i++;
+      }
+      if (i >= a.length || a[i].id > b[j].id) {
+        b_surplus.push(b[j]);
+      } else {
+        a_arr.push(a[i]);
+        i++;
+        b_arr.push(b[j]);
+      }
+    }
+    return {
+      a_arr: a_arr,
+      b_arr: b_arr,
+      a_surplus: a_surplus,
+      b_surplus: b_surplus,
+    };
+  }
+  // 判断变化值
+  // judgeChange(a, b) {
+  //   const changePoint: any[] = [];
+  //   const length = a.length < b.length ? a.length : b.length;
+  //   for (let index = 0; index < length; index++) {
+  //     const a_element = a[index];
+  //     const b_element = b[index];
+  //     if (a_element.error !== b_element.error ||
+  //       a_element.offline !== b_element.offline ||
+  //       a_element.alarm !== b_element.alarm ||
+  //       a_element.lowBattery !== b_element.lowBattery
+  //      ) {
+  //       changePoint.push(b_element);
+  //     }
 
+  //   }
+  //   return changePoint;
+
+  // }
 
 
 
   // 替换
   changeMarker(light_list) {
     this.deleMarker(light_list); // 删除
-    this.addMarker(light_list); // 添加
+    this.addMarker(light_list); //  添加
   }
   // 删除
   deleMarker(light_list) {
@@ -170,41 +265,43 @@ export class CalamityComponent implements OnInit, OnDestroy {
         if (point[1] === lat && point[0] === lng) {
           this.map.removeOverlay(makers[index]);
         }
-
       }
     }
   }
 
+  // 添加点标注
   addMarker(light_list) {
     for (let index = 0; index < light_list.length; index++) {
       const item = light_list[index];
-      const point = new BMap.Point(item.point[0], item.point[1]);
+      const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
 
       let myIcon;
-      if (item.type === 1 && item.error === 1) { // 楼宇坍塌1building
+      if (item.deviceModelId === 32 && item.alarm === 1) { // 楼宇坍塌1building
+        console.log(111111111);
         myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
-      } else if (item.type === 2 && item.error === 1) { // 山体滑坡2landslide
+      } else if (item.deviceModelId === 33 && item.alarm === 1) { // 山体滑坡2landslide
+        console.log(111111111);
         myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
 
-      } else if (item.type === 3 && item.error === 1) { // 异味臭气1odor
+      } else if (item.deviceModelId === 34 && item.alarm === 1) { // 异味臭气1odor
         myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
 
-      } else if (item.type === 4 && item.error === 1) { // 燃气泄漏1gas
+      } else if (item.deviceModelId === 35 && item.alarm === 1) { // 燃气泄漏1gas
         myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         this.map.addOverlay(marker2);
 
-      } else if (item.type === 5 && item.error === 1) { // 道路积水1hydrops
+      } else if (item.deviceModelId === 36 && item.alarm === 1) { // 道路积水1hydrops
         myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(300, 157));
         myIcon.setAnchor(new BMap.Size(16, 38));
         const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
@@ -214,6 +311,9 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
     }
   }
+  // addMarker(val) {
+
+  // }
 
   // 解析地址- 设置中心和地图显示级别
   getPoint(baiduMap, city) {
@@ -306,7 +406,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
       if (obj.id === nodeId) {
         // 找到了与nodeId匹配的节点，结束递归
         that.node = obj;
-
         break;
       } else {
 

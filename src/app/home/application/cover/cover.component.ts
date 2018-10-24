@@ -43,7 +43,6 @@ export class CoverComponent implements OnInit, OnDestroy {
   @currentChildren: array // 区域列表一级
   @currentBlock: array // 当前城市街道 = []; // 区域列表2级
 
-
   */
 
   map_model: any = {}; // 存储数据
@@ -199,6 +198,7 @@ export class CoverComponent implements OnInit, OnDestroy {
     let value;
     this.coverService.getCovers(NorthEast, SouthWest).subscribe({
       next: function (val) {
+        console.log(val);
         // value = val;
         compar = that.comparison(that.model.coverList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
