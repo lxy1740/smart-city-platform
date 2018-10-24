@@ -391,7 +391,6 @@ export class CoverComponent implements OnInit, OnDestroy {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    this.model.deviceId = mess.id;
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
 
     txt = txt + `设备编号 | ${mess.name} | ${mess.id}</p><p> 设备名称：${mess.description}</p>`;
@@ -448,9 +447,11 @@ export class CoverComponent implements OnInit, OnDestroy {
     }
 
     const infoWindow = new BMap.InfoWindow(txt, opts);
+    that.model.infoW1 = infoWindow;
 
     marker.addEventListener('click', function () {
       that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
+      that.model.deviceId = mess.id;
 
       const obj = document.getElementById(`select${mess.id}`);
       if (obj) {
@@ -486,10 +487,10 @@ export class CoverComponent implements OnInit, OnDestroy {
     if (message_p) {
       message_p.addEventListener('click', function () { // 处理按键 - 监听事件
         if (curUser) {
-          const issueId = that.model.deviceId;
-          console.log('issueId');
-          console.log(issueId);
-          that.setDeviceIssues(issueId, 0, 1, message_l['value'], curUser);
+          const issueId = that.model.deviceId; // 当前弹框所指设备的id
+          that.setDeviceIssues(issueId, 0, 1, message_l['value'], curUser); // 更改该设备下所有待处理事件的状态
+          that.map.closeInfoWindow(that.model.infoW1); // 关闭窗口
+          that.getMessage(); // 刷新消息列表
         }
       });
     }
