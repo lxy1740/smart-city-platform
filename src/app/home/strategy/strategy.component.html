@@ -78,17 +78,17 @@
                         </tr>
                       </thead>
                       <tr>
-                        <td for="brightnessTime">开灯时间</td>
+                        <td for="brightnessTime">开灯</td>
                         <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].start.hour}}时 {{currentRule.workdayRules[0].start.minute}}分</td>
                         <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].lightLevel}}%</td>
                       </tr>
                       <tr *ngFor="let item of workdayList; let i = index">
-                        <td >时间&nbsp;{{i+1}}</td>
+                        <td >调光{{i+1}}</td>
                         <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                         <td>{{item.lightLevel}}%</td>
                       </tr>
                       <tr for="brightnessTime">
-                        <td>关灯时间</td>
+                        <td>关灯</td>
                         <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[currentRule.workdayRules.length - 1]">
                             {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}
                             时 {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.minute}}分
@@ -122,7 +122,7 @@
                   </thead>
 
                   <tr>
-                    <td for="brightnessTime">开灯时间</td>
+                    <td for="brightnessTime">开灯</td>
                     <td *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[0]">
                         {{currentRule.holidayRules[0].start.hour}}时 {{currentRule.holidayRules[0].start.minute}}分
                     </td>
@@ -132,12 +132,12 @@
                   </tr>
                   <tr *ngFor="let item of holidayList;let i=index">
                     <!-- 为时间添加一个下标 -->
-                    <td>时间&nbsp;{{i+1}}</td>
+                    <td>调光&nbsp;{{i+1}}</td>
                     <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                     <td>{{item.lightLevel}}%</td>
                   </tr>
                   <tr>
-                    <td for="brightnessTime">关灯时间</td>
+                    <td for="brightnessTime">关灯</td>
                     <td *ngIf="currentRule && currentRule.holidayRules && currentRule.holidayRules[currentRule.holidayRules.length - 1]">
                         {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}
                         时 {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.minute}}分
