@@ -10,9 +10,9 @@ import {
     HttpProgressEvent,
     HttpResponse,
     HttpEvent,
-    HttpUserEvent, } from '@angular/common/http';
+    HttpUserEvent } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs/';
 import { CookieService } from 'ngx-cookie';
 
@@ -25,7 +25,7 @@ export class InterceptorService implements HttpInterceptor { //  implements Http
         setTimeout(() => this.injector.get(Router).navigateByUrl(url));
     }
 
-    private handleData(event: HttpResponse<any> | HttpErrorResponse, ): Observable<any> {
+    private handleData(event: HttpResponse<any> | HttpErrorResponse ): Observable<any> {
         // 业务处理：一些通用操作
         const that = this;
         switch (event.status) {

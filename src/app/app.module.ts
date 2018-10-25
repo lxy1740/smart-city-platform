@@ -6,10 +6,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { CookieModule } from 'ngx-cookie';
-
-
 
 import { HomeModule } from './home/home.module';
 import { ServiceModule } from './service/service.module';
@@ -24,11 +21,7 @@ import { UserComponent } from './home/user/user.component';
 import { MonitorComponent } from './home/monitor/monitor.component';
 import { ApplicationComponent } from './home/application/application.component';
 
-
-
 import { AppRoutingModule } from './app-routing.module';
-
-
 
 import { AuthGuard } from './guard/auth-guard.service';
 import { AuthService } from './guard/auth.service';
@@ -54,8 +47,7 @@ export function tokenGetter() {
     DeviceComponent,
     UserComponent,
     MonitorComponent,
-    ApplicationComponent,
-
+    ApplicationComponent
 
   ],
   imports: [
@@ -68,7 +60,6 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     HomeModule,
     MaterialModule,
-
     ServiceModule,
     SharedModule,
     HttpClientModule,
@@ -83,7 +74,7 @@ export function tokenGetter() {
   providers: [
     AuthGuard, AuthService, WindowRef, httpInterceptorProviders,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 
 })
 export class AppModule {

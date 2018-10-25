@@ -23,7 +23,7 @@ const appRoutes: Routes = [
             appRoutes,
             {
                 // enableTracing: true, // <-- debugging purposes only
-                preloadingStrategy: SelectivePreloadingStrategy,
+                preloadingStrategy: SelectivePreloadingStrategy
 
             }
         )

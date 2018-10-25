@@ -5,7 +5,7 @@ export const IssuedataRoutes: Route[] = [
 
     {
         path: 'issuedata',
-        component: IssuedataComponent,
+        component: IssuedataComponent
 
     }
 ];

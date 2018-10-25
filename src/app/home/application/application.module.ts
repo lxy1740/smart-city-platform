@@ -19,11 +19,11 @@ import { ElectricalComponent } from './electrical/electrical.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, NgbModule,
-        MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule,
+        MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule
     ],
     declarations: [
         CoverComponent, CalamityComponent,
-        LightComponent, SecurityComponent, TrafficComponent, WaterComponent, AirComponent, ElectricalComponent,
+        LightComponent, SecurityComponent, TrafficComponent, WaterComponent, AirComponent, ElectricalComponent
 ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

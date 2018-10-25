@@ -31,7 +31,7 @@ export const ApplicationRoutes: Route[] = [
                     { path: 'traffic', component: TrafficComponent },
                     { path: 'water', component: WaterComponent },
                     { path: 'air', component: AirComponent },
-                    { path: 'electrical', component: ElectricalComponent },
+                    { path: 'electrical', component: ElectricalComponent }
 
                 ]
             }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IssuedataComponent } from './issuedata.component';
@@ -11,7 +11,7 @@ import { IssuedataComponent } from './issuedata.component';
     imports: [
         CommonModule,
         NgbModule,
-        FormsModule, ReactiveFormsModule,
+        FormsModule, ReactiveFormsModule
 
     ],
     declarations: [IssuedataComponent],
