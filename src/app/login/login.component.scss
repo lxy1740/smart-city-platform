@@ -11,6 +11,7 @@
     .login-right {
         background: rgba(255, 255, 255, 0.7) !important;
         top: 160px !important;
+        left: calc(50vw - 137px);
         height: 50vh !important;
         .form-control:focus {
             background: rgba(255, 255, 255, 0) !important;
@@ -21,12 +22,17 @@
         }
 
     }
+    .login-left {
+        width: calc(100vw - 60px) !important;
+    }
 
  }
  @media(max-width: 490px){
     .login-left {
-        top: 160px !important;
-        height: 50vh !important;
+        top: 145px !important;
+        width: calc(100vw - 60px) !important;
+        height: calc(50vh + 30px) !important;
+        // display:none;
     }
  }
  @media(max-width: 390px){
