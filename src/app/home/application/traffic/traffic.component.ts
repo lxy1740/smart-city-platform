@@ -8,6 +8,7 @@ declare let Aliplayer;
 declare let BMap;
 declare let BMapLib;
 declare let BMAP_ANCHOR_TOP_RIGHT;
+declare let swfobject;
 
 
 
@@ -39,6 +40,7 @@ export class TrafficComponent implements OnInit {
   map: any; // 地图对象
 
   currentCamera: any;  // 当前摄像头
+  videoUrl: any;  // 当前摄像头
 
   currentCameraShowMe = false;
 
@@ -190,7 +192,7 @@ export class TrafficComponent implements OnInit {
 
   // 地图点注标-点击事件
   openSideBar(marker, camera) {
-    console.log(camera);
+
     const that = this;
 
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
@@ -211,14 +213,34 @@ export class TrafficComponent implements OnInit {
     // const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
+      that.currentCameraShowMe = false;
       that.currentCamera = camera;
-      that.currentCameraShowMe = true;
+      that.videoUrl = `src=${camera.videoUrl}`;
+      console.log(camera);
+
 
       setTimeout(() => {
-        that.cameraAddEventListener();
+        that.currentCameraShowMe = true;
       }, 2);
     });
 
+  }
+
+  play(url) {
+
+    const flashvars = {
+      src: url
+    };
+    const params = {
+      allowFullScreen: true
+      , allowScriptAccess: 'always'
+      , bgcolor: '#000000'
+    };
+    const attrs = {
+      name: 'player'
+    };
+
+    swfobject.embedSWF('GrindPlayer.swf', 'player', '854', '480', '10.2', null, flashvars, params, attrs);
   }
   // 点击子设备
   cameraAddEventListener() {

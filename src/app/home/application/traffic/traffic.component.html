@@ -73,14 +73,20 @@
     <div class="camera-detail" *ngIf="currentCameraShowMe">
         <div class="camera-title">
             <span class="" >{{currentCamera.description}}</span>
+            <!-- <span class="" >{{videoUrl}}</span> -->
             <span class="camera-close float-right" (click)="closeDetail()"><i class="fa fa-times" aria-hidden="true"></i></span>
 
         </div>
         <div class="modal-body ">
-            <!-- <div class="video-block">
-                 
-            </div> -->
-            <div class="prism-player video-play" id="video_play" ></div>
+            <object name="player" width="370" height="480" id="player1" data="assets/js/GrindPlayer.swf" type="application/x-shockwave-flash"
+                style="visibility: visible;">
+                <param name="allowFullScreen" value="true" />
+                <param name="allowScriptAccess" value="always" />
+                <param name="bgcolor" value="#000000" />
+                <param name="flashvars" [value]="videoUrl" />
+
+            </object>
+
         </div>
 
         <!-- <div  class="modal-footer">
