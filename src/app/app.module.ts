@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
 import { NgModule } from '@angular/core';
+// import { enableProdMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -37,6 +38,8 @@ import { httpInterceptorProviders } from './interceptor/index';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
+// enableProdMode();
 
 @NgModule({
   declarations: [

@@ -78,13 +78,27 @@
 
         </div>
         <div class="modal-body ">
-            <object name="player" width="370" height="480" id="player1" data="assets/js/GrindPlayer.swf" type="application/x-shockwave-flash"
+            <!-- <object name="player" width="370" height="480" id="player1" data="assets/js/GrindPlayer.swf" type="application/x-shockwave-flash"
                 style="visibility: visible;">
                 <param name="allowFullScreen" value="true" />
                 <param name="allowScriptAccess" value="always" />
                 <param name="bgcolor" value="#000000" />
                 <param name="flashvars" [value]="videoUrl" />
 
+            </object> -->
+            <object id="myId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="370" height="480">
+                <param name="movie" [value]="videoUrl"/>
+                <!--[if !IE]>-->
+                <object type="application/x-shockwave-flash" data="assets/js/GrindPlayer.swf" [value]="videoUrl" width="370" height="480">
+                    <!--<![endif]-->
+                    <div>
+                        <h1>Alternative content</h1>
+                        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+                                    alt="Get Adobe Flash player" /></a></p>
+                    </div>
+                    <!--[if !IE]>-->
+                </object>
+                <!--<![endif]-->
             </object>
 
         </div>
