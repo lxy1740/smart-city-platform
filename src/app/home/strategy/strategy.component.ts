@@ -240,6 +240,8 @@ export class StrategyComponent implements OnInit {
     this.getZoneDefault(); // 获取城市
 
   }
+
+  
   // 获取策略表
   getStrategyList() {
     const that = this;
@@ -260,10 +262,12 @@ export class StrategyComponent implements OnInit {
 
   // 点击策略及初始化时调用
   getRules(item) {
+    
     const that = this;
     const strategyId = item.id;
     this.strategyService.getRules(strategyId).subscribe({
       next: function (val) {
+        
         that.ruleList = val;
       },
       complete: function () {
@@ -289,15 +293,18 @@ export class StrategyComponent implements OnInit {
     this.getRules(item);
 
   }
+  
   // 点击一个规则
   selectRule(item, i) {
     this.currentRule = item;
     this.getWorkdayList(item);
     this.rule_index = i;
+   
   }
   // 获取工作日中间段时间
   getWorkdayList(rule) {
     this.workdayList = [];
+    
     this.holidayList = [];
     if (!rule) {
       return;
@@ -311,7 +318,6 @@ export class StrategyComponent implements OnInit {
     if (len1 > 2) {
       this.holidayList = rule.holidayRules.slice(1, len1 - 1);
     }
-
   }
 
   // 添加策略弹框操作
@@ -347,7 +353,7 @@ export class StrategyComponent implements OnInit {
 
   // 更新策略-弹框操作
   openUpdataStrategy(content, item, index) {
-
+    console.log("item",item);
     const that = this;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;

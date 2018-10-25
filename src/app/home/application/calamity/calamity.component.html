@@ -13,6 +13,7 @@
         <div id="city-panel" class="city-panel dropdown_panel" *ngIf="cityshow">
           <div class="dropdown_panel_inner">
             <span class="menu_arrow_left"></span>
+            <!-- ngFor 指令来显示数组中每一项的信息。 -->
             <dl *ngFor="let item of map_model.cityList">
               <dt>{{item.name}}</dt>
               <dd *ngIf="item.children && item.children.length > 0">

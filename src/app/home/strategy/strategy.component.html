@@ -43,7 +43,7 @@
         <div class="col-6 col-md-4 ">
           <div class=" panel-default city-list">
             <div class="date-title">
-              <span >日期</span>
+              <span class="spanTitle">日期</span>
               <button class="btn btn-bg" (click)="openAddRule(contentAddRule)">添加</button>
 
             </div>
@@ -64,7 +64,7 @@
         <div class="col-6 col-md-4 ">
           <div class="table-holiday panel-default">
             <div class="date-title">
-              <span>工作日</span>
+              <span class="spanTitle">工作日</span>
             </div>
             <div *ngIf="ruleList && ruleList.length > 0">                                        
                     <!-- 表开始 -->
@@ -82,8 +82,8 @@
                         <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].start.hour}}时 {{currentRule.workdayRules[0].start.minute}}分</td>
                         <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].lightLevel}}%</td>
                       </tr>
-                      <tr *ngFor="let item of workdayList">
-                        <td>时间</td>
+                      <tr *ngFor="let item of workdayList; let i = index">
+                        <td >时间&nbsp;{{i+1}}</td>
                         <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                         <td>{{item.lightLevel}}%</td>
                       </tr>
@@ -107,7 +107,7 @@
         <div class="col-6 col-md-4 ">
           <div class="table-holiday panel-default">
             <div class="date-title">
-              <span>节假日</span>
+              <span class="spanTitle">节假日</span>
             </div>
             <div *ngIf="ruleList && ruleList.length > 0">                                         
                 <!-- 表数据 -->
@@ -130,8 +130,9 @@
                         {{currentRule.holidayRules[0].lightLevel}}%
                     </td>
                   </tr>
-                  <tr *ngFor="let item of holidayList">
-                    <td>时间</td>
+                  <tr *ngFor="let item of holidayList;let i=index">
+                    <!-- 为时间添加一个下标 -->
+                    <td>时间&nbsp;{{i+1}}</td>
                     <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                     <td>{{item.lightLevel}}%</td>
                   </tr>
@@ -214,7 +215,7 @@
                 <td class="">{{item.error}}</td>
               </tr>
             </table>
-            <div *ngIf="rangeListItems.length === 0 || !rangeListItems">无数据！</div>
+            <!-- <div *ngIf="rangeListItems.length === 0 || !rangeListItems">无数据！</div> -->
             <div *ngIf="rangeListItems.length > 0">
                   <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
                     (pageChange)="pageChange()"></ngb-pagination>

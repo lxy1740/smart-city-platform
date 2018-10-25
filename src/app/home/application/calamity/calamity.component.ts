@@ -450,14 +450,14 @@ export class CalamityComponent implements OnInit, OnDestroy {
       txt = txt + `<p> <span style='color: red'>警报：${mess.alarm}级</span></p>`;
     }
     if (mess.error === false) {
-      txt = txt + `<p> 是否危险：<span style='color: red'>是</span></p>`;
-    } else {
       txt = txt + `<p> 是否危险：否</p>`;
+    } else {
+      txt = txt + `<p> 是否危险：<span style='color: red'></span></p>`;
     }
     if (mess.offline === false) {
-      txt = txt + `<p> <span style='color: blue'>在线</span></p>`;
-    } else {
       txt = txt + `<p> <span style='color: red'>离线</span></p>`;
+    } else {
+      txt = txt + `<p> <span style='color: blue'>在线</span></p>`;
     }
     // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
 
