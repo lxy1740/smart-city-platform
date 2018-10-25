@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTELIST } from './route-list';
+// import { ROUTELIST } from './route-list';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
 
-  routes = ROUTELIST;
+  // routes = ROUTELIST;
 
   constructor(public router: Router, ) { }
 
