@@ -262,6 +262,10 @@ export class LightComponent implements OnInit, OnDestroy  {
         i++;
         b_arr.push(b[j]);
       }
+      while (i < a.length && j === b.length - 1) {
+        a_surplus.push(a[i]);
+        i++;
+      }
     }
     return {
       a_arr: a_arr, // 共同

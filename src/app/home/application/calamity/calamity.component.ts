@@ -166,17 +166,17 @@ export class CalamityComponent implements OnInit, OnDestroy {
     });
     map.addControl(navigationControl);
 
-    
 
-    this.addThing();// 将自己添加的东西放到地图上
+
+    this.addThing(); // 将自己添加的东西放到地图上
 
   }
-  addThing(){
+  addThing() {
     this.getLights(); // 获取地图上的点
-    this.getMessage(); //获取井盖异常消息列表
+    this.getMessage(); // 获取井盖异常消息列表
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
-      this.getMessage(); //获取井盖异常消息列表
+      this.getMessage(); // 获取井盖异常消息列表
     }, 10000 * 60);
   }
 
@@ -270,6 +270,10 @@ export class CalamityComponent implements OnInit, OnDestroy {
         a_arr.push(a[i]);
         i++;
         b_arr.push(b[j]);
+      }
+      while (i < a.length && j === b.length - 1) {
+        a_surplus.push(a[i]);
+        i++;
       }
     }
     return {
