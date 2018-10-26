@@ -559,11 +559,11 @@ export class LedTestComponent implements OnInit {
             'id': '0',
             // 'type': 'slide_text',
             'name': 'no name',
-            'length': 10000,
+            'length': 5000,
             'type': 'text',
 
             'font_name': 'msyh',
-            'font_size': '12',
+            'font_size': '16',
             'font_color': '#ff0000',
             'contents': [
               {
