@@ -267,6 +267,11 @@ export class LightComponent implements OnInit, OnDestroy  {
     const a_surplus: any[] = [];
     const b_surplus: any[] = [];
     let i = 0;
+    if (b.length === 0) {
+      for (let k = 0; k < a.length; k++) {
+        a_surplus.push(a[k]);
+      }
+    }
     for (let j = 0; j < b.length; j++) {
       while (i < a.length && a[i].id < b[j].id) {
         a_surplus.push(a[i]);

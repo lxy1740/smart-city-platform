@@ -255,6 +255,11 @@ export class CoverComponent implements OnInit, OnDestroy {
     const a_surplus: any[] = [];
     const b_surplus: any[] = [];
     let i = 0;
+    if (b.length === 0) {
+      for (let k = 0; k < a.length; k++) {
+        a_surplus.push(a[k]);
+      }
+    }
     for (let j = 0; j < b.length; j++) {
       while (i < a.length && a[i].id < b[j].id) {
         a_surplus.push(a[i]);
@@ -378,8 +383,11 @@ export class CoverComponent implements OnInit, OnDestroy {
   // 标注消息列表中点击的井盖事件
   findPoint(item) {
     let marker;
+    const that = this;
     const makers = this.map.getOverlays();
     const point = new BMap.Point(item.point.lng, item.point.lat);
+    that.map.centerAndZoom(point, 18);
+    that.getCovers();  // 获取井盖
     this.model.issueId = item.id;
     for (let index = 0; index < makers.length; index++) {
       const element = makers[index];
@@ -387,14 +395,14 @@ export class CoverComponent implements OnInit, OnDestroy {
       const lng = element.point && element.point.lng;
       if (point.lat === lat && point.lng === lng) {
         marker = element;
-        // console.log(marker);
         if (marker) {
-          marker.V.click();
+          // setTimeout(() => {
+            marker.V.click();
+          // }, 5000);
         }
       }
     }
 
-    this.map.centerAndZoom(point, 18);
 
   }
 
