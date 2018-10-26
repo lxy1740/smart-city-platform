@@ -90,7 +90,8 @@ export class IssuedataComponent implements OnInit {
   }
   // 路由跳转
   jumpHandle(url) {
-    this.router.navigate([url]);
+    history.back();
+    // this.router.navigate([url]);
   }
 
   public closeAlert(alert: IAlert) {

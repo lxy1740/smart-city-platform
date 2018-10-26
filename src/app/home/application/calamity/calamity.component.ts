@@ -10,6 +10,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { MonitorService } from '../../../service/monitor.service';
 import { VideoService } from '../../../service/video.service';
 import { Router } from '@angular/router';
+import { CircleOverlarAirService } from '../../../service/circle-overlay-air.service';
 // baidu map
 declare let BMap;
 declare let BMAP_ANCHOR_TOP_LEFT;
@@ -78,7 +79,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.addBeiduMap(); // 百度地图API功能
     this.getCity(); // 获取城市列表
-    this.getUserList();// 获取用户列表
+    this.getUserList(); // 获取用户列表
   }
    // 用户列表
    getUserList() {
@@ -101,8 +102,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
     // 待处理
     this.videoService.getIssues(deviceType, 0).subscribe({
       next: function (val) {
-        console.log("deviceType",deviceType);       
-        console.log("0val",val);
+        // console.log("deviceType",deviceType);
+        // console.log("0val",val);
         that.model.messageList = val;
 
       },
@@ -113,8 +114,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
     // 处理中
     this.videoService.getIssues(deviceType, 1).subscribe({
       next: function (val) {
-        console.log("deviceType",deviceType);
-        console.log("1val",val);
+        // console.log("deviceType",deviceType);
+        // console.log("1val",val);
         that.model.messageList1 = val;
       },
       error: function (error) {
@@ -124,8 +125,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
     // 已处理
     this.videoService.getIssues(deviceType, 2).subscribe({
       next: function (val) {
-        console.log("deviceType",deviceType);
-        console.log("2val",val);
+        // console.log("deviceType",deviceType);
+        // console.log("2val",val);
         that.model.messageList2 = val;
       },
       error: function (error) {
@@ -166,21 +167,25 @@ export class CalamityComponent implements OnInit, OnDestroy {
     });
     map.addControl(navigationControl);
 
-
-
-    this.addThing(); // 将自己添加的东西放到地图上
-
-  }
-  addThing() {
+    // this.addThing(); // 将自己添加的东西放到地图上
     this.getLights(); // 获取地图上的点
     this.getMessage(); // 获取井盖异常消息列表
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
       this.getMessage(); // 获取井盖异常消息列表
     }, 10000 * 60);
-  }
 
-  // 获取地图上的灾害点
+  }
+  // addThing() {
+  //   this.getLights(); // 获取地图上的点
+  //   this.getMessage(); // 获取井盖异常消息列表
+  //   this.timer = setInterval(() => {
+  //     this.getLights(); // 获取地图上的点
+  //     this.getMessage(); // 获取井盖异常消息列表
+  //   }, 10000 * 60);
+  // }
+
+  // 获取地图上的灾害设备点
   getLights() {
     const that = this;
 
@@ -190,10 +195,11 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
     // let compar;
     // let value;
+    this.map.removeOverlay();
     this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
       next: function (val) {
         // value = val;
-        console.log(val);
+        // console.log(val);
         // compar = that.comparison(that.model.coverList, val);
         // value = that.judgeChange(compar.a_arr, compar.b_arr);
 
@@ -329,56 +335,58 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
   // 添加点标注
   addMarker(light_list) {
+    console.log('light_list');
+    console.log(light_list);
     const markers: any[] = [];
     const points: any[] = [];
     const that = this;
 
     for (let index = 0; index < light_list.length; index++) {
-      const item = light_list[index];// 点消息
+      const item = light_list[index]; // 点消息
       const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
 
       let myIcon = null;
-      if (item.deviceModelId === 32 && item.alarm === 1) { // 楼宇坍塌1building
-        // console.log(111111111);
-        myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
+      let marker2;
+      if (item.alarm === 1) {
+        switch (item.deviceModelId) {
+          case 32:
+          myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
+          break;
+          case 33:
+          myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
+          break;
+          case 34:
+          myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(300, 157));
+          break;
+          case 35:
+          myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(300, 157));
+          break;
+          case 36:
+          myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(300, 157));
+          break;
+        }
         myIcon.setAnchor(new BMap.Size(16, 38));
-        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // this.map.addOverlay(marker2);
-      } else if (item.deviceModelId === 33 && item.alarm === 1) { // 山体滑坡2landslide
-       
-        myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // this.map.addOverlay(marker2);
-
-      } else if (item.deviceModelId === 34 && item.alarm === 1) { // 异味臭气1odor
-        myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(300, 157));
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // this.map.addOverlay(marker2);
-
-      } else if (item.deviceModelId === 35 && item.alarm === 1) { // 燃气泄漏1gas
-        myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(300, 157));
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // this.map.addOverlay(marker2);
-
-      } else if (item.deviceModelId === 36 && item.alarm === 1) { // 道路积水1hydrops
-        myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(300, 157));
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        // const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // this.map.addOverlay(marker2);
-
+        marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // myIcon.setAnchor(new BMap.Size(16, 38));
+        // if (myIcon) {
+        //   myIcon.setAnchor(new BMap.Size(16, 38));
+        //   const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
+        //   const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        //   this.map.addOverlay(marker2);
+        //   markers.push(marker2); // 聚合
+        //   points.push(point); // 聚合
+        // }
+      } else {
+        marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
+        // myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
       }
-      if (myIcon) {
-        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        this.map.addOverlay(marker2);
-        markers.push(marker2); // 聚合
-        points.push(point); // 聚合
-      }
+      // myIcon.setAnchor(new BMap.Size(16, 38));
+      // marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      that.map.addOverlay(marker2);
+      markers.push(marker2); // 聚合
+      points.push(point); // 聚合
 
     }
-
     // 点击点标注事件
     for (let index = 0; index < markers.length; index++) {
       const marker = markers[index];
@@ -401,10 +409,10 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
     }
   }
-  
+
   // 标注消息列表中点击的灾害事件（点击靠近那个点）
   findPoint(item) {
-    // console.log("item",item);
+    console.log('item', item);
     let marker;
     const makers = this.map.getOverlays();
     const point = new BMap.Point(item.point.lng, item.point.lat);
@@ -415,13 +423,13 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const lng = element.point && element.point.lng;
       if (point.lat === lat && point.lng === lng) {
         marker = element;
-        // console.log("marker",marker);
-        
+        console.log('marker', marker);
+
         if (marker) {
           marker.V.click();
         }
       }
-      
+
     }
 
     this.map.centerAndZoom(point, 18);
@@ -444,7 +452,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       enableAutoPan: true, // 自动平移
       // border-radius: 5px,
     };
-    console.log("mess-start",mess);
+    // console.log("mess-start",mess);
     // this.model.deviceId = mess.id;
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
 
@@ -493,7 +501,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       for (let index = 0; index < res2.length; index++) {
         const element = res2[index];
         txt = txt + `<p style='color: #ffb822;'>${element.typeName}</p>`;
-        
+
       }
     }
 
@@ -503,6 +511,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       that.model.deviceId = mess.id;
       console.log('that.model.deviceId');
       console.log(that.model.deviceId);
+      console.log(mess);
       that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
 
       const obj = document.getElementById(`select${mess.id}`);

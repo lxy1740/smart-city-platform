@@ -173,8 +173,25 @@ export class LightComponent implements OnInit, OnDestroy  {
     }, 5000);
 
     this.mapClickOff(map); // 地图点击信息框隐藏
+    this.dragendOff(map);
+    this.zoomendOff(map);
 
   }
+
+    // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
+    dragendOff(baiduMap) {
+      const that = this;
+      baiduMap.addEventListener('dragend', function () {
+        that.getLights();  // 获取井盖
+      });
+    }
+    // 监控-地图缩放事件-地图缩放后的级别。
+    zoomendOff(baiduMap) {
+      const that = this;
+      baiduMap.addEventListener('zoomend', function () {
+          that.getLights();  // 获取井盖
+      });
+    }
 
   // 清除覆盖物
   remove_overlay(baiduMap) {

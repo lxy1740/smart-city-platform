@@ -74,7 +74,7 @@ export class AirComponent implements OnInit, OnDestroy {
     public router: Router) {
     this.indexofHtml = this.allIndexs[0];
     this.currentAirIndex = 'PM2.5';
-    this.model.airdevicelist = []; // 城市列表
+    this.model.airdevicelist = [];
     this.map_model.cityList = []; // 城市列表
     this.map_model.currentChildren = []; // 区域列表一级
     this.map_model.currentBlock = []; // // 当前城市街道 = []; // 区域列表2级
@@ -122,22 +122,26 @@ export class AirComponent implements OnInit, OnDestroy {
 
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
   dragendOff(baiduMap) {
+    // console.log('baiduMap.getOverlays()');
+    // console.log(this.map.getOverlays());
     const that = this;
     baiduMap.addEventListener('dragend', function () {
-      that.model.airdevicelist = [];
-      baiduMap.clearOverlays();
+      // that.model.airdevicelist = [];
+      // baiduMap.clearOverlays();
       that.getAirdevices(); // 获取数据-添加标注
     });
   }
   // 监控-地图缩放事件-地图缩放后的级别。
   zoomendOff(baiduMap) {
+    // console.log('baiduMap.getOverlays()');
+    // console.log(this.map.getOverlays());
     const that = this;
     baiduMap.addEventListener('zoomend', function () {
       // if (that.isqueryPoint === true) {
       //   that.isqueryPoint = false;
       // } else {
-      that.model.airdevicelist = [];
-        baiduMap.clearOverlays();
+      // that.model.airdevicelist = [];
+        // baiduMap.clearOverlays();
         that.getAirdevices(); // 添加标注
         // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
       // }
@@ -157,7 +161,6 @@ export class AirComponent implements OnInit, OnDestroy {
     let value;
     this.airmonitorService.getAirDevice(NorthEast, SouthWest).subscribe({
       next: function (val) {
-        // value = val;
         const curIndex = that.currentAirIndex;
         compar = that.comparison(that.model.airdevicelist, val);
         // console.log(compar);
@@ -250,15 +253,17 @@ export class AirComponent implements OnInit, OnDestroy {
   // 删除
   deleMarker(airdevice_list) {
     const makers = this.map.getOverlays();
+    const that = this;
     for (let ind = 0; ind < airdevice_list.length; ind++) {
-      const ele = airdevice_list[ind];
       const point = airdevice_list[ind].point;
+      console.log(point);
       for (let index = 0; index < makers.length; index++) {
         const element = makers[index];
-        const lat = element.point && element.point.lat;
-        const lng = element.point && element.point.lng;
+        console.log(element);
+        const lat = element._center && element._center.lat;
+        const lng = element._center && element._center.lng;
         if (point.lat === lat && point.lng === lng) {
-          this.map.removeOverlay(makers[index]);
+          that.map.removeOverlay(makers[index]);
         }
 
       }

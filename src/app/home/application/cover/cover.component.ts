@@ -174,7 +174,26 @@ export class CoverComponent implements OnInit, OnDestroy {
     map.addControl(navigationControl);
 
     this.addMarker();
+    this.dragendOff(map);
+    this.zoomendOff(map);
   }
+
+    // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
+    dragendOff(baiduMap) {
+      const that = this;
+      baiduMap.addEventListener('dragend', function () {
+        // baiduMap.clearOverlays();
+        that.getCovers();  // 获取井盖
+      });
+    }
+    // 监控-地图缩放事件-地图缩放后的级别。
+    zoomendOff(baiduMap) {
+      const that = this;
+      baiduMap.addEventListener('zoomend', function () {
+          // baiduMap.clearOverlays();
+          that.getCovers();  // 获取井盖
+      });
+    }
     // 返回地图可视区域，以地理坐标表示
     // getBounds(baiduMap) {
     //   const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
