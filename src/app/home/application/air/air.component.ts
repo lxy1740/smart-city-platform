@@ -312,7 +312,7 @@ export class AirComponent implements OnInit, OnDestroy {
 
   // 地图点注标-点击事件
   openSideBar(marker, baiduMap, airDevice, point) {
-    // console.log(airDevice);
+    console.log('air', airDevice);
     const that = this;
     const opts = {
       width: 350,     // 信息窗口宽度

@@ -265,6 +265,11 @@ export class CalamityComponent implements OnInit, OnDestroy {
     const a_surplus: any[] = [];
     const b_surplus: any[] = [];
     let i = 0;
+    if (b.length === 0) {
+      for (let k = 0; k < a.length; k++) {
+        a_surplus.push(a[k]);
+      }
+    }
     for (let j = 0; j < b.length; j++) {
       while (i < a.length && a[i].id < b[j].id) {
         a_surplus.push(a[i]);
@@ -549,10 +554,12 @@ export class CalamityComponent implements OnInit, OnDestroy {
       message_p.addEventListener('click', function () { // 处理按键 - 监听事件
         if (curUser) {
           const deviceId = that.model.deviceId;
-          console.log('deviceId');
-          console.log(deviceId);
-          // that.setDeviceIssues(deviceId, 0, 1, message_l['value'], curUser);
-        }
+          // console.log('deviceId');
+          // console.log(deviceId);
+           that.setDeviceIssues(deviceId, 0, 1, message_l['value'], curUser);
+           that.map.closeInfoWindow(that.model.infoW1); // 关闭窗口
+           that.getMessage(); // 刷新消息列表
+          }
       });
     }
   }
