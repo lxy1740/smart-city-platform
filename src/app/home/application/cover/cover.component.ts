@@ -396,9 +396,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       if (point.lat === lat && point.lng === lng) {
         marker = element;
         if (marker) {
-          // setTimeout(() => {
             marker.V.click();
-          // }, 5000);
         }
       }
     }
