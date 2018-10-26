@@ -83,7 +83,7 @@
                         <td *ngIf="currentRule && currentRule.workdayRules && currentRule.workdayRules[0]">{{currentRule.workdayRules[0].lightLevel}}%</td>
                       </tr>
                       <tr *ngFor="let item of workdayList; let i = index">
-                        <td >调光{{i+1}}</td>
+                        <td >调光&nbsp;{{i+1}}</td>
                         <td>{{item.start.hour}}时{{item.start.minute}}分</td>
                         <td>{{item.lightLevel}}%</td>
                       </tr>
@@ -93,7 +93,7 @@
                             {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.hour}}
                             时 {{currentRule.workdayRules[currentRule.workdayRules.length - 1].start.minute}}分
                         </td>
-                        <td></td>
+                        <td>0%</td>
                       </tr>
                     </table>
                     <!-- <div *ngIf="workdayList.length === 0 || !workdayList" style="margin-bottom: 2px;"><span style="margin-left:12px;">无数据！</span>
@@ -142,7 +142,7 @@
                         {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.hour}}
                         时 {{currentRule.holidayRules[currentRule.holidayRules.length - 1].start.minute}}分
                     </td>
-                    <td></td>
+                    <td>0%</td>
                   </tr>
                 </table>
 

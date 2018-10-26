@@ -337,7 +337,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const item = light_list[index];// 点消息
       const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
 
-      let myIcon;
+      let myIcon = null;
       if (item.deviceModelId === 32 && item.alarm === 1) { // 楼宇坍塌1building
         // console.log(111111111);
         myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
@@ -370,11 +370,12 @@ export class CalamityComponent implements OnInit, OnDestroy {
         // this.map.addOverlay(marker2);
 
       }
-      const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-      this.map.addOverlay(marker2);
-
-      markers.push(marker2); // 聚合
-      points.push(point); // 聚合
+      if (myIcon) {
+        const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        this.map.addOverlay(marker2);
+        markers.push(marker2); // 聚合
+        points.push(point); // 聚合
+      }
 
     }
 
@@ -403,7 +404,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
   
   // 标注消息列表中点击的灾害事件（点击靠近那个点）
   findPoint(item) {
-    console.log("item",item);
+    // console.log("item",item);
     let marker;
     const makers = this.map.getOverlays();
     const point = new BMap.Point(item.point.lng, item.point.lat);
@@ -414,7 +415,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const lng = element.point && element.point.lng;
       if (point.lat === lat && point.lng === lng) {
         marker = element;
-        console.log("marker",marker);
+        // console.log("marker",marker);
         
         if (marker) {
           marker.V.click();
@@ -444,7 +445,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       // border-radius: 5px,
     };
     console.log("mess-start",mess);
-    this.model.deviceId = mess.id;
+    // this.model.deviceId = mess.id;
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
 
     txt = txt + `灾害编号 | ${mess.name} | ${mess.id}</p><p> 灾害名称：${mess.description}</p>`;
@@ -499,6 +500,9 @@ export class CalamityComponent implements OnInit, OnDestroy {
     const infoWindow = new BMap.InfoWindow(txt, opts);
 
     marker.addEventListener('click', function () {
+      that.model.deviceId = mess.id;
+      console.log('that.model.deviceId');
+      console.log(that.model.deviceId);
       that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
 
       const obj = document.getElementById(`select${mess.id}`);
@@ -512,7 +516,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         that.deviceAddEventListener(mess);
       }, 0);
-      console.log("mess-end",mess);
+      // console.log("mess-end",mess);
     });
 
   }
@@ -535,10 +539,10 @@ export class CalamityComponent implements OnInit, OnDestroy {
     if (message_p) {
       message_p.addEventListener('click', function () { // 处理按键 - 监听事件
         if (curUser) {
-          const issueId = that.model.deviceId;
-          console.log('issueId');
-          console.log(issueId);
-          that.setDeviceIssues(issueId, 0, 1, message_l['value'], curUser);
+          const deviceId = that.model.deviceId;
+          console.log('deviceId');
+          console.log(deviceId);
+          // that.setDeviceIssues(deviceId, 0, 1, message_l['value'], curUser);
         }
       });
     }
