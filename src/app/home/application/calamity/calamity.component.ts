@@ -382,11 +382,13 @@ export class CalamityComponent implements OnInit, OnDestroy {
         //   points.push(point); // 聚合
         // }
       } else {
-        marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
-        // myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
+        // myIcon = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
+        // marker2 = this.map.addOverlay(myIcon);
+        //  marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
+       myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(36, 36));
+        marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        // marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
       }
-      // myIcon.setAnchor(new BMap.Size(16, 38));
-      // marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       that.map.addOverlay(marker2);
       markers.push(marker2); // 聚合
       points.push(point); // 聚合
