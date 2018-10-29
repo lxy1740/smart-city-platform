@@ -185,7 +185,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
     dragendOff(baiduMap) {
       const that = this;
       baiduMap.addEventListener('dragend', function () {
-        // baiduMap.clearOverlays();
+        baiduMap.clearOverlays();
         that.getLights();  // 获取井盖
       });
     }
@@ -193,7 +193,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
     zoomendOff(baiduMap) {
       const that = this;
       baiduMap.addEventListener('zoomend', function () {
-          // baiduMap.clearOverlays();
+          baiduMap.clearOverlays();
           that.getLights();  // 获取井盖
       });
     }
@@ -208,7 +208,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
     let compar;
     let value;
-    // this.map.clearOverlays();
+    this.map.clearOverlays();
     this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
       next: function (val) {
         // value = val;
@@ -221,8 +221,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
         that.addMarker(compar.b_surplus); // 添加
 
         that.model.light_list = val; // 变为新值
-        // that.addMarker(val);
-        // console.log(val);
 
       },
       complete: function () {
@@ -362,7 +360,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
         // myIcon = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
         // marker2 = this.map.addOverlay(myIcon);
         //  marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
-       myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(36, 36));
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(36, 36));
         marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         // marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
       }
