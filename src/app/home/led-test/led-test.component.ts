@@ -73,6 +73,7 @@ export class LedTestComponent implements OnInit {
     this.task2.id = 'DE1700220125';
     this.task3.id = 'DE1700220125';
     this.task4.id = 'DE1700220125';
+    this.task4.fontsice = '16';
    }
 
   ngOnInit() {
@@ -553,17 +554,14 @@ export class LedTestComponent implements OnInit {
         'items': [
           {
             'background_color': '#00000000',
-            'effect': '0',
-            'speed': '2',
-            'pause_time': '3000',
             'id': '0',
-            // 'type': 'slide_text',
             'name': 'no name',
             'length': 5000,
             'type': 'text',
-
+            'effect_entry': '0',
+            'effect_exit': '18',
             'font_name': 'msyh',
-            'font_size': '16',
+            'font_size': this.task4.fontsice,
             'font_color': '#ff0000',
             'contents': [
               {
