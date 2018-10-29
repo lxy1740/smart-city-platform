@@ -233,9 +233,7 @@ export class CoverComponent implements OnInit, OnDestroy {
 
         that.changeMarker(value); // 替换
         that.deleMarker(compar.a_surplus); // 删除
-        // that.deleMarker(value); // 删除
         that.addPoint(compar.b_surplus); // 添加
-        // that.addPoint(value); // 添加
 
         that.model.coverList = val; // 变为新值
       },
@@ -396,9 +394,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       if (point.lat === lat && point.lng === lng) {
         marker = element;
         if (marker) {
-          // setTimeout(() => {
             marker.V.click();
-          // }, 5000);
         }
       }
     }
