@@ -28,14 +28,6 @@ export class HomepageComponent implements OnInit {
     }
 
    }
-   openSideBar() {
-    let html = `<div class="col-md-12 content pp">`;
-    html = html + `<p><span><i class="fa  nav-icon"></i></span></p>`;
-    html = html + `<p class="app">APP下载</p>`;
-    html = html + `</div>`;
-    this.elementRef.nativeElement.querySelector('.app').append(html);
-   }
-
 
   ngOnInit() {
     // this.setHeight();
