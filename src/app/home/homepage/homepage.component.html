@@ -1,77 +1,41 @@
 <div class="homepage row align-items-center justify-content-center">
   <div class="dash">
-
+    <!-- 第一行 -->
     <div class="row row-first">
       <div class="col-md-1"></div>
+      <!-- 智慧城市标题 -->
       <div class="col-md-6 padding-left-0 margin-right-33">
-
         <div class="row align-items-center justify-content-center dash-item-first">
           <div class="col-md-12 content" (click)="goToZheRoute('/home/homepage')">
-            <!-- <p>
-                          <span>
-                            <i class="fa fa-building nav-icon"></i>
-                          </span>
-                        </p> -->
             <h5>智慧城市</h5>
           </div>
         </div>
-
-
       </div>
+      <!-- 设备管理标题 -->
       <div class="col-md-2 padding-left-0 margin-right-33">
         <div class="row align-items-center justify-content-center dash-item-first">
           <div class="col-md-12 content" (click)="goToZheRoute('/home/homepage')">
-            <!-- <p>
-                          <span>
-                            <i class="fa fa-map nav-icon"></i>
-                          </span>
-                        </p> -->
             <h5>设备管理</h5>
           </div>
         </div>
       </div>
+      <!-- 系统管理标题 -->
       <div class="col-md-2 padding-left-0">
         <div class="row align-items-center justify-content-center dash-item-first">
           <div class="col-md-12 content" (click)="goToZheRoute('/home/homepage')">
-            <!-- <p>
-                          <span>
-                            <i class="fa fa-wrench nav-icon"></i>
-                          </span>
-                        </p> -->
             <h5>系统管理</h5>
           </div>
         </div>
       </div>
-      <!-- <div [class]="item.col" *ngFor="let item of routes">
-            <div class="row dash-parent" *ngFor="let sub of item.row">
-                  <div [class]="last.col"  *ngFor="let last of sub.children"  (click)="goToZheRoute(last.routeLink)">
-                  
-                    <div  [class] = "last.class">
-                      <div class="col-12 content" >
-                        <p>
-                          <span>
-                            <i [class]="last.icon"></i>
-                          </span>
-                        </p>
-                        <p>{{last.routeTitel}}</p>
-                      </div>
-                    </div>
-                  
-                  </div>
-            </div>
-
-
-          </div> -->
-
-
     </div>
 
+    <!-- 第二行 -->
     <div class="row row-second">
       <div class="col-md-1"></div>
+      <!-- 1列 -->
       <div class="col-md-2 col-12 padding-left-0 ">
+        <!-- 灾害报警 -->
         <div class="row align-items-center justify-content-center dash-item-second">
-
-
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/calamity')">
             <p>
               <span>
@@ -82,6 +46,7 @@
           </div>
 
         </div>
+        <!-- 水质 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/water')">
             <p>
@@ -93,6 +58,7 @@
           </div>
 
         </div>
+        <!-- 电气 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/electrical')">
             <p>
@@ -105,7 +71,10 @@
 
         </div>
       </div>
+
+      <!-- 2列 -->
       <div class="col-md-2 col-12 padding-left-0">
+        <!-- 空气质量 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/air')">
             <p>
@@ -117,6 +86,7 @@
           </div>
 
         </div>
+        <!-- 智慧照明 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/light')">
             <p>
@@ -128,6 +98,7 @@
           </div>
 
         </div>
+        <!-- 窨井管理 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/cover')">
             <p>
@@ -140,7 +111,10 @@
 
         </div>
       </div>
+
+      <!-- 3列 -->
       <div class="col-md-2 col-12 padding-left-0 margin-right-33">
+        <!-- 智慧交通 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/application/traffic')">
             <p>
@@ -152,6 +126,7 @@
           </div>
 
         </div>
+        <!-- 设备监控 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/monitor')">
             <p>
@@ -163,6 +138,7 @@
           </div>
 
         </div>
+        <!-- LED控制 -->
         <div class="row align-items-center justify-content-center dash-item-second">
               <div class="col-md-12 content" (click)="goToZheRoute('/home/led')">
                 <p>
@@ -173,10 +149,12 @@
                 <p>LED控制</p>
               </div>
             
-            </div>
+        </div>
       </div>
 
+      <!-- 4列 -->
       <div class="col-md-2 col-12 padding-left-0 margin-right-33">
+        <!-- 设备 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/device/devices')">
             <p>
@@ -187,6 +165,7 @@
             <p>设备</p>
           </div>
         </div>
+        <!-- 产品 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/device/product')">
             <p>
@@ -197,6 +176,7 @@
             <p>产品</p>
           </div>
         </div>
+        <!-- 位置 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/device/position')">
             <p>
@@ -208,7 +188,10 @@
           </div>
         </div>
       </div>
+
+      <!-- 用户管理 -->
       <div class="col-md-2 col-12 padding-left-0">
+        <!-- 用户管理 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/user/admin')">
             <p>
@@ -219,6 +202,7 @@
             <p>用户管理</p>
           </div>
         </div>
+        <!-- 角色管理 -->
         <div class="row align-items-center justify-content-center dash-item-second">
           <div class="col-md-12 content" (click)="goToZheRoute('home/user/right')">
             <p>
@@ -229,31 +213,35 @@
             <p>角色管理</p>
           </div>
         </div>
-        <!-- <div class="row align-items-center justify-content-center dash-item-second">
-                <div class="col-md-12 content" (click)="goToZheRoute('/home/homepage')">
-                  <p>
-                    <span>
-                      <i class="fa fa-building nav-icon"></i>
-                    </span>
-                  </p>
-                  <p>智慧城市</p>
-                </div>
-              </div> -->
+        <!-- app下载 -->
+        <div class="row align-items-center justify-content-center dash-item-second">
+            <div class="col-md-12 content" >
+              <p>
+                <span>
+                  <i class="fa  nav-icon"></i>
+                </span>
+              </p>
+              <p>APP下载</p>
+            </div>
+          </div>
       </div>
     </div>
 
 </div>
   <div class="dash-phone">
+        <!-- 智慧城市标题 -->
         <div class="row align-items-center justify-content-center dash-item-first-phone margin-15">
           <div class="col-md-12 " (click)="goToZheRoute('/home/homepage')">
             <h5 class="title-phone">智慧城市</h5>
           </div>
         </div>
+        
+        <!-- 9宫格 -->
         <div class="row padding-left-15">
           <div class="col-4 padding-left-0 ">
+            <!-- 灾害报警 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
-          
-          
+                  
               <div class="col-md-12 pointer" (click)="goToZheRoute('home/application/calamity')">
                 <p>
                   <span>
@@ -264,6 +252,7 @@
               </div>
           
             </div>
+            <!-- 水质检查 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " style="cursor: pointer;" (click)="goToZheRoute('home/application/water')">
                 <p>
@@ -275,6 +264,7 @@
               </div>
           
             </div>
+            <!-- 电气安全 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/application/electrical')">
                 <p>
@@ -287,7 +277,9 @@
           
             </div>
           </div>
+
           <div class="col-4 padding-left-0">
+            <!-- 空气质量 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/application/air')">
                 <p>
@@ -299,6 +291,7 @@
               </div>
           
             </div>
+            <!-- 智慧照明 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/application/light')">
                 <p>
@@ -310,6 +303,7 @@
               </div>
           
             </div>
+            <!-- 窨井管理 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12" (click)="goToZheRoute('home/application/cover')">
                 <p>
@@ -322,7 +316,9 @@
           
             </div>
           </div>
+
           <div class="col-4 padding-left-0 ">
+            <!-- 智慧交通 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/application/traffic')">
                 <p>
@@ -334,6 +330,7 @@
               </div>
           
             </div>
+            <!-- 设备监控 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/monitor')">
                 <p>
@@ -345,6 +342,7 @@
               </div>
           
             </div>
+            <!-- LED控制 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone">
                   <div class="col-md-12" (click)="goToZheRoute('/home/led')">
                     <p>
@@ -355,16 +353,19 @@
                     <p>LED控制</p>
                   </div>
                 
-                </div>
+            </div>
           </div>
         </div>
 
+        <!-- 设备管理标题 -->
         <div class="row align-items-center justify-content-center dash-item-first-phone margin-15">
           <div class="col-md-12 " (click)="goToZheRoute('/home/homepage')">
             <h5 class="title-phone"> 设备管理</h5>
           </div>
         </div>
+        <!-- 设备管理 竖条3个 -->
         <div class="row padding-left-15">
+          <!-- 设备 -->
           <div class="col-4 padding-left-0 ">
             <div class="row align-items-center justify-content-center dash-item-second-phone">
         
@@ -381,6 +382,7 @@
             </div>
 
           </div>
+          <!-- 产品 -->
           <div class="col-4 padding-left-0">
             <div class="row align-items-center justify-content-center dash-item-second-phone">
             <div class="col-md-12 " (click)="goToZheRoute('home/device/product')">
@@ -395,6 +397,7 @@
             </div>
 
           </div>
+          <!-- 位置 -->
           <div class="col-4 padding-left-0 ">
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/device/position')">
@@ -411,14 +414,15 @@
           </div>
         </div>
 
-
+        <!-- 系统管理标题 -->
         <div class="row align-items-center justify-content-center dash-item-first-phone margin-15">
           <div class="col-md-12 " (click)="goToZheRoute('/home/homepage')">
             <h5 class="title-phone">系统管理</h5>
           </div>
         </div>
-
+        <!-- 系统管理标题 -->
         <div class="row padding-left-15">
+          <!-- 用户管理 -->
           <div class="col-4 padding-left-0 ">
             <div class="row align-items-center justify-content-center dash-item-second-phone">             
               <div class="col-md-12 " (click)="goToZheRoute('home/user/admin')">
@@ -431,7 +435,7 @@
               </div>        
             </div>       
           </div>
-
+          <!-- 角色管理 -->
           <div class="col-4 padding-left-0 ">
             <div class="row align-items-center justify-content-center dash-item-second-phone">
               <div class="col-md-12 " (click)="goToZheRoute('home/user/right')">
@@ -444,13 +448,13 @@
               </div>        
             </div>        
           </div>
-        
+          <!-- app下载 -->
           <div class="col-4 padding-left-0 ">
             <div class="row align-items-center justify-content-center dash-item-second-phone">
-              <div class="col-md-12 " (click)="goToZheRoute('home/user/right')">
+              <div class="col-md-12 ">
                 <p>
                   <span>
-                    <i class="fa fa-user-secret nav-icon"></i>
+                    <i class="fa  nav-icon"></i>
                   </span>
                 </p>
                 <p>APP下载</p>
@@ -459,9 +463,7 @@
           </div>
           
         </div>
-        <div class="col-4 padding-left-0 ">
-          
-        </div>
+      
 
         
 
