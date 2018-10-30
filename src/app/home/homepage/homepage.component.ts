@@ -11,26 +11,31 @@ export class HomepageComponent implements OnInit {
 
   // routes = ROUTELIST;
 
-  constructor(public router: Router, private el: ElementRef) { }
+  constructor(public router: Router,  private elementRef: ElementRef) { }
+
+
 
   setChange() {
-    const styApp = this.el.nativeElement.querySelector('.app');
-    const sty = this.el.nativeElement.querySelector('.btn1');
+    const styApp = this.elementRef.nativeElement.querySelector('.app');
+    const sty = this.elementRef.nativeElement.querySelector('.btn1');
     if (styApp) {
       sty.style.background = 'url(../../../assets/imgs/user-profile.png) no-repeat center';
-      this.el.nativeElement.querySelector('.pp').remove();
+      this.elementRef.nativeElement.querySelector('.pp').remove();
     } else {
       sty.style.background = '#45939D';
-      // sty.append(this.openSideBar(e));
+      const d1 = this.elementRef.nativeElement.querySelector('.btn1');
+      d1.insertAdjacentHTML('beforeend', '<div class="col-md-12 content pp"><p><span><i class="fa  nav-icon"></i></span></p><p class="app">APP下载</p></div>');
     }
 
    }
-   openSideBar(e) {
+   openSideBar() {
     let html = `<div class="col-md-12 content pp">`;
     html = html + `<p><span><i class="fa  nav-icon"></i></span></p>`;
     html = html + `<p class="app">APP下载</p>`;
     html = html + `</div>`;
+    this.elementRef.nativeElement.querySelector('.app').append(html);
    }
+
 
   ngOnInit() {
     // this.setHeight();
