@@ -313,7 +313,7 @@ export class TrafficComponent implements OnInit {
         // that.zoom = that.switchZone(val.zone.level);
         that.node = that.getNode(val.regions, val.zone.region_id);
         that.map_model.currentCity = that.node;
-        that.map_model.currentChildren = that.node.children;
+        that.map_model.currentChildren = that.node.children || [];
 
       },
       complete: function () {
@@ -414,7 +414,6 @@ export class TrafficComponent implements OnInit {
   // 选择城市
   selecteCity(city) {
     this.map_model.currentCity = city;
-    this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
     this.map_model.currentChildren = city.children;
   }
@@ -432,25 +431,26 @@ export class TrafficComponent implements OnInit {
   showCiyt() {
     this.cityshow = true;
   }
-  // 离开城市
-  citylistMouseleave() {
-    this.cityshow = false;
-  }
+
+
   // 选择区域
   arealistMouseover(area) {
 
     this.map_model.currentBlock = area.children;
   }
-
   // 离开区域
   arealistMouseleave() {
     this.areashow = false;
-    this.map_model.currentBlock = null;
+    this.map_model.currentBlock = [];
+  }
+  // 离开城市
+  citylistMouseleave() {
+    this.cityshow = false;
   }
 
   arealistMouseNone() {
     this.areashow = true;
-    this.map_model.currentBlock = null;
+    this.map_model.currentBlock = [];
   }
 
 }
