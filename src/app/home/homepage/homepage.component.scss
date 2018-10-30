@@ -106,7 +106,7 @@
     background: #45939D;
     cursor: pointer;
     &:hover {
-        background: #6FB9BE;
+         background: #6FB9BE;
     }
 
 }
@@ -114,6 +114,16 @@
 .dash-item-second :hover {
     background: #6FB9BE;
 }
+
+.dash-item-second1 {
+    height: 30%;
+    margin-bottom: 16px;
+    text-align: center;
+    // background: #506173;
+    background: #45939D;
+    cursor: pointer;
+}
+
 .content {
     i {
         font-size: 32px;
@@ -127,8 +137,8 @@
 }
 
 .erWei {   
-    // background-image: url(../../../assets/imgs/user-profile.png);
-    // background-size: 100%; 
+    background: url(../../../assets/imgs/user-profile.png);
+    background-size: 100% 100%; 
 }
 
 // app-homepage {
