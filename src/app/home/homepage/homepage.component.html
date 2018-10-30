@@ -214,8 +214,9 @@
           </div>
         </div>
         <!-- app下载 -->
-        <div class="row align-items-center justify-content-center dash-item-second btn1" (click)="goToChange()">
-            <div class="col-md-12 content pp">
+        <div class="row align-items-center justify-content-center dash-item-second btn1" (click)="goToChange()" *ngIf="flag">
+          
+            <div class="col-md-12 content pp" >               
               <p>
                 <span>
                   <i class="fa  nav-icon"></i>
@@ -223,13 +224,15 @@
               </p>
               <p class="app">APP下载</p>
             </div>
-            <!-- <div class="col-md-12 content pp">
-                
-            </div> -->
+
+        </div>
+        <div class="row align-items-center justify-content-center dash-item-second erWei" *ngIf="!flag" (click)="goToChange()">               
+            <img src="../../../assets/imgs/user-profile.png" alt="">
         </div>
     </div>
 
 </div>
+
   <div class="dash-phone">
         <!-- 智慧城市标题 -->
         <div class="row align-items-center justify-content-center dash-item-first-phone margin-15">
