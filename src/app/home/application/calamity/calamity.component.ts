@@ -208,7 +208,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
     let compar;
     let value;
-    this.map.clearOverlays();
     this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
       next: function (val) {
         // value = val;

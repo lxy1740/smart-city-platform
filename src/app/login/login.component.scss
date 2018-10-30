@@ -38,6 +38,16 @@
  @media(max-width: 390px){
     .login-left {
         display: none;
+        
+    }
+    .login-right {
+        background-image: url(../../assets/imgs/login-bg.jpg) !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        position: absolute !important;
+        top: 160px !important;
+        left: calc(50vw - 137px) !important;
+        height: 50vh !important;
     }
  }
 

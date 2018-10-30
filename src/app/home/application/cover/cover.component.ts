@@ -337,7 +337,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       let myIcon;
 
       if (item.alarm && item.alarm === true) { // 丢失
-        myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.png', new BMap.Size(36, 36));
+        myIcon = new BMap.Icon('../../../../assets/imgs/cover-lose.gif', new BMap.Size(36, 36));
       } else if (item.offline === true) { // 掉线
         myIcon = new BMap.Icon('../../../../assets/imgs/cover-offline.png', new BMap.Size(36, 36));
 
