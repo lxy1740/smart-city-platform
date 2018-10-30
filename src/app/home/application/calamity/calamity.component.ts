@@ -314,8 +314,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
   // 添加点标注
   addMarker(light_list) {
-    console.log('light_list');
-    console.log(light_list);
     const markers: any[] = [];
     const points: any[] = [];
     const that = this;
@@ -493,9 +491,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
     marker.addEventListener('click', function () {
       that.model.deviceId = mess.id;
-      console.log('that.model.deviceId');
-      console.log(that.model.deviceId);
-      console.log(mess);
       that.model.infoW = baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
 
       const obj = document.getElementById(`select${mess.id}`);
@@ -509,7 +504,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         that.deviceAddEventListener(mess);
       }, 0);
-      // console.log("mess-end",mess);
+      console.log(mess);
     });
 
   }
