@@ -206,6 +206,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
     const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
     const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
     const SouthWest = Bounds.getSouthWest();
+
     let compar;
     let value;
     this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
@@ -323,19 +324,19 @@ export class CalamityComponent implements OnInit, OnDestroy {
       if (item.alarm === 1) {
         switch (item.deviceModelId) {
           case 32:
-          myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(300, 157));
+          myIcon = new BMap.Icon('../../../../assets/imgs/building.gif', new BMap.Size(64, 64));
           break;
           case 33:
-          myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(300, 157));
+          myIcon = new BMap.Icon('../../../../assets/imgs/landslide.gif', new BMap.Size(64, 64));
           break;
           case 34:
-          myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(300, 157));
+          myIcon = new BMap.Icon('../../../../assets/imgs/odor.gif', new BMap.Size(64, 64));
           break;
           case 35:
-          myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(300, 157));
+          myIcon = new BMap.Icon('../../../../assets/imgs/gas.gif', new BMap.Size(64, 64));
           break;
           case 36:
-          myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(300, 157));
+          myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(64, 64));
           break;
         }
         myIcon.setAnchor(new BMap.Size(16, 38));
@@ -353,7 +354,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
         // myIcon = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
         // marker2 = this.map.addOverlay(myIcon);
         //  marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
-        myIcon = new BMap.Icon('../../../../assets/imgs/cover-normal.png', new BMap.Size(36, 36));
+        myIcon = new BMap.Icon('../../../../assets/imgs/zh-normal.png', new BMap.Size(64, 64));
+        myIcon.setAnchor(new BMap.Size(16, 38));
         marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
         // marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
       }
