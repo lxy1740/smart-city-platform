@@ -194,13 +194,6 @@ export class CoverComponent implements OnInit, OnDestroy {
           that.getCovers();  // 获取井盖
       });
     }
-    // 返回地图可视区域，以地理坐标表示
-    // getBounds(baiduMap) {
-    //   const Bounds = baiduMap.getBounds(); // 返回地图可视区域，以地理坐标表示
-    //   this.NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
-    //   this.SouthWest = Bounds.getSouthWest(); // 返回矩形区域的西南角
-    //   this.zoom = baiduMap.getZoom(); // 地图级别
-    // }
 
   addMarker() {
     this.getCovers();  // 获取井盖

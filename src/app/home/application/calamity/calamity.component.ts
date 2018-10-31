@@ -173,7 +173,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
     this.getMessage(); // 获取井盖异常消息列表
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
-      this.getMessage(); // 获取井盖异常消息列表
+      this.getMessage(); // 获取灾害异常消息列表
     }, 10000 * 60);
 
     this.dragendOff(map);
@@ -186,7 +186,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const that = this;
       baiduMap.addEventListener('dragend', function () {
         baiduMap.clearOverlays();
-        that.getLights();  // 获取井盖
+        that.getLights();  // 获取灾害
+        console.log('开始拖动');
       });
     }
     // 监控-地图缩放事件-地图缩放后的级别。
@@ -194,7 +195,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const that = this;
       baiduMap.addEventListener('zoomend', function () {
           // baiduMap.clearOverlays();
-          that.getLights();  // 获取井盖
+          that.getLights();  // 获取灾害
           console.log('地图缩放至：' + baiduMap.getZoom() + '级');
       });
     }
@@ -202,11 +203,9 @@ export class CalamityComponent implements OnInit, OnDestroy {
   // 获取地图上的灾害设备点
   getLights() {
     const that = this;
-
     const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
     const NorthEast = Bounds.getNorthEast(); // 返回矩形区域的东北角
     const SouthWest = Bounds.getSouthWest();
-
     let compar;
     let value;
     this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
@@ -228,7 +227,6 @@ export class CalamityComponent implements OnInit, OnDestroy {
       }
 
     });
-
   }
   // 交并补
   comparison(a, b) {
