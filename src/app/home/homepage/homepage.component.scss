@@ -11,6 +11,13 @@
 
     .dash-phone{
         width: 100%;
+        padding-top: 120px;
+        background: linear-gradient(45deg, #233A38, #233A38, #45939d);
+        background: -webkit-linear-gradient(45deg,#233A38, #233A38, #45939d);
+    /* Opera 11.1 - 12.0 */
+        background: -o-linear-gradient(45deg,#233A38, #233A38, #45939d);
+        /* Firefox 3.6 - 15 */
+        background: -moz-linear-gradient(45deg,#233A38, #233A38, #45939d);
     }
     .title-phone {
         height: 50px;
