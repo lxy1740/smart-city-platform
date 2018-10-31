@@ -132,22 +132,24 @@
             <thead class="table-header">
               <tr>
                 <th>账户名称</th>
+                <th>角色</th>
                 <th>用户姓名</th>
                 <th>昵称</th>
                 <th>性别</th>
                 <th>联系方式</th>
-                <th>邮箱</th>
+                <!-- <th>邮箱</th> -->
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of userList" class="lineheight">
                 <td>{{user.userName}}</td>
+                <td>{{user.roles}}</td>
                 <td>{{user.fullName}}</td>
                 <td>{{user.nickName}}</td>
                 <td><span *ngIf="user.gender === 0">男</span><span *ngIf="user.gender === 1">女</span></td>
                 <td>{{user.mobile}}</td>
-                <td>{{user.email}}</td>
+                <!-- <td>{{user.email}}</td> -->
                 <td>
                   <div class="modify-strategy d-inline">
                     <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdateUser(content, user)">修改</a>

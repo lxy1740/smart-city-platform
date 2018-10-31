@@ -209,10 +209,22 @@ export class AdminComponent implements OnInit {
     }
     this.user.avatar = item.avatarurl;
 
-    this.user.roleListCheck = []; // 新建用户时各角色的选中状态（check）
+    this.user.roleListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     this.user.roleIds = [];
-    this.roleList1.map((item1, i) => {
-      that.user.roleListCheck.push({check: false}); // 一一对应角色表roleList1
+    const userRoles = item.roles ? item.roles : []; // 为空时避免因undefine报错
+    // this.roleList1.find((name) => name === userRoles[0]);
+    this.roleList1.map((item1, i) => { // 根据当前用户角色数组，设置修改框中对应的check值
+      let sign = true; // 标记是否已checked
+      for (let index = 0; index < userRoles.length; index++) {
+        if (userRoles[index] === item1.name) {
+          sign = false;
+          that.user.roleListCheck.push({check: true}); // 一一对应角色表roleList1
+          break;
+        }
+      }
+      if (sign) {
+        that.user.roleListCheck.push({check: false});
+      }
     });
 
     const modal = this.modalService.open(content, { windowClass: 'md' });
