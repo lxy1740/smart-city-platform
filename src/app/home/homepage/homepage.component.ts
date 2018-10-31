@@ -24,7 +24,8 @@ export class HomepageComponent implements OnInit {
   //   } else {
   //     sty.style.background = '#45939D';
   //     const d1 = this.elementRef.nativeElement.querySelector('.btn1');
-  //     d1.insertAdjacentHTML('beforeend', '<div class="col-md-12 content pp"><p><span><i class="fa  nav-icon"></i></span></p><p class="app">APP下载</p></div>');
+  //     d1.insertAdjacentHTML('beforeend', '<div class="col-md-12 content pp"><p><span><i class="fa  nav-icon">
+  //         </i></span></p><p class="app">APP下载</p></div>');
   //   }
   //  }
 
