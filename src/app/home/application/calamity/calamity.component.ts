@@ -193,8 +193,9 @@ export class CalamityComponent implements OnInit, OnDestroy {
     zoomendOff(baiduMap) {
       const that = this;
       baiduMap.addEventListener('zoomend', function () {
-          baiduMap.clearOverlays();
+          // baiduMap.clearOverlays();
           that.getLights();  // 获取井盖
+          console.log('地图缩放至：' + baiduMap.getZoom() + '级');
       });
     }
 
@@ -210,15 +211,12 @@ export class CalamityComponent implements OnInit, OnDestroy {
     let value;
     this.videoService.getCalamity(NorthEast, SouthWest).subscribe({
       next: function (val) {
-        // value = val;
-        // console.log(val);
         compar = that.comparison(that.model.coverList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
 
         that.changeMarker(value); // 替换
         that.deleMarker(compar.a_surplus); // 删除
         that.addMarker(compar.b_surplus); // 添加
-
         that.model.light_list = val; // 变为新值
 
       },

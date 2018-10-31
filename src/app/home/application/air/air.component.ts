@@ -122,29 +122,16 @@ export class AirComponent implements OnInit, OnDestroy {
 
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
   dragendOff(baiduMap) {
-    // console.log('baiduMap.getOverlays()');
-    // console.log(this.map.getOverlays());
     const that = this;
     baiduMap.addEventListener('dragend', function () {
-      // that.model.airdevicelist = [];
-      // baiduMap.clearOverlays();
       that.getAirdevices(); // 获取数据-添加标注
     });
   }
   // 监控-地图缩放事件-地图缩放后的级别。
   zoomendOff(baiduMap) {
-    // console.log('baiduMap.getOverlays()');
-    // console.log(this.map.getOverlays());
     const that = this;
     baiduMap.addEventListener('zoomend', function () {
-      // if (that.isqueryPoint === true) {
-      //   that.isqueryPoint = false;
-      // } else {
-      // that.model.airdevicelist = [];
-        // baiduMap.clearOverlays();
         that.getAirdevices(); // 添加标注
-        // console.log('地图缩放至：' + baiduMap.getZoom() + '级');
-      // }
     });
   }
 
@@ -163,15 +150,11 @@ export class AirComponent implements OnInit, OnDestroy {
       next: function (val) {
         const curIndex = that.currentAirIndex;
         compar = that.comparison(that.model.airdevicelist, val);
-        // console.log(compar);
         value = that.judgeChange(compar.a_arr, compar.b_arr, curIndex);
 
         that.changeMarker(value); // 替换
         that.deleMarker(compar.a_surplus); // 删除
-        // that.deleMarker(value); // 删除
         that.addCertainMarker(compar.b_surplus, curIndex); // 添加
-        // that.addPoint(value); // 添加
-
         that.model.airdevicelist = val; // 变为新值
       },
       complete: function () {
