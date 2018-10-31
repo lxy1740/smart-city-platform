@@ -90,7 +90,11 @@
             <object id="myId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="370" height="480">
                 <param name="movie" [value]="videoUrl"/>
                 <!--[if !IE]>-->
-                <object type="application/x-shockwave-flash" data="assets/js/GrindPlayer.swf" [value]="videoUrl" width="370" height="480">
+                <object type="application/x-shockwave-flash" data="assets/js/GrindPlayer.swf"  width="370" height="480">
+                    <param name="allowFullScreen" value="true" />
+                    <param name="allowScriptAccess" value="always" />
+                    <param name="bgcolor" value="#000000" />
+                    <param name="flashvars" [value]="videoUrl" />
                     <!--<![endif]-->
                     <div>
                         <h1>Alternative content</h1>
