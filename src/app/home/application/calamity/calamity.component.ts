@@ -319,7 +319,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
       const item = light_list[index]; // 点消息
       const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
 
-      let myIcon = null;
+      let myIcon;
       let marker2;
       if (item.alarm === 1) {
         switch (item.deviceModelId) {
@@ -339,26 +339,16 @@ export class CalamityComponent implements OnInit, OnDestroy {
           myIcon = new BMap.Icon('../../../../assets/imgs/hydrops.gif', new BMap.Size(64, 64));
           break;
         }
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // myIcon.setAnchor(new BMap.Size(16, 38));
-        // if (myIcon) {
-        //   myIcon.setAnchor(new BMap.Size(16, 38));
-        //   const point = new BMap.Point(item.point.lng, item.point.lat); // 坐标
-        //   const marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        //   this.map.addOverlay(marker2);
-        //   markers.push(marker2); // 聚合
-        //   points.push(point); // 聚合
-        // }
-      } else {
-        // myIcon = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
-        // marker2 = this.map.addOverlay(myIcon);
-        //  marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
-        myIcon = new BMap.Icon('../../../../assets/imgs/zh-normal.png', new BMap.Size(64, 64));
-        myIcon.setAnchor(new BMap.Size(16, 38));
-        marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        // marker2 = new CircleOverlarAirService(point, item.name, item.description, 60, 'green', 'blue');
+        myIcon.setAnchor(new BMap.Size(27, 26));
+
+
       }
+      // else {
+      //   myIcon = new BMap.Icon('../../../../assets/imgs/zh-normal.png', new BMap.Size(48, 48));
+      //   myIcon.setAnchor(new BMap.Size(48, 48));
+      //   marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+      // }
+      marker2 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       that.map.addOverlay(marker2);
       markers.push(marker2); // 聚合
       points.push(point); // 聚合
