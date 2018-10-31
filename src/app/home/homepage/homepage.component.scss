@@ -6,11 +6,10 @@
         padding: 0 !important;
     }
     .dash {
-        display: none;
+     display: none;
     }
 
     .dash-phone{
-
         width: 100%;
     }
     .title-phone {
@@ -37,12 +36,20 @@
     .dash-item-second-phone {
         margin-bottom: 16px;
         text-align: center;
-        // background: #506173;
+       // background: #506173;
         background: #45939D;
         cursor: pointer;
         &:hover {
             background: #6FB9BE;
         }
+    }
+    .dash-item-second-phone1 {
+        height: 80%;
+        margin-bottom: 1px;
+        text-align: center;
+        // background: #506173;
+        background: #45939D;
+        cursor: pointer;
     }
 }
 
