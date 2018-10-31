@@ -12,6 +12,9 @@ declare var $: any;
 export class AdminComponent implements OnInit {
 
   zTreeObj: any;
+  // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+  zTreeObj1: any; // 树
+  zNodes1: any; // 树结构
 
   setting = {}; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 
@@ -67,12 +70,30 @@ export class AdminComponent implements OnInit {
 
   curRole: any; // 当前角色
   addOrUpdate: any; // 新建或修改标识
+
+  currentTreeNodeId: any; // 当前选中的区域
+  public zTreeOnClick: (event, treeId, treeNode) => void;
+  public zTreeOnCheck: (event, treeId, treeNode) => void;
+
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
 
   constructor(private modalService: NgbModal, private adminService: AdminService) {
     this.page = 1;
+    // 树的操作
+    // 点击
+    const that = this;
+    this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
+    };
+    this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
+      this.user.roleIds = []; // 重新赋值前先清空
+      const treeObj = $.fn.zTree.getZTreeObj('treeDemo1');
+      const nodes = treeObj.getCheckedNodes(true);
+      nodes.map((item, i) => {
+        that.user.roleIds[i] = item.id;
+      });
+    };
   }
 
   ngOnInit() {
@@ -85,7 +106,7 @@ export class AdminComponent implements OnInit {
     const that = this;
     this.adminService.getAllUser(this.queryStr, this.page, this.pageSize).subscribe({
       next: function(val) {
-        console.log(val);
+        // console.log(val);
         that.userList = val.items;
         that.total = val.total;
       },
@@ -143,7 +164,7 @@ export class AdminComponent implements OnInit {
       that.user.roleListCheck.push({check: false}); // 一一对应角色表roleList1
     });
 
-    const modal = this.modalService.open(content, { size: 'lg' });
+    const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -152,6 +173,8 @@ export class AdminComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
+
+    this.setZtreeNode([]);
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -191,7 +214,6 @@ export class AdminComponent implements OnInit {
   }
   // 打开修改用户信息 框
   openUpdateUser(content, item) {
-    console.log(item);
     const that = this;
     this.addOrUpdate = '修改用户';
     this.user.curUser = item; // 所修改的用户
@@ -211,7 +233,7 @@ export class AdminComponent implements OnInit {
 
     this.user.roleListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     this.user.roleIds = [];
-    const userRoles = item.roles ? item.roles : []; // 为空时避免因undefine报错
+    const userRoles = item.roles ? item.roles : []; // 为空时避免因undefined报错
     // this.roleList1.find((name) => name === userRoles[0]);
     this.roleList1.map((item1, i) => { // 根据当前用户角色数组，设置修改框中对应的check值
       let sign = true; // 标记是否已checked
@@ -227,7 +249,7 @@ export class AdminComponent implements OnInit {
       }
     });
 
-    const modal = this.modalService.open(content, { windowClass: 'md' });
+    const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -236,6 +258,8 @@ export class AdminComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
+
+    this.setZtreeNode(userRoles);
   }
   // 修改用户点击事件
   updataUser() {
@@ -332,6 +356,7 @@ export class AdminComponent implements OnInit {
     });
     console.log(this.user.roleIds);
   }
+
   public closeAlert(alert: IAlert) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
@@ -345,6 +370,37 @@ export class AdminComponent implements OnInit {
     if (event.keyCode === 13) {
       this.execQuery();
     }
+  }
+
+  setZtreeNode(userRoles) { // 修改：传入当前用户角色名数组；新建：传入空数组
+    const that = this;
+    const setting = {// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+      view: {
+        selectedMulti: true
+      },
+      check: {
+        enable: true,
+        chkStyle: 'checkbox',
+        chkboxType: { 'Y': 'ps', 'N': 'ps' }
+      },
+      callback: {
+        onClick: this.zTreeOnClick, // 点击事件
+        onCheck: this.zTreeOnCheck // 勾选事件
+      }
+    };
+    const zNodes = this.roleList1;
+    this.zTreeObj1 = $.fn.zTree.init($('#treeDemo1'), setting, zNodes);
+
+    const treeObj = $.fn.zTree.getZTreeObj('treeDemo1');
+    userRoles.map((item, i) => {
+      const node = treeObj.getNodeByParam('name', item, null);
+      if (node) {
+        treeObj.checkNode(node, true, true);
+        that.user.roleIds[i] = that.roleList1.find(t => t.name === item).id;
+      }
+    });
+    // console.log(that.user.roleIds);
+
   }
 
 }

@@ -52,7 +52,7 @@ export class RightComponent implements OnInit {
     this.rightService.getAllRole(this.queryStr, this.page, this.pageSize).subscribe({
       next: function(val) {
         that.roleList = val.items;
-        console.log(that.roleList);
+        // console.log(that.roleList);
         that.total = val.total;
       },
       complete: function() {},
@@ -166,7 +166,7 @@ export class RightComponent implements OnInit {
 
   // 删除设备规则
   closeUser($event) {
-    console.log($event);
+    // console.log($event);
     if ($event === 'ok') {
       this.delRole();
     }
@@ -203,7 +203,9 @@ export class RightComponent implements OnInit {
     });
   }
 
-  pageChange() {}
+  pageChange() {
+    this.getRoleList();
+  }
 
   execQuery() {
     this.getRoleList();
