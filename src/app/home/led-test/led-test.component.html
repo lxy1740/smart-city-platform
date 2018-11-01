@@ -96,10 +96,10 @@
       <!-- 欢迎词 -->
       <div>
         <p>欢迎词</p>
-        <p>LED_ID: <input type="text" [(ngModel)]="task4.id"></p>
+        <p>LED_ID:    <input style="margin-left:24px;" type="text" [(ngModel)]="task4.id"></p>
         <p>节目单地址: <input type="text" [(ngModel)]="url"></p>
-        <p>欢迎词:<input type="text" [(ngModel)]="task4.wellname"></p>
-        <p>字体大小:<input type="text" [(ngModel)]="task4.fontsice"></p>
+        <p>欢迎词:    <input style="margin-left:27px;" type="text" [(ngModel)]="task4.wellname"></p>
+        <p>字体大小:  <input style="margin-left:12px;" type="text" [(ngModel)]="task4.fontsice"></p>
         <button class="btn btn-bg" (click)="gProgram1()" [disabled]="!task4.wellname" >确定</button>
       </div>
       <hr>
