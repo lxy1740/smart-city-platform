@@ -437,10 +437,10 @@ export class CoverComponent implements OnInit, OnDestroy {
     // if (mess.lowBattery || mess.alarm || mess.error || mess.offline) {
 
     if (res1 && res1.length > 0) {
-      txt = txt + `<hr><p style='color: red;'>待处理事件：</p>`;
+      txt = txt + `<hr><span style='color: red;'>待处理事件：</span>`;
       for (let index = 0; index < res1.length; index++) {
         const element = res1[index];
-        txt = txt + `<p style='color: red;'>${element.typeName}</p>`;
+        txt = txt + `<span style='color: red;'>${element.typeName}</span>`;
       }
       const m = `massage-lsq${mess.id}`;
       const p = `massage-post${mess.id}`;
@@ -459,10 +459,10 @@ export class CoverComponent implements OnInit, OnDestroy {
 
     }
     if (res2 && res2.length > 0) {
-      txt = txt + `<hr><p style='color: #ffb822;'>处理中事件：</p>`;
+      txt = txt + `<hr><span style='color: #ffb822;'>处理中事件：</span>`;
       for (let index = 0; index < res2.length; index++) {
         const element = res2[index];
-        txt = txt + `<p style='color: #ffb822;'>${element.typeName}</p>`;
+        txt = txt + `<span style='color: #ffb822;'>${element.typeName}</span>`;
       }
     }
 
