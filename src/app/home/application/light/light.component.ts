@@ -422,14 +422,24 @@ export class LightComponent implements OnInit, OnDestroy  {
     `;
     txt = txt +
       `<p>灯杆编号： ${val.positionNumber}</p>
+      <p>路灯编号： ${val.name}</p>
      `;
 
+
+    if (val.rule && val.rule.name) {
+      txt = txt + `<p >应用策略： ${val.rule.name}</p>`;
+    } else {
+      txt = txt + `<p >应用策略：无</p>`;
+    }
+    txt = txt + `<p >亮度级别： ${val.level}%</p>`;
+    txt = txt + `<p >电流强度： ${val.current}(mA)</p>`;
+    txt = txt + `<p >电压大小： ${val.volt}(mv)</p>`;
     if (val.offline === true) {// 离线
-        // 离线或异常
+      // 离线或异常
       txt = txt + `   <p><span style='color: red'>离线</span></p>`;
-      } else {
+    } else {
       txt = txt + `   <p><span style='color: blue'>在线</span></p>`;
-      }
+    }
 
     if (val.error === true) {// 离线
       // 离线或异常
@@ -437,14 +447,6 @@ export class LightComponent implements OnInit, OnDestroy  {
     } else {
       txt = txt + `<p ><span style='color: blue'>状态：正常</span></p>`;
     }
-    if (val.rule && val.rule.name) {
-      txt = txt + `<p >应用策略： ${val.rule.name}</p>`;
-    } else {
-      txt = txt + `<p >应用策略：无</p>`;
-    }
-    txt = txt + `<p >亮度级别： ${val.level}%</p>`;
-    txt = txt + `<p >电流强度： ${val.current}毫安(mA)</p>`;
-    txt = txt + `<p >电压大小： ${val.volt}毫伏(mv)</p>`;
     txt = txt + `<button class='btn btn-outline-info cur-point' style='font-size: 14px; float: right; margin: 5px;'
       id='${val.id}'>控制</button>`;
 
