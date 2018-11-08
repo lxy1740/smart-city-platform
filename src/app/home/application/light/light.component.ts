@@ -152,6 +152,7 @@ export class LightComponent implements OnInit, OnDestroy  {
         // that.map.addOverlay(that.mySquare);
       },
       complete: function () {
+        that.alerts = [];
       },
       error: function (error) {
         let message;
