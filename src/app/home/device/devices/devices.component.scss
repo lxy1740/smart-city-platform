@@ -1,7 +1,7 @@
 @import '../../../../assets/css/variable.scss';
 @import '../../../../assets/css/xylg.scss';
 .map_container{
-    height: 320px;
+    height: 400px;
 }
 .bodyofclass {
     width: calc(100vw - 50px);
@@ -121,7 +121,6 @@
     }
     .query-div {
         position: relative;
-        margin-top: 5px;
         .query-btn {
             position: relative;
             top: -2px;
