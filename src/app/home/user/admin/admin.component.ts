@@ -53,10 +53,7 @@ export class AdminComponent implements OnInit {
     title: '删除',
     body: 'hh',
   };
-  genderData = [
-    {name: '男', value: 0},
-    {name: '女', value: 1}
-  ];
+
 
   user: any = {}; // 存储数据
   closeResult: string;
@@ -84,8 +81,10 @@ export class AdminComponent implements OnInit {
     // 树的操作
     // 点击
     const that = this;
-    this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
-    };
+    // this.zTreeOnClick = (event, treeId, treeNode) => {    // 点击
+    //   treeNode.checked = true;
+    //   console.log(treeNode);
+    // };
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
       this.user.roleIds = []; // 重新赋值前先清空
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo1');
@@ -155,7 +154,7 @@ export class AdminComponent implements OnInit {
     this.user.mobile = '';
     this.user.fullName = '';
     this.user.nickName = '';
-    this.user.gender = '';
+    this.user.gender = '0';
     this.user.avatar = '';
 
     this.user.roleListCheck = []; // 新建用户时各角色的选中状态（check）
@@ -188,7 +187,7 @@ export class AdminComponent implements OnInit {
   // 新增用户点击事件
   addUser() {
     const that = this;
-    this.adminService.addNewUser(this.user.userName, this.user.password, this.user.gender.value, this.user.avatar,
+    this.adminService.addNewUser(this.user.userName, this.user.password, this.user.gender, this.user.avatar,
       this.user.email, this.user.mobile, this.user.fullName, this.user.nickName, this.user.roleIds).subscribe({
       next: function(val) {
         that.alerts.push({
@@ -223,12 +222,10 @@ export class AdminComponent implements OnInit {
     this.user.mobile = item.mobile;
     this.user.fullName = item.fullName;
     this.user.nickName = item.nickName;
-    // this.user.gender = item.gender;
-    if (item.gender === 0) {
-      this.user.gender = this.genderData[0];
-    } else {
-      this.user.gender = this.genderData[1];
-    }
+    this.user.gender = String(item.gender);
+    console.log(item);
+    console.log(item.gender);
+
     this.user.avatar = item.avatarurl;
 
     this.user.roleListCheck = []; // 新建及修改用户时各角色的选中状态（check）
@@ -264,7 +261,7 @@ export class AdminComponent implements OnInit {
   // 修改用户点击事件
   updataUser() {
     const that = this;
-    this.adminService.updateUser(this.user.curUser.id, this.user.userName, this.user.password, this.user.gender.value, this.user.avatar,
+    this.adminService.updateUser(this.user.curUser.id, this.user.userName, this.user.password, this.user.gender, this.user.avatar,
       this.user.email, this.user.mobile, this.user.fullName, this.user.nickName, this.user.roleIds).subscribe({
       next: function(val) {
         that.alerts.push({
