@@ -19,34 +19,34 @@ export class AdminComponent implements OnInit {
   setting = {}; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 
       // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-  zNodes = [
-    {
-      name: '设备概览', open: true, children: [
-        { name: 'test1_1' }, { name: 'test1_2' }]
-    },
-    {
-      name: '设备监控', open: true, children: [
-        { name: 'test2_1' }, { name: 'test2_2' }]
-    },
-    {
-      name: '设备管理', open: true, children: [
-        { name: '新增' }, { name: '添加' }, { name: '报销' }]
-    },
-    {
-      name: '系统管理', open: true, children: [
-        {
-          name: '用户管理', children: [
-            { name: '新增' }, { name: '添加' }, { name: '修改' }
-          ]
-        },
-        {
-          name: '权限管理', children: [
-            { name: '新增' }, { name: '添加' }, { name: '修改' }
-          ]
-        }
-      ]
-    }
-  ];
+  // zNodes = [
+  //   {
+  //     name: '设备概览', open: true, children: [
+  //       { name: 'test1_1' }, { name: 'test1_2' }]
+  //   },
+  //   {
+  //     name: '设备监控', open: true, children: [
+  //       { name: 'test2_1' }, { name: 'test2_2' }]
+  //   },
+  //   {
+  //     name: '设备管理', open: true, children: [
+  //       { name: '新增' }, { name: '添加' }, { name: '报销' }]
+  //   },
+  //   {
+  //     name: '系统管理', open: true, children: [
+  //       {
+  //         name: '用户管理', children: [
+  //           { name: '新增' }, { name: '添加' }, { name: '修改' }
+  //         ]
+  //       },
+  //       {
+  //         name: '权限管理', children: [
+  //           { name: '新增' }, { name: '添加' }, { name: '修改' }
+  //         ]
+  //       }
+  //     ]
+  //   }
+  // ];
 
   public mr: NgbModalRef; // 当前弹框
   modelData = {
@@ -96,16 +96,18 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
+    // this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
+    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting);
     this.getUserList();
     this.getRoleList();
+    // console.log(this.zNodes);
   }
   // 获取用户列表
   getUserList() {
     const that = this;
     this.adminService.getAllUser(this.queryStr, this.page, this.pageSize).subscribe({
       next: function(val) {
-        // console.log(val);
+        console.log('user', val);
         that.userList = val.items;
         that.total = val.total;
       },
@@ -121,10 +123,14 @@ export class AdminComponent implements OnInit {
     const that = this;
     this.adminService.getAllRole().subscribe({
       next: function(val) {
+        // console.log('role', val);
         that.roleList1 = val;
+        // console.log(that.roleList1);
         that.roleList = val.map((item) => Object.assign({}, item));
+        // console.log(that.roleList);
         that.roleList.unshift({ id: 0, name: '不限' }); // 所有项
         that.curRole = that.roleList[0];
+        // console.log(that.curRole);
       },
       complete: function() {},
       error: function(error) {
@@ -172,7 +178,6 @@ export class AdminComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
-
     this.setZtreeNode([]);
   }
   private getDismissReason(reason: any): string {
@@ -211,7 +216,7 @@ export class AdminComponent implements OnInit {
       }
     });
   }
-  // 打开修改用户信息 框
+  // 打开修改用户信息框
   openUpdateUser(content, item) {
     const that = this;
     this.addOrUpdate = '修改用户';
