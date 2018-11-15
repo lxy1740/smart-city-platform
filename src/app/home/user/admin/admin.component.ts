@@ -178,6 +178,7 @@ export class AdminComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
+    // 树状图里面内容为空号
     this.setZtreeNode([]);
   }
   private getDismissReason(reason: any): string {
@@ -401,7 +402,7 @@ export class AdminComponent implements OnInit {
         that.user.roleIds[i] = that.roleList1.find(t => t.name === item).id;
       }
     });
-    // console.log(that.user.roleIds);
+    console.log(that.user.roleIds);
 
   }
 

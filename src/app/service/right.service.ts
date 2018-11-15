@@ -51,6 +51,13 @@ export class RightService {
             }));
     }
 
-
+    // 获取router-tree.ts文件中的数据
+    // getAllDesk() {
+    //     return  this.http.get('././data/router-tree.ts')
+    //             .map((res: Response) => res.json());
+    // }
+    getAllDesk() {
+        return this.http.get('././data/router-tree.ts');
+       }
 
 }

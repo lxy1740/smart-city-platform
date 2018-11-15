@@ -44,7 +44,25 @@ export class RightComponent implements OnInit {
     {id: ' MM-000 ', pId: 0, name: '--- 系统管理', open: true, children: [
       {id: ' MM-001 ', pId: 1, name: '+ 用户管理'},
       {id: ' MM-002 ', pId: 1, name: '+ 角色管理'}
-    ]},
+    ]}
+    // {id: ' SC-000 ', pId: 0, name: '--- 智慧城市', open: true},
+    // {id: ' SC-001 ', pId: 1, name: '+ 灾害报警'},
+    // {id: ' SC-002 ', pId: 1, name: '+ 水质监测'},
+    // {id: ' SC-003 ', pId: 1, name: '+ 电气安全'},
+    // {id: ' SC-004 ', pId: 1, name: '+ 空气质量'},
+    // {id: ' SC-005 ', pId: 1, name: '+ 智慧照明'},
+    // {id: ' SC-006 ', pId: 1, name: '+ 窨井管理'},
+    // {id: ' SC-007 ', pId: 1, name: '+ 智慧交通'},
+    // {id: ' SC-008 ', pId: 1, name: '+ LED控制'},
+    // {id: ' MN-000 ', pId: 0, name: '--- 设备监控', open: true},
+    // {id: ' DN-000 ', pId: 0, name: '--- 设备管理', open: true},
+    // {id: ' DN-001 ', pId: 1, name: '+ 设备'},
+    // {id: ' DN-002 ', pId: 1, name: '+ 产品'},
+    // {id: ' DN-003 ', pId: 1, name: '+ 位置'},
+    // {id: ' MM-000 ', pId: 0, name: '--- 系统管理', open: true},
+    // {id: ' MM-001 ', pId: 1, name: '+ 用户管理'},
+    // {id: ' MM-002 ', pId: 1, name: '+ 角色管理'},
+
     ];
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
 
@@ -63,6 +81,8 @@ export class RightComponent implements OnInit {
   page: any;
   pageSize = 10;
   total: any;
+
+  curDesk: any; // 当前检索
   AddorUpdate: any; // 新增/修改标识
 
   currentTreeNodeId: any; // 当前选中的区域
@@ -76,7 +96,20 @@ export class RightComponent implements OnInit {
   constructor(private modalService: NgbModal, private rightService: RightService) {
 
     this.page = 1;
-
+    // 树的操作
+    // 点击
+    const that = this;
+    this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
+      this.role.deskListIds = []; // 重新赋值前先清空
+      const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
+      const nodes = treeObj.getCheckedNodes(true);
+      nodes.map((item, i) => {
+        that.role.deskListIds[i] = item.id;
+        console.log('itemid', that.role.deskListIds[ i ]);
+      });
+      console.log('length', that.role.deskListIds.length);
+      console.log('end');
+    };
   }
 
   ngOnInit() {
@@ -87,9 +120,30 @@ export class RightComponent implements OnInit {
     this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
     // console.log('zNodes', this.zNodes);
     this.deskList = this.zNodes;
-    console.log('deskList', this.deskList);
+    // this.getDeskList();
+    // console.log('deskList', this.deskList);
     this.getRoleList();
   }
+  // getDeskList() {
+  //   const that = this;
+  //   this.rightService.getAllDesk().subscribe({
+  //     next: function(val) {
+  //       console.log('role', val);
+  //       that.deskList = val;
+  //       // console.log(that.roleList1);
+  //       that.roleList = val.map((item) => Object.assign({}, item));
+  //       // console.log(that.roleList);
+  //       that.roleList.unshift({ id: 0, name: '不限' }); // 所有项
+  //       that.curDesk = that.deskList[0];
+  //       // console.log(that.curRole);
+  //     },
+  //     complete: function() {},
+  //     error: function(error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
+
   // 获取所有角色
   getRoleList() {
     const that = this;
@@ -161,23 +215,28 @@ export class RightComponent implements OnInit {
   openUpdateRole(content, item) {
     const that = this;
     this.AddorUpdate = '修改角色';
-    this.role.curRole = item;
+    this.role.curRole = item; // 所修改的用户
     this.role.name = item.name;
+    console.log('item', item);
 
-    this.role.roleListCheck = []; // 新建及修改用户时各角色的选中状态（check）
-    this.role.roleIds = [];
+    this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
+    this.role.deskListIds  = [];
     const roleRoles = item.roles ? item.roles : []; // 为空时避免因undefined报错
+    console.log('deskListCheck');
+    console.log(that.role.deskListCheck);
     this.deskList.map((item1, i) => { // 根据当前用户角色数组，设置修改框中对应的check值
       let sign = true; // 标记是否已checked
       for (let index = 0; index < roleRoles.length; index++) {
         if (roleRoles[index] === item1.name) {
           sign = false;
-          that.role.roleListCheck.push({check: true}); // 一一对应角色表roleList1
+          that.role.deskListCheck.push({check: true}); // 一一对应角色表roleList1
           break;
         }
+        console.log('deskListCheck');
+        console.log(that.role.deskListCheck);
       }
       if (sign) {
-        that.role.roleListCheck.push({check: false});
+        that.role.deskListCheck.push({check: false});
       }
     });
 
@@ -190,7 +249,7 @@ export class RightComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
-    this.setZtreeNode([]);
+    this.setZtreeNode(roleRoles);
   }
   // 修改角色
   updateRole() {
@@ -293,18 +352,18 @@ export class RightComponent implements OnInit {
   }
 
   // 为新建用户选定角色，多选按键点击事件
-  addRoleToUser() {
+  addDeskToRole() {
     const that = this;
     this.role.deskListIds = [];
-    this.role.roleListCheck.map((item, i) => {
+    this.role.deskListCheck.map((item, i) => {
       if (item.check === true) {
         const item1 = that.deskList[i].id;
         if (item1) {
-          that.role.roleIds.push(item1);
+          that.role.deskListIds.push(item1);
         }
       }
     });
-    console.log(this.role.roleIds);
+    console.log('that.role.deskListIds', that.role.deskListIds);
   }
 
   public closeAlert(alert: IAlert) {
@@ -323,7 +382,7 @@ export class RightComponent implements OnInit {
     }
   }
 
-  setZtreeNode(userRoles) { // 修改：传入当前用户角色名数组；新建：传入空数组
+  setZtreeNode(roleRoles) { // 修改：传入当前用户角色名数组；新建：传入空数组
     const that = this;
     const setting = {// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
       view: {
@@ -345,15 +404,19 @@ export class RightComponent implements OnInit {
     this.zTreeObj1 = $.fn.zTree.init($('#treeDemo'), setting, zNodes);
 
     const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
-    userRoles.map((item, i) => {
+    roleRoles.map((item, i) => {
       const node = treeObj.getNodeByParam('name', item, null);
       if (node) {
         treeObj.checkNode(node, true, true);
         that.role.deskListIds[i] = that.deskList.find(t => t.name === item).id;
       }
+      console.log('itemid', that.role.deskListIds[ i ]);
+      console.log('length', that.role.deskListIds.length);
+      console.log('end');
     });
-    console.log(that.role.roleIds);
-
+    // console.log('zNodes', this.zNodes);
+    // console.log('node', this.node );
+    console.log(that.role.deskListIds);
   }
 }
 
