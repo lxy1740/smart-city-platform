@@ -22,19 +22,22 @@ export class RightService {
     }
 
     // 新增角色
-    addNewRole(name: String): Observable<any> {
+    addNewRole(name: String, authorityIds: any): Observable<any> {
         return this.http.post('/security/role', {
-            'name': name
+            'name': name,
+            'authorityIds': authorityIds
+
         })
             .pipe(map((res: Response) => {
                 return res;
             }));
     }
     // 修改角色
-    updateRole(id: String, name: String): Observable<any> {
+    updateRole(id: String, name: String, authorityIds: any): Observable<any> {
         return this.http.put('/security/role', {
             'id': id,
-            'name': name
+            'name': name,
+            'authorityIds': authorityIds
         })
             .pipe(map((res: Response) => {
                 const data = {status: 200};
