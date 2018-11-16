@@ -222,14 +222,14 @@ export class RightComponent implements OnInit {
     this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     this.role.authorityIds  = [];
     const roleRoles = item.roles ? item.roles : []; // 为空时避免因undefined报错
-    console.log('deskListCheck');
-    console.log(that.role.deskListCheck);
+    // console.log('deskListCheck');
+    // console.log(that.role.deskListCheck);
     this.deskList.map((item1, i) => { // 根据当前用户角色数组，设置修改框中对应的check值
       let sign = true; // 标记是否已checked
       for (let index = 0; index < roleRoles.length; index++) {
         if (roleRoles[index] === item1.name) {
           sign = false;
-          that.role.deskListCheck.push({check: true}); // 一一对应角色表roleList1
+          that.role.deskListCheck.push({check: true}); // 一一对应角色表
           break;
         }
         console.log('deskListCheck');
@@ -251,7 +251,7 @@ export class RightComponent implements OnInit {
     });
     this.setZtreeNode(roleRoles);
   }
-  // 修改角色
+  // 修改角色点击事件
   updateRole() {
     const that = this;
     this.rightService.updateRole(this.role.curRole.id, this.role.name, this.role.authorityIds).subscribe({

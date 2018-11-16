@@ -59,8 +59,8 @@ export class RightService {
     //     return  this.http.get('././data/router-tree.ts')
     //             .map((res: Response) => res.json());
     // }
-    getAllDesk() {
-        return this.http.get('././data/router-tree.ts');
-       }
+    // getAllDesk() {
+    //     return this.http.get('././data/router-tree.ts');
+    //    }
 
 }
