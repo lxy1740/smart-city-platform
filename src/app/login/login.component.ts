@@ -30,7 +30,7 @@ export class LoginComponent {
     const that = this;
     this.loading = true;
     // this.authService.login1(this.model.username, this.model.password).subscribe(() => {});
-
+    // 登录进入home页面
     this.authService.login1(this.model.username, this.model.password)
     .subscribe({
       next: function(val) {
@@ -64,7 +64,7 @@ export class LoginComponent {
     });
   }
 
-
+  // 初始login页面
   logout() {
     this.authService.logout();
   }

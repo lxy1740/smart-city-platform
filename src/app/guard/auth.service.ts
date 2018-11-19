@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 
 import { Observable } from 'rxjs/';
 import { of } from 'rxjs/';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 
+
 @Injectable()
 export class AuthService {
     isLoggedIn = false;
@@ -19,6 +20,7 @@ export class AuthService {
     model: any;
 
     // store the URL so we can redirect after logging in
+    // 存储URL以便在登录后可以重定向
     redirectUrl: string;
 
     public token: string;
@@ -31,7 +33,7 @@ export class AuthService {
             currentUser = this._cookieService.getObject('currentUser');
 
         }
-        this.token = currentUser && currentUser.token;
+        // this.token = currentUser && currentUser.token;
     }
 
 
@@ -53,7 +55,6 @@ export class AuthService {
                     this.isLoggedIn = false;
                     return false;
                 }
-
             }));
     }
     logout(): void {
