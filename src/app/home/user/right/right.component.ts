@@ -25,25 +25,25 @@ export class RightComponent implements OnInit {
     }
   }; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
   zNodes = [
-    {id: ' SC-000 ', pId: 0, name: '--- 智慧城市', open: true, children: [
-      {id: ' SC-001 ', pId: 1, name: '+ 灾害报警'},
-      {id: ' SC-002 ', pId: 1, name: '+ 水质监测'},
-      {id: ' SC-003 ', pId: 1, name: '+ 电气安全'},
-      {id: ' SC-004 ', pId: 1, name: '+ 空气质量'},
-      {id: ' SC-005 ', pId: 1, name: '+ 智慧照明'},
-      {id: ' SC-006 ', pId: 1, name: '+ 窨井管理'},
-      {id: ' SC-007 ', pId: 1, name: '+ 智慧交通'},
-      {id: ' SC-008 ', pId: 1, name: '+ LED控制'}
+    {id: 'SC-000', pId: 0, name: '--- 智慧城市', open: true, children: [
+      {id: 'SC-001', pId: 1, name: '+ 灾害报警'},
+      {id: 'SC-002', pId: 1, name: '+ 水质监测'},
+      {id: 'SC-003', pId: 1, name: '+ 电气安全'},
+      {id: 'SC-004', pId: 1, name: '+ 空气质量'},
+      {id: 'SC-005', pId: 1, name: '+ 智慧照明'},
+      {id: 'SC-006', pId: 1, name: '+ 窨井管理'},
+      {id: 'SC-007', pId: 1, name: '+ 智慧交通'},
+      {id: 'SC-008', pId: 1, name: '+ LED控制'}
     ]},
-    {id: ' MN-000 ', pId: 0, name: '--- 设备监控', open: true},
-    {id: ' DN-000 ', pId: 0, name: '--- 设备管理', open: true, children: [
-      {id: ' DN-001 ', pId: 1, name: '+ 设备'},
-      {id: ' DN-002 ', pId: 1, name: '+ 产品'},
-      {id: ' DN-003 ', pId: 1, name: '+ 位置'}
+    {id: 'MN-000', pId: 0, name: '--- 设备监控', open: true},
+    {id: 'DN-000', pId: 0, name: '--- 设备管理', open: true, children: [
+      {id: 'DN-001', pId: 1, name: '+ 设备'},
+      {id: 'DN-002', pId: 1, name: '+ 产品'},
+      {id: 'DN-003', pId: 1, name: '+ 位置'}
     ]},
-    {id: ' MM-000 ', pId: 0, name: '--- 系统管理', open: true, children: [
-      {id: ' MM-001 ', pId: 1, name: '+ 用户管理'},
-      {id: ' MM-002 ', pId: 1, name: '+ 角色管理'}
+    {id: 'MM-000', pId: 0, name: '--- 系统管理', open: true, children: [
+      {id: 'MM-001', pId: 1, name: '+ 用户管理'},
+      {id: 'MM-002', pId: 1, name: '+ 角色管理'}
     ]}
     // {id: ' SC-000 ', pId: 0, name: '--- 智慧城市', open: true},
     // {id: ' SC-001 ', pId: 1, name: '+ 灾害报警'},
