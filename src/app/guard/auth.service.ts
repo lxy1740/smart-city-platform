@@ -1,8 +1,6 @@
 import { Injectable} from '@angular/core';
 
 import { Observable } from 'rxjs/';
-import { of } from 'rxjs/';
-import { tap, delay } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -37,7 +35,7 @@ export class AuthService {
     }
 
 
-    login1(userName: String, password: String): Observable<any> {
+    login(userName: String, password: String): Observable<any> {
         return this.http.post('/security/login', { 'userName': userName, 'password': password }, { responseType: 'text' })
             .pipe(map((res) => {
                 const token = res;
@@ -45,7 +43,6 @@ export class AuthService {
                     this.token = token;
                     // 设置全局变量
                     // this.winRef.nativeWindow.userId = this.userId;
-                    // this._cookieService.putObject('aaaaaa', JSON.stringify({ loginName: userName }));
                     this._cookieService.putObject('currentUser', JSON.stringify({ loginName: userName, token: token }));
                     localStorage.setItem('token', token);
                     // this._cookieService.putObject('bbbbbb', JSON.stringify({ loginName: userName }));
