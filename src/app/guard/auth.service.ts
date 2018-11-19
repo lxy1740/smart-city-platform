@@ -25,13 +25,7 @@ export class AuthService {
 
     constructor(private http: HttpClient, private _cookieService: CookieService,  public router: Router, ) {
         // set token if saved in local storage
-        let currentUser: any;
-        if (this._cookieService.getObject('currentUser')) {
-            // currentUser = JSON.parse(this._cookieService.getObject('currentUser'));
-            currentUser = this._cookieService.getObject('currentUser');
 
-        }
-        // this.token = currentUser && currentUser.token;
     }
 
 

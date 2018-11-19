@@ -54,6 +54,13 @@ export class RightService {
             }));
     }
 
+    getAuthorityByRoleId(id) {
+        return this.http.get(`/security/role?id=${id}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
     // 获取router-tree.ts文件中的数据
     // getAllDesk() {
     //     return  this.http.get('././data/router-tree.ts')

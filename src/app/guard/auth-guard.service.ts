@@ -6,24 +6,31 @@ import {
     CanActivateChild,
     CanLoad, Route
 } from '@angular/router';
-import { AuthService } from './auth.service';
 import { CookieService } from 'ngx-cookie';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { RightService } from '../service/right.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-    constructor(private authService: AuthService, private router: Router, private _cookieService: CookieService) { }
+    constructor(private router: Router, private _cookieService: CookieService, public jwtHelper: JwtHelperService,
+         private rightService: RightService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        // CanActivate 这种类型的 Guard用来控制是否允许进入当前的路径
+        console.log(route);
+        console.log(state.url);
         const url: string = state.url;
 
         return this.checkLogin(url);
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        // CanActivateChild 这种类型的 Guard用来控制是否允许进入当前路径的所有子路径
         return this.canActivate(route, state);
     }
 
     canLoad(route: Route): boolean {
+        // CanLoad 用于控制一个异步加载的子模块是否允许被加载。
         const url = `/${route.path}`;
 
         return this.checkLogin(url);
@@ -31,7 +38,14 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     checkLogin(url: string): boolean {
         if (this._cookieService.getObject('currentUser')) {
-            // if (sessionStorage.getItem('currentUser')) {
+            const token = localStorage.getItem('token');
+            console.log(url);
+            if (token) {
+                console.log(token);
+                const userId = this.jwtHelper.decodeToken(token).userid;
+                console.log(userId);
+                this.getAuthorityByRoleId(userId);
+            }
             // logged in so return true
             return true;
         } else {
@@ -58,6 +72,19 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         // // this.router.navigate(['/login'], navigationExtras);
         // this.router.navigate(['/login']);
         // return false;
+    }
+
+    getAuthorityByRoleId(id) {
+        const that = this;
+        this.rightService.getAuthorityByRoleId(id).subscribe({
+            next: function (val) {
+                console.log(val);
+            },
+            complete: function () { },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 }
 
