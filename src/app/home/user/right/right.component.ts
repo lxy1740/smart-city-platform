@@ -127,6 +127,14 @@ export class RightComponent implements OnInit {
   //   });
   // }
 
+  // 获取对象value
+  getVaule(obj) {
+    if (!obj) {
+      return;
+    }
+    return Object.values(obj);
+  }
+
   // 获取所有角色
   getRoleList() {
     const that = this;
