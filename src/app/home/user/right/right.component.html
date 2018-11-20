@@ -81,7 +81,7 @@
     <div class="user-info">
         <div class="form-inline">
           <label class="control-label"><span style="color: red;">*</span>角色名称：</label>
-          <input type="text" [(ngModel)]="role.roleName" name="roleName" class="form-control" placeholder=""
+          <input type="text" [(ngModel)]="role.name" name="name" class="form-control" placeholder=""
             maxlength="50">
         </div>
     </div>
@@ -91,8 +91,8 @@
  
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="addorUpdt()" [disabled]="!role.roleName || role.roleName == '' 
-      || role.roleName.length > 30">确定</button>
+    <button type="button" class="btn btn-outline-info" (click)="addorUpdt()" [disabled]="!role.name || role.name == '' 
+      || role.name.length > 30">确定</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
@@ -142,9 +142,15 @@
           <tbody>
             <tr *ngFor="let role of roleList; let i = index" class="lineheight">
               <td>{{i + 1}}</td>
+<<<<<<< HEAD
               <td class="success" >{{role.rid}}</td>
               <td>{{role.roleName}}</td>
               <td>{{ role.authorities[""] }}</td>
+=======
+              <td class="success" >{{role.id}}</td>
+              <td>{{role.name}}</td>
+              <td>{{ getVaule(role.authorities) }}</td>
+>>>>>>> c22001dceca89898983e259487d83557c2664d3a
               <td>
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdateRole(content1, role)">修改</a>
