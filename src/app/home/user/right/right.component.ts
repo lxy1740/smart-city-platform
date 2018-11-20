@@ -123,11 +123,11 @@ export class RightComponent implements OnInit {
     this.AddorUpdate = '新增角色';
     this.role.name = '';
 
-    this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
+    this.role.deskListCheck = []; // 新建用户时各角色的选中状态（check）
     this.role.authorities = {};
     // 此处添加树
     this.deskList.map((item, i) => {
-      that.role.deskListChecked.push({check: true}); // 对应树结构
+      that.role.deskListCheck.push({check: true}); // 对应树结构
     });
 
     const modal = this.modalService.open(content, { windowClass: 'md' });
@@ -181,22 +181,24 @@ export class RightComponent implements OnInit {
     this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     this.role.authorities  = {};
     const roleRoles = item.roles ? item.roles : []; // 为空时避免因undefined报错
-    this.deskList.map((item1, i) => { // 根据当前用户角色数组，设置修改框中对应的check值
+    this.deskList.map((item1, i) => { // 根据当前角色数组，设置修改框中对应的check值
       let sign = true; // 标记是否已checked
       for (let index = 0; index < roleRoles.length; index++) {
-        if (roleRoles[index] === item1.name) {
+        if (roleRoles[index] === item1.values) {
           sign = false;
           that.role.deskListCheck.push({check: true}); // 一一对应角色表
+          console.log(that.role.deskListCheck);
           break;
         }
         console.log('deskListCheck');
         console.log(that.role.deskListCheck);
       }
+      that.role.deskListCheck.push({sign});
+      console.log(sign);
       if (sign) {
         that.role.deskListCheck.push({check: false});
       }
     });
-
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
@@ -367,12 +369,11 @@ export class RightComponent implements OnInit {
       // console.log('node', node);
       if (node) {
         treeObj.checkNode(node, true, true);
-        that.role.authorities[i] = that.deskList.find(t => t.roleName === item).id;
+        that.role.authorities[item.id] = that.deskList.find(t => t.name === item).id;
         that.role.authorities.name = that.deskList.find(t => t.roleName === item).name;
-
+        console.log(that.role.authorities[item.id]);
       }
     });
-     console.log(that.role.authorities);
   }
 }
 
