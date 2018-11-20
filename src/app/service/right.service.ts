@@ -63,7 +63,7 @@ export class RightService {
     // 根据用户获取权限
     getAuthoritiesByUserId(userId) {
         return this.http.get(`/security/user/getAuthoritiesByUserId?userId=${userId}`)
-            .pipe(map((res: Response) => {
+            .pipe(map((res) => {
                 return res;
             }));
     }

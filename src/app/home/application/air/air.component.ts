@@ -300,15 +300,11 @@ export class AirComponent implements OnInit, OnDestroy {
 
   // 地图点注标-点击事件
   openSideBar(marker, baiduMap, airDevice, point) {
-    console.log('air', airDevice);
-    const that = this;
+
     const opts = {
       width: 350,     // 信息窗口宽度
-      // height: 100,     // 信息窗口高度
-      // title: `${val.name} | ${val.id }`, // 信息窗口标题
-      // enableMessage: true, // 设置允许信息窗发送短息
       enableAutoPan: true, // 自动平移
-      // border-radius: 5px,
+
     };  // ${airDevice.id} ${airDevice.description}
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>`;
     txt = txt + `设备编号 | ${airDevice.name} </p><p> 设备名称：${airDevice.description}</p>`;
