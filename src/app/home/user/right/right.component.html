@@ -142,15 +142,11 @@
           <tbody>
             <tr *ngFor="let role of roleList; let i = index" class="lineheight">
               <td>{{i + 1}}</td>
-<<<<<<< HEAD
-              <td class="success" >{{role.rid}}</td>
-              <td>{{role.roleName}}</td>
-              <td>{{ role.authorities[""] }}</td>
-=======
+
               <td class="success" >{{role.id}}</td>
               <td>{{role.name}}</td>
               <td>{{ getVaule(role.authorities) }}</td>
->>>>>>> c22001dceca89898983e259487d83557c2664d3a
+
               <td>
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdateRole(content1, role)">修改</a>
