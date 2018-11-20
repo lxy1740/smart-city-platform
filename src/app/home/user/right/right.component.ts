@@ -64,19 +64,21 @@ export class RightComponent implements OnInit {
     const that = this;
     // const a = Object.values( this.role.authorities );
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
-      this.role.authorities = []; // 重新赋值前先清空
+      this.role.authorities = {}; // 重新赋值前先清空
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
       const nodes = treeObj.getCheckedNodes(true);
       nodes.map((item, i) => {
         // that.deskList[i];
-        that.role.authorities[i] = item.id;
-        that.role.authorities.name = item.name;
-        console.log('authorities.id', that.role.authorities[ i ]);
-        console.log('authorities.name', that.role.authorities.name);
+        console.log('item');
+        console.log(item);
+        const obj = {};
+        that.role.authorities[item.id] = item.name;
+        // that.role.authorities.push(obj);
+
+        console.log('authorities', that.role.authorities);
+
       });
-      console.log('length', that.role.authorities.length);
-      console.log('end');
-      console.log(that.role.authorities);
+
     };
   }
 
@@ -142,7 +144,7 @@ export class RightComponent implements OnInit {
     this.role.name = '';
 
     this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
-    this.role.authorities = [];
+    this.role.authorities = {};
     // 此处添加树
     this.deskList.map((item, i) => {
       that.role.deskListChecked.push({check: false}); // 对应树结构
@@ -197,7 +199,7 @@ export class RightComponent implements OnInit {
     console.log('item', item);
 
     this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
-    this.role.authorities  = [];
+    this.role.authorities  = {};
     const roleRoles = item.roles ? item.roles : []; // 为空时避免因undefined报错
     // console.log('deskListCheck');
     // console.log(that.role.deskListCheck);
@@ -331,7 +333,7 @@ export class RightComponent implements OnInit {
   // 为新建用户选定角色，多选按键点击事件
   addDeskToRole() {
     const that = this;
-    this.role.authorities = [];
+    this.role.authorities = {};
     this.role.deskListCheck.map((item, i) => {
       if (item.check === true) {
         const item1 = that.deskList[i].id;
@@ -389,10 +391,7 @@ export class RightComponent implements OnInit {
         that.role.authorities.name = that.deskList.find(t => t.roleName === item).name;
 
       }
-      console.log('itemid', that.role.authorities[ i ]);
-      console.log('itemname', that.role.authorities.name );
-      console.log('length', that.role.authorities.length);
-      console.log('end');
+
     });
     // console.log('zNodes', this.zNodes);
     // console.log('node', this.node );
