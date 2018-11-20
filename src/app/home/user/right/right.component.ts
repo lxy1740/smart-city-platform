@@ -82,16 +82,21 @@ export class RightComponent implements OnInit {
     // 树的操作
     // 点击
     const that = this;
+    // const a = Object.values( this.role.authorities );
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
       this.role.authorities = []; // 重新赋值前先清空
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
       const nodes = treeObj.getCheckedNodes(true);
       nodes.map((item, i) => {
+        // that.deskList[i];
         that.role.authorities[i] = item.id;
-        console.log('authorities', that.role.authorities[ i ]);
+        that.role.authorities.name = item.name;
+        console.log('authorities.id', that.role.authorities[ i ]);
+        console.log('authorities.name', that.role.authorities.name);
       });
       console.log('length', that.role.authorities.length);
       console.log('end');
+      console.log(that.role.authorities);
     };
   }
 
@@ -104,7 +109,7 @@ export class RightComponent implements OnInit {
     // console.log('zNodes', this.zNodes);
     this.deskList = this.zNodes;
     // this.getDeskList();
-    // console.log('deskList', this.deskList);
+    console.log('deskList', this.deskList);
     this.getRoleList();
   }
   // getDeskList() {
@@ -133,7 +138,7 @@ export class RightComponent implements OnInit {
     this.rightService.getAllRole(this.queryStr, this.page, this.pageSize).subscribe({
       next: function(val) {
         that.roleList = val.items;
-        // console.log(that.roleList);
+        console.log(that.roleList);
         that.total = val.total;
       },
       complete: function() {},
@@ -179,6 +184,7 @@ export class RightComponent implements OnInit {
           message: '新增成功！',
         });
         that.mr.close();
+        console.log('新增val', val);
       },
       complete: function () {
         that.getRoleList();
@@ -392,8 +398,10 @@ export class RightComponent implements OnInit {
       if (node) {
         treeObj.checkNode(node, true, true);
         that.role.authorities[i] = that.deskList.find(t => t.roleName === item).id;
+        that.role.authorities.name = that.deskList.find(t => t.roleName === item).name;
       }
       console.log('itemid', that.role.authorities[ i ]);
+      console.log('itemname', that.role.authorities.name );
       console.log('length', that.role.authorities.length);
       console.log('end');
     });
