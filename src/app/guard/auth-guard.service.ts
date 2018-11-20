@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // CanActivate 这种类型的 Guard用来控制是否允许进入当前的路径
-        console.log(route);
+        // console.log(route);
         console.log(state.url);
         const url: string = state.url;
 
@@ -41,10 +41,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             const token = localStorage.getItem('token');
             console.log(url);
             if (token) {
-                console.log(token);
+                // console.log(token);
                 const userId = this.jwtHelper.decodeToken(token).userid;
+                console.log('userId');
                 console.log(userId);
-                this.getAuthorityByRoleId(userId);
+                this.getAuthoritiesByUserId(userId);
             }
             // logged in so return true
             return true;
@@ -74,9 +75,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         // return false;
     }
 
-    getAuthorityByRoleId(id) {
+    getAuthoritiesByUserId(id) {
         const that = this;
-        this.rightService.getAuthorityByRoleId(id).subscribe({
+        this.rightService.getAuthoritiesByUserId(id).subscribe({
             next: function (val) {
                 console.log(val);
             },
