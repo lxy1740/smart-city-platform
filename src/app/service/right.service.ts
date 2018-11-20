@@ -54,8 +54,8 @@ export class RightService {
             }));
     }
    // 获取角色对应的权限
-    getAuthorityByRoleId(id) {
-        return this.http.get(`/security/role?id=${id}`)
+    getAuthorityByRoleId(roleId) {
+        return this.http.get(`/security/role/getAuthorityByRoleId?roleId=${roleId}`)
             .pipe(map((res: Response) => {
                 return res;
             }));

@@ -146,7 +146,7 @@ export class RightComponent implements OnInit {
   openAddRole(content) {
     const that = this;
     this.AddorUpdate = '新增角色';
-    this.role.roleName = '';
+    this.role.name = '';
 
     this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
     this.role.authorities = [];
@@ -171,7 +171,7 @@ export class RightComponent implements OnInit {
   // 新增角色
   addRole() {
     const that = this;
-    this.rightService.addNewRole(this.role.roleName, this.role.authorities).subscribe({
+    this.rightService.addNewRole(this.role.name, this.role.authorities).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,
@@ -199,7 +199,7 @@ export class RightComponent implements OnInit {
     const that = this;
     this.AddorUpdate = '修改角色';
     this.role.curRole = item; // 所修改的用户
-    this.role.roleName = item.roleName;
+    this.role.name = item.name;
     console.log('item', item);
 
     this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
@@ -210,7 +210,7 @@ export class RightComponent implements OnInit {
     this.deskList.map((item1, i) => { // 根据当前用户角色数组，设置修改框中对应的check值
       let sign = true; // 标记是否已checked
       for (let index = 0; index < roleRoles.length; index++) {
-        if (roleRoles[index] === item1.roleName) {
+        if (roleRoles[index] === item1.name) {
           sign = false;
           that.role.deskListCheck.push({check: true}); // 一一对应角色表
           break;
@@ -237,7 +237,7 @@ export class RightComponent implements OnInit {
   // 修改角色点击事件
   updateRole() {
     const that = this;
-    this.rightService.updateRole(this.role.curRole.id, this.role.roleName, this.role.authorities).subscribe({
+    this.rightService.updateRole(this.role.curRole.id, this.role.name, this.role.authorities).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,
@@ -391,7 +391,7 @@ export class RightComponent implements OnInit {
       const node = treeObj.getNodeByParam('name', item, null);
       if (node) {
         treeObj.checkNode(node, true, true);
-        that.role.authorities[i] = that.deskList.find(t => t.roleName === item).id;
+        that.role.authorities[i] = that.deskList.find(t => t.name === item).id;
       }
       console.log('itemid', that.role.authorities[ i ]);
       console.log('length', that.role.authorities.length);
