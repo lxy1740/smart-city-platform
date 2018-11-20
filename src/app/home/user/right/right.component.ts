@@ -1,5 +1,6 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AUTHORITYTREE } from '../../../data/Authority.tree';
 
 import { RightService } from '../../../service/right.service';
 
@@ -24,29 +25,8 @@ export class RightComponent implements OnInit {
       showIcon: false
     }
   }; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-  zNodes = [
-    {id: 'SC-000', name: '智慧城市', open: true, children: [
-      {id: 'SC-001', name: '灾害报警'},
-      {id: 'SC-002', name: '水质监测'},
-      {id: 'SC-003', name: '电气安全'},
-      {id: 'SC-004', name: '空气质量'},
-      {id: 'SC-005', name: '智慧照明'},
-      {id: 'SC-006', name: '窨井管理'},
-      {id: 'SC-007', name: '智慧交通'},
-      {id: 'SC-008', name: 'LED控制'}
-    ]},
-    {id: 'MN-000', name: '设备监控', open: true},
-    {id: 'DN-000', name: '设备管理', open: true, children: [
-      {id: 'DN-001', name: '设备'},
-      {id: 'DN-002', name: '产品'},
-      {id: 'DN-003', name: '位置'}
-    ]},
-    {id: 'MM-000', name: '系统管理', open: true, children: [
-      {id: 'MM-001', name: '用户管理'},
-      {id: 'MM-002', name: '角色管理'}
-    ]}
+  zNodes = AUTHORITYTREE;
 
-    ];
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
 
 

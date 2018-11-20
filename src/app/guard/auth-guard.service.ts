@@ -9,6 +9,7 @@ import {
 import { CookieService } from 'ngx-cookie';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { RightService } from '../service/right.service';
+import { AUTHORITYTREE} from '../data/Authority.tree';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
@@ -75,11 +76,21 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         // return false;
     }
 
+    // 获取对象value
+    getkeys(obj) {
+        if (!obj) {
+            return;
+        }
+        return Object.keys(obj);
+    }
+    // 获取用户权限
     getAuthoritiesByUserId(id) {
         const that = this;
         this.rightService.getAuthoritiesByUserId(id).subscribe({
             next: function (val) {
+                console.log('获取用户权限');
                 console.log(val);
+                console.log(that.getkeys(val));
             },
             complete: function () { },
             error: function (error) {
