@@ -70,8 +70,6 @@ export class AuthService {
         console.log(userId);
         this.getAuthoritiesByUserId(userId)
         .then(function (res) {
-            console.log('ppppppppppppppp');
-            console.log(res);
             localStorage.setItem('Authorities', JSON.stringify({ Authorities: res }));
         })
         .catch(function (reason) {
@@ -89,10 +87,8 @@ export class AuthService {
                     const res = that.getVaule(val);
                     that.routerList = [];
                     res.map((item, i) => {
-                        console.log(item);
                         that.routerList.push(that.getVaule(item)[0]);
                     });
-                    console.log(that.routerList);
                 },
                 complete: function () {
                     resolve(that.routerList);

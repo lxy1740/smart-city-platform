@@ -115,14 +115,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     }
 
     geturlid(url) {
-        console.log(url);
         const that = this;
         const urlArr = url.split('/home/');
         console.log(urlArr);
         if (urlArr.length > 1) {
             const urlArr1 = urlArr[1].split('/');
-            console.log('urlArr1');
-            console.log(urlArr1);
 
             if (urlArr1.length === 1) { // 一级菜单
                 if (urlArr1[0] === 'homepage') {
