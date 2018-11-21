@@ -47,5 +47,22 @@ export class HomepageComponent implements OnInit {
 
   }
 
+  // 判断数组中是否存在值
+  getture(str) {
+    const Authorities = JSON.parse(localStorage.getItem('Authorities')).Authorities;
+    let res = false;
+    if (str === 'HP-000') {
+      res = true;
+      return res;
+    }
+    Authorities.map(item => {
+      if (item === str) {
+        res = true;
+        return res;
+      }
+    });
+    return res;
+  }
+
 
 }

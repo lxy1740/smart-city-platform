@@ -49,7 +49,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
             // logged in so return true
             console.log(Authorities);
-            return this.getture(Authorities.Authorities, this.urlid);
+            if (Authorities) {
+                return this.getture(Authorities.Authorities, this.urlid);
+            }
+
 
             // return true;
         } else {
@@ -95,7 +98,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     }
 
 
-    //
+    //  // 判断数组中是否存在值
     getture(arr, str) {
         let res = false;
         if (str === 'HP-000') {
@@ -108,7 +111,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
                 return res;
             }
         });
-        console.log(res);
         return res;
     }
 

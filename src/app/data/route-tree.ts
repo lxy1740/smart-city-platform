@@ -70,7 +70,7 @@ export const ROUTETREE = [
         ]
     },
     {
-        id: 'MN-000',
+        id: 'DA-000',
         icon: 'fa fa-desktop nav-icon',
         routeLink: 'monitor',
         routeTitel: '设备监控',
@@ -79,7 +79,7 @@ export const ROUTETREE = [
     },
 
     {
-        id: 'DN-000',
+        id: 'DM-000',
         icon: 'fa fa-map nav-icon',
         routeLink: 'device',
         routeTitel: '设备管理',
@@ -87,20 +87,20 @@ export const ROUTETREE = [
         hasRight: false,
         children: [
             {
-                id: 'DN-001',
+                id: 'DM-001',
                 icon: 'fa fa-window-restore nav-icon-s',
                 routeLink: 'device/devices',
                 routeTitel: '设备'
             },
 
             {
-                id: 'DN-002',
+                id: 'DM-002',
                 icon: 'fa fa-product-hunt nav-icon-s',
                 routeLink: 'device/product',
                 routeTitel: '产品'
             },
             {
-                id: 'DN-003',
+                id: 'DM-003',
                 icon: 'fa fa-map-marker nav-icon-s',
                 routeLink: 'device/position',
                 routeTitel: '位置'
@@ -108,19 +108,19 @@ export const ROUTETREE = [
         ]
     },
     {
-        id: 'MM-000',
+        id: 'SM-000',
         icon: 'fa fa-wrench nav-icon',
         routeLink: 'user',
         routeTitel: '系统管理',
         isCollapsed: true,
         hasRight: true,
         children: [{
-            id: 'MM-001',
+            id: 'SM-001',
             icon: 'fa fa-user-o nav-icon-s',
             routeLink: 'user/admin',
             routeTitel: '用户管理'
         }, {
-            id: 'MM-002',
+            id: 'SM-002',
             icon: 'fa fa-user-secret nav-icon-s',
             routeLink: 'user/right',
             routeTitel: '角色管理'

@@ -46,7 +46,6 @@ export class AuthService {
                     this.getAuthorities(token);
 
                     localStorage.setItem('token', token);
-                    // this._cookieService.putObject('bbbbbb', JSON.stringify({ loginName: userName }));
                     this.isLoggedIn = true;
                     return true;
                 } else {
@@ -60,6 +59,7 @@ export class AuthService {
         this.token = null;
         this._cookieService.remove('currentUser');
         localStorage.removeItem('token');
+        localStorage.removeItem('Authorities');
         this.router.navigate(['/login']);
     }
 
