@@ -1,0 +1,14 @@
+{
+    "/api": {
+        "target": "http://172.18.1.133:10002"
+    },
+    "/security": {
+        "target": "http://172.18.1.133:10003"
+    },
+    "/led-api": {
+        "target": "http://172.18.1.133:9600",
+        "pathRewrite": {
+            "^/led-api": ""
+        }
+    }
+}
