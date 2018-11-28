@@ -915,7 +915,6 @@ export class StrategyComponent implements OnInit {
     const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
     this.regionList.map(item => {
       const node = treeObj.getNodeByParam('id', item.regionId, null);
-      console.log(node);
       if (node) {
         treeObj.checkNode(node, true, true);
         this.findParent(node.getParentNode());

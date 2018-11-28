@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { DevicerRoutingModule } from './device-routing.module';
@@ -18,7 +18,6 @@ import { DevicesComponent } from './devices/devices.component';
     imports: [
         CommonModule,
         FormsModule,
-        NgbModule,
         SharedModule,
         DevicerRoutingModule
     ],
