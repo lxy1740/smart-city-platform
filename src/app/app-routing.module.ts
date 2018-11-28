@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CanDeactivateGuard } from './guard/can-deactivate-guard.service';
-import { SelectivePreloadingStrategy } from './selective-preloading-strategy';
+import { SelectivePreloadingStrategy } from './selective-preloading-strategy'; // 预加载
+import { PageNotFoundComponent } from './not-found.component';
 
 
 const appRoutes: Routes = [
-    // { path: '**', component: PageNotFoundComponent },
-    // { path: 'login', component: LoginComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full'},
-    { path: 'login', loadChildren: './login/login.module#LoginModule' },
-    { path: 'home', loadChildren: './home/home.module#HomeModule' },
+    { path: 'login', loadChildren: './login/login.module#LoginModule' }, // 懒加载
+    { path: 'home', loadChildren: './home/home.module#HomeModule', data: { preload: true } }, // 懒加载 + 预加载
+    { path: '**', component: PageNotFoundComponent }
 
 ];
 
@@ -19,8 +19,8 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                enableTracing: true, // <-- debugging purposes only
-                preloadingStrategy: SelectivePreloadingStrategy
+                // enableTracing: true, // <-- debugging purposes only
+                preloadingStrategy: SelectivePreloadingStrategy // 预加载
 
             }
         )
