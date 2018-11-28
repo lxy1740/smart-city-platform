@@ -4,8 +4,6 @@ import { DeviceComponent } from './device.component';
 import { PositionComponent } from './position/position.component';
 import { DevicesComponent } from './devices/devices.component';
 import { ProductComponent } from './product/product.component';
-
-
 import { AuthGuard } from '../../guard/auth-guard.service';
 
 export const DeviceRoutes: Route[] = [

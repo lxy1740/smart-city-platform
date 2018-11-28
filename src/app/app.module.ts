@@ -10,17 +10,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieModule } from 'ngx-cookie';
 
 import { HomeModule } from './home/home.module';
+import { LoginModule } from './login/login.module';
 import { ServiceModule } from './service/service.module';
 import { SharedModule } from './shared/shared.module';
+// import { ConfirmOrderModule } from './home/confirm-order/confirm-order.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+// import { LoginComponent } from './login/login.component';
+// import { HomeComponent } from './home/home.component';
 
-import { DeviceComponent } from './home/device/device.component';
-import { UserComponent } from './home/user/user.component';
-import { MonitorComponent } from './home/monitor/monitor.component';
-import { ApplicationComponent } from './home/application/application.component';
+// import { DeviceComponent } from './home/device/device.component';
+// import { UserComponent } from './home/user/user.component';
+// import { MonitorComponent } from './home/monitor/monitor.component';
+// import { ApplicationComponent } from './home/application/application.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -44,13 +46,13 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
+    // LoginComponent,
+    // HomeComponent,
     PageNotFoundComponent,
-    DeviceComponent,
-    UserComponent,
-    MonitorComponent,
-    ApplicationComponent
+    // DeviceComponent,
+    // UserComponent,
+    // MonitorComponent,
+    // ApplicationComponent
 
   ],
   imports: [
@@ -60,8 +62,9 @@ export function tokenGetter() {
     NgbModule.forRoot(),
     CookieModule.forRoot(),
     AppRoutingModule,
-    BrowserAnimationsModule,
     HomeModule,
+    LoginModule,
+    BrowserAnimationsModule,
     MaterialModule,
     ServiceModule,
     SharedModule,
