@@ -64,7 +64,6 @@ export class AuthService {
     }
 
     getAuthorities(token ) {
-        const that = this;
         const userId = this.jwtHelper.decodeToken(token).userid;
         console.log('userId');
         console.log(userId);

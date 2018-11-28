@@ -69,13 +69,8 @@ export class RightComponent implements OnInit {
       const nodes = treeObj.getCheckedNodes(true);
      // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
       nodes.map((item, i) => {
-        // that.deskList[i];
-      console.log('item');
-      console.log(item);
-      // 改变了树的传值形式
-      const obj = {};
+
       that.role.authorities[item.id] = item.name;
-        // that.role.authorities.push(obj);
       console.log('authorities', that.role.authorities);
       });
     };

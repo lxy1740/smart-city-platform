@@ -40,17 +40,23 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         return this.checkLogin(url);
     }
 
+
     checkLogin(url: string): boolean {
+
         if (this._cookieService.getObject('currentUser')) {
-            const token = localStorage.getItem('token');
+            // const token = localStorage.getItem('token');
             const Authorities = JSON.parse(localStorage.getItem('Authorities'));
             console.log('urlid');
             console.log(this.urlid);
 
             // logged in so return true
             console.log(Authorities);
-            if (Authorities) {
-                return this.getture(Authorities.Authorities, this.urlid);
+            if (this.urlid === 'HP-000') {
+                return true;
+            } else {
+                if (Authorities) {
+                    return this.getture(Authorities.Authorities, this.urlid);
+                }
             }
 
 
@@ -125,6 +131,26 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
                 if (urlArr1[0] === 'homepage') {
                     console.log(urlArr1);
                     that.urlid = 'HP-000';
+                    return;
+                }
+                if (urlArr1[0] === 'issuedata') {
+                    console.log(urlArr1);
+                    that.urlid = 'SC-0011';
+                    return;
+                }
+                if (urlArr1[0] === 'airreport') {
+                    console.log(urlArr1);
+                    that.urlid = 'SC-0041';
+                    return;
+                }
+                if (urlArr1[0] === 'dashboard') {
+                    console.log(urlArr1);
+                    that.urlid = 'SC-00411';
+                    return;
+                }
+                if (urlArr1[0] === 'strategy') {
+                    console.log(urlArr1);
+                    that.urlid = 'SC-0051';
                     return;
                 }
                 AUTHORITYTREE.map(item => {
