@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { CanDeactivateGuard } from './guard/can-deactivate-guard.service';
 import { SelectivePreloadingStrategy } from './selective-preloading-strategy'; // 预加载
 import { PageNotFoundComponent } from './not-found.component';
 
-
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'login', loadChildren: './login/login.module#LoginModule' }, // 懒加载
-    { path: 'home', loadChildren: './home/home.module#HomeModule' }, // 懒加载 + 预加载
+    { path: 'home', loadChildren: './home/home.module#HomeModule', data: { preload: true }}, // 懒加载 + 预加载
     { path: '**', component: PageNotFoundComponent }
 
 ];
