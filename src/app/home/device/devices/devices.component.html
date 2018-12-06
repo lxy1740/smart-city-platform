@@ -18,17 +18,6 @@
       <label class="control-label">上传填写好的信息表</label>
       <button type="button" class="btn btn-outline-dark btn1">选择文件</button>
     </div>
-    <!-- <table class="table table-bordered limited-width">
-      <tr>
-        <th>所属产品可填项</th>
-      </tr>
-      <tr>
-        <td>灯</td>
-      </tr>
-      <tr>
-        <td>井盖</td>
-      </tr>
-    </table> -->
 
   </div>
   <div class="modal-footer">
@@ -125,16 +114,12 @@
                         <span class="menu_arrow_left"></span>
               
                         <ul class="arealist" data-type="area">
-                          <!-- <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
-                                                            <em>不限</em>
-                                                          </li> -->
                           <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
                             <em>{{node.name}}</em>
                           </li>
                         </ul>
                         <div class="blocklist-wrap" *ngIf="currentBlock">
                           <ul class="blocklist" data-type="block">
-                            <!-- <li data-val="0">不限</li> -->
                             <li *ngFor="let block of currentBlock" (click)="selecteblock(block)">{{block.name}}</li>
                           </ul>
                         </div>
@@ -156,7 +141,6 @@
               <input type="text" id="sole-input1" [(ngModel)]="queryStrPosi" class="form-control" name="word1" autocomplete="off"
                 maxlength="30" placeholder="检索编号、名称" value="">
               <i *ngIf="currentArea" class="fa fa-search fa-lg query-btn" (click)="execQueryPosi()" aria-hidden="true"></i>
-              <!-- <button class="btn btn-bg query-btn" (click)="execQueryPosi()" [disabled]="!currentArea">搜索</button> -->
             </div>
           </div>
 
@@ -166,20 +150,14 @@
 
         </div>
         <!-- 中列 -->
-        <div class="col-6" style="height: 497px;">
-
-        
-          <div #map2 id="survey_map" class="map_container"></div>
-        
+        <div class="col-6" style="height: 497px;">     
+          <div #map2 id="survey_map" class="map_container"></div> 
           <label class="control-label" style="margin-top: 15px;"><span style="color:red;">*</span>&nbsp;已选位置：</label>
-          <!-- <span *ngIf="!bindedPosition" style="color:red;">绑定位置不能为空</span> -->
           <span *ngIf="bindedPosition">{{bindedPosition.name}}-{{bindedPosition.number}}</span>
         </div>
         
         <!-- 右列 -->
-        <div class="col-6">
-          <!-- <label class="control-label">地图:</label> -->
-        
+        <div class="col-6"> 
           <table class="table table-bordered table-hover small-size">
             <thead class="table-header">
               <tr>
@@ -239,8 +217,6 @@
     <div class="row card-block search-survey">
       <!-- 搜索设备 -->
       <form class="form-inline search-options">
-
-
         <span>设备型号：</span>
         <select name="profile" [(ngModel)]="currentModel" (change)="deviceTypeChange()" class="form-control">
           <option *ngFor="let index of deviceModels" [ngValue]="index">
@@ -248,15 +224,11 @@
           </option>
         </select>
         <!-- 日期，功能不明 -->
-        <!-- <input type="date" class="form-control" value="2018-06-01" /> -->
         <div class="form-group inner-addon left-addon ">
-            <!-- <i class="fa fa-search search-icon"></i> -->
-            <!-- <input type="text" class="form-control border-none" name="search-content" id="" placeholder="{{'XXX'}}" /> -->
             <input id="sole-input2" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
               name="word" autocomplete="off" maxlength="30" placeholder="检索编号、名称"  (keydown)="onKeydown($event)">
         </div>
         <button class="btn btn-bg extral-marg" (click)="execQuery()">搜索</button>
-        <!-- <button class="btn btn-bg extral-marg">清空选择</button> -->
       </form>
     </div>
 
@@ -281,11 +253,6 @@
             <td>{{modelName(device.modelId)}}</td>
             <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
             <td style="text-align: center">
-              <!-- <div>
-                  <a class="manage-class"><i class="fa fa-eye"></i></a>
-                  <a class="manage-class"><i class="fa fa-wrench"></i></a>
-                  <a class="manage-class"><i class="fa fa-times-circle"></i></a>
-                </div> -->
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>
@@ -293,8 +260,6 @@
             </td>
           </tr>
         </tbody>
-
-
       </table>
       <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
       <div *ngIf="deviceslist.length > 0">

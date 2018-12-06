@@ -6,7 +6,6 @@ import { PositionComponent } from './position/position.component';
 import { DevicesComponent } from './devices/devices.component';
 import { ProductComponent } from './product/product.component';
 
-
 const routes: Routes = [
 
   {
@@ -16,7 +15,6 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            // canActivateChild: [AuthGuard],
             children: [
               { path: '', redirectTo: 'position', pathMatch: 'full' },
               { path: 'position', component: PositionComponent },

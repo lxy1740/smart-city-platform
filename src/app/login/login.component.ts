@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  Router,
-  NavigationExtras
-} from '@angular/router';
+import {Router, NavigationExtras } from '@angular/router';
 import { AuthService } from '../guard/auth.service';
 
 @Component({
@@ -18,7 +15,6 @@ export class LoginComponent {
   constructor(public authService: AuthService, public router: Router) {
 
   }
-
 
   onKeydown(event: any) {
     if (event.keyCode !== 13) {

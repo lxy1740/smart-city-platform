@@ -1,17 +1,11 @@
 import { Injectable} from '@angular/core';
-
 import { Observable } from 'rxjs/';
-
 import { HttpClient } from '@angular/common/http';
-
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { RightService } from '../service/right.service';
-
 import { map } from 'rxjs/operators';
-
-
 
 @Injectable()
 export class AuthService {
@@ -20,7 +14,6 @@ export class AuthService {
     model: any;
     routerList: Array<any>;
     urlid: string;
-
     // store the URL so we can redirect after logging in
     // 存储URL以便在登录后可以重定向
     redirectUrl: string;
@@ -29,7 +22,6 @@ export class AuthService {
 
     constructor(private http: HttpClient, private _cookieService: CookieService, public router: Router, public jwtHelper: JwtHelperService,
         private rightService: RightService) {
-        // set token if saved in local storage
 
     }
 
