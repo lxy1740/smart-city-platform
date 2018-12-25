@@ -134,6 +134,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
                     that.urlid = 'SC-0051';
                     return;
                 }
+                if (urlArr1[0] === 'led') {
+                    console.log(urlArr1);
+                    that.urlid = 'SC-008';
+                    return;
+                }
                 AUTHORITYTREE.map(item => {
                     if (item.routeLink === urlArr1[0]) {
                         console.log('一级菜单yes-->go');

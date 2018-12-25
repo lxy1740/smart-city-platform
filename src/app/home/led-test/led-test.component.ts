@@ -620,8 +620,8 @@ export class LedTestComponent implements OnInit {
       return 0;
     }
 
-    if (value > 66) {
-      return Math.round(value / 66) + '%';
+    if (value > 64) {
+      return Math.round(value / 64) + '%';
     }
 
 

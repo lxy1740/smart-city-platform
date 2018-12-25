@@ -2,7 +2,7 @@
   <div class="row">
       <div class="col-md-4">
         <div>
-          <p>web模拟生成任务：</p>
+          <p>生成任务：</p>
       
         </div>
         <hr>
@@ -36,7 +36,7 @@
           <!-- 亮度值：<input type="text" [(ngModel)]="task.value"> -->
           <p>
             <label>
-              <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="10" min="0" max="66" [(ngModel)]="task2.value"
+              <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="10" min="1" max="64" [(ngModel)]="task2.value"
                 (change)="changeSlider(task2.value)"></mat-slider>
             </label>
           </p>
@@ -103,14 +103,17 @@
         <button class="btn btn-bg" (click)="gProgram1()" [disabled]="!task4.wellname" >确定</button>
       </div>
       <hr>
-      <!-- 空气质量 -->
-      <!-- <div>
-        <p>空气质量</p>
-        <p>空气质量设备_ID: <input type="text" [(ngModel)]="task2.id"></p>
-        <button class="btn btn-bg" (click)="gProgram()" >确定</button>
+      <!-- 欢迎词 -->
+      <div>
+        <p>纯文本节目</p>
+        <p>LED_ID: <input style="margin-left:24px;" type="text" [(ngModel)]="task4.id"></p>
+        <p>节目单地址: <input type="text" [(ngModel)]="url"></p>
+        <p>节目内容：</p>
+        <textarea name="" id="" cols="30" rows="10" [(ngModel)]="task4.wellname"></textarea>
+        <p>字体大小: <input style="margin-left:12px;" type="text" [(ngModel)]="task4.fontsice"></p>
+        <button class="btn btn-bg" (click)="gProgram1()" [disabled]="!task4.wellname">确定</button>
+      </div>
 
-      
-      </div> -->
     </div>
     <div class="col-md-8">
       <p>节目单列表</p>
