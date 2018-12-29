@@ -31,16 +31,9 @@
             <label class="control-label"><span style="color: red;">*</span>性别：</label>
             <input type="radio" name="sex" [(ngModel)]="user.gender" value="0">男
             <input type="radio" name="sex" [(ngModel)]="user.gender" value="1" style="margin-left: 30px;">女
-            <!-- <select name="profile1" [(ngModel)]="user.gender" class="cur-pointer form-control">
-              <option *ngFor="let index of genderData" [ngValue]="index">
-                {{ index.name }}
-              </option>
-            </select> -->
+
           </div>
-          <!-- <div *ngIf="addOrUpdate === '修改用户'" class="form-inline">
-            <label class="control-label"><span style="color: red;">*</span>确认密码：</label>
-            <input type="text" [(ngModel)]="user.password1" name="password1" class="form-control" placeholder="">
-          </div> -->
+
           <div class="form-inline margin-bottom15">
             <label class="control-label">电子邮件：</label>
             <input type="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder=""
@@ -62,26 +55,10 @@
               maxlength="50">
           </div>
 
-          <!-- <div class="form-inline">
-            <label class="control-label">AvatarUrl：</label>
-            <input type="text" [(ngModel)]="user.avatar" name="avatar" class="form-control" placeholder=""
-              maxlength="255">
-          </div> -->
 
           
       </div>
       <div class="col-12 col-md-3">
-        <!-- <div class="form-inline role-check">
-            <label class="control-label"><span style="color: red;">*</span>角色：</label>
-            <div class="form-inline role-check-list">
-                <div *ngFor="let role of roleList1; let i = index">
-                    <label class="checkbox-inline">
-                      <input type="checkbox" [checked]="user.roleListCheck[i].check" [(ngModel)]="user.roleListCheck[i].check"
-                        (change)="addRoleToUser()">{{role.name}}
-                    </label>
-                </div>
-            </div>
-          </div> -->
           <!-- 角色列表 -->
           <div class="city-list panel-default" style="padding: 20px;">
             <div class="control-label"><span style="color: red;">*</span>选择角色</div>
@@ -96,9 +73,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-info" (click)="addorUpdt()" [disabled]="!user.userName || user.userName == '' ||
-    !user.password || user.password == '' || !user.gender || user.gender == '' || user.userName.length > 30 || user.password.length > 30
-    || user.email.length > 30 || user.mobile.length > 30 || user.fullName.length > 30 || user.nickName.length > 30 ||
-    user.avatar.length > 30 || user.roleIds.length < 1">确定</button>
+    !user.password || user.password == '' || !user.gender || user.gender == '' ">确定</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
@@ -127,13 +102,7 @@
             <i class="fa fa-search search-icon" (click)="execQuery()"></i>
           </div>
       </div>
-      <!-- <select name="profile" [(ngModel)]="curRole" change="roleChange()" class="cur-pointer form-control">
-          <option *ngFor="let index of roleList" [ngValue]="index">
-              {{ index.name }}
-            </option>
-      </select> -->
-      <!-- <input type="date" class="form-control" value="Start date" />
-      <input type="date" class="form-control" value="End date" /> -->
+
       
     </form>
 
@@ -160,7 +129,6 @@
                 <td>{{user.nickName}}</td>
                 <td><span *ngIf="user.gender === 0">男</span><span *ngIf="user.gender === 1">女</span></td>
                 <td>{{user.mobile}}</td>
-                <!-- <td>{{user.email}}</td> -->
                 <td>
                   <div class="modify-strategy d-inline">
                     <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdateUser(content, user)">修改</a>
@@ -171,8 +139,8 @@
               </tr>
             </tbody>
         </table>
-        <div *ngIf="userList.length === 0 || !userList">无数据！</div>
-        <div *ngIf="userList.length > 0">
+        <div *ngIf="!userList || userList.length === 0">无数据！</div>
+        <div *ngIf="userList && userList.length > 0">
           <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
             (pageChange)="pageChange()"></ngb-pagination>
         </div>

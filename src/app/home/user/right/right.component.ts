@@ -13,18 +13,18 @@ declare var $: any;
 export class RightComponent implements OnInit {
 
   zTreeObj: any;
-  zTreeObj1: any; // 树
-  setting = {
-    data: {
-      simpleData: {
-        enable: true
-      }
-    },
-    view: {
-      showLine: false,
-      showIcon: false
-    }
-  };
+  // zTreeObj1: any; // 树
+  // setting = {
+  //   data: {
+  //     simpleData: {
+  //       enable: true
+  //     }
+  //   },
+  //   view: {
+  //     showLine: false,
+  //     showIcon: false
+  //   }
+  // };
   zNodes = AUTHORITYTREE;
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
 
@@ -38,7 +38,7 @@ export class RightComponent implements OnInit {
   // 弹框
   closeResult: string;
   roleList = []; // 角色表
-  deskList = []; // 自定义菜单内容
+
   queryStr = ''; // 检索字符串
   page: any;
   pageSize = 10;
@@ -69,18 +69,18 @@ export class RightComponent implements OnInit {
       const nodes = treeObj.getCheckedNodes(true);
      // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
       nodes.map((item, i) => {
-
       that.role.authorities[item.id] = item.name;
-      console.log('authorities', that.role.authorities);
+
       });
     };
   }
 
   ngOnInit() {
-    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
-    this.deskList = this.zNodes;
+
     this.getRoleList();
   }
+
+
 
 
   // 获取所有角色
@@ -89,7 +89,6 @@ export class RightComponent implements OnInit {
     this.rightService.getAllRole(this.queryStr, this.page, this.pageSize).subscribe({
       next: function(val) {
         that.roleList = val.items;
-        console.log(that.roleList);
         that.total = val.total;
       },
       complete: function() {},
@@ -107,7 +106,7 @@ export class RightComponent implements OnInit {
     this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
     this.role.authorities = {};
     // 此处添加树
-    this.deskList.map((item, i) => {
+    this.zNodes.map((item, i) => {
       that.role.deskListChecked.push({check: true}); // 对应树结构
     });
 
@@ -115,10 +114,9 @@ export class RightComponent implements OnInit {
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
+
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
     });
     // 树状图
     this.setZtreeNode([]);
@@ -135,7 +133,6 @@ export class RightComponent implements OnInit {
           message: '新增成功！',
         });
         that.mr.close();
-        console.log('新增val', val);
       },
       complete: function () {
         that.getRoleList();
@@ -157,19 +154,16 @@ export class RightComponent implements OnInit {
     this.AddorUpdate = '修改角色';
     this.role.curRole = item; // 所修改的用户
     this.role.name = item.name;
-    console.log('item', item);
-    console.log(item.name);
     this.role.authorityIds = this.getkeys(item.authorities);
-
+    this.role.authorities = item.authorities; // 权限加上
     this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
+
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult);
     });
     this.setZtreeNode(this.role.authorityIds);
   }
@@ -219,7 +213,7 @@ export class RightComponent implements OnInit {
 
   // 删除设备规则
   closeUser($event) {
-    // console.log($event);
+
     if ($event === 'ok') {
       this.delRole();
     }
@@ -306,8 +300,8 @@ export class RightComponent implements OnInit {
         onCheck: this.zTreeOnCheck // 勾选事件
       }
     };
-    const zNodes = this.deskList;
-    this.zTreeObj1 = $.fn.zTree.init($('#treeDemo'), setting, zNodes);
+
+    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, this.zNodes);
   }
 
   setZtreeNode(roleRoles) { // 修改：传入当前用户角色名数组；新建：传入空数组
@@ -322,8 +316,8 @@ export class RightComponent implements OnInit {
     roleRoles.map((item, i) => {
       const node = treeObj.getNodeByParam('id', item, null); // 传入id
       if (node) {
-        treeObj.checkNode(node, true, true); // 此处是用户勾选
-        this.findParent(node.getParentNode());
+        treeObj.checkNode(node, true, false ); // 此处是用户勾选
+        // this.findParent(node.getParentNode());
       }
     });
   }
@@ -334,7 +328,6 @@ export class RightComponent implements OnInit {
     }
     const p = node.getParentNode();
     if (p && !p.open) {
-      console.log(444);
       p.open = true;
     }
   }
