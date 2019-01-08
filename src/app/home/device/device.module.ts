@@ -12,6 +12,11 @@ import { DevicesComponent } from './devices/devices.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { RoadComponent } from './road/road.component';
 import { InstallComponent } from './install/install.component';
+import { InstallLogComponent } from './devices/install-log/install-log.component';
+import { LineLogComponent } from './devices/line-log/line-log.component';
+import { DeviceChildComponent } from './devices/device-child/device-child.component';
+import { RealTimeComponent } from './devices/real-time/real-time.component';
+import { HistoryComponent } from './devices/history/history.component';
 
 @NgModule({
     imports: [
@@ -28,7 +33,12 @@ import { InstallComponent } from './install/install.component';
         DevicesComponent,
         AdministrationComponent,
         RoadComponent,
-        InstallComponent
+        InstallComponent,
+        InstallLogComponent,
+        LineLogComponent,
+        DeviceChildComponent,
+        RealTimeComponent,
+        HistoryComponent
 
     ],
     schemas: [

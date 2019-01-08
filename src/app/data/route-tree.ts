@@ -104,6 +104,24 @@ export const ROUTETREE = [
                 icon: 'fa fa-map-marker nav-icon-s',
                 routeLink: 'device/position',
                 routeTitel: '位置'
+            },
+            {
+                id: 'DM-004',
+                icon: 'fa fa-map-marker nav-icon-s',
+                routeLink: 'device/administration',
+                routeTitel: '行政区域'
+            },
+            {
+                id: 'DM-005',
+                icon: 'fa fa-map-marker nav-icon-s',
+                routeLink: 'device/road',
+                routeTitel: '道路'
+            },
+            {
+                id: 'DM-006',
+                icon: 'fa fa-map-marker nav-icon-s',
+                routeLink: 'device/install',
+                routeTitel: '安装区域'
             }
         ]
     },

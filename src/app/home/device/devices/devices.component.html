@@ -235,12 +235,7 @@
           </option>
         </select>
 
-        <span>网关子设备：</span>
-        <select name="profile" class="form-control">
-          <option >
-            
-          </option>
-        </select>
+        
         <!-- 日期，功能不明 -->
         <div class="form-group inner-addon left-addon ">
             <input id="sole-input2" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
@@ -261,7 +256,8 @@
             <th>设备编号</th>
             <th>设备型号</th>
             <th>绑定位置</th>
-            <th>子设备</th>
+            <th>网关子设备</th>
+            <th>实时数据</th>
             <th>历史数据</th>
             <th style="text-align: center">操作</th>
           </tr>
@@ -274,7 +270,12 @@
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
             <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
-            <td></td>
+            <td>
+                <a href="" class="cur-pointer btn-a theme-text d-inline" >子设备</a>
+            </td>
+            <td>
+                <a href="" class="cur-pointer btn-a theme-text d-inline">实时数据</a>
+            </td>
             <td>
                 <a href="" class="cur-pointer btn-a theme-text d-inline">历史数据</a>
             </td>

@@ -30,7 +30,10 @@ export const AUTHORITYTREE = [
         id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
             { id: 'DM-001', name: '设备', routeLink: 'device/devices' },
             { id: 'DM-002', name: '产品', routeLink: 'device/product' },
-            { id: 'DM-003', name: '位置', routeLink: 'device/position' }
+            { id: 'DM-003', name: '位置', routeLink: 'device/position' },
+            { id: 'DM-004', name: '行政区域', routeLink: 'device/administration' },
+            { id: 'DM-005', name: '道路', routeLink: 'device/road' },
+            { id: 'DM-006', name: '安装区域', routeLink: 'device/install' }
         ]
     },
     {
