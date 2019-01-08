@@ -25,6 +25,8 @@
       <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
     </div>
 </ng-template>
+<!-- 批量导出设备 -->
+
 <!-- modal2:新建位置 -->
 <ng-template #contentsetPosition let-c="close" let-d="dismiss">
   <p *ngFor="let alert of alertsModal" class="lsq-alert">
@@ -127,6 +129,17 @@
           </div>
           <div class="form-inline padding-15">
             <span *ngFor="let mes of errorMess" class="errMes">{{mes}}</span>
+          </div>
+          <!-- 未完成：道路绑定 -->
+          <div class="form-inline padding-15">
+              <span class="text-danger">*</span>
+              <label class="control-label">道路:</label>
+              <select name="profile" class="form-control d-inline-block"
+                >
+                <option>
+                  道路绑定
+                </option>
+              </select>
           </div>
           <div class="form-inline padding-15">
               <span class="text-danger">*</span>
@@ -327,6 +340,7 @@
               <th>所属类型</th>
               <th>安装位置</th>
               <th>区域</th>
+              <th>道路</th>
               <th>坐标</th>
 
               <th style="text-align: center">操作</th>
@@ -341,6 +355,7 @@
               <td>{{changeName(item.type)}}</td>
               <td>{{item.installZoneName}}</td>
               <td>{{item.regionName}}</td>
+              <td></td>
               <td>{{item.point.lng}}/{{item.point.lat}}</td>
 
 
