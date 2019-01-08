@@ -125,7 +125,7 @@ export class LightComponent implements OnInit, OnDestroy  {
       }
     });
   }
-
+  // 点击搜索
   execQueryId() {
     if (this.queryStr === '' || !this.queryStr) {
       return;
@@ -142,6 +142,7 @@ export class LightComponent implements OnInit, OnDestroy  {
     console.log(typeof (posNum));
     that.lightService.getLightByDeviceName(posNum).subscribe({
       next: function (val) {
+        // 搜索到路灯值
         console.log('val');
         console.log(val);
         const point = new BMap.Point(val.point.lng, val.point.lat);
@@ -172,7 +173,7 @@ export class LightComponent implements OnInit, OnDestroy  {
     });
   }
 
-  // 标注消息列表中点击的井盖事件
+  // 标注消息列表中点击的路灯事件
   findPoint(point) {
     let marker;
     const makers = this.map.getOverlays();
@@ -187,8 +188,6 @@ export class LightComponent implements OnInit, OnDestroy  {
         }
       }
     }
-
-
   }
 
   // 监控-点击地图事件

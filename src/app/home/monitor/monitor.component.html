@@ -71,7 +71,36 @@
       </div>
   
     </div>
+    <!-- 新增--未实现 -->
+    <!--设备的产品型号显示信息-->
+    <div class="d-inline-block sel-area-block">
+      <span class="cl-blue cur-pointer">
+        <span class="filter" *ngIf="!typeName">产品型号</span>
+        <span class="filter" *ngIf="typeName">{{typeName}}</span>
+      </span>
+      <div id="device-panel" class="device-panel dropdown_panel" *ngIf="deviceshow">
+        <div class="dropdown_panel_inner">
+          <span class="menu_arrow_left"></span>
+          <dl>
+            <dt>
+              <a (click)="selecteDeviceNone()">不限</a>
+            </dt>
+          </dl>
+          <dl *ngFor="let device of map_model.deviceList">
+            <dt>
+              <a title="智慧城市">{{device.name}}</a>
+            </dt>
+          </dl>
+        </div>
+      </div> 
+    </div>
 
+    <!-- 按设备编号搜索和定位设备功能 -->
+    <div class="d-inline-block search-warp">
+      <input type="text"class="form-control search-input" name="word1" autocomplete="off"
+          maxlength="30" placeholder="检索设备编号" value="">
+          <span class="search-icon" (click)="execQueryId()"><i class="fa fa-search" aria-hidden="true"></i></span>
+    </div>
   </div>
 
   <!-- 右边按钮 -->
@@ -79,7 +108,6 @@
     <div class="d-inline-block icon-item cur-pointer">
       <img src="../../../assets/imgs/switch.png" alt="图片" (click)="enterFullScreen()">
     </div>
-
   </div>
 
   <!-- 地图 -->

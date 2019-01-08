@@ -62,6 +62,8 @@ export class MonitorComponent implements OnInit {
   visible = true; // 控制可视区域
   navigationControl: any; // 缩放控件
 
+  queryStr: any;
+
   constructor(
     private monitorService: MonitorService,
     public messService: MessService, public router: Router, public urlService: UrlService,
@@ -447,7 +449,6 @@ export class MonitorComponent implements OnInit {
     };
     let txt = `
     <p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'> 编号 | ${val.number } </p>
-
     `;
     if (val.device_types) {
       for (let index = 0; index < val.device_types.length; index++) {
@@ -675,7 +676,26 @@ export class MonitorComponent implements OnInit {
     this.map_model.currentBlock = [];
   }
 
+  // 点击搜索按钮，开始搜索
+  execQueryId() {
+    if (this.queryStr === '' || !this.queryStr) {
+      return;
+    }
+    console.log(1111111111);
+    this.getDeviceByDeviceName();
+
+  }
+  // 按照设备编号搜索
+  getDeviceByDeviceName() {
+    const that = this;
+    const posNum = this.queryStr;
+    console.log('typeof (posNum)');
+    console.log(typeof (posNum));
+  }
 }
+
+// 标注消息列表中点击的路灯事件
+
 /*
 
 Copyright(c): 2018 深圳创新设计研究院

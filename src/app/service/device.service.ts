@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'; // 1.引入HTTP模块
 import { Observable } from 'rxjs/';
 import { map } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class DeviceService {
     public url: string;
+    // 2.在组件的构造函数中实例化 HttpClient
     constructor(private http: HttpClient) {
 
     }
@@ -16,6 +17,7 @@ export class DeviceService {
     getZoneDefault(): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
 
+        // 4.通过HTTP的get方法请求数据
         return this.http.get('/api/zone/default')
             .pipe(map((res: Response) => {
                 const data = res;

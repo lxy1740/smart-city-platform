@@ -239,9 +239,11 @@
           <tr>
             <th>序号</th>
             <th>设备名称</th>
+            <th>设备状态</th>
             <th>设备编号</th>
             <th>设备型号</th>
             <th>绑定位置</th>
+            <th>子设备</th>
             <th style="text-align: center">操作</th>
           </tr>
         </thead>
@@ -249,9 +251,11 @@
           <tr *ngFor="let device of deviceslist; let i = index" class="lineheight">
             <td>{{i + 1}}</td>
             <td>{{device.description}}</td>
+            <td><p *ngIf="device.online === true">在线</p> <p *ngIf="device.online === false">离线</p></td>
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
             <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
+            <td></td>
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
@@ -264,9 +268,8 @@
       <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
       <div *ngIf="deviceslist.length > 0">
         <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-          (pageChange)="pageChange()"></ngb-pagination>
+          (pageChange)="pageChange()"> </ngb-pagination>
       </div>
     </div>
   </div>
-
 </div>

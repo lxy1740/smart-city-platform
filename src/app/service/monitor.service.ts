@@ -49,6 +49,7 @@ export class MonitorService {
 
     }
 
+    // 获取策略表
 
 
     // 获取详细的位置数据
@@ -72,8 +73,6 @@ export class MonitorService {
                 return res;
             }));
     }
-
-
 
 
 }
