@@ -1,3 +1,4 @@
+
 <!-- 批量导入设备 -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -210,7 +211,17 @@
       <span>设备管理</span>
       <div class="add-survey">
         <a class="theme-text btn-a cur-pointer" (click)="openAddSurveys(content)">批量导入设备</a>
-        <a class="theme-text btn-a cur-pointer" (click)="openNewSurvey(content2)">新建设备</a>
+        <a class="theme-text btn-a cur-pointer" >导出设备</a>
+        <a class="theme-text btn-a cur-pointer" (click)="openNewSurvey(content2)">新建设备</a>&nbsp;
+        <!-- Single button -->
+        <div class="btn-group">
+          <select name="" id="" class="btn dropdown-toggle btn-bg">
+              <optgroup value="">设备日志</optgroup> 
+              <option value="" >设备安装日志</option>
+              <option value="">设备上下线日志</option>
+            
+          </select>
+        </div>
       </div>
     </div>
     <!-- 搜索设备 -->
@@ -223,6 +234,8 @@
             {{ index.name }}
           </option>
         </select>
+
+        
         <!-- 日期，功能不明 -->
         <div class="form-group inner-addon left-addon ">
             <input id="sole-input2" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
@@ -239,9 +252,13 @@
           <tr>
             <th>序号</th>
             <th>设备名称</th>
+            <th>设备状态</th>
             <th>设备编号</th>
             <th>设备型号</th>
             <th>绑定位置</th>
+            <th>网关子设备</th>
+            <th>实时数据</th>
+            <th>历史数据</th>
             <th style="text-align: center">操作</th>
           </tr>
         </thead>
@@ -249,13 +266,23 @@
           <tr *ngFor="let device of deviceslist; let i = index" class="lineheight">
             <td>{{i + 1}}</td>
             <td>{{device.description}}</td>
+            <td><p *ngIf="device.online === true">在线</p> <p *ngIf="device.online === false">离线</p></td>
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
             <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
+            <td>
+                <a href="" class="cur-pointer btn-a theme-text d-inline" >子设备</a>
+            </td>
+            <td>
+                <a href="" class="cur-pointer btn-a theme-text d-inline">实时数据</a>
+            </td>
+            <td>
+                <a href="" class="cur-pointer btn-a theme-text d-inline">历史数据</a>
+            </td>
             <td style="text-align: center">
-              <div class="modify-strategy d-inline">
+              <div class="modify-strategy d-inline">    
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>   
               </div>
             </td>
           </tr>
@@ -264,9 +291,8 @@
       <div *ngIf="deviceslist.length === 0 || !deviceslist">无数据！</div>
       <div *ngIf="deviceslist.length > 0">
         <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-          (pageChange)="pageChange()"></ngb-pagination>
+          (pageChange)="pageChange()"> </ngb-pagination>
       </div>
     </div>
   </div>
-
 </div>

@@ -13,6 +13,7 @@ declare let BMap;
 })
 export class DevicesComponent implements OnInit {
   closeResult: string;
+  // 3.创建用来接收数据的变量
   map: any; // 地图对象
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
@@ -109,6 +110,7 @@ export class DevicesComponent implements OnInit {
       next: function (val) {
         that.deviceslist = val.items;
         that.total = val.total;
+        console.log(that.deviceslist);
       },
       complete: function () { },
       error: function (error) {
