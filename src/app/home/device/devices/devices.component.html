@@ -214,22 +214,22 @@
         <a class="theme-text btn-a cur-pointer" >导出设备</a>
         <a class="theme-text btn-a cur-pointer" (click)="openNewSurvey(content2)">新建设备</a>&nbsp;
         <!-- Single button -->
-        <div class="btn-group" (mouseleave)="leaveLog()">
-          <span (mouseover)="showLog()">日志</span>
+        <div class="btn-group">
+          <!-- <span (mouseover)="showLog()">日志</span>
           <div class="btn dropdown-toggle" *ngIf="showunstartedlist">
               <ul data-type="area">
                   <li *ngFor="let log of logList" >
                       <span>{{log[index]}}</span>
                   </li>
               </ul>
-          </div>
-          <!-- <select name="" id="" class="btn dropdown-toggle">
+          </div> -->
+          <select name="" id="" class="btn dropdown-toggle">
               <optgroup value="日志">
-                <option value=""><a (click)="goToZheRoute('../devices/install-log')">设备安装日志</a></option>
-                <option value=""><a (click)="goToZheRoute('../devices/line-log')">设备上下线日志</a></option>
-                <option value=""><a (click)="goToZheRoute('../devices/history')">历史数据</a></option>
+                <option value=""><a (click)="goToZheRoute('/devices/install-log')">设备安装日志</a></option>
+                <option value=""><a (click)="goToZheRoute('/devices/line-log')">设备上下线日志</a></option>
+                <option value=""><a (click)="goToZheRoute('/devices/history')">历史数据</a></option>
               </optgroup> 
-          </select> -->
+          </select>
         </div>
       </div>
     </div>
@@ -278,11 +278,11 @@
             <td>{{modelName(device.modelId)}}</td>
             <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
             <td>
-                <a href="" class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('../devices/device-child')">子设备</a>
+                <a href="" class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('/devices/device-child')">子设备</a>
             </td>
              <td style="text-align: center">
               <div class="modify-strategy d-inline">    
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('../devices/real-time')">详情</a>
+                <a class="cur-pointer btn-a theme-text d-inline" >详情</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>   
               </div>

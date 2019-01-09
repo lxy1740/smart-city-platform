@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { MonitorService } from '../../../service/monitor.service';
 import { DeviceService } from '../../../service/device.service';
 import { GradOverlar } from '../../../service/grad.overlay';
+import { Router } from '@angular/router';
 
 declare let BMap;
 
@@ -59,7 +60,7 @@ export class DevicesComponent implements OnInit {
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
-  constructor(private modalService: NgbModal, private monitorService: MonitorService,
+  constructor(public router: Router, private modalService: NgbModal, private monitorService: MonitorService,
     private deviceService: DeviceService) {
     this.page = 1;
     this.pagePosi = 1;
@@ -82,6 +83,10 @@ export class DevicesComponent implements OnInit {
     this.getCity();
     this.getAllDeviceModel();
     this.getDevicesList(this.page, this.pageSize);
+  }
+  //
+  goToZheRoute(para) {
+    this.router.navigate([para]);
   }
 
   // 获取设备型号列表
