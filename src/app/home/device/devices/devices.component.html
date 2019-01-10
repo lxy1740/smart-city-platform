@@ -215,11 +215,22 @@
         <a class="theme-text btn-a cur-pointer" (click)="openNewSurvey(content2)">新建设备</a>&nbsp;
         <!-- Single button -->
         <div class="btn-group">
-          <select name="" id="" class="btn dropdown-toggle btn-bg">
-              <optgroup value="">设备日志</optgroup> 
-              <option value="" >设备安装日志</option>
-              <option value="">设备上下线日志</option>
-            
+          <!-- <span (mouseover)="showLog()">日志</span>
+          <div class="btn dropdown-toggle" *ngIf="showunstartedlist">
+              <ul data-type="area">
+                  <li *ngFor="let log of logList" >
+                      <span>{{log[index]}}</span>
+                  </li>
+              </ul>
+          </div> -->
+          <select name="" id="" class="btn dropdown-toggle" >
+              <!-- (change) = "goToZheRoute1()" -->
+              <!-- <option *ngFor= value="" *ngIf="getture('DM-0011')"><a (click)="goToZheRoute('home/devices/install-log')">设备安装日志</a></option> -->
+              <optgroup value="日志">
+                <option value="" *ngIf="getture('DM-0011')"><a (click)="goToZheRoute('home/device/devices/install-log')">设备安装日志</a></option>
+                <option value="" *ngIf="getture('DM-0012')"><a (click)="goToZheRoute('home/device/devices/line-log')">设备上下线日志</a></option>
+                <option value="" *ngIf="getture('DM-0013')"><a (click)="goToZheRoute('home/device/devices/history')">历史数据</a></option>
+              </optgroup> 
           </select>
         </div>
       </div>
@@ -256,9 +267,6 @@
             <th>设备编号</th>
             <th>设备型号</th>
             <th>绑定位置</th>
-            <th>网关子设备</th>
-            <th>实时数据</th>
-            <th>历史数据</th>
             <th style="text-align: center">操作</th>
           </tr>
         </thead>
@@ -270,17 +278,11 @@
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
             <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
-            <td>
-                <a href="" class="cur-pointer btn-a theme-text d-inline" >子设备</a>
-            </td>
-            <td>
-                <a href="" class="cur-pointer btn-a theme-text d-inline">实时数据</a>
-            </td>
-            <td>
-                <a href="" class="cur-pointer btn-a theme-text d-inline">历史数据</a>
-            </td>
-            <td style="text-align: center">
+                
+             <td style="text-align: center">
               <div class="modify-strategy d-inline">    
+                <a class="cur-pointer btn-a theme-text d-inline" *ngIf="isGateway(device.modelId)">子设备</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/real-time')" *ngIf="getture('DM-0010')">详情</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>   
               </div>

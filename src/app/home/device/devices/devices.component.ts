@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { MonitorService } from '../../../service/monitor.service';
 import { DeviceService } from '../../../service/device.service';
 import { GradOverlar } from '../../../service/grad.overlay';
+import { Router } from '@angular/router';
 
 declare let BMap;
 
@@ -59,7 +60,7 @@ export class DevicesComponent implements OnInit {
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
-  constructor(private modalService: NgbModal, private monitorService: MonitorService,
+  constructor(public router: Router, private modalService: NgbModal, private monitorService: MonitorService,
     private deviceService: DeviceService) {
     this.page = 1;
     this.pagePosi = 1;
@@ -82,6 +83,10 @@ export class DevicesComponent implements OnInit {
     this.getCity();
     this.getAllDeviceModel();
     this.getDevicesList(this.page, this.pageSize);
+  }
+  //
+  goToZheRoute(para) {
+    this.router.navigate([para]);
   }
 
   // 获取设备型号列表
@@ -177,6 +182,26 @@ export class DevicesComponent implements OnInit {
       this.updataDevice();
     }
   }
+
+  // 详情
+  // 判断数组中是否存在值
+  getture( str) {
+    const Authorities = JSON.parse(localStorage.getItem('Authorities'));
+    const Auth = Authorities ? Authorities.Authorities : [];
+    let res = false;
+    if (str === 'HP-000') {
+      res = true;
+      return res;
+    }
+    Auth.map(item => {
+      if (item === str) {
+        res = true;
+        return res;
+      }
+    });
+    return res;
+  }
+
   // 新增设备
   addDevice() {
     const that = this;
@@ -366,6 +391,18 @@ export class DevicesComponent implements OnInit {
     });
     // console.log(modelName);
     return modelName;
+  }
+
+    // 根据设备型号id返回设备型号名称
+  isGateway(modelId) {
+    let flag = false;
+    this.deviceModels.map((item, i) => {
+      if (item.id === modelId && item.isGateway) {
+        flag = true;
+      }
+    });
+    // console.log(flag);
+    return flag;
   }
 
   // 搜索Enter事件
