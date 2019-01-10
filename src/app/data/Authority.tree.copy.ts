@@ -15,7 +15,7 @@ export const AUTHORITYTREECOPY = [
     {id: 'SC-008', name: 'LED控制', routeLink: 'led' },
     { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
     {id: 'DM-000', name: '设备管理', routeLink: 'device'},
-    {id: 'DM-001', name: '设备', routeLink: 'device/devices'},
+    { id: 'DM-001', name: '设备', routeLink: 'device/devices/devices-home'},
     { id: 'DM-0010', name: '详情', routeLink: 'device/devices/real-time' },
     { id: 'DM-0011', name: '设备安装日志', routeLink: 'device/devices/install-log' },
     { id: 'DM-0012', name: '设备上下线日志', routeLink: 'device/devices/line-log' },

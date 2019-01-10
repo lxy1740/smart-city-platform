@@ -10,6 +10,7 @@ import { InstallLogComponent } from './install-log/install-log.component';
 import { LineLogComponent } from './line-log/line-log.component';
 import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
+import { DeviceHomeComponent } from './device-home/device-home.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { HistoryComponent } from './history/history.component';
     InstallLogComponent,
     LineLogComponent,
     RealTimeComponent,
-    HistoryComponent
+    HistoryComponent,
+    DeviceHomeComponent
 
   ],
   schemas: [

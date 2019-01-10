@@ -89,7 +89,7 @@ export const ROUTETREE = [
             {
                 id: 'DM-001',
                 icon: 'fa fa-window-restore nav-icon-s',
-                routeLink: 'device/devices',
+                routeLink: 'device/devices/devices-home',
                 routeTitel: '设备',
                 children: [
                     {

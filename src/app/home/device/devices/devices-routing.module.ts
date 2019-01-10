@@ -7,6 +7,7 @@ import { InstallLogComponent } from './install-log/install-log.component';
 import { LineLogComponent } from './line-log/line-log.component';
 import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
+import { DeviceHomeComponent } from './device-home/device-home.component';
 
 const routes: Routes = [
 
@@ -18,8 +19,8 @@ const routes: Routes = [
           {
             path: '',
             children: [
-              // { path: '', redirectTo: 'install-log', pathMatch: 'full' },
-              // { path: 'devices', component: DevicesComponent },
+              { path: '', redirectTo: 'devices-home', pathMatch: 'full' },
+              { path: 'devices-home', component: DeviceHomeComponent },
               { path: 'install-log', component: InstallLogComponent },
               { path: 'line-log', component: LineLogComponent },
               { path: 'real-time', component: RealTimeComponent },

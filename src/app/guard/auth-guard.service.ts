@@ -115,7 +115,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             return;
         } else {
             AUTHORITYTREECOPY.map(item => {
-                console.log(item.routeLink);
+                // console.log(item.routeLink);
                 if (item.routeLink === urlArr[1]) {
                     that.urlid = item.id;
                     return;

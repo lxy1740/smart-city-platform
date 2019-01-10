@@ -26,7 +26,7 @@ const routes: Routes = [
             path: '',
             children: [
               { path: '', redirectTo: 'devices', pathMatch: 'full' },
-
+              { path: 'devices', loadChildren: './devices/devices.module#DevicesModule' },
               { path: 'position', component: PositionComponent },
               // { path: 'devices', component: DevicesComponent },
               { path: 'product', component: ProductComponent },
