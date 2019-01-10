@@ -5,7 +5,6 @@ import { AuthGuard } from '../../../guard/auth-guard.service';
 import { DevicesComponent } from './devices.component';
 import { InstallLogComponent } from './install-log/install-log.component';
 import { LineLogComponent } from './line-log/line-log.component';
-import { DeviceChildComponent } from './device-child/device-child.component';
 import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
 
@@ -19,18 +18,16 @@ const routes: Routes = [
           {
             path: '',
             children: [
-              { path: '', redirectTo: 'devices', pathMatch: 'full' },
+              // { path: '', redirectTo: 'install-log', pathMatch: 'full' },
+              // { path: 'devices', component: DevicesComponent },
               { path: 'install-log', component: InstallLogComponent },
               { path: 'line-log', component: LineLogComponent },
-              { path: 'device-child', component: DeviceChildComponent},
               { path: 'real-time', component: RealTimeComponent },
               { path: 'history', component: HistoryComponent },
             ]
           }
         ]
-
-    }
-
+  }
 ];
 
 @NgModule({

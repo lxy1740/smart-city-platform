@@ -40,6 +40,9 @@ export class InterceptorService implements HttpInterceptor { //  implements Http
             if (event['error'].message && event['error'].message.indexOf('expired') > 0) {
                 localStorage.removeItem('token');
                 that.goTo('/login');
+            } else if (event['message'] && event['message'] === 'Missing or invalid Authorization header') {
+                localStorage.removeItem('token');
+                that.goTo('/login');
             }
             return throwError(event); // break;
             default:

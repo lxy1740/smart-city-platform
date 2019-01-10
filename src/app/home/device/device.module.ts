@@ -8,7 +8,7 @@ import { DevicerRoutingModule } from './device-routing.module';
 import { DeviceComponent } from './device.component';
 import { PositionComponent } from './position/position.component';
 import { ProductComponent } from './product/product.component';
-import { DevicesComponent } from './devices/devices.component';
+// import { DevicesComponent } from './devices/devices.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { RoadComponent } from './road/road.component';
 import { InstallComponent } from './install/install.component';
@@ -30,7 +30,7 @@ import { InstallComponent } from './install/install.component';
         DeviceComponent,
         PositionComponent,
         ProductComponent,
-        DevicesComponent,
+        // DevicesComponent,
         AdministrationComponent,
         RoadComponent,
         InstallComponent,

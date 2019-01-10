@@ -182,6 +182,26 @@ export class DevicesComponent implements OnInit {
       this.updataDevice();
     }
   }
+
+  // 详情
+  // 判断数组中是否存在值
+  getture( str) {
+    const Authorities = JSON.parse(localStorage.getItem('Authorities'));
+    const Auth = Authorities ? Authorities.Authorities : [];
+    let res = false;
+    if (str === 'HP-000') {
+      res = true;
+      return res;
+    }
+    Auth.map(item => {
+      if (item === str) {
+        res = true;
+        return res;
+      }
+    });
+    return res;
+  }
+
   // 新增设备
   addDevice() {
     const that = this;
@@ -371,6 +391,18 @@ export class DevicesComponent implements OnInit {
     });
     // console.log(modelName);
     return modelName;
+  }
+
+    // 根据设备型号id返回设备型号名称
+  isGateway(modelId) {
+    let flag = false;
+    this.deviceModels.map((item, i) => {
+      if (item.id === modelId && item.isGateway) {
+        flag = true;
+      }
+    });
+    // console.log(flag);
+    return flag;
   }
 
   // 搜索Enter事件

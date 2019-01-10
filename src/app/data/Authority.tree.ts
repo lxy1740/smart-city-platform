@@ -28,7 +28,12 @@ export const AUTHORITYTREE = [
     { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
     {
         id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
-            { id: 'DM-001', name: '设备', routeLink: 'device/devices' },
+            { id: 'DM-001', name: '设备', routeLink: 'device/devices' , children: [
+                { id: 'DM-0010', name: '详情', routeLink: 'device/devices/real-time' },
+                { id: 'DM-0011', name: '设备安装日志', routeLink: 'device/devices/install-log' },
+                { id: 'DM-0012', name: '设备上下线日志', routeLink: 'device/devices/line-log' },
+                { id: 'DM-0013', name: '历史数据', routeLink: 'device/devices/history' },
+            ]},
             { id: 'DM-002', name: '产品', routeLink: 'device/product' },
             { id: 'DM-003', name: '位置', routeLink: 'device/position' },
             { id: 'DM-004', name: '行政区域', routeLink: 'device/administration' },

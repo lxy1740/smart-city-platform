@@ -90,7 +90,33 @@ export const ROUTETREE = [
                 id: 'DM-001',
                 icon: 'fa fa-window-restore nav-icon-s',
                 routeLink: 'device/devices',
-                routeTitel: '设备'
+                routeTitel: '设备',
+                children: [
+                    {
+                        id: 'DM-0010',
+                        // icon: 'fa fa-window-restore nav-icon-s',
+                        routeLink: 'device/devices/real-time',
+                        routeTitel: '详情'
+                    },
+                    {
+                        id: 'DM-0011',
+                        // icon: 'fa fa-window-restore nav-icon-s',
+                        routeLink: 'device/devices/install-log',
+                        routeTitel: '设备安装日志'
+                    },
+                    {
+                        id: 'DM-0012',
+                        // icon: 'fa fa-window-restore nav-icon-s',
+                        routeLink: 'device/devices/line-log',
+                        routeTitel: '设备上下线日志'
+                    },
+                    {
+                        id: 'DM-0013',
+                        // icon: 'fa fa-window-restore nav-icon-s',
+                        routeLink: 'device/devices/history',
+                        routeTitel: '历史数据'
+                    }
+                ]
             },
 
             {
