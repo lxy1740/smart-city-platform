@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from '../../../guard/auth-guard.service';
 import { LightComponent } from './light.component';
+import { LightHomeComponent } from './light-home/light-home.component';
+import { ThestrategyComponent } from './thestrategy/thestrategy.component';
 
 
 const routes: Routes = [
@@ -15,8 +17,9 @@ const routes: Routes = [
           {
             path: '',
             children: [
-              { path: '', redirectTo: '', pathMatch: 'full' },
-            //   { path: 'devices-home', component: DeviceHomeComponent },
+              { path: '', redirectTo: 'light-home', pathMatch: 'full' },
+              { path: 'light-home', component: LightHomeComponent },
+              { path: 'thestrategy', component: ThestrategyComponent },
 
             ]
           }

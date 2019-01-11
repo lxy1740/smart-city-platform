@@ -60,7 +60,7 @@ export const ROUTETREE = [
             {
                 id: 'SC-005',
                 icon: 'fa fa-lightbulb-o nav-icon-s',
-                routeLink: 'application/light',
+                routeLink: 'application/light/light-home',
                 routeTitel: '智慧照明',
                 children: [
                     {

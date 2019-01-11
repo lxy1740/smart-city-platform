@@ -6,6 +6,8 @@ import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { LightComponent } from './light.component';
+import { LightHomeComponent } from './light-home/light-home.component';
+import { ThestrategyComponent } from './thestrategy/thestrategy.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { LightComponent } from './light.component';
     NgbModule.forRoot(),
   ],
   declarations: [
-    LightComponent
+    LightComponent,
+    LightHomeComponent,
+    ThestrategyComponent
 
   ],
   schemas: [
@@ -24,4 +28,4 @@ import { LightComponent } from './light.component';
     NO_ERRORS_SCHEMA
   ]
 })
-export class DevicesModule { }
+export class LightModule { }

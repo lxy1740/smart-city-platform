@@ -11,7 +11,7 @@ export const AUTHORITYTREE = [
                     { id: 'SC-00411', name: '可视化报表', routeLink: 'application/air/theairreport/dashboard' },
                 ]},
             ]},
-            { id: 'SC-005', name: '智慧照明', routeLink: 'application/light', children: [
+            { id: 'SC-005', name: '智慧照明', routeLink: 'application/light/light-home', children: [
                 { id: 'SC-0051', name: '策略管理', routeLink: 'application/light/strategy' },
             ]},
             { id: 'SC-006', name: '窨井管理', routeLink: 'application/cover', children: [

@@ -7,7 +7,7 @@ import {
     CanLoad, Route
 } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { AUTHORITYTREE} from '../data/Authority.tree';
+// import { AUTHORITYTREE} from '../data/Authority.tree';
 import { AUTHORITYTREECOPY} from '../data/Authority.tree.copy';
 
 
