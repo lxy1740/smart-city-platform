@@ -76,7 +76,7 @@
       <!-- 2列 -->
       <div class="col-md-2 col-12 padding-left-0" *ngIf="getture('SC-000')">
         <!-- 空气质量 -->
-        <div class="row align-items-center justify-content-center dash-item-second" (click)="goToZheRoute('home/application/air')" *ngIf="getture('SC-004')">
+        <div class="row align-items-center justify-content-center dash-item-second" (click)="goToZheRoute('home/application/air/air-home')" *ngIf="getture('SC-004')">
           <div class="col-md-12 content" >
             <p>
               <span>
@@ -128,7 +128,7 @@
 
         </div>
         <!-- 设备监控 -->
-        <div class="row align-items-center justify-content-center dash-item-second" (click)="goToZheRoute('home/monitor')" *ngIf="getture('DA-000')">
+        <div class="row align-items-center justify-content-center dash-item-second" (click)="goToZheRoute('home/application/themonitor')" *ngIf="getture('DA-000')">
           <div class="col-md-12 content" >
             <p>
               <span>
@@ -140,7 +140,7 @@
 
         </div>
         <!-- LED控制 -->
-        <div class="row align-items-center justify-content-center dash-item-second" (click)="goToZheRoute('/home/led')" *ngIf="getture('SC-008')">
+        <div class="row align-items-center justify-content-center dash-item-second" (click)="goToZheRoute('/home/application/led')" *ngIf="getture('SC-008')">
               <div class="col-md-12 content" >
                 <p>
                   <span>
@@ -326,7 +326,7 @@
           <div class="col-4 padding-left-0">
             <!-- 空气质量 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone" *ngIf="getture('SC-004')">
-              <div class="col-md-12 " (click)="goToZheRoute('home/application/air')">
+              <div class="col-md-12 " (click)="goToZheRoute('home/application/air/air-home')">
                 <p>
                   <span>
                     <i class="fa fa-snowflake-o nav-icon"></i>
@@ -377,7 +377,7 @@
             </div>
             <!-- 设备监控 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone" *ngIf="getture('DA-000')">
-              <div class="col-md-12 " (click)="goToZheRoute('home/monitor')">
+              <div class="col-md-12 " (click)="goToZheRoute('home/application/themonitor')">
                 <p>
                   <span>
                     <i class="fa fa-desktop nav-icon"></i>
@@ -389,7 +389,7 @@
             </div>
             <!-- LED控制 -->
             <div class="row align-items-center justify-content-center dash-item-second-phone" *ngIf="getture('SC-008')">
-                  <div class="col-md-12" (click)="goToZheRoute('/home/led')">
+                  <div class="col-md-12" (click)="goToZheRoute('home/application/led')">
                     <p>
                       <span>
                         <i class="fa fa-building nav-icon"></i>

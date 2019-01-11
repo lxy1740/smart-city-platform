@@ -6,26 +6,23 @@ export const AUTHORITYTREE = [
             ] },
             { id: 'SC-002', name: '水质监测', routeLink: 'application/water' },
             { id: 'SC-003', name: '电气安全', routeLink: 'application/electrical'},
-            { id: 'SC-004', name: '空气质量', routeLink: 'application/air', children: [
-                { id: 'SC-0041', name: '监测大数据', routeLink: 'airreport' , children: [
-                    { id: 'SC-00411', name: '可视化报表', routeLink: 'dashboard' },
+            { id: 'SC-004', name: '空气质量', routeLink: 'application/air/air-home', children: [
+                { id: 'SC-0041', name: '监测大数据', routeLink: 'application/air/theairreport' , children: [
+                    { id: 'SC-00411', name: '可视化报表', routeLink: 'application/air/theairreport/dashboard' },
                 ]},
             ]},
             { id: 'SC-005', name: '智慧照明', routeLink: 'application/light', children: [
-                { id: 'SC-0051', name: '策略管理', routeLink: 'strategy' },
+                { id: 'SC-0051', name: '策略管理', routeLink: 'application/light/strategy' },
             ]},
             { id: 'SC-006', name: '窨井管理', routeLink: 'application/cover', children: [
                 { id: 'SC-0011', name: '消息记录', routeLink: 'issuedata' },
             ] },
             { id: 'SC-007', name: '智慧交通', routeLink: 'application/traffic' },
-            { id: 'SC-008', name: 'LED控制', routeLink: 'led' },
-
-
-
-
+            { id: 'SC-008', name: 'LED控制', routeLink: 'application/led' },
+            { id: 'DA-000', name: '设备监控', routeLink: 'application/monitor' }
         ]
     },
-    { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
+    // { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
     {
         id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
             {

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MonitorComponent } from './monitor.component';
-import { AuthGuard } from '../../guard/auth-guard.service';
+import { ThemonitorComponent } from './themonitor.component';
+import { AuthGuard } from '../../../guard/auth-guard.service';
 
 const routes: Routes = [
 
   {
         path: '',
-        component: MonitorComponent,
+        component: ThemonitorComponent,
         canActivate: [AuthGuard],
 
     }

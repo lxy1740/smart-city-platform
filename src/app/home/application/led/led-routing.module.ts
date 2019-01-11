@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '../../guard/auth-guard.service';
-import { LedTestComponent } from './led-test.component';
+import { AuthGuard } from '../../../guard/auth-guard.service';
+import { LedComponent } from './led.component';
 
 
 const routes: Routes = [
 
   {
     path: '',
-    component: LedTestComponent,
+    component: LedComponent,
     canActivate: [AuthGuard],
 
   }

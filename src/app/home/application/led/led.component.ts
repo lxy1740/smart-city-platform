@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { LedService } from '../../service/led.service';
-import { AirmonitorService } from '../../service/airmonitor.service';
+import { LedService } from '../../../service/led.service';
+import { AirmonitorService } from '../../../service/airmonitor.service';
 
 
 @Component({
-  selector: 'app-led-test',
-  templateUrl: './led-test.component.html',
-  styleUrls: ['./led-test.component.scss']
+  selector: 'app-led',
+  templateUrl: './led.component.html',
+  styleUrls: ['./led.component.scss']
 })
-export class LedTestComponent implements OnInit {
+export class LedComponent implements OnInit {
   url = 'http://172.18.8.46:3000';
   model: any = {}; // 存储数据
 

@@ -38,14 +38,38 @@ export const ROUTETREE = [
             {
                 id: 'SC-004',
                 icon: 'fa fa-cloud nav-icon-s',
-                routeLink: 'application/air',
-                routeTitel: '空气质量'
+                routeLink: 'application/air/air-home',
+                routeTitel: '空气质量',
+                children: [
+                    {
+                        id: 'SC-0041',
+                        // icon: 'fa fa-cloud nav-icon-s',
+                        routeLink: 'application/air/theairreport',
+                        routeTitel: '检测大数据',
+                        children: [
+                            {
+                                id: 'SC-00411',
+                                // icon: 'fa fa-eye nav-icon-s',
+                                routeLink: 'application/air/airreport/dashboard',
+                                routeTitel: '可视化报表'
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 id: 'SC-005',
                 icon: 'fa fa-lightbulb-o nav-icon-s',
                 routeLink: 'application/light',
-                routeTitel: '智慧照明'
+                routeTitel: '智慧照明',
+                children: [
+                    {
+                        id: 'SC-0051',
+                        // icon: 'fa fa-life-ring nav-icon-s',
+                        routeLink: 'application/light/strategy',
+                        routeTitel: '策略管理'
+                    }
+                ]
             },
             {
                 id: 'SC-006',
@@ -62,21 +86,26 @@ export const ROUTETREE = [
             {
                 id: 'SC-008',
                 icon: 'fa fa-window-maximize nav-icon-s',
-                routeLink: 'led',
+                routeLink: 'application/led',
                 routeTitel: 'LED控制'
+            },
+            {
+                id: 'DA-000',
+                icon: 'fa fa-desktop nav-icon',
+                routeLink: 'monitor',
+                routeTitel: '设备监控'
             }
-
 
         ]
     },
-    {
-        id: 'DA-000',
-        icon: 'fa fa-desktop nav-icon',
-        routeLink: 'monitor',
-        routeTitel: '设备监控',
-        isCollapsed: false,
-        hasRight: true
-    },
+    // {
+    //     id: 'DA-000',
+    //     icon: 'fa fa-desktop nav-icon',
+    //     routeLink: 'monitor',
+    //     routeTitel: '设备监控',
+    //     isCollapsed: false,
+    //     hasRight: true
+    // },
 
     {
         id: 'DM-000',

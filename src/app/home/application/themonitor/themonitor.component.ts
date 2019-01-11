@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { CircleOverlarService } from '../../service/circle-overlay.service';
-import { GradOverlar } from '../../service/grad.overlay';
-import { UrlService } from '../../service/url.service';
-import { MonitorService } from '../../service/monitor.service';
-import { MessService } from '../../service/mess.service';
-import { FullScreenService } from '../../service/full-screen.service';
-import { CommunicateService } from '../../service/communicate.service';
+import { CircleOverlarService } from '../../../service/circle-overlay.service';
+import { GradOverlar } from '../../../service/grad.overlay';
+import { UrlService } from '../../../service/url.service';
+import { MonitorService } from '../../../service/monitor.service';
+import { MessService } from '../../../service/mess.service';
+import { FullScreenService } from '../../../service/full-screen.service';
+import { CommunicateService } from '../../../service/communicate.service';
 
 // baidu map
 declare let BMap;
@@ -17,10 +17,10 @@ declare let BMAP_ANCHOR_BOTTOM_LEFT;
 
 @Component({
   selector: 'app-monitor',
-  templateUrl: './monitor.component.html',
-  styleUrls: ['./monitor.component.scss']
+  templateUrl: './themonitor.component.html',
+  styleUrls: ['./themonitor.component.scss']
 })
-export class MonitorComponent implements OnInit {
+export class ThemonitorComponent implements OnInit {
 
   @ViewChild('map1') map_container: ElementRef;
 
@@ -159,7 +159,8 @@ export class MonitorComponent implements OnInit {
 
   checkFull() {
     let isFull: any;
-    isFull = document.fullscreenEnabled || document.webkitIsFullScreen;
+    isFull = document.fullscreenEnabled;
+    // isFull = document.fullscreenEnabled || document.webkitIsFullScreen;
     if (isFull === undefined) {
       isFull = false;
     }

@@ -7,7 +7,7 @@ import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 
 import {  MatSliderModule, MatSlideToggleModule} from '@angular/material';
 
-import { LedTestComponent } from './led-test.component';
+import { LedComponent } from './led.component';
 import { LedRoutingModule } from './led-routing.module';
 
 
@@ -19,7 +19,7 @@ import { LedRoutingModule } from './led-routing.module';
         NgbModule.forRoot(),
     ],
     declarations: [
-        LedTestComponent,
+        LedComponent,
 
 ],
     schemas: [
