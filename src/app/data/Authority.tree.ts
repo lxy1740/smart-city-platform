@@ -12,14 +12,14 @@ export const AUTHORITYTREE = [
                 ]},
             ]},
             { id: 'SC-005', name: '智慧照明', routeLink: 'application/light/light-home', children: [
-                { id: 'SC-0051', name: '策略管理', routeLink: 'application/light/strategy' },
+                { id: 'SC-0051', name: '策略管理', routeLink: 'application/light/thestrategy' },
             ]},
             { id: 'SC-006', name: '窨井管理', routeLink: 'application/cover', children: [
                 { id: 'SC-0011', name: '消息记录', routeLink: 'issuedata' },
             ] },
             { id: 'SC-007', name: '智慧交通', routeLink: 'application/traffic' },
             { id: 'SC-008', name: 'LED控制', routeLink: 'application/led' },
-            { id: 'DA-000', name: '设备监控', routeLink: 'application/monitor' }
+            { id: 'DA-000', name: '设备监控', routeLink: 'application/themonitor' }
         ]
     },
     // { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },

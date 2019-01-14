@@ -6,10 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatStepperModule, MatInputModule, MatCardModule, MatSliderModule, MatSlideToggleModule } from '@angular/material';
 
 
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 
-import { StrategyRoutingModule } from './strategy-routing.module';
-import { StrategyComponent } from './strategy.component';
+import { ThestrategyRoutingModule } from './strategy-routing.module';
+import { ThestrategyComponent } from './thestrategy.component';
 
 
 @NgModule({
@@ -20,12 +20,12 @@ import { StrategyComponent } from './strategy.component';
         SharedModule,
         MatStepperModule, MatButtonModule, MatInputModule, MatCardModule,
         MatSliderModule, MatSlideToggleModule,
-        StrategyRoutingModule
+        ThestrategyRoutingModule
     ],
-    declarations: [StrategyComponent],
+    declarations: [ThestrategyComponent],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
         NO_ERRORS_SCHEMA
     ]
 })
-export class StrategyModule { }
+export class ThestrategyModule { }

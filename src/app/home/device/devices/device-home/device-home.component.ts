@@ -57,6 +57,13 @@ export class DeviceHomeComponent implements OnInit {
   addOrUpdate: any; // 新建/修改标识
   curModelIndex: any; // 当前设备型号标识
 
+  showonprogresslist = false; // 默认不显示日志消息
+  logList = [
+    { id: 'DM-0011', name: '设备安装日志', url: 'home/device/devices/install-log' },
+    { id: 'DM-0012', name: '设备上下线日志', url: 'home/device/devices/line-log' },
+    { id: 'DM-0013', name: '历史数据', url: 'home/device/devices/history'},
+  ];
+
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
@@ -605,6 +612,16 @@ export class DeviceHomeComponent implements OnInit {
     this.areashow = true;
     this.currentBlock = null;
   }
+
+  // 显示 日志 消息
+   showOnprogressList() {
+    this.showonprogresslist = true;
+  }
+  // 离开 日志 消息
+  messageListMouseleave_2() {
+    this.showonprogresslist = false;
+  }
+
 }
 
 export interface IAlert {

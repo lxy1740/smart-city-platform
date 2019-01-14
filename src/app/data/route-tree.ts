@@ -66,7 +66,7 @@ export const ROUTETREE = [
                     {
                         id: 'SC-0051',
                         // icon: 'fa fa-life-ring nav-icon-s',
-                        routeLink: 'application/light/strategy',
+                        routeLink: 'application/light/thestrategy',
                         routeTitel: '策略管理'
                     }
                 ]
@@ -92,7 +92,7 @@ export const ROUTETREE = [
             {
                 id: 'DA-000',
                 icon: 'fa fa-desktop nav-icon',
-                routeLink: 'monitor',
+                routeLink: 'themonitor',
                 routeTitel: '设备监控'
             }
 
