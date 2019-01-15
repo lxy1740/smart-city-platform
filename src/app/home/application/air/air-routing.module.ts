@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../../../guard/auth-guard.service';
 import { AirComponent } from './air.component';
@@ -15,7 +16,7 @@ const routes: Routes = [
           {
             path: '',
             children: [
-              { path: '', redirectTo: 'cover', pathMatch: 'full' },
+              { path: '', redirectTo: 'air-home', pathMatch: 'full' },
               { path: 'air-home', component: AirHomeComponent },
               { path: 'theairreport', component: TheairreportComponent }
             ]
@@ -26,7 +27,8 @@ const routes: Routes = [
   ];
 
   @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    imports: [RouterModule.forChild(routes), CommonModule],
+    exports: [RouterModule],
+    declarations: []
   })
   export class AirRoutingModule { }

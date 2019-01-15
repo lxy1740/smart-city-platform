@@ -222,6 +222,7 @@
               <div class="dropdown_panel_inner">
                   <span class="menu_arrow_left"></span>
                   <ul class="messagelist" data-type="area">
+                      <!-- 点击跳转具体日志页面 -->
                       <li class="messagelist-item" *ngFor="let log of logList" (click)="goToZheRoute(log.url)">
                           <span>{{log.name}}</span>
                       </li>
@@ -229,25 +230,6 @@
               </div>
           </div>
         </div>
-        <!-- <div class="btn-group"> -->
-          <!-- <span (mouseover)="showLog()">日志</span>
-          <div class="btn dropdown-toggle" *ngIf="showunstartedlist">
-              <ul data-type="area">
-                  <li *ngFor="let log of logList" >
-                      <span>{{log[index]}}</span>
-                  </li>
-              </ul>
-          </div> -->
-          <!-- <select name="" id="" class="btn dropdown-toggle"> -->
-            <!-- (change) = "goToZheRoute1()" -->
-            <!-- <option *ngFor= value="" *ngIf="getture('DM-0011')"><a (click)="goToZheRoute('home/devices/install-log')">设备安装日志</a></option> -->
-            <!-- <optgroup value="日志"> -->
-              <!-- <option value="" *ngIf="getture('DM-0011')"><a (click)="goToZheRoute('home/device/devices/install-log')">设备安装日志</a></option>
-              <option value="" *ngIf="getture('DM-0012')"><a (click)="goToZheRoute('home/device/devices/line-log')">设备上下线日志</a></option>
-              <option value="" *ngIf="getture('DM-0013')"><a (click)="goToZheRoute('home/device/devices/history')">历史数据</a></option> -->
-            <!-- </optgroup> -->
-          <!-- </select> -->
-        <!-- </div> -->
       </div>
     </div>
     <!-- 搜索设备 -->

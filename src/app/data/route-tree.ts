@@ -50,7 +50,7 @@ export const ROUTETREE = [
                             {
                                 id: 'SC-00411',
                                 // icon: 'fa fa-eye nav-icon-s',
-                                routeLink: 'application/air/airreport/dashboard',
+                                routeLink: 'application/air/theairreport/dashboard',
                                 routeTitel: '可视化报表'
                             }
                         ]

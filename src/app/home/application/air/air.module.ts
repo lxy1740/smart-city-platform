@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
-import { MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule} from '@angular/material';
+import { SharedModule } from '../../../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 import { AirRoutingModule } from './air-routing.module';
 import { AirComponent } from './air.component';
 import { AirHomeComponent } from './air-home/air-home.component';
@@ -11,13 +11,10 @@ import { TheairreportComponent } from './theairreport/theairreport.component';
 
 @NgModule({
     imports: [CommonModule,
-              FormsModule,
-              NgbModule,
               AirRoutingModule,
-              MatButtonModule,
-              MatCheckboxModule,
-              MatSliderModule,
-              MatSlideToggleModule
+              FormsModule,
+              SharedModule,
+              NgbModule.forRoot(),
     ],
     declarations: [
         AirComponent,

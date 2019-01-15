@@ -1,8 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 
-// baidu map
-declare let BMap;
-declare let BMAP_ANCHOR_TOP_LEFT;
 
 @Component({
   selector: 'app-air',
@@ -13,10 +10,8 @@ export class AirComponent implements OnInit {
 
 
 
-  constructor() {
-  }
+  constructor() {}
   ngOnInit() {
-
   }
 
 }

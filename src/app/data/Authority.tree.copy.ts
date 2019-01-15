@@ -4,11 +4,11 @@ export const AUTHORITYTREECOPY = [
     {id: 'SC-0011', name: '消息记录', routeLink: 'issuedata'},
     {id: 'SC-002', name: '水质监测', routeLink: 'application/water' },
     {id: 'SC-003', name: '电气安全', routeLink: 'application/electrical'},
-    {id: 'SC-004', name: '空气质量', routeLink: 'application/air/air-home'},
-    {id: 'SC-0041', name: '监测大数据', routeLink: 'application/air/theairreport'},
-    {id: 'SC-00411', name: '可视化报表', routeLink: 'application/air/theairreport/dashboard' },
-    {id: 'SC-005', name: '智慧照明', routeLink: 'application/light/light-home'},
-    {id: 'SC-0051', name: '策略管理', routeLink: 'application/light/thestrategy'},
+    {id: 'SC-004', name: '空气质量', routeLink: 'application/air/air-home'}, //
+    {id: 'SC-0041', name: '监测大数据', routeLink: 'application/air/theairreport'}, //
+    {id: 'SC-00411', name: '可视化报表', routeLink: 'application/air/theairreport/dashboard' }, //
+    {id: 'SC-005', name: '智慧照明', routeLink: 'application/light/light-home'}, //
+    {id: 'SC-0051', name: '策略管理', routeLink: 'application/light/thestrategy'}, //
     {id: 'SC-006', name: '窨井管理', routeLink: 'application/cover'},
     {id: 'SC-0011', name: '消息记录', routeLink: 'issuedata'},
     {id: 'SC-007', name: '智慧交通', routeLink: 'application/traffic'},

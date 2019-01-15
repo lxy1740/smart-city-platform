@@ -9,7 +9,7 @@ declare let BMap;
 declare let BMAP_ANCHOR_TOP_LEFT;
 
 @Component({
-  selector: 'app-air-home',
+  selector: 'app-air',
   templateUrl: './air-home.component.html',
   styleUrls: ['./air-home.component.scss']
 })
