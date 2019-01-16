@@ -4,25 +4,32 @@ import { LightRoutingModule } from './light-routing.module';
 import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../../../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+
 import { LightComponent } from './light.component';
 import { LightHomeComponent } from './light-home/light-home.component';
 import { ThestrategyComponent } from './thestrategy/thestrategy.component';
-import { ThestrategyModule } from './thestrategy/strategy.module';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatStepperModule, MatInputModule, MatCardModule, MatSliderModule, MatSlideToggleModule } from '@angular/material';
+
+
+
+
 
 @NgModule({
   imports: [
     CommonModule,
     LightRoutingModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
+    MatStepperModule, MatButtonModule, MatInputModule, MatCardModule,
+    MatSliderModule, MatSlideToggleModule,
     SharedModule,
-    NgbModule.forRoot(),
-    ThestrategyModule
+    NgbModule.forRoot()
   ],
   declarations: [
     LightComponent,
     LightHomeComponent,
-    // ThestrategyComponent
+    ThestrategyComponent
 
   ],
   schemas: [

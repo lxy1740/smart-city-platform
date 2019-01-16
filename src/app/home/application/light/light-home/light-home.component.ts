@@ -770,7 +770,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   // 路由跳转
   jumpHandle() {
 
-    this.router.navigate([`home/strategy`]);
+    this.router.navigate([`home/application/light/thestrategy`]);
 
   }
 

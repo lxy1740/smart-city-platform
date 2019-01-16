@@ -20,7 +20,6 @@ const routes: Routes = [
             // { path: 'airreport', loadChildren: './airreport/airreport.module#AirreportModule' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             // { path: 'led', loadChildren: './led-test/led.module#LedModule' },
-            { path: 'strategy', loadChildren: './strategy/strategy.module#StrategyModule' },
             { path: 'issuedata', loadChildren: './issuedata/issuedata.module#IssuedataModule' },
         ]
     },
