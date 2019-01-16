@@ -1,0 +1,54 @@
+<!-- 产品管理页面 -->
+<div class="bodyofproduct">
+  <!-- <p class="lsq-alert">
+    <ngb-alert  (close)="closeAlert(alert)"></ngb-alert>
+  </p> -->
+<!-- 卡片形式 -->
+<div class="card card-primary panel-default">
+  <div class="card-header">
+    <span>查看数据--设备状态</span>
+    <!-- tab标签 -->
+    <div>
+      <ul>
+        <li (click)="goToChange()" *ngIf="flag==1">表格</li>
+        <li (click)="goToChange()" *ngIf="flag==2">图表</li>
+      </ul>
+    </div>
+  </div>
+  
+  
+
+  <!-- 显示已有产品 -->
+  <div class="card-block" *ngIf="flag==1">
+    <table class="table table-hover">
+      <thead class="table-header">
+        <tr>
+          <th>时间</th>
+          <th>原始值</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr >
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 判断显示无数据 -->
+    <!-- <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div> -->
+    <!-- 判断显示页面 -->
+    <!-- <div *ngIf="productListItems.length > 0">
+      <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+        (pageChange)="pageChange()"></ngb-pagination>
+    </div> -->
+
+  </div>
+
+  <!-- 显示图表 -->
+  <div class="card-block" *ngIf="flag==2">图表</div>
+</div>
+
+</div>
+

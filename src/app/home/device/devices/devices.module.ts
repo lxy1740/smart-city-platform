@@ -11,6 +11,7 @@ import { LineLogComponent } from './line-log/line-log.component';
 import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
 import { DeviceHomeComponent } from './device-home/device-home.component';
+import { RealTimeAboutComponent } from './real-time-about/real-time-about.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { DeviceHomeComponent } from './device-home/device-home.component';
     LineLogComponent,
     RealTimeComponent,
     HistoryComponent,
-    DeviceHomeComponent
+    DeviceHomeComponent,
+    RealTimeAboutComponent
 
   ],
   schemas: [

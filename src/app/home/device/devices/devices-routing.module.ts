@@ -8,6 +8,7 @@ import { LineLogComponent } from './line-log/line-log.component';
 import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
 import { DeviceHomeComponent } from './device-home/device-home.component';
+import { RealTimeAboutComponent } from './real-time-about/real-time-about.component';
 
 const routes: Routes = [
 
@@ -25,6 +26,7 @@ const routes: Routes = [
               { path: 'line-log', component: LineLogComponent },
               { path: 'real-time', component: RealTimeComponent },
               { path: 'history', component: HistoryComponent },
+              { path: 'real-timeAbout', component: RealTimeAboutComponent }
             ]
           }
         ]
