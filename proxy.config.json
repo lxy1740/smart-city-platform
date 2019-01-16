@@ -1,14 +1,5 @@
 {
     "/api": {
-<<<<<<< HEAD
-        "target": "http://test1.siid.com.cn:10002"
-    },
-    "/security": {
-        "target": "http://test1.siid.com.cn:10003"
-    },
-    "/led-api": {
-        "target": "http://test1.siid.com.cn:9600",
-=======
         "target": "http://test1.siid.com.cn"
     },
     "/security": {
@@ -16,7 +7,6 @@
     },
     "/led-api": {
         "target": "http://test1.siid.com.cn",
->>>>>>> 393113c927798de35c641b73a6c03fed81c1a4e9
         "pathRewrite": {
             "^/led-api": ""
         }

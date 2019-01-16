@@ -28,24 +28,17 @@ import { MonitorModule } from './themonitor/monitor.module';
 
 @NgModule({
     imports: [CommonModule, FormsModule, NgbModule, ApplicationRoutingModule,
-        MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule, 
+        MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule,
         AirModule, LedModule, LightModule, MonitorModule
     ],
     declarations: [
         ApplicationComponent,
         CoverComponent, CalamityComponent,
-<<<<<<< HEAD
-        LightComponent, SecurityComponent,
-        TrafficComponent, WaterComponent, ElectricalComponent,
-        // LedComponent,
-        ThemonitorComponent
-=======
-         //LightComponent, 
+         // LightComponent,
         SecurityComponent,
-        TrafficComponent, WaterComponent, // AirComponent, 
-        ElectricalComponent, // LedComponent, 
+        TrafficComponent, WaterComponent, // AirComponent,
+        ElectricalComponent, // LedComponent,
         // ThemonitorComponent
->>>>>>> 393113c927798de35c641b73a6c03fed81c1a4e9
 ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
