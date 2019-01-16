@@ -328,7 +328,7 @@ export class AirHomeComponent implements OnInit, OnDestroy {
 
   // 进入数据监控页面
   jumpHandle() {
-    this.router.navigate([`home/airreport`]);
+    this.router.navigate([`home/application/air/theairreport`]);
 
   }
   // 切换空气指标
