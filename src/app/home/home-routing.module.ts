@@ -17,7 +17,7 @@ const routes: Routes = [
             { path: 'device', loadChildren: './device/device.module#DeviceModule' },
             { path: 'user', loadChildren: './user/user.module#UserModule' },
             { path: 'application', loadChildren: './application/application.module#ApplicationModule' },
-            { path: 'airreport', loadChildren: './airreport/airreport.module#AirreportModule' },
+            // { path: 'airreport', loadChildren: './airreport/airreport.module#AirreportModule' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             // { path: 'led', loadChildren: './led-test/led.module#LedModule' },
             { path: 'strategy', loadChildren: './strategy/strategy.module#StrategyModule' },

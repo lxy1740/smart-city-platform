@@ -12,4 +12,17 @@ export class InstallComponent implements OnInit {
   ngOnInit() {
   }
 
+  openNewProduct(contentAdd: any) {
+
+  }
+
+  execQuery() {
+
+  }
+
+  openUpdataModal(contentUpdate, item){}
+
+  item(){}
+
+  openDelModal(contentDel, item){}
 }
