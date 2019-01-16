@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { LightComponent } from './light.component';
 import { LightHomeComponent } from './light-home/light-home.component';
 import { ThestrategyComponent } from './thestrategy/thestrategy.component';
+import { ThestrategyModule } from './thestrategy/strategy.module';
 
 @NgModule({
   imports: [
@@ -16,11 +17,12 @@ import { ThestrategyComponent } from './thestrategy/thestrategy.component';
     FormsModule,
     SharedModule,
     NgbModule.forRoot(),
+    ThestrategyModule
   ],
   declarations: [
     LightComponent,
     LightHomeComponent,
-    ThestrategyComponent
+    // ThestrategyComponent
 
   ],
   schemas: [

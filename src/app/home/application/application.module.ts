@@ -18,21 +18,34 @@ import { WaterComponent } from './water/water.component';
 import { ElectricalComponent } from './electrical/electrical.component';
 // import { LedComponent } from './led/led.component';
 import { ThemonitorComponent } from './themonitor/themonitor.component';
+import { AirModule } from './air/air.module';
+import { LedModule } from './led/led.module';
+import { LightModule } from './light/light.module';
+import { MonitorModule } from './themonitor/monitor.module';
 // import { AirHomeComponent } from './air/air-home/air-home.component';
 // import { TheairreportComponent } from './air/theairreport/theairreport.component';
 
 
 @NgModule({
     imports: [CommonModule, FormsModule, NgbModule, ApplicationRoutingModule,
-        MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule
+        MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule, 
+        AirModule, LedModule, LightModule, MonitorModule
     ],
     declarations: [
         ApplicationComponent,
         CoverComponent, CalamityComponent,
+<<<<<<< HEAD
         LightComponent, SecurityComponent,
         TrafficComponent, WaterComponent, ElectricalComponent,
         // LedComponent,
         ThemonitorComponent
+=======
+         //LightComponent, 
+        SecurityComponent,
+        TrafficComponent, WaterComponent, // AirComponent, 
+        ElectricalComponent, // LedComponent, 
+        // ThemonitorComponent
+>>>>>>> 393113c927798de35c641b73a6c03fed81c1a4e9
 ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

@@ -9,6 +9,8 @@ import { ThemonitorComponent } from './themonitor.component';
     CommonModule,
     MonitorRoutingModule
   ],
-  declarations: [ThemonitorComponent]
+  declarations: [
+    ThemonitorComponent
+  ]
 })
 export class MonitorModule { }
