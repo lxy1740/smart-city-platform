@@ -14,9 +14,9 @@ import { LightComponent } from './light/light.component';
 import { SecurityComponent } from './security/security.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { WaterComponent } from './water/water.component';
-import { AirComponent } from './air/air.component';
+// import { AirComponent } from './air/air.component';
 import { ElectricalComponent } from './electrical/electrical.component';
-import { LedComponent } from './led/led.component';
+// import { LedComponent } from './led/led.component';
 import { ThemonitorComponent } from './themonitor/themonitor.component';
 // import { AirHomeComponent } from './air/air-home/air-home.component';
 // import { TheairreportComponent } from './air/theairreport/theairreport.component';
@@ -30,7 +30,9 @@ import { ThemonitorComponent } from './themonitor/themonitor.component';
         ApplicationComponent,
         CoverComponent, CalamityComponent,
         LightComponent, SecurityComponent,
-        TrafficComponent, WaterComponent, AirComponent, ElectricalComponent, LedComponent, ThemonitorComponent
+        TrafficComponent, WaterComponent, ElectricalComponent,
+        // LedComponent,
+        ThemonitorComponent
 ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

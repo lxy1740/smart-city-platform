@@ -5,21 +5,62 @@
   </p> -->
 <!-- 卡片形式 -->
 <div class="card card-primary panel-default">
-  <div class="card-header">
+  <div class="card-header fl">
     <span>查看数据--设备状态</span>
     <!-- tab标签 -->
-    <div>
-      <ul>
-        <li (click)="goToChange()" *ngIf="flag==1">表格</li>
-        <li (click)="goToChange()" *ngIf="flag==2">图表</li>
-      </ul>
+    <div class="fl">
+        <button class="btn btn-bg iss-hist" (click)="goToChange()" *ngIf="flag==1">图表></button>
+        <button class="btn btn-bg iss-hist" (click)="goToChange()" *ngIf="flag==2">表格></button>
     </div>
   </div>
+  
   
   
 
   <!-- 显示已有产品 -->
   <div class="card-block" *ngIf="flag==1">
+      <div class="d-inline">
+            
+          <div class="d-inline-block extral-margin">
+            <label class=" text-label">开始时间：</label>
+      
+              <div class="d-inline-block">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="startDate" ngbDatepicker
+                     #ad="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary " (click)="ad.toggle()" type="button">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                  </div>
+      
+                </div>
+      
+              </div>
+          </div>
+      
+          <div class="d-inline-block extral-margin">
+            <label class=" text-label">结束时间：</label>
+          
+            <div class="d-inline-block">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="endDate" ngbDatepicker #bd="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-primary " (click)="bd.toggle()" type="button">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+                </div>
+          
+              </div>
+          
+            </div>
+                      
+          </div>
+      
+          <div class="d-inline-block extral-margin">
+              <button class="btn btn-bg extral-margin search-btn" (click)="dataSearch()">搜索</button>
+          </div>
+        </div>
     <table class="table table-hover">
       <thead class="table-header">
         <tr>
