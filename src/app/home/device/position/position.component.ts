@@ -17,6 +17,7 @@ export class PositionComponent implements OnInit {
   closeResult: string;
   map: any; // 地图对象
   cityList: any; // 城市列表
+  currentList: any; // 区域列表
   deviceList = []; // 设备列表
   deviceTypes = []; // 设备列表
   currentType: any; // 当前搜索设备类别
@@ -72,6 +73,7 @@ export class PositionComponent implements OnInit {
     this.getCity();
     this.getPositionType();
     this.getPosition(0, this.page, this.pagesize);
+
   }
   // 检索按键点击事件
   execQuery() {
@@ -364,6 +366,7 @@ export class PositionComponent implements OnInit {
         that.cityList = val.regions;
         that.zoom = that.switchZone(val.zone.level);
         that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
+        console.log(that.currentCity);
         that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
         that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
         that.currentArea = that.currentChildren[0].children[0]; // 当前区域
@@ -556,7 +559,13 @@ export class PositionComponent implements OnInit {
     this.currentChildren = city.children;
     this.currentArea = null;
   }
-
+  // 选择区
+  selectqu(qu) {
+    this.currentCity = qu;
+    this.model.point = { lng: '', lat: '' };
+    this.getPoint(this.map, qu);  // 解析地址- 设置中心和地图显示级别
+  }
+  // 选择街道
   selecteblock(block) {
     this.currentArea = block;
     this.model.point = { lng: '', lat: '' };
@@ -573,7 +582,6 @@ export class PositionComponent implements OnInit {
   }
   // 选择区域
   arealistMouseover(area) {
-
     this.currentBlockList = area.children;
   }
   // 离开区域

@@ -216,7 +216,6 @@
                     <a title="智慧城市" *ngFor="let itemc of item.children;let i = index" (click)="selecteCity(itemc, i)">{{itemc.name}}</a>
                   </dd>
                 </dl>
-
               </div>
             </div>
 
@@ -240,7 +239,11 @@
                     <em>不限</em>
                   </li>
                   <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
-                    <em>{{node.name}}</em>
+                    <em >{{node.name}}</em>
+                    <!-- <em *ngFor="let node2 of currentArea">{{node2.name}}</em> -->
+                  </li>
+                  <li class="arealist-item"  (click)="selectqu">
+
                   </li>
                 </ul>
 
