@@ -89,7 +89,8 @@
 
                     <span class="cl-blue cur-pointer" (mouseover)="showArea()">
                       <span class="filter" *ngIf="!currentArea">选择区域</span>
-                      <span class="filter" *ngIf="currentArea">{{currentArea.name}}</span>
+                      <!-- <span class="filter" *ngIf="currentList">{{currentList.name}}</span> -->
+                      <span class="filter" *ngIf="currentArea">{{currentArea.name}}</span>                    
                     </span>
 
                     <div class="arealist-wrap dropdown_panel" *ngIf="areashow">
@@ -100,16 +101,25 @@
                               <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
                                 <em>不限</em>
                               </li>
-                              <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
+                              <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)" (click)="selecteblock(node)">
                                 <em>{{node.name}}</em>
-                              </li>
+                              </li>                              
                             </ul>
-
+                            <!-- <div class="blocklist-wrap" *ngIf="currentChildren">
+                              <ul class="blocklist" data-type="block">
+                                <li *ngFor="let node of currentChildren" (click)="selectqu(node)">{{node.name}}</li>
+                              </ul>
+                            </div> -->
                             <div class="blocklist-wrap" *ngIf="currentBlockList">
-                                <ul class="blocklist" data-type="block">
-                                  <li *ngFor="let block of currentBlockList" (click)="selecteblock(block)">{{block.name}}</li>
-                                </ul>
+                              <ul class="blocklist" data-type="block">
+                                <li *ngFor="let block of currentBlockList" (click)="selecteblock(block)">{{block.name}}</li>
+                              </ul>
                           </div>
+                            <!-- <div class="blocklist-wrap" *ngIf="currentList">
+                                <ul class="blocklist" data-type="block">
+                                  <li (click)="selectqu(currentList)">{{currentList}} </li>
+                                </ul>
+                            </div> -->
 
                         </div>
                     </div>
@@ -138,7 +148,7 @@
             <label class="control-label">纬度:</label>
             <input type="text" class="form-control border-none" autocomplete [(ngModel)]="model.point.lat" required/>
           </div>
-          <div class="form-inline padding-15">
+          <div class="form-inline padding-15" *ngIf="errorMess.length > 0">
             <span *ngFor="let mes of errorMess" class="errMes">{{mes}}</span>
           </div>
           <div class="form-inline padding-15">
@@ -238,13 +248,12 @@
                   <li data-val="0" class="arealist-item" (mouseover)="arealistMouseNone()">
                     <em>不限</em>
                   </li>
-                  <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
-                    <em >{{node.name}}</em>
-                    <!-- <em *ngFor="let node2 of currentArea">{{node2.name}}</em> -->
+                  <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)" (click)="selectqu(node)">
+                    <em>{{node.name}}</em>  
                   </li>
-                  <li class="arealist-item"  (click)="selectqu">
-
-                  </li>
+                  <!-- <li class="arealist-item" *ngFor="let node of currentChildren"  (click)="selectqu">
+                    <em></em>
+                  </li> -->
                 </ul>
 
                 <div class="blocklist-wrap" *ngIf="currentBlockList">
@@ -269,7 +278,7 @@
         <label class="control-label">纬度:</label>
         <input type="text" class="form-control border-none" autocomplete [(ngModel)]="model.point.lat" required/>
       </div>
-      <div class="form-inline padding-15">
+      <div class="form-inline padding-15" *ngIf="errorMess.length > 0">
         <span *ngFor="let mes of errorMess" class="errMes">{{mes}}</span>
       </div>
       <div class="form-inline padding-15">

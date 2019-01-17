@@ -106,6 +106,7 @@ export class PositionComponent implements OnInit {
     that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
     that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
     that.currentArea = that.currentChildren[0].children[0]; // 当前区域
+    that.currentList = that.currentChildren[0];
     that.model.device = this.deviceList[0]; // 类型
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
@@ -369,7 +370,10 @@ export class PositionComponent implements OnInit {
         console.log(that.currentCity);
         that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
         that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
+        that.currentList = that.currentChildren; // 区域列表
+        console.log(that.currentList);
         that.currentArea = that.currentChildren[0].children[0]; // 当前区域
+        console.log( that.currentArea);
 
       },
       complete: function () {
@@ -561,13 +565,18 @@ export class PositionComponent implements OnInit {
   }
   // 选择区
   selectqu(qu) {
-    this.currentCity = qu;
+    console.log(qu);
+    this.currentList = qu;
+    // console.log(this.currentList);
+    // this.currentCity.children = qu; // 当前城市下的区域列表
+    console.log(this.currentList);
     this.model.point = { lng: '', lat: '' };
     this.getPoint(this.map, qu);  // 解析地址- 设置中心和地图显示级别
   }
   // 选择街道
   selecteblock(block) {
     this.currentArea = block;
+    console.log(block);
     this.model.point = { lng: '', lat: '' };
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
   }
