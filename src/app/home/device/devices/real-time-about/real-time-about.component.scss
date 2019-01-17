@@ -26,11 +26,14 @@
     margin-bottom: 15px;
 }
 .fl {
+    float: left;
+}
+.fr {
     float:right;
 }
 .mtb20 {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 5px 0px 0px;
+    min-height: 38px;
 }
 .extral-margin {
     margin-left: 5px;

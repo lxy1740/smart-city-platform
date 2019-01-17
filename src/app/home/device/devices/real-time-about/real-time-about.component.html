@@ -5,17 +5,17 @@
   </p> -->
 <!-- 卡片形式 -->
 <div class="card card-primary panel-default">
-  <div class="card-header fl">
+  <div class="card-header">
     <span>查看数据--设备状态</span>
     <!-- tab标签 -->
-    <div class="fl">
+    <!-- <div class="fl">
         <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1">图表></button>
         <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==2">表格></button>
-    </div>
+    </div> -->
   </div>
   
   
-  <div class="d-inline mtb20">
+  <div class="d-inline mtb20 fl">
             
     <div class="d-inline-block extral-margin">
       <label class=" text-label">开始时间：</label>
@@ -58,6 +58,10 @@
     </div>
     
   </div>
+  <div class="fr">
+    <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1">图表></button>
+    <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==2">表格></button>
+  </div>
 
   <!-- 显示已有产品 -->
   <div class="card-block" *ngIf="flag==1">
@@ -89,7 +93,9 @@
   </div>
 
   <!-- 显示图表 -->
-  <div class="card-block" *ngIf="flag==2">图表</div>
+  <div class="card-block" *ngIf="flag==2">
+    
+  </div>
 </div>
 
 </div>

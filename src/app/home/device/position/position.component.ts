@@ -73,7 +73,6 @@ export class PositionComponent implements OnInit {
     this.getCity();
     this.getPositionType();
     this.getPosition(0, this.page, this.pagesize);
-
   }
   // 检索按键点击事件
   execQuery() {

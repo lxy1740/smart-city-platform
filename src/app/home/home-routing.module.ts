@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'homepage', pathMatch: 'full' },
             { path: 'homepage', loadChildren: './homepage/homepage.module#HomepageModule', data: { preload: true } },
-            // { path: 'monitor', loadChildren: './monitor/monitor.module#MonitorModule' },
+            { path: 'monitor', loadChildren: './monitor/monitor.module#MonitorModule' },
             { path: 'device', loadChildren: './device/device.module#DeviceModule' },
             { path: 'user', loadChildren: './user/user.module#UserModule' },
             { path: 'application', loadChildren: './application/application.module#ApplicationModule' },

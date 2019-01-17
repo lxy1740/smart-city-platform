@@ -19,10 +19,9 @@ export const AUTHORITYTREE = [
             ] },
             { id: 'SC-007', name: '智慧交通', routeLink: 'application/traffic' },
             { id: 'SC-008', name: 'LED控制', routeLink: 'application/led' },
-            { id: 'DA-000', name: '设备监控', routeLink: 'application/themonitor' }
         ]
     },
-    // { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
+    { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
     {
         id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
             {

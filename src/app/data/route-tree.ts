@@ -88,24 +88,17 @@ export const ROUTETREE = [
                 icon: 'fa fa-window-maximize nav-icon-s',
                 routeLink: 'application/led',
                 routeTitel: 'LED控制'
-            },
-            {
-                id: 'DA-000',
-                icon: 'fa fa-desktop nav-icon',
-                routeLink: 'themonitor',
-                routeTitel: '设备监控'
             }
-
         ]
     },
-    // {
-    //     id: 'DA-000',
-    //     icon: 'fa fa-desktop nav-icon',
-    //     routeLink: 'monitor',
-    //     routeTitel: '设备监控',
-    //     isCollapsed: false,
-    //     hasRight: true
-    // },
+    {
+        id: 'DA-000',
+        icon: 'fa fa-desktop nav-icon',
+        routeLink: 'monitor',
+        routeTitel: '设备监控',
+        isCollapsed: false,
+        hasRight: true
+    },
 
     {
         id: 'DM-000',

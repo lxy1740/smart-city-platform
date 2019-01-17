@@ -17,11 +17,9 @@ import { WaterComponent } from './water/water.component';
 // import { AirComponent } from './air/air.component';
 import { ElectricalComponent } from './electrical/electrical.component';
 // import { LedComponent } from './led/led.component';
-import { ThemonitorComponent } from './themonitor/themonitor.component';
 // import { AirModule } from './air/air.module';
 import { LedModule } from './led/led.module';
 import { LightModule } from './light/light.module';
-import { MonitorModule } from './themonitor/monitor.module';
 // import { AirHomeComponent } from './air/air-home/air-home.component';
 // import { TheairreportComponent } from './air/theairreport/theairreport.component';
 
@@ -29,7 +27,7 @@ import { MonitorModule } from './themonitor/monitor.module';
 @NgModule({
     imports: [CommonModule, FormsModule, NgbModule, ApplicationRoutingModule,
         MatButtonModule, MatCheckboxModule, MatSliderModule, MatSlideToggleModule,
-        LedModule, LightModule, MonitorModule
+        LedModule, LightModule
     ],
     declarations: [
         ApplicationComponent,

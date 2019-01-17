@@ -11,7 +11,6 @@ import { WaterComponent } from './water/water.component';
 // import { AirComponent } from './air/air.component';
 import { ElectricalComponent } from './electrical/electrical.component';
 import { LedComponent } from './led/led.component';
-import { ThemonitorComponent } from './themonitor/themonitor.component';
 
 
 const routes: Routes = [
@@ -34,9 +33,7 @@ const routes: Routes = [
           { path: 'traffic', component: TrafficComponent },
           { path: 'water', component: WaterComponent },
           { path: 'electrical', component: ElectricalComponent },
-          { path: 'led', component: LedComponent },
-          { path: 'themonitor', component: ThemonitorComponent }
-
+          { path: 'led', component: LedComponent }
         ]
       }
     ]
