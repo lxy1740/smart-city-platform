@@ -109,7 +109,6 @@ export class RightComponent implements OnInit {
     this.zNodes.map((item, i) => {
       that.role.deskListChecked.push({check: true}); // 对应树结构
     });
-
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
@@ -153,6 +152,7 @@ export class RightComponent implements OnInit {
     const that = this;
     this.AddorUpdate = '修改角色';
     this.role.curRole = item; // 所修改的用户
+    console.log('item', item);
     this.role.name = item.name;
     this.role.authorityIds = this.getkeys(item.authorities);
     this.role.authorities = item.authorities; // 权限加上
@@ -161,7 +161,6 @@ export class RightComponent implements OnInit {
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -207,6 +206,7 @@ export class RightComponent implements OnInit {
   openDelRole(content, item) {
     const that = this;
     that.role.itemDelId = item.id;
+    console.log('item.id', item.id);
     const modal = that.modalService.open(content, { size: 'sm' });
     that.mr = modal;
   }

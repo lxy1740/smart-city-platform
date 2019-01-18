@@ -1,184 +1,46 @@
-<!-- modal:新建产品 -->
-<ng-template #contentAdd let-c="close" let-d="dismiss">
-    <p *ngFor="let alert of alertsModal" class="lsq-alert">
-      <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
-    </p>
-    <div class="modal-header">
-      <h4 class="modal-title">新建产品</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body add-product-modal">
-      <!-- <p>One fine body&hellip;</p> -->
-        <!-- 左列 -->
-        <div class="row center-align">
-          <div class="modal-col">
-            <div class="form-inline">
-              <label class="margin-bottom-15 label-left"><span style="color:red;">*</span>&nbsp;产品名称:</label>
-              <input type="text" class="form-control form-control-left" id="add-product-name"
-                maxlength="30" placeholder="" [(ngModel)]="model.name">
-            </div>
-            <div class="form-inline">
-              <label class="margin-bottom-15 label-left"><span style="color:red;">*</span>&nbsp;产品描述:</label>
-              <input type="text" class="form-control form-control-left" id="add-product-name"
-                maxlength="30" placeholder="" [(ngModel)]="model.description">
-            </div>
-            <div class="form-inline">
-              <label class="margin-bottom-15 label-left"><span style="color:red;">*</span>&nbsp;设备类型:</label>
-              <select name="profile" [(ngModel)]="model.device"  class="form-control" style="margin-right: 15px;height: 100%;">
-                <option *ngFor="let index of deviceList" [ngValue]="index">
-                  {{ index.name }}
-                </option>
-              </select>
-            </div>
-  
-          </div>
-  
-  
-      </div>
+<!-- 新建/修改用户信息 -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <div class="modal-header">
+    <h4 class="modal-title">{{AddorUpdate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="setModel()" 
-      [disabled]="!model.name || model.name == '' || !model.description || model.description == '' || model.name.length > 30 || 
-        model.description.length > 40">确认</button>
-      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
-    </div>
-  </ng-template>
-  
-  <!-- modal:修改产品 -->
-  <ng-template #contentUpdate let-c="close" let-d="dismiss">
-    <p *ngFor="let alert of alertsModal" class="lsq-alert">
-      <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
-    </p>
-    <div class="modal-header">
-      <h4 class="modal-title">修改产品</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body add-product-modal">
-      <!-- <p>One fine body&hellip;</p> -->
-      <!-- 左列 -->
-      <div class="row center-align">
-        <div class="modal-col">
-          <div class="form-inline">
-            <label class="margin-bottom-15 label-left">产品名称:</label>
-            <input type="text" class="form-control form-control-left" id="add-product-name"
-              maxlength="30" placeholder="" [(ngModel)]="model.name">
+  <div class="modal-body add-user-modal">
+    <!-- 新建信息表单 -->
+    <div class="row user-info">
+      <div class="col-12 col-md-3">
+          <!-- 行政区域列表 -->
+          <div style="padding: 20px;">
+            <!-- 树状 -->
+            <ul id="treeDemo" class="ztree"></ul>
           </div>
-          <div class="form-inline">
-            <label class="margin-bottom-15 label-left">产品描述:</label>
-            <input type="text" class="form-control form-control-left" id="add-product-name"
-              maxlength="30" placeholder="" [(ngModel)]="model.description">
-          </div>
-          <div class="form-inline">
-            <label class="margin-bottom-15 label-left">产品描述:</label>
-            <select name="profile" [(ngModel)]="model.device" class="form-control" style="margin-right: 15px;height: 100%;">
-              <option *ngFor="let index of deviceList" [ngValue]="index">
-                {{ index.name }}
-              </option>
-            </select>
-          </div>
-  
-        </div>
-  
-  
       </div>
+      
+
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="updateModel()" [disabled]="!model.name || model.name == '' || 
-        !model.description || model.description == '' || model.name.length > 30 || model.description.length > 40">确认</button>
-      <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
-    </div>
-  </ng-template>
+            
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-info" (click)="addorUpdt()" [disabled]="">确定</button>
+    <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+  </div>
+</ng-template>
+<!-- 删除位置 -->
+<ng-template #contentDelUser let-c="close" let-d="dismiss">
+  <app-sq-modal  [input]="InstallData" (output)="closeInstall($event)"></app-sq-modal>
+</ng-template>
   
-  <!-- 删除位置 -->
-  <ng-template #contentDel let-c="close" let-d="dismiss">
-    <app-sq-modal [input]="modelData" (output)="closeModal($event)"></app-sq-modal>
-  </ng-template>
-  
-  
-  <!-- modal下modal:增加参数 -->
-  <ng-template #content2 class="modal1" let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title">新建参数</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-  
-      <div class="modal-body">
-            <div class="form-group">
-              <label class="control-label"><span style="color:red">*</span>参数名称</label>
-              <input type="text" class="form-control" id="" placeholder="">
-            </div>
-            <div class="form-group">
-                <label class="control-label"><span style="color:red">*</span>标识符</label>
-                <input type="text" class="form-control" id="" placeholder="">
-            </div>
-            <div class="form-group">
-                <label class="control-label"><span style="color:red">*</span>数据类型</label>
-                <select class="form-control">
-                  <option>int32</option>
-                  <option>float</option>
-                  <option>double</option>
-                  <option>enum</option>
-                  <option>bool</option>
-                  <option>text</option>
-                  <option>date</option>
-                  <option>array</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label"><span style="color:red">*</span>取值范围：</label>
-                <div class="form-inline">
-                  <input type="text" class="form-control sm-width" id="" placeholder="">
-                  <span class="ssm-width">~</span>
-                  <input type="text" class="form-control sm-width" id="" placeholder="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label"><span style="color:red">*</span>分辨率</label>
-                <div>
-                  <input type="text" class="form-control" id="" placeholder="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">单位：</label>
-                <div>
-                    <select class="form-control">
-                        <option>无</option>
-                        <option>米/m</option>
-                        <option>千米/km</option>
-                        <option>分米/dm</option>
-                        <option>厘米/cm</option>
-                        <option>毫米/mm</option>
-                        <option>微米/μm</option>
-                        <option>纳米/nm</option>
-                        <option>...</option>
-                      </select>
-                </div>
-            </div>
-    
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
-        <button type="button" class="btn btn-outline-metal"  (click)="d('Cross click')">取消</button>
-      </div>
-  </ng-template>
-  
-  <!-- 产品管理页面 -->
+  <!-- 安装区域管理页面 -->
   <div class="bodyofproduct">
-        <!-- <p class="lsq-alert">
-          <ngb-alert  (close)="closeAlert(alert)"></ngb-alert>
-        </p> -->
-      <!-- 卡片形式 -->
       <div class="card card-primary panel-default">
         <div class="card-header">
           <span>安装区域管理</span>
           <div class="card-block add-product">
-            <a class="cur-pointer theme-text btn-a" (click)="openNewProduct(contentAdd)">新增区域</a>
+            <a class="cur-pointer theme-text btn-a" (click)="openNewInstallZone(content)">新增区域</a>
           </div>
         </div>
         <!-- 搜索产品 -->
@@ -204,19 +66,21 @@
             <thead class="table-header">
               <tr>
                 <th>序号</th>
+                <th>区域id</th>
                 <th>安装区域名称</th>
                 <th style="text-align: center">操作</th>
               </tr>
             </thead>
             <tbody>
   
-              <tr >
-                <td></td>
-                <td></td>
+              <tr *ngFor="let install of installList">
+                <td>{{install.id}}</td>
+                <td>{{install.region_id}}</td>
+                <td>{{install.name}}</td>
                 <td style="text-align: center">
                   <div class="modify-strategy d-inline">
-                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentUpdate, item)">修改</a>
-                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
+                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataInstall(contentUpdate, item)">修改</a>
+                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelInstall(contentDel, item)">删除</a>
                   </div>
                 </td>
   
@@ -225,12 +89,12 @@
           </table>
   
           <!-- 判断显示无数据 -->
-          <!-- <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div> -->
+          <div *ngIf="installList.length === 0 || !installList">无数据！</div>
           <!-- 判断显示页面 -->
-          <!-- <div *ngIf="productListItems.length > 0">
-            <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-              (pageChange)="pageChange()"></ngb-pagination>
-          </div> -->
+          <div *ngIf="installList.length > 0">
+            <!-- <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+              (pageChange)="pageChange()"></ngb-pagination> -->
+          </div>
   
         </div>
       </div>

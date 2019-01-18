@@ -81,6 +81,7 @@
 <ng-template #contentDelUser let-c="close" let-d="dismiss">
   <app-sq-modal  [input]="modelData" (output)="closeUser($event)"></app-sq-modal>
 </ng-template>
+
 <div class="bodyofadmin">
   <p *ngFor="let alert of alerts" class="lsq-alert">
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>

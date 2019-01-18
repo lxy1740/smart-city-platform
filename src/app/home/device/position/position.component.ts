@@ -373,7 +373,7 @@ export class PositionComponent implements OnInit {
         console.log(that.currentList);
         that.currentArea = that.currentChildren[0].children[0]; // 当前区域
         console.log( that.currentArea);
-
+        console.log('val', val);
       },
       complete: function () {
 
