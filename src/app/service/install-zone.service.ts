@@ -32,13 +32,14 @@ export class InstallZoneService {
     }
 
     // 新增安装区域
-    addNewInstall(name: String, region_id: String): Observable<any> {
+    addNewInstall(center: any, full_name: String, name: String, region_id: String): Observable<any> {
         return this.http.post('/api/zone', {
+            'center': center,
+            'full_name': full_name,
             'name': name,
             'region_id': region_id
-
         })
-            .pipe(map((res: Response) => {
+            .pipe(map((res: Response) => { // 相当于一种映射
                 return res;
             }));
     }

@@ -52,7 +52,7 @@ export class InstallComponent implements OnInit {
      // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
       nodes.map((item, i) => {
       that.install.geoRegion[item.id] = item.name;
-
+        console.log('item.name', item.name);
       });
     };
   }
@@ -76,7 +76,7 @@ export class InstallComponent implements OnInit {
     this.AddorUpdate = '新增安装区域';
 
     this.install.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
-    this.install.geoRegion = {};
+    this.install.geoRegion = '';
     // 此处添加树
     this.zNodes.map((item, i) => {
       that.install.geoRegionChecked.push({check: true}); // 对应树结构
@@ -195,7 +195,7 @@ export class InstallComponent implements OnInit {
   addorUpdt() {
     const that = this;
     if (this.AddorUpdate === '新增安装区域') {
-      // that.addInstall();
+      that.addInstall();
       console.log('新增');
     } else  {
       // that.updateInstall();
@@ -203,10 +203,39 @@ export class InstallComponent implements OnInit {
     }
   }
 
-  // 删除安装区域 弹框
-  openDelInstall(content, item) {
+  // 新增角色
+  addInstall() {
     const that = this;
-    that.install.itemDelId = item.id;
+    this.installzoneService.addNewInstall(this.install.center, this.install.full_name, this.install.name, this.install.region_id)
+    .subscribe({
+      next: function (val) {
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '新增成功！',
+        });
+        that.mr.close();
+        console.log('新增val', val);
+      },
+      complete: function () {
+        that.getInstallzone(); // 获取安装区域列表
+      },
+      error: function (error) {
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `新增失败：${message}！`,
+        });
+      }
+    });
+  }
+
+  // 删除 安装 区域 弹框
+  openDelInstall(content, install) {
+    const that = this;
+    that.install.itemDelId = install.id;
     const modal = that.modalService.open(content, { size: 'sm' });
     that.mr = modal;
   }
@@ -248,6 +277,7 @@ export class InstallComponent implements OnInit {
         console.log(error);
       }
     });
+    console.log('删除成功');
   }
 }
 

@@ -30,6 +30,7 @@ export class RightComponent implements OnInit {
 
 
   role: any = {}; // 存储数据
+
   public mr: NgbModalRef; // 当前弹框
   modelData = {
     title: '删除',
@@ -70,13 +71,11 @@ export class RightComponent implements OnInit {
      // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
       nodes.map((item, i) => {
       that.role.authorities[item.id] = item.name;
-
       });
     };
   }
 
   ngOnInit() {
-
     this.getRoleList();
   }
 
@@ -206,7 +205,6 @@ export class RightComponent implements OnInit {
   openDelRole(content, item) {
     const that = this;
     that.role.itemDelId = item.id;
-    console.log('item.id', item.id);
     const modal = that.modalService.open(content, { size: 'sm' });
     that.mr = modal;
   }
