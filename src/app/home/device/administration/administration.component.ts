@@ -7,9 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministrationComponent implements OnInit {
 
+  administration: any = {}; // 存储数据
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  // 点击搜索
+  execQuery() {
+
+  }
+
+  // 点击“修改”
+  openUpdataAdministration() {
+
+  }
+
+  // 点击“取消”
+  openDelAdministration() {
+
+  }
+
+  // 新增区域
+  openNewAdministrationZone(content) {
+
+  }
 }
