@@ -24,13 +24,18 @@ export class AdministrationComponent implements OnInit {
 
   }
 
-  // 点击“取消”
+  // 点击“删除”
   openDelAdministration() {
 
   }
 
   // 新增区域
   openNewAdministrationZone(content) {
+
+  }
+
+  // 选框选中
+  check() {
 
   }
 }
