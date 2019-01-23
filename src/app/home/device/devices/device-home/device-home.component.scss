@@ -25,6 +25,7 @@
     bottom: 5px;
 }
 .search-survey {
+    position: relative;
     font-size: 14px;
 
     .extral-marg {
@@ -48,6 +49,10 @@
         margin: 0px;
         text-align: right;
     }
+}
+.parentDescription{
+    right: 28px;
+    position: absolute;
 }
 .btn-survey {
     font-size: 14px;

@@ -40,30 +40,22 @@ export class MonitorComponent implements OnInit {
   @currentBlock: array // 当前城市街道 = []; // 区域列表2级
   */
   map_model: any = {}; // 存储数据
-
   markers: any[] = []; // 标记
-
   device: any; // // 当前设备点
   deviceChild: any; // // 当前设备点上-被点击的子设备
-
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
   deviceshow = false; // 默认设备列表不显示
   productshow = false; // 默认产品列表不显示
-
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
-
   zoom: any; // 地图级数
-
   type = 0; // 设备类型id
   typeName: string; // 设备类型名称
-
-
   visible = true; // 控制可视区域
   navigationControl: any; // 缩放控件
-
   queryStr: any;
+  deviceModels = [];
 
   constructor(
     private monitorService: MonitorService,
@@ -84,6 +76,7 @@ export class MonitorComponent implements OnInit {
   ngOnInit() {
     this.getCity(); // 获取城市列表
     this.getDevice(); // 获取设备列表
+    this.getModels(); // 获取设备型号
     const that = this;
     // 退出全屏
     window.onresize = function () {
@@ -171,7 +164,6 @@ export class MonitorComponent implements OnInit {
 
   // 创建文本标注对象
   overMessage(baiduMap, pt, message) {
-    const that = this;
     const opts = {
       position: pt,    // 指定文本标注所在的地理位置
       // offset: new BMap.Size(30, -30)    // 设置文本偏移量
@@ -240,6 +232,33 @@ export class MonitorComponent implements OnInit {
   }
 
   // 获取数据
+
+  // 获取设备型号
+  getModels() {
+    const that = this;
+    this.monitorService.getModels()
+      .subscribe({
+        next: function (val) {
+          that.deviceModels = val;
+        },
+        complete: function () {
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  getModel(id) {
+    let name = '';
+    this.deviceModels.map(item => {
+      if (id === item.id) {
+        name = item.name;
+      }
+    });
+    return name;
+  }
 
   // 获取城市列表 --ok
   getCity() {

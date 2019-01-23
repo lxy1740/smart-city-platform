@@ -3,7 +3,7 @@ import { AuthService } from '../guard/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ROUTETREE } from '../data/route-tree';
+import { AUTHORITYTREECOPYROUTE } from '../data/Authority.tree.route';
 import { MessService } from '../service/mess.service';
 // import { UrlService } from '../service/url.service';s
 import { CommunicateService } from '../service/communicate.service';
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router, private _cookieService: CookieService,
     public messService: MessService,
     public config: NgbDropdownConfig, private communicateService: CommunicateService) {
-    this.routeTree = ROUTETREE;
+    this.routeTree = AUTHORITYTREECOPYROUTE;
     // customize default values of dropdowns used by this component tree
     config.placement = 'top-left';
 

@@ -57,8 +57,6 @@ export class AuthService {
 
     getAuthorities(token ) {
         const userId = this.jwtHelper.decodeToken(token).userid;
-        console.log('userId');
-        console.log(userId);
         this.getAuthoritiesByUserId(userId)
         .then(function (res) {
             localStorage.setItem('Authorities', JSON.stringify({ Authorities: res }));

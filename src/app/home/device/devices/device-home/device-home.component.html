@@ -250,8 +250,16 @@
             autocomplete="off" maxlength="30" placeholder="检索编号、名称" (keydown)="onKeydown($event)">
         </div>
         <button class="btn btn-bg extral-marg" (click)="execQuery()">搜索</button>
+        <div *ngIf="parentDescription !== ''" class="parentDescription">
+          <span style="color: #41AEE6 ">
+            {{parentDescription}}
+          </span>
+          <span (click)="descriptionClose()" style="color: #41AEE6 " class="cur-pointer">关闭</span>
+        </div>
+
       </form>
     </div>
+
 
     <!-- 显示已有设备 -->
     <div class="card-block">
@@ -281,7 +289,7 @@
 
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
-                <a class="cur-pointer btn-a theme-text d-inline" *ngIf="isGateway(device.modelId)">子设备</a>
+                <a class="cur-pointer btn-a theme-text d-inline" *ngIf="isGateway(device.modelId)" (click)="searchSubDevice(device.id,device.description)">子设备</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/real-time')"
                   *ngIf="getture('DM-0010')">详情</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>

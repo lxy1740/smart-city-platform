@@ -73,7 +73,7 @@
     </div>
     <!-- 新增--未实现 -->
     <!--设备的产品型号显示信息-->
-    <div class="d-inline-block sel-area-block" (mouseleave)="productlistMouseleave()">
+    <!-- <div class="d-inline-block sel-area-block" (mouseleave)="productlistMouseleave()">
       <span class="cl-blue cur-pointer" (mouseover)="showProduct()">
         <span class="filter" *ngIf="!typeName">产品型号</span>
         <span class="filter" *ngIf="typeName"></span>
@@ -93,7 +93,7 @@
             </dl>
         </div>
       </div> 
-    </div>
+    </div> -->
 
     <!-- 按设备编号搜索和定位设备功能 -->
     <div class="d-inline-block search-warp">
@@ -126,6 +126,10 @@
           <p>
             <span>设备ID:</span>
             <span>{{item.name}}</span>
+          </p>
+          <p>
+            <span>设备型号:</span>
+            <span>{{getModel(item.model)}}</span>
           </p>
           <table class="table">
             <tr>

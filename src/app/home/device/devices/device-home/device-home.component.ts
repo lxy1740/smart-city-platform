@@ -5,6 +5,7 @@ import { MonitorService } from '../../../../service/monitor.service';
 import { DeviceService } from '../../../../service/device.service';
 import { GradOverlar } from '../../../../service/grad.overlay';
 import { Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare let BMap;
 
@@ -56,6 +57,8 @@ export class DeviceHomeComponent implements OnInit {
   bindedPosition: any; // 修改的设备
   addOrUpdate: any; // 新建/修改标识
   curModelIndex: any; // 当前设备型号标识
+  devicePid: any;
+  parentDescription = '';
 
   showonprogresslist = false; // 默认不显示日志消息
   logList = [
@@ -119,7 +122,7 @@ export class DeviceHomeComponent implements OnInit {
   // 获取设备分页
   getDevicesList(page, pageSize) {
     const that = this;
-    this.deviceService.getAllDeviceByModel(this.queryStr, this.curModelIndex, page, pageSize).subscribe({
+    this.deviceService.getAllDeviceByModel(this.queryStr, this.curModelIndex, page, pageSize, this.devicePid).subscribe({
       next: function (val) {
         that.deviceslist = val.items;
         that.total = val.total;
@@ -140,6 +143,21 @@ export class DeviceHomeComponent implements OnInit {
   }
   // 检索按键点击事件
   execQuery() {
+    this.getDevicesList(this.page, this.pageSize);
+  }
+  // 子设备
+  searchSubDevice(devicePid, description) {
+    this.page = 1;
+    this.devicePid = devicePid;
+    this.parentDescription = description;
+    console.log(this.devicePid);
+    this.getDevicesList(this.page, this.pageSize);
+  }
+
+  descriptionClose() {
+    this.devicePid = undefined;
+    this.parentDescription = '';
+    console.log(this.devicePid);
     this.getDevicesList(this.page, this.pageSize);
   }
   // 分页

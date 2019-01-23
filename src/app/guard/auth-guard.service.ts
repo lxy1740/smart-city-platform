@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // CanActivate 这种类型的 Guard用来控制是否允许进入当前的路径
         // console.log(route);
-        console.log(state.url);
+        // console.log(state.url);
         const url: string = state.url;
 
         this.geturlid(url);
@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // CanActivateChild 这种类型的 Guard用来控制是否允许进入当前路径的所有子路径
-        console.log(11);
+        // console.log(11);
         return this.canActivate(route, state);
     }
 
@@ -47,11 +47,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         if (this._cookieService.getObject('currentUser')) {
             // const token = localStorage.getItem('token');
             const Authorities = JSON.parse(localStorage.getItem('Authorities'));
-            console.log('urlid');
-            console.log(this.urlid);
+            // console.log('urlid');
+            // console.log(this.urlid);
 
             // logged in so return true
-            console.log(Authorities);
+            // console.log(Authorities);
             if (this.urlid === 'HP-000') {
                 return true;
             } else {
@@ -95,7 +95,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         }
         arr.map(item => {
             if (item === str) {
-                console.log(1111111111111111111);
                 res = true;
                 return res;
             }
@@ -106,9 +105,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     geturlid(url) {
         const that = this;
         const urlArr = url.split('/home/');
-        console.log('urlArr');
-        console.log(urlArr);
-        console.log(urlArr[1]);
         if (urlArr[1] === 'homepage') {
             console.log('首页');
             that.urlid = 'HP-000';
@@ -123,8 +119,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
                     console.log('no-->leave');
                 }
             });
-            console.log('that.urlid');
-            console.log(that.urlid);
+            // console.log('that.urlid');
+            // console.log(that.urlid);
         }
 
         // if (urlArr.length > 1) {

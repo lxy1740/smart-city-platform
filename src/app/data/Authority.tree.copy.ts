@@ -13,7 +13,7 @@ export const AUTHORITYTREECOPY = [
     {id: 'SC-0011', name: '消息记录', routeLink: 'issuedata'},
     {id: 'SC-007', name: '智慧交通', routeLink: 'application/traffic'},
     {id: 'SC-008', name: 'LED控制', routeLink: 'application/led' },
-    {id: 'DA-000', name: '设备监控', routeLink: 'application/themonitor' },
+    {id: 'DA-000', name: '设备监控', routeLink: 'monitor' },
     {id: 'DM-000', name: '设备管理', routeLink: 'device'},
     { id: 'DM-001', name: '设备', routeLink: 'device/devices/devices-home'},
     { id: 'DM-0010', name: '详情', routeLink: 'home/device/devices/real-time' },

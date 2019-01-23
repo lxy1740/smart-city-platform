@@ -74,5 +74,16 @@ export class MonitorService {
             }));
     }
 
+    // 获取设备型号
+    getModels(): Observable<any> {
+        return this.http.get(`/api/device/model/all`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+
+                ));
+    }
+
 
 }

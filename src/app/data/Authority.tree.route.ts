@@ -1,5 +1,5 @@
 // 路由
-export const ROUTETREE = [
+export const AUTHORITYTREECOPYROUTE = [
     {
         id: 'HP-000',
         icon: 'fa fa-home nav-icon',

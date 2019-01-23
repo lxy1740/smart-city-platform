@@ -38,10 +38,15 @@ export class DeviceService {
     }
 
     // 获取指定型号设备-分页
-    getAllDeviceByModel(queryStr: String, model: number, page: number, pageSize: number): Observable<any> {
+    getAllDeviceByModel(queryStr: String, model: number, page: number, pageSize: number, parentId): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
-
-        return this.http.get(`/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}`)
+        let url;
+        if (parentId === undefined) {
+            url = `/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}`;
+        } else {
+            url = `/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}&parentId=${parentId}`;
+        }
+        return this.http.get(url)
             .pipe(map((res: Response) => {
                 return res;
             }));
