@@ -49,6 +49,7 @@ export class MonitorComponent implements OnInit {
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
   deviceshow = false; // 默认设备列表不显示
+  productshow = false; // 默认产品列表不显示
 
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
@@ -659,6 +660,11 @@ export class MonitorComponent implements OnInit {
 
     this.map_model.currentBlock = area.children;
   }
+  // 产品型号经过
+  showProduct() {
+    this.productshow = true;
+  }
+
   // 离开区域
   arealistMouseleave() {
     this.areashow = false;
@@ -671,6 +677,10 @@ export class MonitorComponent implements OnInit {
   // 离开设备
   devicelistMouseleave() {
     this.deviceshow = false;
+  }
+  // 离开产品
+  productlistMouseleave() {
+    this.productshow = false;
   }
   arealistMouseNone() {
     this.areashow = true;
@@ -692,6 +702,11 @@ export class MonitorComponent implements OnInit {
     const posNum = this.queryStr;
     console.log('typeof (posNum)');
     console.log(typeof (posNum));
+  }
+
+  // 点击产品
+  selectePruduct(product) {
+
   }
 }
 

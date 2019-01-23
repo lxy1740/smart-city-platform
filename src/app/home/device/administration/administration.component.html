@@ -4,13 +4,10 @@
       <div class="title">
         <span>行政区域管理</span>
       </div>
-      <!-- 导航栏 -->
-      <div class="sidebar-inner">
-          <ul class="first-menu">
-              <li class="cur-pointer nav-item">
-                <span></span>
-              </li>
-          </ul>
+      <!-- 行政区域列表 -->
+      <div style="padding: 15px;">
+          <!-- 树状 -->
+          <ul id="treeDemo" class="ztree thetree"></ul>
       </div>
   </div>
 
@@ -50,26 +47,29 @@
               <table class="table table-hover">
                 <thead class="table-header">
                   <tr>
-                    <th>选择</th>
+                    <th><input type="checkbox"></th>
                     <th>序号</th>
                     <th>名称</th>
                     <th>行政级别</th>
                     <th>经/纬度</th>
-                    <th  style="text-align: center">操作</th>
+                    <th style="text-align: center">操作</th>
                   </tr>
                 </thead>
                 <tbody >
               
                   <tr>
-                    <td><input id={{item.postid}} type="checkbox" ng-model="Selected" ng-click="check(item.postid,Selected)" /></td> 
+                    <td>
+                      <input type="checkbox">
+                      <!-- <input id={{administration.id}} type="checkbox" ng-model="Selected" ng-click="check(administration.id,Selected)" /> -->
+                    </td> 
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td style="text-align: center">
                       <div class="modify-strategy d-inline">
-                        <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataAdministration(contentUpdate, install)">修改</a>
-                        <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelAdministration(contentDelIntsall, install)">删除</a>
+                        <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataAdministration()">修改</a>
+                        <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelAdministration()">删除</a>
                       </div>
                     </td>
                   </tr>

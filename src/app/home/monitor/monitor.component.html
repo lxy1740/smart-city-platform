@@ -73,12 +73,12 @@
     </div>
     <!-- 新增--未实现 -->
     <!--设备的产品型号显示信息-->
-    <div class="d-inline-block sel-area-block">
-      <span class="cl-blue cur-pointer">
+    <div class="d-inline-block sel-area-block" (mouseleave)="productlistMouseleave()">
+      <span class="cl-blue cur-pointer" (mouseover)="showProduct()">
         <span class="filter" *ngIf="!typeName">产品型号</span>
-        <span class="filter" *ngIf="typeName">{{typeName}}</span>
+        <span class="filter" *ngIf="typeName"></span>
       </span>
-      <div id="device-panel" class="device-panel dropdown_panel" *ngIf="deviceshow">
+      <div id="device-panel" class="device-panel dropdown_panel" *ngIf="productshow">
         <div class="dropdown_panel_inner">
           <span class="menu_arrow_left"></span>
           <dl>
@@ -86,11 +86,11 @@
               <a (click)="selecteDeviceNone()">不限</a>
             </dt>
           </dl>
-          <dl *ngFor="let device of map_model.deviceList">
-            <dt>
-              <a title="智慧城市">{{device.name}}</a>
-            </dt>
-          </dl>
+          <dl *ngFor="">
+              <dt>
+                <a title="智慧城市" (click)="selectePruduct(product)">产品</a>
+              </dt>
+            </dl>
         </div>
       </div> 
     </div>
