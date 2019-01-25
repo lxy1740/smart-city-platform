@@ -291,7 +291,7 @@
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" *ngIf="isGateway(device.modelId)" (click)="searchSubDevice(device.id,device.description)">子设备</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/real-time')"
-                  *ngIf="getture('DM-0010')">详情</a>
+                  *ngIf="getture('DM-0010')">属性</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>
               </div>

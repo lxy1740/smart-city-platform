@@ -64,7 +64,7 @@ export class DeviceHomeComponent implements OnInit {
   logList = [
     { id: 'DM-0011', name: '设备安装日志', url: 'home/device/devices/install-log' },
     { id: 'DM-0012', name: '设备上下线日志', url: 'home/device/devices/line-log' },
-    { id: 'DM-0013', name: '历史数据', url: 'home/device/devices/history'},
+    // { id: 'DM-0013', name: '历史数据', url: 'home/device/devices/history'},
   ];
 
   @Input()

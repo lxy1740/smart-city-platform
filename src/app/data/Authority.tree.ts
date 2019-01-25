@@ -1,6 +1,5 @@
 export const AUTHORITYTREE = [
-    {
-        id: 'SC-000', name: '智慧城市', routeLink: 'application', open: true, children: [
+    { id: 'SC-000', name: '智慧城市', routeLink: 'application', open: true, children: [
             { id: 'SC-001', name: '灾害报警', routeLink: 'application/calamity', children: [
                 { id: 'SC-0011', name: '消息记录', routeLink: 'issuedata' },
             ] },
@@ -22,11 +21,12 @@ export const AUTHORITYTREE = [
         ]
     },
     { id: 'DA-000', name: '设备监控', routeLink: 'monitor', open: true },
-    {
-        id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
+    { id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
             {
                 id: 'DM-001', name: '设备', routeLink: 'device/devices/devices-home' , children: [
-                { id: 'DM-0010', name: '详情', routeLink: 'device/devices/real-time' },
+                    { id: 'DM-0010', name: '属性', routeLink: 'device/devices/real-time' , children: [
+                        { id: 'DM-00101', name: '查看设备历史数据', routeLink: 'device/devices/real-timeAbout'},
+                    ]},
                 { id: 'DM-0011', name: '设备安装日志', routeLink: 'device/devices/install-log' },
                 { id: 'DM-0012', name: '设备上下线日志', routeLink: 'device/devices/line-log' },
                 { id: 'DM-0013', name: '历史数据', routeLink: 'device/devices/history' },
@@ -38,8 +38,7 @@ export const AUTHORITYTREE = [
             { id: 'DM-006', name: '安装区域', routeLink: 'device/install' }
         ]
     },
-    {
-        id: 'SM-000', name: '系统管理', routeLink: 'user', open: true, children: [
+    { id: 'SM-000', name: '系统管理', routeLink: 'user', open: true, children: [
             { id: 'SM-001', name: '用户管理', routeLink: 'user/admin' },
             { id: 'SM-002', name: '角色管理', routeLink: 'user/right' }
         ]
