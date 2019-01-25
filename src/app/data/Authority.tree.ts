@@ -24,8 +24,8 @@ export const AUTHORITYTREE = [
     { id: 'DM-000', name: '设备管理', routeLink: 'device', open: true, children: [
             {
                 id: 'DM-001', name: '设备', routeLink: 'device/devices/devices-home' , children: [
-                    { id: 'DM-0010', name: '属性', routeLink: 'device/devices/real-time' , children: [
-                        { id: 'DM-00101', name: '查看设备历史数据', routeLink: 'device/devices/real-timeAbout'},
+                    { id: 'DM-0010', name: '属性', routeLink: 'device/devices/real-data' , children: [
+                        { id: 'DM-00101', name: '查看设备历史数据', routeLink: 'device/devices/history-data'},
                     ]},
                 { id: 'DM-0011', name: '设备安装日志', routeLink: 'device/devices/install-log' },
                 { id: 'DM-0012', name: '设备上下线日志', routeLink: 'device/devices/line-log' },

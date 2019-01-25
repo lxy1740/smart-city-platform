@@ -8,11 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { DevicesComponent } from './devices.component';
 import { InstallLogComponent } from './install-log/install-log.component';
 import { LineLogComponent } from './line-log/line-log.component';
-import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
 import { DeviceHomeComponent } from './device-home/device-home.component';
-import { RealTimeAboutComponent } from './real-time-about/real-time-about.component';
-
+import { RealDataComponent } from './real-data/real-data.component';
+import { HistoryDataComponent } from './history-data/history-data.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,10 +24,10 @@ import { RealTimeAboutComponent } from './real-time-about/real-time-about.compon
     DevicesComponent,
     InstallLogComponent,
     LineLogComponent,
-    RealTimeComponent,
     HistoryComponent,
     DeviceHomeComponent,
-    RealTimeAboutComponent
+    RealDataComponent,
+    HistoryDataComponent
 
   ],
   schemas: [

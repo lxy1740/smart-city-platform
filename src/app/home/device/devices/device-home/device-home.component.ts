@@ -96,8 +96,8 @@ export class DeviceHomeComponent implements OnInit {
     this.getDevicesList(this.page, this.pageSize);
   }
   //
-  goToZheRoute(para) {
-    this.router.navigate([para]);
+  goToZheRoute(para, id) {
+    this.router.navigate([para, {deviceId : id}]);
   }
 
   // 获取设备型号列表

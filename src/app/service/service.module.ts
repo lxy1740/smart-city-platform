@@ -23,7 +23,7 @@ import { LedService } from './led.service';
 import { AdminService } from './admin.service';
 import { RightService } from './right.service';
 import { IssuedataService } from './issuedata.service';
-
+import { DeviceHistoryService } from './device-history.service';
 @NgModule({
   imports: [
     CommonModule
@@ -32,6 +32,8 @@ import { IssuedataService } from './issuedata.service';
   providers: [FullScreenService, BeiduAPIService, BeiduMAPService, MonitorService,
     LightService, CoverService, AirmonitorService, CameraService, StrategyService,
     DeviceService, PositionService, ProductService, LedService, DialogService, AdminService, RightService,
-    MessService, UrlService, CommunicateService, VideoService, IssuedataService ]
+    MessService, UrlService, CommunicateService, VideoService, IssuedataService,
+    DeviceHistoryService
+   ]
 })
 export class ServiceModule { }

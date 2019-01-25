@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RealTimeAboutComponent } from './real-time-about.component';
+import { RealDataComponent } from './real-data.component';
 
-describe('RealTimeAboutComponent', () => {
-  let component: RealTimeAboutComponent;
-  let fixture: ComponentFixture<RealTimeAboutComponent>;
+describe('RealDataComponent', () => {
+  let component: RealDataComponent;
+  let fixture: ComponentFixture<RealDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RealTimeAboutComponent ]
+      declarations: [ RealDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RealTimeAboutComponent);
+    fixture = TestBed.createComponent(RealDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

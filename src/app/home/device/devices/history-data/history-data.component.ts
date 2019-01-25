@@ -3,11 +3,11 @@ import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 const now = new Date();
 @Component({
-  selector: 'app-real-time-about',
-  templateUrl: './real-time-about.component.html',
-  styleUrls: ['./real-time-about.component.scss']
+  selector: 'app-history-data',
+  templateUrl: './history-data.component.html',
+  styleUrls: ['./history-data.component.scss']
 })
-export class RealTimeAboutComponent implements OnInit {
+export class HistoryDataComponent implements OnInit {
 
 
   startDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期

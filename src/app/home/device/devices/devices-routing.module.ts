@@ -5,10 +5,10 @@ import { AuthGuard } from '../../../guard/auth-guard.service';
 import { DevicesComponent } from './devices.component';
 import { InstallLogComponent } from './install-log/install-log.component';
 import { LineLogComponent } from './line-log/line-log.component';
-import { RealTimeComponent } from './real-time/real-time.component';
 import { HistoryComponent } from './history/history.component';
 import { DeviceHomeComponent } from './device-home/device-home.component';
-import { RealTimeAboutComponent } from './real-time-about/real-time-about.component';
+import { RealDataComponent } from './real-data/real-data.component';
+import { HistoryDataComponent } from './history-data/history-data.component';
 
 const routes: Routes = [
 
@@ -24,9 +24,9 @@ const routes: Routes = [
               { path: 'devices-home', component: DeviceHomeComponent },
               { path: 'install-log', component: InstallLogComponent },
               { path: 'line-log', component: LineLogComponent },
-              { path: 'real-time', component: RealTimeComponent },
+              { path: 'real-data', component: RealDataComponent },
               { path: 'history', component: HistoryComponent },
-              { path: 'real-timeAbout', component: RealTimeAboutComponent }
+              { path: 'history-data', component: HistoryDataComponent }
             ]
           }
         ]

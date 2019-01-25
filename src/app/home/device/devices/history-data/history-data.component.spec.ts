@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RealTimeComponent } from './real-time.component';
+import { HistoryDataComponent } from './history-data.component';
 
-describe('RealTimeComponent', () => {
-  let component: RealTimeComponent;
-  let fixture: ComponentFixture<RealTimeComponent>;
+describe('HistoryDataComponent', () => {
+  let component: HistoryDataComponent;
+  let fixture: ComponentFixture<HistoryDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RealTimeComponent ]
+      declarations: [ HistoryDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RealTimeComponent);
+    fixture = TestBed.createComponent(HistoryDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
