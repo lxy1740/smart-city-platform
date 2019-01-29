@@ -1,10 +1,10 @@
 <!-- 产品管理页面 -->
-<div class="bodyofproduct">
+<div class="bodyofproduct cart-over">
   <!-- <p class="lsq-alert">
     <ngb-alert  (close)="closeAlert(alert)"></ngb-alert>
   </p> -->
 <!-- 卡片形式 -->
-<div class="card card-primary panel-default">
+<div class="card card-primary panel-default cart-min">
   <div class="card-header">
 
     <button type="button" class="close" aria-label="Close">
@@ -65,7 +65,7 @@
   </div>
 
   <!-- 显示已有产品 -->
-  <div class="card-block" *ngIf="flag==1">
+  <div class="card-block cart-over" *ngIf="flag==1">
       
     <table class="table table-hover">
       <thead class="table-header">

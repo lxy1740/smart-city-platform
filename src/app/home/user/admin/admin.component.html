@@ -82,11 +82,11 @@
   <app-sq-modal  [input]="modelData" (output)="closeUser($event)"></app-sq-modal>
 </ng-template>
 
-<div class="bodyofadmin">
+<div class="bodyofadmin cart-over">
   <p *ngFor="let alert of alerts" class="lsq-alert">
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
   </p>
-  <div class="card card-primary panel-default">
+  <div class="card card-primary panel-default cart-min">
     <div class="card-header">
       <span>用户管理</span>
       <div class="add-user">

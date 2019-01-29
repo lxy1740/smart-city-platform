@@ -312,12 +312,12 @@
 
 
 
-<div class="bodyofposition">
+<div class="bodyofposition cart-over">
     <p *ngFor="let alert of alerts" class="lsq-alert">
       <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
     </p>
 
-    <div class="card card-primary panel-default">
+    <div class="card card-primary panel-default cart-min">
       <div class="card-header">
         <span>位置管理</span>
         <div class=" add-position">

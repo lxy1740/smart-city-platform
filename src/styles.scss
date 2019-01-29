@@ -7,6 +7,14 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 ol, ul {
     list-style: none;
 }
+
+.cart-min{
+    min-width: 1000px;
+
+}
+.cart-over {
+    overflow-x: auto;
+}
 address, cite, code, em, th, i, strong {
     font-style: normal;
     font-weight: normal;

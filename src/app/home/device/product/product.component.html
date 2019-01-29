@@ -169,12 +169,12 @@
 </ng-template>
 
 <!-- 产品管理页面 -->
-<div class="bodyofproduct">
+<div class="bodyofproduct cart-over">
       <p *ngFor="let alert of alerts" class="lsq-alert">
         <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
       </p>
     <!-- 卡片形式 -->
-    <div class="card card-primary panel-default">
+    <div class="card card-primary panel-default cart-min">
       <div class="card-header">
         <span>产品管理</span>
         <div class="card-block add-product">

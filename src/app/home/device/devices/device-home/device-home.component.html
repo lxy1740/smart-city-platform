@@ -200,12 +200,12 @@
 <ng-template #contentDelDevice let-c="close" let-d="dismiss">
   <app-sq-modal [input]="modelData" (output)="closeDevice($event)"></app-sq-modal>
 </ng-template>
-<div class="bodyofclass">
+<div class="bodyofclass cart-over">
   <p *ngFor="let alert of alerts" class="lsq-alert">
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
   </p>
 
-  <div class="card card-primary panel-default ">
+  <div class="card card-primary panel-default cart-min">
     <div class="card-header">
       <span>设备管理</span>
       <div class="add-survey">
