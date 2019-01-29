@@ -37,4 +37,13 @@ export class DeviceHistoryService {
                 return res;
             }));
     }
+
+    // 获取历史数据的统计值
+    getStatistics(id: number, field: string, agg: string, from: string, to: string, interval: string) {
+        return this.http
+            .get(`api/device/property/stat/${id}/${field}/${agg}?from=${from}&to=${to}&interval=${interval}`)
+            .pipe(map((res) => {
+                return res;
+            }));
+    }
 }

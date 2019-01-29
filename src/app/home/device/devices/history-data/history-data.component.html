@@ -57,12 +57,12 @@
     <div class="d-inline-block extral-margin">
         <button class="btn btn-bg extral-margin search-btn" (click)="dataSearch()">搜索</button>
     </div>
-    
+      <div class="d-inline-block  fr">
+        <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1">图表展示</button>
+        <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==2">表格展示</button>
+      </div>
   </div>
-  <div class="fr">
-    <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1">图表></button>
-    <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==2">表格></button>
-  </div>
+
 
   <!-- 显示已有产品 -->
   <div class="card-block cart-over" *ngIf="flag==1">
@@ -78,7 +78,7 @@
       <tbody>
 
         <tr *ngFor="let item of historydatalist">
-          <td>{{item.lastTime | date: 'yyyy-mm-ddTHHmmss'}}</td>
+          <td>{{item.lastTime | date: 'yyyy-MM-ddTHH:mm:ss'}}</td>
           <td>{{item.name}}</td>
           <td>{{item.dataValue}}</td>
         </tr>
@@ -96,9 +96,45 @@
   </div>
 
   <!-- 显示图表 -->
-  <div class="card-block" *ngIf="flag==2">
+  <div class="card-block cart-over" *ngIf="flag==2">
+    <!-- 报表 -->
+    <div >
+      <div>
+        <div class="car-header">
+          <span class="car-title">可视化报表</span>
+        </div>
+        <hr>
+        <div class="dash-type">
+          <label for="profile">统计方式：</label>
+          <select name="profile" [(ngModel)]="agg" (change)="aggsChange()" class="form-control d-inline-block sel-area-block select-item">
+            <option *ngFor="let item of aggs" [ngValue]="item">
+              {{ item.type }}
+            </option>
+          </select>
     
-  </div>
+          <label for="profile">时间间隔：</label>
+          <select name="profile" [(ngModel)]="interval" (change)="aggsChange()" class="form-control d-inline-block sel-area-block select-item">
+            <option *ngFor="let item of intervals" [ngValue]="item">
+              {{ item.type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row" style=" margin-bottom: 15px; ">
+          <div class="col-6">
+            <mat-card>
+              <div id="line_container1" style="height: 480px;">
+              </div>
+            </mat-card>
+    
+          </div>
+
+      </div>
+    
+    
+    </div>
+
 </div>
 
 </div>
