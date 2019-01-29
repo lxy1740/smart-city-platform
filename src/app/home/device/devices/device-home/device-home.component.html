@@ -173,7 +173,7 @@
                 <td>{{position.number}}</td>
                 <td>{{position.name}}</td>
 
-                <td><span *ngIf="position.point"></span>X:{{position.point.lng}} Y:{{position.point.lat}}</td>
+                <td><span *ngIf="position.point && position.point.lng"></span>X:{{position.point.lng}} Y:{{position.point.lat}}</td>
               </tr>
             </tbody>
 
@@ -285,7 +285,7 @@
             </td>
             <td>{{device.name}}</td>
             <td>{{modelName(device.modelId)}}</td>
-            <td><span *ngIf="device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
+            <td><span *ngIf="device.point && device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
 
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
