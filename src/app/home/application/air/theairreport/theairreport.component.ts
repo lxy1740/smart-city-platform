@@ -27,7 +27,7 @@ export class TheairreportComponent implements OnInit {
 
   page = 1;
 
-  startDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
+  startDate: NgbDateStruct = { year: now.getFullYear() - 1, month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
   endDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
 
 
@@ -58,7 +58,7 @@ export class TheairreportComponent implements OnInit {
   dashtrue = false; // 可视化图表
 
 
-  constructor(private modalService: NgbModal, public router: Router,
+  constructor( public router: Router,
     private airmonitorService: AirmonitorService, config: NgbTimepickerConfig) {
     // 获取坐标范围
     this.NorthEast = JSON.parse(localStorage.getItem('NE'));

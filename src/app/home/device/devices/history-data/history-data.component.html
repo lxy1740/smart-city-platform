@@ -6,12 +6,13 @@
 <!-- 卡片形式 -->
 <div class="card card-primary panel-default">
   <div class="card-header">
-    <span>查看数据--设备状态</span>
-    <!-- tab标签 -->
-    <!-- <div class="fl">
-        <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1">图表></button>
-        <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==2">表格></button>
-    </div> -->
+
+    <button type="button" class="close" aria-label="Close">
+      <!-- <span aria-hidden="true">&times;</span> -->
+      <span>
+        <i class="fa fa-arrow-circle-o-left fa-lg cur-pointer color-btn-text" (click)="goback()"></i>
+      </span>
+    </button>
   </div>
   
   
@@ -70,25 +71,27 @@
       <thead class="table-header">
         <tr>
           <th>时间</th>
+          <th>属性</th>
           <th>原始值</th>
         </tr>
       </thead>
       <tbody>
 
-        <tr >
-          <td></td>
-          <td></td>
+        <tr *ngFor="let item of historydatalist">
+          <td>{{item.lastTime | date: 'yyyy-mm-ddTHHmmss'}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.dataValue}}</td>
         </tr>
       </tbody>
     </table>
 
     <!-- 判断显示无数据 -->
-    <!-- <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div> -->
+    <div *ngIf="historydatalist.length === 0 || !historydatalist">无数据！</div>
     <!-- 判断显示页面 -->
-    <!-- <div *ngIf="productListItems.length > 0">
+    <div *ngIf="historydatalist.length > 0">
       <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
         (pageChange)="pageChange()"></ngb-pagination>
-    </div> -->
+    </div>
 
   </div>
 

@@ -13,11 +13,26 @@ export class DeviceHistoryService {
     constructor(private http: HttpClient) {
 
     }
+    // 获取设备信息
+    getDevice(deviceId): Observable<any> {
+        return this.http.get(`/api/device/${deviceId}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
 
 
-    // 获取指定位置点
-    getCurrentProperty(deviceId): Observable<any> {
-        return this.http.get(`/api/device/property/current/${deviceId}`)
+    // 获取设备实时数据
+    getCurrentProperty(deviceId , page, pageSize): Observable<any> {
+        return this.http.get(`/api/device/property/current/${deviceId}?page=${page}&pageSize=${pageSize}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+    // 获取设备历史数据
+    getHistoryProperty(deviceId, page, pageSize, queryStr, fromdate, todate): Observable<any> {
+        const url = 'api/device/property/history/';
+        return this.http.get(`${url}${deviceId}?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}&from=${fromdate}&to=${todate}`)
             .pipe(map((res: Response) => {
                 return res;
             }));

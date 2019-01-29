@@ -25,7 +25,7 @@ declare let BMAP_ANCHOR_TOP_LEFT;
 })
 export class LightHomeComponent implements OnInit, OnDestroy  {
 
-  @ViewChild('map5') map_container: ElementRef;
+  @ViewChild('map8') map_container: ElementRef;
   model: any = {}; // 存储数据
 
   map: any; // 地图对象
@@ -97,9 +97,14 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit() {
-    this.addBeiduMap();
     this.getCity(); // 获取城市列表
     this.getStrategy(); // 获取策略表
+    this.addBeiduMap();
+    this.getLights(); // 获取地图上的点
+    this.timer = setInterval(() => {
+      this.getLights(); // 获取地图上的点
+    }, 10000);
+
   }
 
   public closeAlert(alert: IAlert) {
@@ -113,8 +118,6 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     let str_descr = '';
     let str_posi = '';
     const queryString = this.queryString;
-    const that = this;
-
     this.lightListRes = [];
     this.lightList.filter((item, i) => {
       str_name = item.name;
@@ -130,7 +133,6 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     if (this.queryStr === '' || !this.queryStr) {
       return;
     }
-    console.log(1111111111);
     this.getLightByDeviceName();
 
   }
@@ -142,15 +144,11 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     console.log(typeof (posNum));
     that.lightService.getLightByDeviceName(posNum).subscribe({
       next: function (val) {
-        // 搜索到路灯值
-        console.log('val');
-        console.log(val);
         const point = new BMap.Point(val.point.lng, val.point.lat);
         that.map.centerAndZoom(point, 19);
         that.getLights();
         that.findPoint(point);
-        // that.mySquare = new CircleOverlayService(point, val.name, 128, 38, 'green');
-        // that.map.addOverlay(that.mySquare);
+
       },
       complete: function () {
         that.alerts = [];
@@ -215,32 +213,18 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
       // minZoom: 11,
       // maxZoom : 20
     }); // 创建地图实例
-
     // 这里我们使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
-
     const point = new BMap.Point(113.923519, 22.497253); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
     map.centerAndZoom(point, 20); // 设置中心和地图显示级别
-
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
-
     map.setMapStyle({ style: 'dark' });
-    // map.setMapStyle({ style: 'midnight' });
-    // map.setMapStyle({ style: 'grayscale' });
-
     // 添加控件缩放
-
     const offset = new BMap.Size(20, 55);
     const navigationControl = new BMap.NavigationControl({
       anchor: BMAP_ANCHOR_TOP_LEFT,
       offset: offset,
     });
     map.addControl(navigationControl);
-
-    this.getLights(); // 获取地图上的点
-    this.timer = setInterval(() => {
-      this.getLights(); // 获取地图上的点
-    }, 5000);
-
     this.mapClickOff(map); // 地图点击信息框隐藏
     this.dragendOff(map);
     this.zoomendOff(map);

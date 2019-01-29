@@ -9,8 +9,12 @@ import { DeviceHistoryService } from '../../../../service/device-history.service
   styleUrls: ['./real-data.component.scss']
 })
 export class RealDataComponent implements OnInit {
-  params: any;
-  CurrentPropertyList = [];
+  deviceId: string; // 设备id
+  deviceInfo: any = {}; // 设备信息
+  CurrentPropertyList = []; // 数据列表
+  page = 1; // 分页
+  pageSize = 10; // 分页
+  total = 0; // 分页
 
   constructor(public router: Router,
     private deviceHistoryService: DeviceHistoryService,
@@ -18,24 +22,56 @@ export class RealDataComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.params = this.routerinfo.snapshot.params.deviceId;
-    console.log(this.params);
-    this.getCurrentProperty(this.params);
-  }
-  // 进入数据监控页面
-  jumpHandle() {
-    this.router.navigate([`home/device/devices/history-data`]);
+    this.deviceId = this.routerinfo.snapshot.params.deviceId;
+    console.log(this.deviceId);
+    this.getDevice();
+    this.getCurrentProperty();
+
   }
 
-  // 获取实时数据
-  getCurrentProperty(id) {
+  // 刷新数据
+  getDataNew() {
+    this.getDevice();
+    this.getCurrentProperty();
+  }
+  // 返回
+  jumpHandle(url) {
+    this.router.navigate([url]);
+  }
+
+  // 属性页面
+  goToZheRoute(para, dataKey) {
+    this.router.navigate([para, { deviceId: this.deviceId, dataKey: dataKey}]);
+  }
+
+
+  // 获取设备信息
+  getDevice() {
     const that = this;
-    this.deviceHistoryService.getCurrentProperty(id)
+    this.deviceHistoryService.getDevice(this.deviceId)
     .subscribe({
       next: function (val) {
-        that.CurrentPropertyList = val.items;
+        that.deviceInfo = val;
       }
     });
 
+  }
+
+  // 获取实时数据
+  getCurrentProperty() {
+    const that = this;
+    this.deviceHistoryService.getCurrentProperty(this.deviceId, this.page, this.pageSize)
+      .subscribe({
+        next: function (val) {
+          that.CurrentPropertyList = val.items;
+          that.total = val.total;
+        }
+      });
+
+  }
+
+
+  pageChange() {
+    this.getCurrentProperty();
   }
 }
