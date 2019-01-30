@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../../guard/auth-guard.service';
-import { DashboardComponent } from './dashboard.component';
+
+import { AuthGuard } from '../../../guard/auth-guard.service';
+import { IssuedataComponent } from './issuedata.component';
 
 
 const routes: Routes = [
 
   {
     path: '',
-    component: DashboardComponent,
+    component: IssuedataComponent,
     canActivate: [AuthGuard],
 
   }
@@ -19,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardtRoutingModule { }
+export class IssuedataRoutingModule { }

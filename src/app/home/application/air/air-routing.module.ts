@@ -5,6 +5,7 @@ import { AuthGuard } from '../../../guard/auth-guard.service';
 import { AirComponent } from './air.component';
 import { AirHomeComponent } from './air-home/air-home.component';
 import { TheairreportComponent } from './theairreport/theairreport.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
 
@@ -18,7 +19,8 @@ const routes: Routes = [
             children: [
               { path: '', redirectTo: 'air-home', pathMatch: 'full' },
               { path: 'air-home', component: AirHomeComponent },
-              { path: 'theairreport', component: TheairreportComponent }
+              { path: 'theairreport', component: TheairreportComponent },
+              { path: 'dashboard', component: DashboardComponent }
             ]
           }
         ]

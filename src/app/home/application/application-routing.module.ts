@@ -27,6 +27,7 @@ const routes: Routes = [
           { path: '', redirectTo: 'cover', pathMatch: 'full' },
           { path: 'air', loadChildren: './air/air.module#AirModule' },
           { path: 'light', loadChildren: './light/light.module#LightModule' },
+          { path: 'issuedata', loadChildren: './issuedata/issuedata.module#IssuedataModule' },
           { path: 'cover', component: CoverComponent },
           { path: 'calamity', component: CalamityComponent },
           { path: 'security', component: SecurityComponent },

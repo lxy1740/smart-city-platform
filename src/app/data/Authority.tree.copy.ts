@@ -1,16 +1,16 @@
 export const AUTHORITYTREECOPY = [
     {id: 'SC-000', name: '智慧城市', routeLink: 'application'},
     {id: 'SC-001', name: '灾害报警', routeLink: 'application/calamity'},
-    {id: 'SC-0011', name: '消息记录', routeLink: 'issuedata'},
+    { id: 'SC-0011', name: '消息记录', routeLink: 'application/issuedata'},
     {id: 'SC-002', name: '水质监测', routeLink: 'application/water' },
     {id: 'SC-003', name: '电气安全', routeLink: 'application/electrical'},
     {id: 'SC-004', name: '空气质量', routeLink: 'application/air/air-home'}, //
     {id: 'SC-0041', name: '监测大数据', routeLink: 'application/air/theairreport'}, //
-    {id: 'SC-00411', name: '可视化报表', routeLink: 'application/air/theairreport/dashboard' }, //
+    {id: 'SC-00411', name: '可视化报表', routeLink: 'application/air/dashboard' },
     {id: 'SC-005', name: '智慧照明', routeLink: 'application/light/light-home'}, //
     {id: 'SC-0051', name: '策略管理', routeLink: 'application/light/thestrategy'}, //
     {id: 'SC-006', name: '窨井管理', routeLink: 'application/cover'},
-    {id: 'SC-0011', name: '消息记录', routeLink: 'issuedata'},
+    { id: 'SC-0011', name: '消息记录', routeLink: 'application/issuedata'},
     {id: 'SC-007', name: '智慧交通', routeLink: 'application/traffic'},
     {id: 'SC-008', name: 'LED控制', routeLink: 'application/led' },
     {id: 'DA-000', name: '设备监控', routeLink: 'monitor' },

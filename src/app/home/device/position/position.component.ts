@@ -214,7 +214,7 @@ export class PositionComponent implements OnInit {
   bindPosition(point1) {
     this.map.clearOverlays();
     const point = new BMap.Point(point1.lng, point1.lat);
-    this.map.centerAndZoom(point, 18);
+    this.map.centerAndZoom(point, 19); // 设置中心和地图显示级别
     const mySquare = new GradOverlar(point, 50, 'tag-bule');
     this.map.addOverlay(mySquare);
   }
@@ -268,7 +268,6 @@ export class PositionComponent implements OnInit {
 
   // 删除位置弹框
   openDelPosi(content, item, i) {
-    const that = this;
     this.model.itemDelId = item.id;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;

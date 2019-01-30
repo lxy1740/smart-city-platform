@@ -7,7 +7,7 @@ Author: luo.shuqi@live.com
 
 */
 import { Component, OnInit, } from '@angular/core';
-import { AirmonitorService } from '../../service/airmonitor.service';
+import { AirmonitorService } from '../../../../service/airmonitor.service';
 import { Router } from '@angular/router';
 // baidu map
 declare let echarts;

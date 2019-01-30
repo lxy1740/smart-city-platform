@@ -10,7 +10,7 @@ export const AUTHORITYTREECOPYROUTE = [
             { id: 'SC-003', icon: 'fa fa-eye nav-icon-s', routeLink: 'application/electrical', routeTitel: '电气安全' },
             { id: 'SC-004', icon: 'fa fa-cloud nav-icon-s', routeLink: 'application/air/air-home', routeTitel: '空气质量', children: [
                     { id: 'SC-0041',  routeLink: 'application/air/theairreport', routeTitel: '检测大数据', children: [
-                       {  id: 'SC-00411',  routeLink: 'application/air/theairreport/dashboard',  routeTitel: '可视化报表'}
+                       {  id: 'SC-00411',  routeLink: 'application/air/dashboard',  routeTitel: '可视化报表'}
                         ]
                     }
                 ]

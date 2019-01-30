@@ -180,7 +180,7 @@ export class TheairreportComponent implements OnInit {
     const that = this;
     this.dashtrue = true;
     this.getStatistics();
-    this.jumpHandle('home/dashboard');
+    this.jumpHandle('home/application/air/dashboard');
   }
 
   private getDismissReason(reason: any): string {

@@ -8,6 +8,7 @@ import { AirRoutingModule } from './air-routing.module';
 import { AirComponent } from './air.component';
 import { AirHomeComponent } from './air-home/air-home.component';
 import { TheairreportComponent } from './theairreport/theairreport.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
     imports: [CommonModule,
@@ -19,7 +20,8 @@ import { TheairreportComponent } from './theairreport/theairreport.component';
     declarations: [
         AirComponent,
         AirHomeComponent,
-        TheairreportComponent
+        TheairreportComponent,
+        DashboardComponent
 ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

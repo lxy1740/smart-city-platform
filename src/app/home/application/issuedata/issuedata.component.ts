@@ -1,5 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
-import { IssuedataService } from '../../service/issuedata.service';
+import { IssuedataService } from '../../../service/issuedata.service';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
@@ -18,7 +18,8 @@ export class IssuedataComponent implements OnInit {
   page: any;
   pageSize = 10;
   total: number;
-  startDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
+  startDate: NgbDateStruct =
+    { year: now.getFullYear() - 1, month: now.getMonth() + 1, day: now.getDate() > 28 ? 28 : now.getDate() }; // 开始日期
   endDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
   startTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   endTime: NgbTimeStruct = { hour: 23, minute: 59, second: 59 };
