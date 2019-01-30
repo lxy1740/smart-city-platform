@@ -19,8 +19,8 @@ export class HistoryDataComponent implements OnInit {
   pageSize = 10; // 分页
   total = 0; // 分页
   historydatalist = []; // 数据列表
-  startDate: NgbDateStruct = { year: now.getFullYear() - 1, month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
-  // startDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
+  startDate: NgbDateStruct =
+    { year: now.getFullYear() - 1, month: now.getMonth() + 1, day: now.getDate() > 28 ? 28 : now.getDate() }; // 开始日期
   endDate: NgbDateStruct = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }; // 开始日期
 
   startTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };

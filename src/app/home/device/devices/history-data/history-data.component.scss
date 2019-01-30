@@ -1,23 +1,7 @@
 @import '../../../../../assets/css/variable.scss';
 @import '../../../../../assets/css/xylg.scss';
-.bodyofproduct {
-    width: calc(100vw - 50px);
-    height: 100vh;
-    padding: 30px;
-    position: relative;
-}
-.card-header {
-    border-bottom: 0px;
-    position: relative;
-}
 
-.card-block {
-    margin: 5px 0px 0px;
-    min-height: 38px;
-}
-.card-primary {
-    margin-bottom: 15px;
-}
+
 .fl {
     float: left;
 }

@@ -46,4 +46,21 @@ export class DeviceHistoryService {
                 return res;
             }));
     }
+// 历史安装记录
+    getHistory(userId, page, pageSize, queryStr, fromdate, todate): Observable<any> {
+        let url = '';
+        if (!userId) {
+            url = `api/install?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}&from=${fromdate}&to=${todate}`;
+        } else {
+            url = `api/install?userId=${userId}&page=${page}&pageSize=${pageSize}&queryStr=${queryStr}&from=${fromdate}&to=${todate}`;
+        }
+
+        return this.http.get(url)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+
+    }
 }
