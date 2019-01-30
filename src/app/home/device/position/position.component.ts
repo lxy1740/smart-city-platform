@@ -1,6 +1,7 @@
 import { Input, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { PositionService } from '../../../service/position.service';
+import { GradOverlar } from '../../../service/grad.overlay';
 
 // baidu map
 declare let BMap;
@@ -199,6 +200,7 @@ export class PositionComponent implements OnInit {
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
+    this.bindPosition(item.point);
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
@@ -206,6 +208,15 @@ export class PositionComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
     });
+  }
+
+  // position表点击事件
+  bindPosition(point1) {
+    this.map.clearOverlays();
+    const point = new BMap.Point(point1.lng, point1.lat);
+    this.map.centerAndZoom(point, 18);
+    const mySquare = new GradOverlar(point, 50, 'tag-bule');
+    this.map.addOverlay(mySquare);
   }
 
 

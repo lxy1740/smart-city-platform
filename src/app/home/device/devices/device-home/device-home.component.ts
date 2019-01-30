@@ -5,7 +5,6 @@ import { MonitorService } from '../../../../service/monitor.service';
 import { DeviceService } from '../../../../service/device.service';
 import { GradOverlar } from '../../../../service/grad.overlay';
 import { Router } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare let BMap;
 
@@ -336,7 +335,6 @@ export class DeviceHomeComponent implements OnInit {
   }
   // 删除设备弹框
   openDelDevice(content, item) {
-    const that = this;
     this.device.itemDelId = item.id;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
