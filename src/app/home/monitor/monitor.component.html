@@ -1,4 +1,10 @@
 <div class="map_warp">
+
+    <div class="alert-play">
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+      </p>
+    </div>
   <!-- 选择区域 -->
   <div class="Selection-Region" *ngIf="visible == true">
       <!-- 城市列表 -->
@@ -97,18 +103,18 @@
 
     <!-- 按设备编号搜索和定位设备功能 -->
     <div class="d-inline-block search-warp">
-      <input type="text"class="form-control search-input" name="word1" autocomplete="off"
-          maxlength="30" placeholder="检索设备编号" value="">
+      <input type="text" [(ngModel)]="queryStr" class="form-control search-input"  autocomplete="off"
+          maxlength="30" placeholder="检索设备编号" >
           <span class="search-icon" (click)="execQueryId()"><i class="fa fa-search" aria-hidden="true"></i></span>
     </div>
   </div>
 
   <!-- 右边按钮 -->
-  <div class="btn-icon" *ngIf="visible == true">
+  <!-- <div class="btn-icon" *ngIf="visible == true">
     <div class="d-inline-block icon-item cur-pointer">
       <img src="../../../assets/imgs/switch.png" alt="图片" (click)="enterFullScreen()">
     </div>
-  </div>
+  </div> -->
 
   <!-- 地图 -->
   <div #map1 id="map_container1" class="map_container fulls-map" ></div>

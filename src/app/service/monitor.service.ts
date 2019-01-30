@@ -66,6 +66,16 @@ export class MonitorService {
             }));
     }
 
+    // 获取详细的位置数据ByDeviceNumber
+    getDetailsByDeviceNumber(number): Observable<any> {
+        return this.http.post(`/api/position/inbounds/details/${number}`, {
+
+        })
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
     // 获取指定位置所挂设备参数定义
     getDeviceDetails(positionId: string, deviceType: Number): Observable<any> {
         return this.http.get(`/api/position/device?positionId=${positionId}&deviceType=${deviceType}`)

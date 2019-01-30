@@ -152,8 +152,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
     map.centerAndZoom(point, 16); // 设置中心和地图显示级别
 
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
-
-
+    // 地图类型控件
+    map.addControl(new BMap.MapTypeControl());
 
     map.setMapStyle({ style: 'normal' });   // dark
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CircleOverlarService } from '../../service/circle-overlay.service';
 import { GradOverlar } from '../../service/grad.overlay';
@@ -54,8 +54,10 @@ export class MonitorComponent implements OnInit {
   typeName: string; // 设备类型名称
   visible = true; // 控制可视区域
   navigationControl: any; // 缩放控件
-  queryStr: any;
+  queryStr = ''; // 搜索
   deviceModels = [];
+  @Input()
+  public alerts: Array<IAlert> = [];
 
   constructor(
     private monitorService: MonitorService,
@@ -88,6 +90,84 @@ export class MonitorComponent implements OnInit {
     };
 
   }
+
+  public closeAlert(alert: IAlert) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+
+
+  // 搜索设备
+  // 获取详细的位置数据ByDeviceNumber
+  getDetailsByDeviceNumber(number) {
+    const that = this;
+    let point;
+    this.monitorService.getDetailsByDeviceNumber(number)
+    .subscribe({
+      next: function (val) {
+        // console.log(val);
+        point = new BMap.Point(val.point.lng, val.point.lat); // 坐标可以通过百度地图坐标拾取器获取
+        that.map.centerAndZoom(point, 19); // 设置中心和地图显示级别
+        that.remove_overlay(that.map);
+        that.addMarker(); // 获取数据-添加标注
+
+      },
+      complete: function () {
+        // const point = new BMap.Point(val.point.lng, val.point.lat); // 坐标可以通过百度地图坐标拾取器获取
+        setTimeout(() => {
+          that.findPoint(point);
+        }, 100);
+      },
+      error: function (error) {
+        let message;
+        if (error.error.errors) {
+          message = error.error.errors[0].defaultMessage;
+        } else {
+          message = '结果不唯一！';
+        }
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: message,
+        });
+        console.log(message);
+        that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+      }
+    });
+  }
+
+  // 标注消息列表中点击的路灯事件
+  findPoint(point) {
+    console.log(point);
+    let marker;
+    const makers = this.map.getOverlays();
+    // console.log(makers);
+    // console.log(this.markers);
+    for (let index = 0; index < makers.length; index++) {
+      const element = makers[index];
+      const lat = element.point && element.point.lat;
+      const lng = element.point && element.point.lng;
+      if (point.lat === lat && point.lng === lng) {
+        marker = element;
+        if (marker) {
+          // console.log(marker);
+          marker.V.click();
+        }
+      }
+    }
+  }
+
+
+  // 点击搜索按钮，开始搜索
+  execQueryId() {
+    if (this.queryStr === '' || !this.queryStr) {
+      console.log(this.queryStr);
+      return;
+    }
+    this.getDetailsByDeviceNumber(this.queryStr);
+
+  }
+
 
   // 百度地图API功能
   addBeiduMap() {
@@ -706,27 +786,18 @@ export class MonitorComponent implements OnInit {
     this.map_model.currentBlock = [];
   }
 
-  // 点击搜索按钮，开始搜索
-  execQueryId() {
-    if (this.queryStr === '' || !this.queryStr) {
-      return;
-    }
-    console.log(1111111111);
-    this.getDeviceByDeviceName();
 
-  }
-  // 按照设备编号搜索
-  getDeviceByDeviceName() {
-    const that = this;
-    const posNum = this.queryStr;
-    console.log('typeof (posNum)');
-    console.log(typeof (posNum));
-  }
 
   // 点击产品
   selectePruduct(product) {
 
   }
+}
+
+export interface IAlert {
+  id: number;
+  type: string;
+  message: string;
 }
 
 // 标注消息列表中点击的路灯事件
