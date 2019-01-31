@@ -79,8 +79,8 @@
                 <td>{{install.name}}</td>
                 <td style="text-align: center">
                   <div class="modify-strategy d-inline">
-                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataInstall(contentUpdate, install)">修改</a>
-                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelInstall(contentDelIntsall, install)">删除</a>
+                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataInstall(content, install)">修改</a>
+                    <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelInstall(contentDelUser, install)">删除</a>
                   </div>
                 </td>
   
@@ -92,8 +92,8 @@
           <div *ngIf="installList.length === 0 || !installList">无数据！</div>
           <!-- 判断显示页面 -->
           <div *ngIf="installList.length > 0">
-            <!-- <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
-              (pageChange)="pageChange()"></ngb-pagination> -->
+            <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+              (pageChange)="pageChange()"></ngb-pagination>
           </div>
   
         </div>

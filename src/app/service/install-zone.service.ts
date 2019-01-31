@@ -11,12 +11,21 @@ export class InstallZoneService {
   constructor(private http: HttpClient) {
 
   }
+    // 城市列表
+    getZoneDefault(): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get('/api/zone/default')
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
 
     // 获取所有安装区域
-    getZone(): Observable<any> {
+    getZone(page, pageSize): Observable<any> {
     // return Observable.of(ARTICLESTYPE);
 
-    return this.http.get('/api/zone')
+        return this.http.get(`/api/zone?page=${page}&pageSize=${pageSize}`)
         .pipe(map((res: Response) => {
             return res;
         }));
@@ -32,13 +41,8 @@ export class InstallZoneService {
     }
 
     // 新增安装区域
-    addNewInstall(center: any, full_name: String, name: String, region_id: String): Observable<any> {
-        return this.http.post('/api/zone', {
-            'center': center,
-            'full_name': full_name,
-            'name': name,
-            'region_id': region_id
-        })
+    addNewInstall(body): Observable<any> {
+        return this.http.post('/api/zone', body)
             .pipe(map((res: Response) => { // 相当于一种映射
                 return res;
             }));

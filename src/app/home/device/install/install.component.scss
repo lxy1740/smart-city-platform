@@ -1,5 +1,9 @@
 @import '../../../../assets/css/variable.scss';
 @import '../../../../assets/css/xylg.scss';
+.user-info {
+    height: 320px;
+    overflow-y: auto;
+}
 .bodyofproduct {
     width: calc(100vw - 50px);
     height: 100vh;

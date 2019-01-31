@@ -1,7 +1,7 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { InstallZoneService } from '../../../service/install-zone.service';
-import { GEOREGION } from '../../../data/Geo-region';
+// import { GEOREGION } from '../../../data/Geo-region';
 declare var $: any;
 
 @Component({
@@ -13,8 +13,18 @@ export class InstallComponent implements OnInit {
 
   // 行政区树
   zTreeObj: any;
-  zNodes = GEOREGION;
+  zNodes = [];
   install: any = {}; // 存储数据
+  installModelDate: any = {
+    'center': {
+      'lat': 0,
+      'lng': 0
+    },
+    'full_name': '',
+    'level': 0,
+    'name': '',
+    'region_id': ''
+  };
   // 弹框
   closeResult: string;
   // 新增/修改标识
@@ -33,9 +43,9 @@ export class InstallComponent implements OnInit {
   installList = [];
 
   queryStr = ''; // 检索字符串
-  page: any;
+  page = 1;
   pageSize = 10;
-  total: any;
+  total = 0;
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
@@ -49,16 +59,32 @@ export class InstallComponent implements OnInit {
       // 获取树的节点
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
       const nodes = treeObj.getCheckedNodes(true);
-     // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
-      nodes.map((item, i) => {
-      that.install.geoRegion[item.id] = item.name;
-        console.log('item.name', item.name);
-      });
+      console.log(nodes);
+      this.installModelDate.center = nodes[0].center;
+      this.installModelDate.full_name = nodes[0].full_name;
+      this.installModelDate.region_id = nodes[0].id;
+      this.installModelDate.name = nodes[0].name;
+      this.installModelDate.level = nodes[0].level;
+
+
+
     };
   }
 
   ngOnInit() {
     this.getInstallzone(); // 获取安装区域列表
+    this.getZoneDefault();
+  }
+
+  // 城市列表
+  getZoneDefault() {
+    const that = this;
+    this.installzoneService.getZoneDefault()
+    .subscribe({
+      next: function (val) {
+        that.zNodes = val.regions;
+      }
+    });
   }
 
   private getDismissReason(reason: any): string {
@@ -97,7 +123,6 @@ export class InstallComponent implements OnInit {
   }
 
   setZtreeNode(georegion) { // 修改：传入当前用户角色名数组；新建：传入空数组
-    const that = this;
     // 树结构，树设置
     this.getZoneTree();
     // treeDemo界面中加载ztree的div
@@ -143,13 +168,9 @@ export class InstallComponent implements OnInit {
 
   // 打开 修改 弹框
   openUpdataInstall(contentUpdate, item) {
-    const that = this;
     this.AddorUpdate = '修改角色';
     // 所修改的区域
-    this.install.culInstall = item;
-    console.log(item);
-    // this.install.name = item.name;
-    // this.install.region_id = item.region_id;
+
     this.install.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
     const modal = this.modalService.open(contentUpdate, { windowClass: 'md' });
     this.mr = modal;
@@ -175,12 +196,12 @@ export class InstallComponent implements OnInit {
   // 获取安装区域列表 --ok
   getInstallzone() {
     const that = this;
-
-    this.installzoneService.getZone().subscribe({
+    this.installzoneService.getZone(this.page, this.pageSize).subscribe({
       next: function (val) {
         console.log('安装区域列表');
         console.log(val);
-        that.installList = val;
+        that.installList = val.items;
+        that.total = val.total;
       },
       complete: function () {
 
@@ -189,6 +210,10 @@ export class InstallComponent implements OnInit {
         console.log(error);
       }
     });
+  }
+
+  pageChange() {
+    this.getInstallzone();
   }
 
   // 新增/修改角色 - 模态框 确认点击事件
@@ -206,7 +231,7 @@ export class InstallComponent implements OnInit {
   // 新增角色
   addInstall() {
     const that = this;
-    this.installzoneService.addNewInstall(this.install.center, this.install.full_name, this.install.name, this.install.region_id)
+    this.installzoneService.addNewInstall(this.installModelDate)
     .subscribe({
       next: function (val) {
         that.alerts.push({
@@ -251,11 +276,6 @@ export class InstallComponent implements OnInit {
     const that = this;
     const id = this.install.itemDelId;
     console.log(id);
-    // let flag = false;
-    // const pages = (this.total + this.pageSize - 1) / this.pageSize;
-    // if (this.page >= pages && this.installList.length === 1) {
-    //   flag = true;
-    // }
     this.installzoneService.deleteInstall(id).subscribe({
       next: function (val) {
         console.log(val);
@@ -266,12 +286,7 @@ export class InstallComponent implements OnInit {
         });
       },
       complete: function () {
-        // if (flag) {
-        //   that.page  = that.page - 1;
-        //   that.getInstallzone();
-        // } else {
-        //   that.getInstallzone();
-        // }
+
       },
       error: function (error) {
         console.log(error);
