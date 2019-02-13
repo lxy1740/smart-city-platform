@@ -78,27 +78,33 @@
   <!-- 卡片形式 -->
   <div class="card card-primary panel-default cart-min">
     <div class="card-header">
-      <span>产品管理</span>
-      <div class="card-block add-product">
-        <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">新建产品</a>
-      </div>
+      <span>功能定义</span>
+      <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">XXX</a>
       <button type="button" class="close" aria-label="Close">
       
         <span>
           <i class="fa fa-arrow-circle-o-left fa-lg cur-pointer color-btn-text" (click)="goToZheRoute('home/device/product/product-home')"></i>
         </span>
       </button>
+      <div>
+          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">数据定义</a>
+          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">服务定义</a>
+      </div>
     </div>
 
     <!-- 显示已有产品 -->
     <div class="card-block">
+      <div>
+        <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">添加功能</a>
+      </div>
       <table class="table table-hover">
         <thead class="table-header">
           <tr>
             <th>序号</th>
-            <th>产品名称</th>
-            <th>产品描述</th>
-            <th>设备类型</th>
+            <th>数据名称</th>
+            <th>标识符</th>
+            <th>数据类型</th>
+            <th>数据定义</th>
             <th style="text-align: center">操作</th>
           </tr>
         </thead>
@@ -107,7 +113,9 @@
           <tr *ngFor="let item of productListItems; let i = index">
             <td>{{i + 1}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.description}}</td>
+            <td>{{item.identifier}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.definition}}</td>
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentAdd, item)">修改</a>

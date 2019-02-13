@@ -275,8 +275,12 @@ export class InstallComponent implements OnInit {
   delInstall() {
     const that = this;
     const id = this.install.itemDelId;
+    const body = {
+      ids: []
+    };
+    body.ids.push(id);
     console.log(id);
-    this.installzoneService.deleteInstall(id).subscribe({
+    this.installzoneService.deleteInstall(body).subscribe({
       next: function (val) {
         console.log(val);
         that.alerts.push({
@@ -286,7 +290,7 @@ export class InstallComponent implements OnInit {
         });
       },
       complete: function () {
-
+        that.getInstallzone();
       },
       error: function (error) {
         console.log(error);

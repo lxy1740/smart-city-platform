@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/';
 import { map } from 'rxjs/operators';
 
@@ -32,8 +32,14 @@ export class InstallZoneService {
     }
 
     // 删除安装区域
-    deleteInstall(id) {
-        return this.http.delete(`/api/zone?id=${id}`)
+    deleteInstall(body): Observable<any> {
+        console.log(body);
+        // const body1 = JSON.stringify(body);
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: body
+        };
+
+        return this.http.delete(`/api/zone`, httpOptions)
             .pipe(map((res: Response) => {
                 const data = { status: 200};
                 return data;
