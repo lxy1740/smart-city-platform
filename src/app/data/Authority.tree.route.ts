@@ -9,8 +9,9 @@ export const AUTHORITYTREECOPYROUTE = [
             { id: 'SC-002', icon: 'fa fa-tint nav-icon-s', routeLink: 'application/water',  routeTitel: '水质监测'},
             { id: 'SC-003', icon: 'fa fa-eye nav-icon-s', routeLink: 'application/electrical', routeTitel: '电气安全' },
             { id: 'SC-004', icon: 'fa fa-cloud nav-icon-s', routeLink: 'application/air/air-home', routeTitel: '空气质量', children: [
-                    { id: 'SC-0041',  routeLink: 'application/air/theairreport', routeTitel: '检测大数据', children: [
-                       {  id: 'SC-00411',  routeLink: 'application/air/dashboard',  routeTitel: '可视化报表'}
+                {
+                    id: 'SC-0041', routeLink: 'application/air/theairreport', name: '检测大数据', children: [
+                        { id: 'SC-00411', routeLink: 'application/air/dashboard', name: '可视化报表'}
                         ]
                     }
                 ]
@@ -29,14 +30,16 @@ export const AUTHORITYTREECOPYROUTE = [
 
     { id: 'DM-000', icon: 'fa fa-map nav-icon', routeLink: 'device', routeTitel: '设备管理', isCollapsed: true, hasRight: false, children: [
             { id: 'DM-001', icon: 'fa fa-window-restore nav-icon-s', routeLink: 'device/devices/devices-home', routeTitel: '设备', children: [
-                    {  id: 'DM-0010', routeLink: 'device/devices/real-data', routeTitel: '属性'},
-                    { id: 'DM-0011', routeLink: 'device/devices/install-log', routeTitel: '设备安装日志'},
-                    { id: 'DM-0012', routeLink: 'device/devices/line-log', routeTitel: '设备上下线日志' },
-                    { id: 'DM-0013', routeLink: 'device/devices/history', routeTitel: '历史数据'}
+                { id: 'DM-0010', routeLink: 'device/devices/real-data', name: '属性'},
+                { id: 'DM-0011', routeLink: 'device/devices/install-log', name: '设备安装日志'},
+                { id: 'DM-0012', routeLink: 'device/devices/line-log', name: '设备上下线日志' },
+                { id: 'DM-0013', routeLink: 'device/devices/history', name: '历史数据'}
                 ]
             },
 
-            { id: 'DM-002', icon: 'fa fa-product-hunt nav-icon-s', routeLink: 'device/product', routeTitel: '产品'},
+            { id: 'DM-002', icon: 'fa fa-product-hunt nav-icon-s', routeLink: 'device/product/product-home', routeTitel: '产品', children: [
+                { id: 'DM-0021', name: '产品功能定义', routeLink: 'device/product/function-definition' },
+            ]},
             { id: 'DM-003', icon: 'fa fa-map-marker nav-icon-s', routeLink: 'device/position', routeTitel: '位置'},
             { id: 'DM-004', icon: 'fa fa-dropbox nav-icon-s', routeLink: 'device/administration', routeTitel: '行政区域'},
             { id: 'DM-005', icon: 'fa fa-road nav-icon-s',  routeLink: 'device/road', routeTitel: '道路'},

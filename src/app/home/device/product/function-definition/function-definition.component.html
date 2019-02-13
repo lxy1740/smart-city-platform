@@ -1,0 +1,131 @@
+<!-- modal下modal:增加参数 -->
+<ng-template #contentAdd class="modal1" let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">新建参数</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>参数名称</label>
+      <input type="text" class="form-control" id="" placeholder="">
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>标识符</label>
+      <input type="text" class="form-control" id="" placeholder="">
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>数据类型</label>
+      <select class="form-control">
+        <option>int32</option>
+        <option>float</option>
+        <option>double</option>
+        <option>enum</option>
+        <option>bool</option>
+        <option>text</option>
+        <option>date</option>
+        <option>array</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>取值范围：</label>
+      <div class="form-inline">
+        <input type="text" class="form-control sm-width" id="" placeholder="">
+        <span class="ssm-width">~</span>
+        <input type="text" class="form-control sm-width" id="" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>分辨率</label>
+      <div>
+        <input type="text" class="form-control" id="" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">单位：</label>
+      <div>
+        <select class="form-control">
+          <option>无</option>
+          <option>米/m</option>
+          <option>千米/km</option>
+          <option>分米/dm</option>
+          <option>厘米/cm</option>
+          <option>毫米/mm</option>
+          <option>微米/μm</option>
+          <option>纳米/nm</option>
+          <option>...</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+    <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+  </div>
+</ng-template>
+<!-- 删除位置 -->
+<ng-template #contentDel let-c="close" let-d="dismiss">
+  <app-sq-modal [input]="modelData" (output)="closeModal($event)"></app-sq-modal>
+</ng-template>
+<!-- 产品管理页面 -->
+<div class="bodyofproduct cart-over">
+  <p *ngFor="let alert of alerts" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <!-- 卡片形式 -->
+  <div class="card card-primary panel-default cart-min">
+    <div class="card-header">
+      <span>产品管理</span>
+      <div class="card-block add-product">
+        <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">新建产品</a>
+      </div>
+      <button type="button" class="close" aria-label="Close">
+      
+        <span>
+          <i class="fa fa-arrow-circle-o-left fa-lg cur-pointer color-btn-text" (click)="goToZheRoute('home/device/product/product-home')"></i>
+        </span>
+      </button>
+    </div>
+
+    <!-- 显示已有产品 -->
+    <div class="card-block">
+      <table class="table table-hover">
+        <thead class="table-header">
+          <tr>
+            <th>序号</th>
+            <th>产品名称</th>
+            <th>产品描述</th>
+            <th>设备类型</th>
+            <th style="text-align: center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let item of productListItems; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td style="text-align: center">
+              <div class="modify-strategy d-inline">
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentAdd, item)">修改</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div>
+      <div *ngIf="productListItems.length > 0">
+        <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+          [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+      </div>
+
+    </div>
+  </div>
+
+</div>

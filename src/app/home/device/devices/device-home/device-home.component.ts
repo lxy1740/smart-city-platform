@@ -1,7 +1,6 @@
 
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { MonitorService } from '../../../../service/monitor.service';
 import { DeviceService } from '../../../../service/device.service';
 import { GradOverlar } from '../../../../service/grad.overlay';
 import { Router } from '@angular/router';
@@ -70,7 +69,7 @@ export class DeviceHomeComponent implements OnInit {
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
-  constructor(public router: Router, private modalService: NgbModal, private monitorService: MonitorService,
+  constructor(public router: Router, private modalService: NgbModal,
     private deviceService: DeviceService) {
     this.page = 1;
     this.pagePosi = 1;

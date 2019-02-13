@@ -31,7 +31,9 @@ export const AUTHORITYTREE = [
                 { id: 'DM-0012', name: '设备上下线日志', routeLink: 'device/devices/line-log' },
                 { id: 'DM-0013', name: '历史数据', routeLink: 'device/devices/history' },
             ]},
-            { id: 'DM-002', name: '产品', routeLink: 'device/product' },
+        { id: 'DM-002', name: '产品', routeLink: 'device/product/product-home', children: [
+            { id: 'DM-0021', name: '产品功能定义', routeLink: 'device/product/function-definition' },
+        ] },
             { id: 'DM-003', name: '位置', routeLink: 'device/position' },
             { id: 'DM-004', name: '行政区域', routeLink: 'device/administration' },
             { id: 'DM-005', name: '道路', routeLink: 'device/road' },

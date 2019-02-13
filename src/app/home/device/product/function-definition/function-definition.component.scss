@@ -1,0 +1,18 @@
+.bodyofproduct {
+    width: calc(100vw - 50px);
+    height: 100vh;
+    padding: 30px;
+    position: relative;
+}
+.card-header {
+    border-bottom: 0px;
+    position: relative;
+}
+.add-product {
+    margin: 0px;
+    text-align: right;
+    position: absolute;
+    right: 54px;
+    bottom: 5px;
+
+}
