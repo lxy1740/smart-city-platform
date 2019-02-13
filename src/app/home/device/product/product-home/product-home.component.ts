@@ -61,9 +61,9 @@ export class ProductHomeComponent implements OnInit {
   }
 
   // 属性页面
-  goToZheRoute(para, id) {
-    if (id) {
-      this.router.navigate([para, { deviceId: id }]);
+  goToZheRoute(para, item) {
+    if (item) {
+      this.router.navigate([para, { param: JSON.stringify(item) }]);
     } else {
       this.router.navigate([para]);
     }

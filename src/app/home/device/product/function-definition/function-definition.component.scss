@@ -16,3 +16,44 @@
     bottom: 5px;
 
 }
+.modal-body {
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.myCustomModalClass .modal-dialog {
+  max-width: 800px;
+}
+
+.modal-body {
+    .form-control {
+    font-size: 14px;
+    height: calc(1.8rem + 2px);
+    }
+    .form-control-left {
+        margin-bottom: 5px;
+        width: 200px;
+        
+    }
+    .label-left {
+        margin-right: 5px;
+        text-align: right;
+        width: 121px;
+    }
+    .modal-col {
+        margin-left: 15px;
+    }
+    .sm-width {
+        width: 208px;
+    }
+    .sm-width1 {
+        width: 108px;
+    }
+    .ssm-width {
+        width: 11px;
+        margin: 0 5px 0;
+    }
+}
+.nav > li > a {
+    font-size: 16px;
+}

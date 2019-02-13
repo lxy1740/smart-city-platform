@@ -23,7 +23,6 @@ export class RealDataComponent implements OnInit {
 
   ngOnInit() {
     this.deviceId = this.routerinfo.snapshot.params.deviceId;
-    console.log(this.deviceId);
     this.getDevice();
     this.getCurrentProperty();
 

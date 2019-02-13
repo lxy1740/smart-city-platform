@@ -1,5 +1,125 @@
+<!-- modal下modal:增加数据定义 -->
+<ng-template #AddDATA class="modal1" let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">添加数据定义</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>名称：</label>
+      <input type="text" class="form-control" [(ngModel)]="dataModel.name" placeholder="请输入您的数据名称">
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>标识符：</label>
+      <input type="text" class="form-control" [(ngModel)]="dataModel.identifier" placeholder="请输入您的标识符">
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>数据类型：</label>
+      <select class="form-control" [(ngModel)]="dataModel.type">
+        <option *ngFor="let unit of TYPEDATA1" [ngValue]="unit">{{unit.Name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>取值范围：</label>
+      <div class="form-inline">
+        <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.min" placeholder="最小值">
+        <span class="ssm-width">~</span>
+        <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.max" placeholder="最大值">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red" >*</span>分辨率/步长：</label>
+      <div>
+        <input type="text" class="form-control" [(ngModel)]="dataModel.stepSize" placeholder="请输入步长">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">单位：</label>
+      <div>
+        <select class="form-control" [(ngModel)]="dataModel.unit" placeholder="请选择单位">
+          <option *ngFor="let unit of UNITDATA1" [ngValue]="unit">{{unit.Name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>读写类型：</label>
+      <div>
+        <input type="radio" name="read"  [value]="0" placeholder=""  [(ngModel)]="dataModel.read">读写
+        <input type="radio" name="read"  [value]="1" placeholder=""  [(ngModel)]="dataModel.read">只读
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>描述：</label>
+      <div>
+        <textarea name="" id="" cols="60" rows="3" [(ngModel)]="dataModel.describe" placeholder="请输入描述"></textarea>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-info" (click)="addData()">确认</button>
+    <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+  </div>
+</ng-template>
+
+<!-- modal下modal:增加服务定义 -->
+<ng-template #AddSERVICE class="modal1" let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">添加服务定义</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>名称：</label>
+      <input type="text" class="form-control" [(ngModel)]="functionModel.name" placeholder="请输入您的数据名称">
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>标识符：</label>
+      <input type="text" class="form-control" [(ngModel)]="functionModel.identifier" placeholder="请输入您的标识符">
+    </div>
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>调用方式：</label>
+      <div>
+        <input type="radio" name="synchronism" [value]="'异步'" placeholder="" [(ngModel)]="functionModel.synchronism">异步
+        <input type="radio" name="synchronism" [value]="'同步'" placeholder="" [(ngModel)]="functionModel.synchronism">同步
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">输入参数：</label>
+      <div>
+        <span><a class="theme-text cur-pointer" (click)="openParameterModal(parameterAdd)">+ 增加参数</a></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">输出参数：</label>
+      <div>
+        <span><a class="theme-text cur-pointer" (click)="openParameterModal(parameterAdd)">+ 增加参数</a></span>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="control-label"><span style="color:red">*</span>描述：</label>
+      <div>
+        <textarea name="" id="" cols="60" rows="3" [(ngModel)]="functionModel.describe" placeholder="请输入描述"></textarea>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-info" (click)="addFuntion()">确认</button>
+    <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+  </div>
+</ng-template>
+
 <!-- modal下modal:增加参数 -->
-<ng-template #contentAdd class="modal1" let-c="close" let-d="dismiss">
+<ng-template #parameterAdd class="modal1" let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">新建参数</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -18,23 +138,16 @@
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>数据类型</label>
-      <select class="form-control">
-        <option>int32</option>
-        <option>float</option>
-        <option>double</option>
-        <option>enum</option>
-        <option>bool</option>
-        <option>text</option>
-        <option>date</option>
-        <option>array</option>
+      <select class="form-control" [(ngModel)]="dataModel.type">
+        <option *ngFor="let unit of TYPEDATA1" [ngValue]="unit">{{unit.Name}}</option>
       </select>
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>取值范围：</label>
       <div class="form-inline">
-        <input type="text" class="form-control sm-width" id="" placeholder="">
+        <input type="text" class="form-control sm-width1" id="" placeholder="">
         <span class="ssm-width">~</span>
-        <input type="text" class="form-control sm-width" id="" placeholder="">
+        <input type="text" class="form-control sm-width1" id="" placeholder="">
       </div>
     </div>
     <div class="form-group">
@@ -46,16 +159,8 @@
     <div class="form-group">
       <label class="control-label">单位：</label>
       <div>
-        <select class="form-control">
-          <option>无</option>
-          <option>米/m</option>
-          <option>千米/km</option>
-          <option>分米/dm</option>
-          <option>厘米/cm</option>
-          <option>毫米/mm</option>
-          <option>微米/μm</option>
-          <option>纳米/nm</option>
-          <option>...</option>
+        <select class="form-control" [(ngModel)]="dataModel.unit" placeholder="请选择单位">
+          <option *ngFor="let unit of UNITDATA1" [ngValue]="unit">{{unit.Name}}</option>
         </select>
       </div>
     </div>
@@ -79,59 +184,124 @@
   <div class="card card-primary panel-default cart-min">
     <div class="card-header">
       <span>功能定义</span>
-      <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">XXX</a>
+
       <button type="button" class="close" aria-label="Close">
       
         <span>
           <i class="fa fa-arrow-circle-o-left fa-lg cur-pointer color-btn-text" (click)="goToZheRoute('home/device/product/product-home')"></i>
         </span>
       </button>
-      <div>
-          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">数据定义</a>
-          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">服务定义</a>
+    <div>
+    <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)" style=" font-size: 20px;">{{deviceParams.name}}</a>
+    <!-- 菜单-->
+    <div class="nav-strategy">
+      <ul class="nav nav-tabs">
+        <li *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)"
+          [ngClass]="{'active':item.id === nav_index}">
+          <a>{{item.name}}</a>
+        </li>
+      </ul>
+    </div>
       </div>
     </div>
 
     <!-- 显示已有产品 -->
     <div class="card-block">
-      <div>
-        <a class="cur-pointer theme-text btn-a" (click)="openNewModal(contentAdd)">添加功能</a>
+
+
+      <div *ngIf="nav_index === 0">
+        <div style=" text-align: right;">
+          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddDATA)">添加数据定义</a>
+        </div>
+        <table class="table table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>序号</th>
+              <th>名称</th>
+              <th>标识符</th>
+              <th>数据类型</th>
+              <th>取值范围</th>
+              <th>步长</th>
+              <th>单位</th>
+              <th>读写类型</th>
+              <th>描述</th>
+              <th style="text-align: center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr *ngFor="let item of dataListItems; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.identifier}}</td>
+              <td>{{item.type.Name}}</td>
+              <td>{{item.min}}~{{item.max}}</td>
+              <td>{{item.stepSize}}</td>
+              <td>{{item.unit.Name}}</td>
+              <td>{{item.read}}</td>
+              <td>{{item.describe}}</td>
+              <td style="text-align: center">
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentAdd, item)">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
+                </div>
+              </td>
+        
+            </tr>
+          </tbody>
+        </table>
+        
+        <div *ngIf="dataListItems.length === 0 || !dataListItems">无数据！</div>
+        <div *ngIf="dataListItems.length > 0">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+        </div>
       </div>
-      <table class="table table-hover">
-        <thead class="table-header">
-          <tr>
-            <th>序号</th>
-            <th>数据名称</th>
-            <th>标识符</th>
-            <th>数据类型</th>
-            <th>数据定义</th>
-            <th style="text-align: center">操作</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr *ngFor="let item of productListItems; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.identifier}}</td>
-            <td>{{item.type}}</td>
-            <td>{{item.definition}}</td>
-            <td style="text-align: center">
-              <div class="modify-strategy d-inline">
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentAdd, item)">修改</a>
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
-              </div>
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-
-      <div *ngIf="productListItems.length === 0 || !productListItems">无数据！</div>
-      <div *ngIf="productListItems.length > 0">
-        <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
-          [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+      <div *ngIf="nav_index === 1">
+        <div style=" text-align: right;">
+          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
+        </div>
+        <table class="table table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>序号</th>
+              <th>名称</th>
+              <th>标识符</th>
+              <th>调用方式</th>
+              <th>输入参数</th>
+              <th>输出参数</th>
+              <th>描述</th>
+              <th style="text-align: center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr *ngFor="let item of functionListItems; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.identifier}}</td>
+              <td>{{item.synchronism}}</td>
+              <td>{{item.input}}</td>
+              <td>{{item.output}}</td>
+              <td>{{item.describe}}</td>
+              <td style="text-align: center">
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(contentAdd, item)">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
+                </div>
+              </td>
+        
+            </tr>
+          </tbody>
+        </table>
+        
+        <div *ngIf="functionListItems.length === 0 || !functionListItems">无数据！</div>
+        <div *ngIf="functionListItems.length > 0">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+        </div>
       </div>
+
 
     </div>
   </div>

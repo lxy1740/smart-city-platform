@@ -412,6 +412,11 @@ address, cite, code, em, th, i, strong {
         width: 400px;
     }
 }
+// 数据定义弹框
+
+.myCustomModalClass .modal-dialog {
+  max-width: 600px;
+}
 .basic-container {
   padding: 30px;
 }
