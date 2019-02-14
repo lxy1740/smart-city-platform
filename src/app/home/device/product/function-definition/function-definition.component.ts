@@ -12,20 +12,20 @@ import { UNITDATA} from '../../../../data/unit-data';
 export class FunctionDefinitionComponent implements OnInit {
   public mr: NgbModalRef; // 当前弹框
   closeResult: string;
-  dataModel: any = {};
-  functionModel: any = {};
-  deviceParams: any = {};
-  TYPEDATA1 = TYPEDATA;
-  UNITDATA1 = UNITDATA;
-  dataListItems = [];
-  functionListItems = [];
-  total = 1;
-  page = 1;
-  modelData = {
+  dataModel: any = {}; // 数据定义数据
+  functionModel: any = {}; // 服务定义数据
+  deviceParams: any = {}; // 设备信息
+  TYPEDATA1 = TYPEDATA; // 数据类型
+  UNITDATA1 = UNITDATA; // 单位
+  dataListItems = []; // 数据定义数据列表
+  functionListItems = []; // 服务定义数据列表
+  total = 1; // 分页
+  page = 1; // 分页
+  modelData = { // 删除弹框
     title: '删除',
   };
 
-  navs = [
+  navs = [ // 菜单
     {
       id: 0,
       name: '数据定义'
@@ -36,48 +36,127 @@ export class FunctionDefinitionComponent implements OnInit {
     }
   ];
   nav_index = 0; // 菜单索引
-  @Input()
-  public alerts: Array<IAlert> = [];
-  public alertsModal: Array<IAlert> = [];
 
-  private backup: Array<IAlert>;
+  @Input()
+  public alerts: Array<IAlert> = []; // 信息弹框
+  public alertsModal: Array<IAlert> = []; // 信息弹框
+  private backup: Array<IAlert>;  // 信息弹框
   constructor(private modalService: NgbModal,
     public router: Router,
     private routerinfo: ActivatedRoute
   ) {
-    this.dataModel.read = 0;
-    this.dataModel.type = this.TYPEDATA1[0];
-    this.dataModel.unit = this.UNITDATA1[0];
-    this.functionModel.synchronism = '异步';
-    this.dataListItems.push({
-      describe: 'tyty',
+    this.dataModel.read = 0; // 读写
+    this.dataModel.type = this.TYPEDATA1[0]; // 数据类型
+    this.dataModel.intParams = {  // int参数
+      unit: this.UNITDATA1[0], // 单位
+    };
+
+    this.dataModel.ARRAY = {
+      value: 0
+    }; // ARRAY参数
+    this.dataModel.STRUCT = []; // STRUCT参数
+    this.dataModel.STRUCT.push({
       identifier: 'LightError',
       name: '路灯故障',
-      read: 0,
-      stepSize: '1',
-      min: 0,
-      max: 10,
       type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-      unit: { Symbol: 'GB', Name: '吉字节' }
+      intParams: {
+        unit: { Symbol: 'GB', Name: '吉字节' },
+        stepSize: '1',
+        min: 0,
+        max: 10,
+      },
+      enumParams: [],
+      STRUCT: [],
+      BOOL: {},
+      TEXT: {},
     });
-  this.functionListItems.push({
-    describe: 'ggg',
-    identifier: 'AdjustLightLevel',
-    name: '调光',
-    synchronism: '异步',
-  });
+    this.dataModel.STRUCT.push({
+      identifier: 'LightError',
+      name: '路灯故障',
+      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+      intParams: {
+        unit: { Symbol: 'GB', Name: '吉字节' },
+        stepSize: '1',
+        min: 0,
+        max: 10,
+      },
+      enumParams: [],
+      STRUCT: [],
+      BOOL: {},
+      TEXT: {},
+    });
+    this.dataModel.ENUM = []; // 枚举参数
+    this.dataModel.ENUM.push({ // 枚举参数
+      value: '',
+      describe: ''
+    });
+
+    this.dataModel.BOOL = {
+      no: '',
+      yes: ''
+    }; // BOOL参数
+
+    this.dataModel.TEXT = {
+      length: 1024
+    }; // TEXT参数
+
+    this.functionModel.synchronism = '异步'; // 异步同步 调用方式
+    this.dataListItems.push({
+      describe: '路灯故障',
+      read: 0,
+      identifier: 'LightError',
+      name: '路灯故障',
+      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+      intParams: {
+        unit: { Symbol: 'GB', Name: '吉字节' },
+        stepSize: '1',
+        min: 0,
+        max: 10,
+      },
+      enumParams: [],
+      STRUCT: [],
+      BOOL: {},
+      TEXT: {},
+
+
+    });
+    this.dataListItems.push({
+      describe: 'pig微笑',
+      identifier: 'pig',
+      name: 'pig微笑',
+      read: 0,
+      type: { 'Name': 'enum (枚举型)', 'Value': 'ENUM' },
+      intParams: {
+        // unit: { Symbol: 'GB', Name: '吉字节' },
+        // stepSize: '1',
+        // min: 0,
+        // max: 10,
+      },
+      enumParams: [
+        {value: '0', describe: '呵呵'},
+        {value: '1', describe: '哈哈'},
+      ],
+
+    });
+    this.functionListItems.push({
+      describe: 'ggg',
+      identifier: 'AdjustLightLevel',
+      name: '调光',
+      synchronism: '异步',
+    });
+
   }
 
-  public closeAlert(alert: IAlert) {
+  public closeAlert(alert: IAlert) {  // 信息弹框
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
   }
-  public closeAlertModal(alert: IAlert) {
+  public closeAlertModal(alert: IAlert) {  // 信息弹框
     const index: number = this.alertsModal.indexOf(alert);
     this.alertsModal.splice(index, 1);
   }
 
-  public reset() {
+  public reset() {  // 信息弹框
     this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
 
@@ -85,6 +164,21 @@ export class FunctionDefinitionComponent implements OnInit {
     this.deviceParams = JSON.parse(this.routerinfo.snapshot.params.param);
     console.log(this.deviceParams);
   }
+  // 添加枚举项
+  addEnum() {
+    this.dataModel.ENUM.push({
+      Value: '',
+      describe: ''
+    });
+  }
+
+  // 删除枚举项
+  delEnum() {
+    if (this.dataModel.ENUM.length > 1) {
+      this.dataModel.ENUM.pop();
+    }
+  }
+  // 切换菜单
   changeNav(i) {
     this.nav_index = i;
   }
@@ -158,6 +252,7 @@ export class FunctionDefinitionComponent implements OnInit {
   // 删除设备型号-接口处
   delModal() {}
 
+  // 分页
   pageChange() {}
 
 

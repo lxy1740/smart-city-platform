@@ -22,33 +22,113 @@
         <option *ngFor="let unit of TYPEDATA1" [ngValue]="unit">{{unit.Name}}</option>
       </select>
     </div>
-    <div class="form-group">
-      <label class="control-label"><span style="color:red">*</span>取值范围：</label>
-      <div class="form-inline">
-        <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.min" placeholder="最小值">
-        <span class="ssm-width">~</span>
-        <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.max" placeholder="最大值">
+    <!-- INT、FLOAT、DOUBLE -->
+    <div *ngIf="dataModel.type.Value == 'INT' || dataModel.type.Value == 'FLOAT' || dataModel.type.Value == 'DOUBLE' ">
+          <div class="form-group">
+            <label class="control-label"><span style="color:red">*</span>取值范围：</label>
+            <div class="form-inline">
+              <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.intParams.min" placeholder="最小值">
+              <span class="ssm-width">~</span>
+              <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.intParams.max" placeholder="最大值">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><span style="color:red">*</span>分辨率/步长：</label>
+            <div>
+              <input type="text" class="form-control" [(ngModel)]="dataModel.stepSize" placeholder="请输入步长">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">单位：</label>
+            <div>
+              <select class="form-control" [(ngModel)]="dataModel.intParams.unit" placeholder="请选择单位">
+                <option *ngFor="let unit of UNITDATA1" [ngValue]="unit">{{unit.Name}}</option>
+              </select>
+            </div>
+          </div>
+    </div>
+    <!-- ENUM -->
+    <div *ngIf="dataModel.type.Value == 'ENUM'">
+          <div class="form-group">
+            <label class="control-label"><span style="color:red">*</span>枚举项:</label>
+            <div class="form-inline">
+              <span>参数值</span>
+              <span class="para-descript">参数描述</span>
+            </div>
+            <div class="form-inline" *ngFor="let item of dataModel.ENUM" style="padding: 5px 0;">
+              <input type="number" class="form-control sm-width2" [(ngModel)]="item.value" placeholder="编号如'0'">
+              <span class="ssm-width">~</span>
+              <input type="number" class="form-control sm-width2" [(ngModel)]="item.description" placeholder="对改枚举项的描述">
+              <span style="padding-left: 15px;"><a class="cur-pointer theme-text " (click)="delEnum()">删除</a> </span>
+            </div>
+          </div>
+          <div>
+            <span><a class="cur-pointer theme-text " (click)="addEnum()">+添加枚举项</a></span>
+          </div>
+    </div>
+    <!-- BOOL -->
+    <div *ngIf="dataModel.type.Value == 'BOOL'">
+      <div class="form-group">
+        <label class="control-label"><span style="color:red">*</span>布尔值:</label>
+        <div class="form-inline" >
+          <span class="ssm-width">0-</span>
+          <input type="number" class="form-control sm-width2" [(ngModel)]="dataModel.BOOL.no" placeholder="如：关">
+          <span class="ssm-width" style="padding: 15px;">1-</span>
+          <input type="number" class="form-control sm-width2" [(ngModel)]="dataModel.BOOL.yes" placeholder="如：开">
+
+        </div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="control-label"><span style="color:red" >*</span>分辨率/步长：</label>
-      <div>
-        <input type="text" class="form-control" [(ngModel)]="dataModel.stepSize" placeholder="请输入步长">
+    <!-- TEXT -->
+    <div *ngIf="dataModel.type.Value == 'TEXT'">
+      <div class="form-group">
+        <label class="control-label"><span style="color:red">*</span>数据长度:</label>
+        <div class="form-inline">
+          <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.TEXT.length" placeholder="如：关">
+          <span style="padding-left: 15px;">字节</span>
+        </div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="control-label">单位：</label>
-      <div>
-        <select class="form-control" [(ngModel)]="dataModel.unit" placeholder="请选择单位">
-          <option *ngFor="let unit of UNITDATA1" [ngValue]="unit">{{unit.Name}}</option>
-        </select>
+    <!-- DATE -->
+    <div *ngIf="dataModel.type.Value == 'DATE'">
+      <div class="form-group">
+        <label class="control-label">时间格式:</label>
+        <div class="form-inline">
+          <span >String类型的UTC时间戳（毫秒）</span>
+        </div>
+      </div>
+    </div>
+    <!-- STRUCT -->
+    <div *ngIf="dataModel.type.Value == 'STRUCT'">
+      <div class="form-group" style="position: relative;">
+        <label class="control-label"><span style="color:red">*</span>JSON对象:</label>
+        <div class="form-inline" *ngFor="let itemSTRUCT of dataModel.STRUCT" style="background-color: rgb(230, 249, 252);padding: 3px;margin:3px 0;">
+          <span >参数名称：{{itemSTRUCT.name}}</span>
+          <span style="position: absolute;right: 40px;"><a class="cur-pointer theme-text ">编辑</a></span>
+          <span style="position: absolute;right: 0px;"><a class="cur-pointer theme-text ">删除</a></span>
+        </div>
+        <div>
+          <span><a class="cur-pointer theme-text " (click)="addEnum()">+新增参数</a></span>
+        </div>
+      </div>
+    </div>
+    <!-- ARRAY -->
+    <div *ngIf="dataModel.type.Value == 'ARRAY'">
+      <div class="form-group">
+        <label class="control-label"><span style="color:red">*</span>元素类型:</label>
+        <div class="form-inline">
+          <span>String类型的UTC时间戳（毫秒）</span>
+        </div>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>读写类型：</label>
       <div>
-        <input type="radio" name="read"  [value]="0" placeholder=""  [(ngModel)]="dataModel.read">读写
-        <input type="radio" name="read"  [value]="1" placeholder=""  [(ngModel)]="dataModel.read">只读
+        <input type="radio" name="read"  [value]="0" placeholder=""  [(ngModel)]="dataModel.ARRAY.value"><span >int32</span>
+        <input type="radio" name="read"  [value]="1" placeholder=""  [(ngModel)]="dataModel.ARRAY.value">float
+        <input type="radio" name="read"  [value]="2" placeholder=""  [(ngModel)]="dataModel.ARRAY.value">double
+        <input type="radio" name="read"  [value]="2" placeholder=""  [(ngModel)]="dataModel.ARRAY.value">text
+        <input type="radio" name="read"  [value]="4" placeholder=""  [(ngModel)]="dataModel.ARRAY.value">struct
       </div>
     </div>
     <div class="form-group">
@@ -208,7 +288,7 @@
     <!-- 显示已有产品 -->
     <div class="card-block">
 
-
+      <!-- 数据定义 -->
       <div *ngIf="nav_index === 0">
         <div style=" text-align: right;">
           <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddDATA)">添加数据定义</a>
@@ -220,9 +300,9 @@
               <th>名称</th>
               <th>标识符</th>
               <th>数据类型</th>
-              <th>取值范围</th>
-              <th>步长</th>
-              <th>单位</th>
+              <th>数据定义</th>
+              <!-- <th>步长</th>
+              <th>单位</th> -->
               <th>读写类型</th>
               <th>描述</th>
               <th style="text-align: center">操作</th>
@@ -235,9 +315,8 @@
               <td>{{item.name}}</td>
               <td>{{item.identifier}}</td>
               <td>{{item.type.Name}}</td>
-              <td>{{item.min}}~{{item.max}}</td>
-              <td>{{item.stepSize}}</td>
-              <td>{{item.unit.Name}}</td>
+              <td *ngIf="item.intParams.min || item.intParams.min == 0"><span >取值范围：{{item.intParams.min}} ~ {{item.intParams.max}}; 步长：{{item.intParams.stepSize}}; 单位：{{item.intParams.unit.Name}}</span> </td>
+              <td *ngIf="item.enumParams.length > 0"><span >枚举值：</span><span *ngFor="let itemnuem of item.enumParams">{{itemnuem.value}}:{{itemnuem.describe}};</span> </td>
               <td>{{item.read}}</td>
               <td>{{item.describe}}</td>
               <td style="text-align: center">
@@ -257,6 +336,7 @@
             [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
         </div>
       </div>
+      <!-- 服务定义 -->
       <div *ngIf="nav_index === 1">
         <div style=" text-align: right;">
           <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
