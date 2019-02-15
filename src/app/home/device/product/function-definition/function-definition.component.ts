@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute} from '@angular/router';
-import { TYPEDATA} from '../../../../data/type-data';
+import { TYPEDATA, TYPEDATA1} from '../../../../data/type-data';
 import { UNITDATA} from '../../../../data/unit-data';
 
 @Component({
@@ -17,6 +17,7 @@ export class FunctionDefinitionComponent implements OnInit {
   deviceParams: any = {}; // 设备信息
   TYPEDATA1 = TYPEDATA; // 数据类型
   UNITDATA1 = UNITDATA; // 单位
+  TYPEDATA2 = TYPEDATA1; // 单位
   dataListItems = []; // 数据定义数据列表
   functionListItems = []; // 服务定义数据列表
   total = 1; // 分页
@@ -36,6 +37,8 @@ export class FunctionDefinitionComponent implements OnInit {
     }
   ];
   nav_index = 0; // 菜单索引
+  AddParamModel: any = {}; // 新增参数窗口数据
+  AddParam = []; // 新增参数窗口
 
   @Input()
   public alerts: Array<IAlert> = []; // 信息弹框
@@ -45,46 +48,19 @@ export class FunctionDefinitionComponent implements OnInit {
     public router: Router,
     private routerinfo: ActivatedRoute
   ) {
+    // 1 数据定义弹框
     this.dataModel.read = 0; // 读写
     this.dataModel.type = this.TYPEDATA1[0]; // 数据类型
+
     this.dataModel.intParams = {  // int参数
       unit: this.UNITDATA1[0], // 单位
     };
 
-    this.dataModel.ARRAY = {
+    this.dataModel.ARRAY = { // ARRAY参数
       value: 0
-    }; // ARRAY参数
-    this.dataModel.STRUCT = []; // STRUCT参数
-    this.dataModel.STRUCT.push({
-      identifier: 'LightError',
-      name: '路灯故障',
-      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-      intParams: {
-        unit: { Symbol: 'GB', Name: '吉字节' },
-        stepSize: '1',
-        min: 0,
-        max: 10,
-      },
-      enumParams: [],
-      STRUCT: [],
-      BOOL: {},
-      TEXT: {},
-    });
-    this.dataModel.STRUCT.push({
-      identifier: 'LightError',
-      name: '路灯故障',
-      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-      intParams: {
-        unit: { Symbol: 'GB', Name: '吉字节' },
-        stepSize: '1',
-        min: 0,
-        max: 10,
-      },
-      enumParams: [],
-      STRUCT: [],
-      BOOL: {},
-      TEXT: {},
-    });
+    };
+
+
     this.dataModel.ENUM = []; // 枚举参数
     this.dataModel.ENUM.push({ // 枚举参数
       value: '',
@@ -100,7 +76,68 @@ export class FunctionDefinitionComponent implements OnInit {
       length: 1024
     }; // TEXT参数
 
+    this.dataModel.STRUCT = []; // STRUCT参数
+
+    this.dataModel.STRUCT.push({
+      identifier: 'LightError',
+      name: '路灯故障',
+      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+      intParams: {
+        unit: { Symbol: 'GB', Name: '吉字节' },
+        stepSize: '1',
+        min: 0,
+        max: 10,
+      },
+      enumParams: [],
+      STRUCT: [],
+      BOOL: {},
+      TEXT: {},
+    }); // 举例 要删
+    this.dataModel.STRUCT.push({
+      identifier: 'LightError',
+      name: '路灯故障',
+      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+      intParams: {
+        unit: { Symbol: 'GB', Name: '吉字节' },
+        stepSize: '1',
+        min: 0,
+        max: 10,
+      },
+      enumParams: [],
+      STRUCT: [],
+      BOOL: {},
+      TEXT: {},
+    }); // 举例 要删
+
+    // 2、添加参数弹框
+
+    this.AddParamModel.type = this.TYPEDATA2[0]; // 新增参数窗口数据类型
+    this.AddParamModel.intParams = {  // int参数
+      unit: this.UNITDATA1[0], // 单位
+    };
+
+    this.AddParamModel.ARRAY = { // ARRAY参数
+      value: 0
+    };
+
+    this.AddParamModel.ENUM = []; // 枚举参数
+    this.AddParamModel.ENUM.push({ // 枚举参数
+      value: '',
+      describe: ''
+    });
+
+    this.AddParamModel.BOOL = {  // BOOL参数
+      no: '',
+      yes: ''
+    };
+
+    this.AddParamModel.TEXT = { // TEXT参数
+      length: 1024
+    };
+
+   // 3.服务定义弹框
     this.functionModel.synchronism = '异步'; // 异步同步 调用方式
+    // 举例 要删
     this.dataListItems.push({
       describe: '路灯故障',
       read: 0,
@@ -120,6 +157,7 @@ export class FunctionDefinitionComponent implements OnInit {
 
 
     });
+    // 举例 要删
     this.dataListItems.push({
       describe: 'pig微笑',
       identifier: 'pig',
@@ -138,6 +176,7 @@ export class FunctionDefinitionComponent implements OnInit {
       ],
 
     });
+    // 举例 要删
     this.functionListItems.push({
       describe: 'ggg',
       identifier: 'AdjustLightLevel',
@@ -215,10 +254,10 @@ export class FunctionDefinitionComponent implements OnInit {
     });
   }
 
-  // 新建数据定义
+  // 添加参数
   openParameterModal(content) {
 
-    const modal = this.modalService.open(content, { windowClass: 'md-modal' } );
+    const modal = this.modalService.open(content );
     this.mr = modal;
 
     modal.result.then((result) => {

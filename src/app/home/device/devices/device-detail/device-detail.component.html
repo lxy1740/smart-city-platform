@@ -1,0 +1,112 @@
+<!-- 产品管理页面 -->
+<div class="bodyofproduct cart-over">
+  <!-- <p class="lsq-alert">
+        <ngb-alert  (close)="closeAlert(alert)"></ngb-alert>
+      </p> -->
+  <!-- 卡片形式 -->
+  <div class="card card-primary panel-default cart-min">
+    <div class="card-header">
+      <div>
+              <span>设备详情</span>
+              <button type="button" class="close" aria-label="Close">
+              
+                <span>
+                  <i class="fa fa-arrow-circle-o-left fa-lg cur-pointer color-btn-text" (click)="jumpHandle('home/device/devices/devices-home')"></i>
+                </span>
+              </button>
+      </div>
+      <a class="cur-pointer theme-text btn-a" style=" font-size: 20px;">{{deviceInfo.description}}</a>
+      <!-- 菜单-->
+      <div class="nav-strategy">
+        <ul class="nav nav-tabs">
+          <li *ngFor="let item of navs;let i = index" role="presentation " class=" cur-pointer" (click)="changeNav(i)"
+            [ngClass]="{'active':item.id === nav_index}">
+            <a>{{item.name}}</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+
+    <!-- 显示已有产品 -->
+    <div class="card-block ">
+      <div *ngIf="nav_index == 0" >
+        <div class="nav_index0">
+          <a style="padding-left: 20px; color: #41aee6;" *ngIf="deviceInfo">
+            <span>设备状态：</span>
+            <span *ngIf="deviceInfo.online">在线</span>
+            <span *ngIf="deviceInfo.online === false">离线</span>
+          </a>
+          <a style="padding-left: 20px; color: #41aee6;" class="cur-pointer" (click)="getDataNew()">刷新数据</a>
+        </div>
+        <table class="table table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>属性名称</th>
+              <th>更新时间</th>
+              <th>最新值</th>
+              <th style="text-align: center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr *ngFor="let item of CurrentPropertyList">
+              <td>{{item.name}}</td>
+              <td>{{item.lastTime | date: 'yyyy-MM-ddTHH:mm:ss'}}</td>
+              <td>{{item.dataValue}}</td>
+              <td style="text-align: center">
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/history-data',item.dataKey)">查看历史数据</a>
+                </div>
+              </td>
+        
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="CurrentPropertyList.length === 0 || !CurrentPropertyList">无数据！</div>
+        <div *ngIf="CurrentPropertyList.length > 0">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
+        </div>
+      </div>
+      <div *ngIf="nav_index == 1">
+        <table class="table table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>时间</th>
+              <th>标识符</th>
+              <th>服务名称</th>
+              <th>输入参数</th>
+              <th>输出参数</th>
+              <!-- <th style="text-align: center">操作</th> -->
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr *ngFor="let item of functionList">
+              <td>{{item.time | date: 'yyyy-MM-ddTHH:mm:ss'}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.dataValue}}</td>
+              <td>{{item.dataValue}}</td>
+              <td>{{item.dataValue}}</td>
+              <!-- <td style="text-align: center">
+                <div class="modify-strategy d-inline">
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/history-data',item.dataKey)">查看历史数据</a>
+                </div>
+              </td> -->
+        
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="functionList.length === 0 || !functionList">无数据！</div>
+        <div *ngIf="functionList.length > 0">
+          <ngb-pagination [collectionSize]=total1 [(page)]="page1" [maxSize]="5" [rotate]="true" [ellipses]="false"
+            [boundaryLinks]="true" (pageChange)="pageChange1()"></ngb-pagination>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

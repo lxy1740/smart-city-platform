@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RealDataComponent } from './real-data.component';
+import { DeviceDetailComponent } from './device-detail.component';
 
-describe('RealDataComponent', () => {
-  let component: RealDataComponent;
-  let fixture: ComponentFixture<RealDataComponent>;
+describe('DeviceDetailComponent', () => {
+  let component: DeviceDetailComponent;
+  let fixture: ComponentFixture<DeviceDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RealDataComponent ]
+      declarations: [ DeviceDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RealDataComponent);
+    fixture = TestBed.createComponent(DeviceDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

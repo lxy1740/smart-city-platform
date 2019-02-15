@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { DeviceHistoryService } from '../../../../service/device-history.service';
+import { DeviceHistoryService } from '../../../../../service/device-history.service';
 // baidu map
 declare let echarts;
 

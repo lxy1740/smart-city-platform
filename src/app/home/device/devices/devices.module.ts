@@ -8,10 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { DevicesComponent } from './devices.component';
 import { InstallLogComponent } from './install-log/install-log.component';
 import { LineLogComponent } from './line-log/line-log.component';
-import { HistoryComponent } from './history/history.component';
 import { DeviceHomeComponent } from './device-home/device-home.component';
-import { RealDataComponent } from './real-data/real-data.component';
-import { HistoryDataComponent } from './history-data/history-data.component';
+import { HistoryDataComponent } from './device-detail/history-data/history-data.component';
+import { DeviceDetailComponent } from './device-detail/device-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,10 +23,9 @@ import { HistoryDataComponent } from './history-data/history-data.component';
     DevicesComponent,
     InstallLogComponent,
     LineLogComponent,
-    HistoryComponent,
     DeviceHomeComponent,
-    RealDataComponent,
-    HistoryDataComponent
+    HistoryDataComponent,
+    DeviceDetailComponent
 
   ],
   schemas: [

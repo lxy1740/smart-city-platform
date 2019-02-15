@@ -30,10 +30,10 @@ export const AUTHORITYTREECOPYROUTE = [
 
     { id: 'DM-000', icon: 'fa fa-map nav-icon', routeLink: 'device', routeTitel: '设备管理', isCollapsed: true, hasRight: false, children: [
             { id: 'DM-001', icon: 'fa fa-window-restore nav-icon-s', routeLink: 'device/devices/devices-home', routeTitel: '设备', children: [
-                { id: 'DM-0010', routeLink: 'device/devices/real-data', name: '属性'},
+                { id: 'DM-0010', name: '设备详情', routeLink: 'device/devices/devices-detail' },
                 { id: 'DM-0011', routeLink: 'device/devices/install-log', name: '设备安装日志'},
                 { id: 'DM-0012', routeLink: 'device/devices/line-log', name: '设备上下线日志' },
-                { id: 'DM-0013', routeLink: 'device/devices/history', name: '历史数据'}
+                // { id: 'DM-0013', routeLink: 'device/devices/history', name: '历史数据'}
                 ]
             },
 

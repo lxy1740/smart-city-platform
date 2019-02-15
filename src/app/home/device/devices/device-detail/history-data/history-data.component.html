@@ -58,7 +58,7 @@
         <button class="btn btn-bg extral-margin search-btn" (click)="dataSearch()">搜索</button>
     </div>
       <div class="d-inline-block  fr">
-        <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1">图表展示</button>
+        <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==1" [disabled]="historydatalist.length === 0 || !historydatalist">图表展示</button>
         <button class="btn btn-bg iss-hist search-btn" (click)="goToChange()" *ngIf="flag==2">表格展示</button>
       </div>
   </div>
