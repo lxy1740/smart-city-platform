@@ -44,7 +44,8 @@ export class FunctionDefinitionComponent implements OnInit {
   public alerts: Array<IAlert> = []; // 信息弹框
   public alertsModal: Array<IAlert> = []; // 信息弹框
   private backup: Array<IAlert>;  // 信息弹框
-  constructor(private modalService: NgbModal,
+  constructor(
+    private modalService: NgbModal,
     public router: Router,
     private routerinfo: ActivatedRoute
   ) {

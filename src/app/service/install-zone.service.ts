@@ -21,6 +21,16 @@ export class InstallZoneService {
             }));
     }
 
+    // 获取行政区域
+    getRegions(): Observable<any> {
+        return this.http.get(`/api/geo_region/all`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+    }
+
     // 获取所有安装区域
     getZone(page, pageSize): Observable<any> {
     // return Observable.of(ARTICLESTYPE);

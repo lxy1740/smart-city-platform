@@ -24,6 +24,7 @@ import { AdminService } from './admin.service';
 import { RightService } from './right.service';
 import { IssuedataService } from './issuedata.service';
 import { DeviceHistoryService } from './device-history.service';
+import { RoadService } from './road.service';
 @NgModule({
   imports: [
     CommonModule
@@ -33,7 +34,8 @@ import { DeviceHistoryService } from './device-history.service';
     LightService, CoverService, AirmonitorService, CameraService, StrategyService,
     DeviceService, PositionService, ProductService, LedService, DialogService, AdminService, RightService,
     MessService, UrlService, CommunicateService, VideoService, IssuedataService,
-    DeviceHistoryService
+    DeviceHistoryService,
+    RoadService
    ]
 })
 export class ServiceModule { }

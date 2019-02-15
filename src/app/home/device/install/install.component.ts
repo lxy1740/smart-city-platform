@@ -73,16 +73,16 @@ export class InstallComponent implements OnInit {
 
   ngOnInit() {
     this.getInstallzone(); // 获取安装区域列表
-    this.getZoneDefault();
+    this.getRegions();
   }
 
   // 城市列表
-  getZoneDefault() {
+  getRegions() {
     const that = this;
-    this.installzoneService.getZoneDefault()
+    this.installzoneService.getRegions()
     .subscribe({
       next: function (val) {
-        that.zNodes = val.regions;
+        that.zNodes = val;
       }
     });
   }
