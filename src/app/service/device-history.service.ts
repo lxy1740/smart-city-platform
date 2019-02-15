@@ -63,4 +63,22 @@ export class DeviceHistoryService {
                 ));
 
     }
+
+    // 设备上下线记录
+    getlogs(userId, page, pageSize, queryStr, fromdate, todate): Observable<any> {
+        let url = '';
+        if (!userId) {
+            url = `/api/device/online_log/?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}&from=${fromdate}&to=${todate}`;
+        } else {
+            url = `api/install?userId=${userId}&page=${page}&pageSize=${pageSize}&queryStr=${queryStr}&from=${fromdate}&to=${todate}`;
+        }
+
+        return this.http.get(url)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+
+    }
 }
