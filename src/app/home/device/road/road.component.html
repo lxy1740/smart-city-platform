@@ -37,7 +37,7 @@
 </ng-template>
 <!-- 删除位置 -->
 <ng-template #contentDel let-c="close" let-d="dismiss">
-  <app-sq-modal [input]="modelData" (output)="delroad($event)"></app-sq-modal>
+  <app-sq-modal [input]="modelData" (output)="delroads($event)"></app-sq-modal>
 </ng-template>
 <div class="bodyofall cart-over">
   <p *ngFor="let alert of alerts" class="lsq-alert">
@@ -88,7 +88,7 @@
           <tr *ngFor="let item of roadList">
             <td>{{item.wayName}}</td>
             <td>
-              <span *ngFor="let item1 of item.regions">{{item1.full_name}}</span>
+              <span *ngFor="let item1 of item.regions">{{item1.full_name}}{{item1.name}}</span>
             </td>
             
             <td style="text-align: center">
