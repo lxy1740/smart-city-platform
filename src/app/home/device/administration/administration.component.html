@@ -92,7 +92,7 @@
                     <div class="form-group">
                       <!-- <input id="sole-input3" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
                         name="word" autocomplete="off" maxlength="30" placeholder="检索区域名称" (keydown)="onKeydown($event)"> -->
-                      <input id="sole-input3" class="form-control searchbox-content-common" type="text" 
+                      <input [(ngModel)]="queryStr"  class="form-control searchbox-content-common" type="text" 
                       name="word" autocomplete="off" placeholder="检索行政区域名称">
                     </div>
                 </div>

@@ -147,6 +147,7 @@
             <th>产品名称</th>
             <th>产品描述</th>
             <th>设备类型</th>
+            <th>阿里云IOT设备</th>
             <th style="text-align: center">操作</th>
           </tr>
         </thead>
@@ -157,6 +158,7 @@
             <td>{{item.name}}</td>
             <td>{{item.description}}</td>
             <td>{{changeName(item.type)}}</td>
+            <td>{{item.iot_platform}}</td>
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/product/function-definition',item)">功能定义</a>
