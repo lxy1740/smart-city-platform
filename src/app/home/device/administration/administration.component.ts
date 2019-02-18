@@ -40,7 +40,8 @@ export class AdministrationComponent implements OnInit {
     center: { lng: '', lat: '' },
     name: '',
     children: [],
-    level: 1
+    level: 1,
+    id: null
   }; // 新增数据类
   map: any = {}; // 地图
   // 关于树
@@ -63,6 +64,7 @@ export class AdministrationComponent implements OnInit {
       that.parent.id = treeNode.id;
       that.parent.name = treeNode.name;
       that.RegionMODEL.level = treeNode.level + 1;
+      that.RegionMODEL.parentId = treeNode.id;
       that.getChildRegions();
     };
 
@@ -201,6 +203,7 @@ export class AdministrationComponent implements OnInit {
             type: 'success',
             message: '新增成功！',
           });
+          that.mr.close();
         },
         complete: function () {
           that.getChildRegions();
@@ -223,6 +226,7 @@ export class AdministrationComponent implements OnInit {
             type: 'success',
             message: '新增成功！',
           });
+          that.mr.close();
         },
         complete: function () {
           that.getChildRegions();
@@ -238,8 +242,10 @@ export class AdministrationComponent implements OnInit {
   delRegions() {
     const that = this;
     const id = this.region.itemDelId;
+    const ids = [];
+    ids.push(id);
     const body = {
-      id: id
+      ids: ids
     };
     this.roadService.delRegions(body)
       .subscribe({
@@ -263,12 +269,11 @@ export class AdministrationComponent implements OnInit {
   // 新建弹框
   openNew(content) {
     const that = this;
-    this.RegionMODEL = {
-      center: { lng: '', lat: '' },
-      name: '',
-      children: [],
-      level: 1
-    }; // 新增数据类
+    this.RegionMODEL.center = { lng: '', lat: '' };
+    this.RegionMODEL.name = '';
+    this.RegionMODEL.children = [];
+    delete this.RegionMODEL.id;
+   // 新增数据类
     this.addOrUpdate = '新增行政区域';
     const modal = this.modalService.open(content, { size: 'lg'});
     this.mr = modal;
@@ -291,6 +296,7 @@ export class AdministrationComponent implements OnInit {
     this.RegionMODEL.center = item.center;
     this.RegionMODEL.level = item.level;
     delete this.RegionMODEL.children;
+    delete this.RegionMODEL.parentId;
 
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
@@ -306,7 +312,7 @@ export class AdministrationComponent implements OnInit {
 
   // 删除弹框
   openDel(content, item) {
-    this.region.itemDelId = item.wayId;
+    this.region.itemDelId = item.id;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
   }
