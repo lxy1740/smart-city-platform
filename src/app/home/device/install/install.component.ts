@@ -65,10 +65,18 @@ export class InstallComponent implements OnInit {
       this.installModelDate.region_id = nodes[0].id;
       this.installModelDate.name = nodes[0].name;
       this.installModelDate.level = nodes[0].level;
-
-
-
     };
+
+    this.zNodes = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
+  }
+
+  public closeAlert(alert: IAlert) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+  public closeAlertModal(alert: IAlert) {
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
   }
 
   ngOnInit() {
@@ -83,6 +91,7 @@ export class InstallComponent implements OnInit {
     .subscribe({
       next: function (val) {
         that.zNodes = val;
+        window.localStorage.regionsList = JSON.stringify(val);
       }
     });
   }
@@ -96,31 +105,7 @@ export class InstallComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  // 打开新增窗口
-  openNewInstallZone(content) {
-    const that = this;
-    this.AddorUpdate = '新增安装区域';
 
-    this.install.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
-    this.install.geoRegion = '';
-    // 此处添加树
-    this.zNodes.map((item, i) => {
-      that.install.geoRegionChecked.push({check: true}); // 对应树结构
-    });
-
-    // 关于弹框
-    const modal = this.modalService.open(content, { windowClass: 'md' });
-    this.mr = modal;
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-
-    // 树状图
-    this.setZtreeNode([]);
-  }
 
   setZtreeNode(georegion) { // 修改：传入当前用户角色名数组；新建：传入空数组
     // 树结构，树设置
@@ -161,38 +146,6 @@ export class InstallComponent implements OnInit {
     this.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, this.zNodes);
   }
 
-  // 搜索-
-  execQuery() {
-
-  }
-
-  // 打开 修改 弹框
-  openUpdataInstall(contentUpdate, item) {
-    this.AddorUpdate = '修改角色';
-    // 所修改的区域
-
-    this.install.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
-    const modal = this.modalService.open(contentUpdate, { windowClass: 'md' });
-    this.mr = modal;
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    this.setZtreeNode([]);
-  }
-
-
-
-  public closeAlert(alert: IAlert) {
-    const index: number = this.alerts.indexOf(alert);
-    this.alerts.splice(index, 1);
-  }
-  public closeAlertModal(alert: IAlert) {
-    const index: number = this.alertsModal.indexOf(alert);
-    this.alertsModal.splice(index, 1);
-  }
-
   // 获取安装区域列表 --ok
   getInstallzone() {
     const that = this;
@@ -215,6 +168,66 @@ export class InstallComponent implements OnInit {
   pageChange() {
     this.getInstallzone();
   }
+  // 打开新增窗口
+  openNewInstallZone(content) {
+    const that = this;
+    this.AddorUpdate = '新增安装区域';
+    this.installModelDate = {
+      'center': {
+        'lat': 0,
+        'lng': 0
+      },
+      'full_name': '',
+      'level': 0,
+      'name': '',
+      'region_id': ''
+    };
+
+    this.install.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
+    this.install.geoRegion = '';
+    // 此处添加树
+    this.zNodes.map((item, i) => {
+      that.install.geoRegionChecked.push({ check: true }); // 对应树结构
+    });
+
+    // 关于弹框
+    const modal = this.modalService.open(content, { windowClass: 'md' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+    // 树状图
+    this.setZtreeNode([]);
+  }
+
+  // 打开 修改 弹框
+  openUpdataInstall(contentUpdate, item) {
+    this.AddorUpdate = '修改角色';
+    this.installModelDate = item;
+    // 所修改的区域
+
+    this.install.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
+    const modal = this.modalService.open(contentUpdate, { windowClass: 'md' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    this.setZtreeNode([]);
+  }
+  // 删除 安装 区域 弹框
+  openDelInstall(content, install) {
+    const that = this;
+    that.install.itemDelId = install.id;
+    const modal = that.modalService.open(content, { size: 'sm' });
+    that.mr = modal;
+  }
+
 
   // 新增/修改角色 - 模态框 确认点击事件
   addorUpdt() {
@@ -223,12 +236,12 @@ export class InstallComponent implements OnInit {
       that.addInstall();
       console.log('新增');
     } else  {
-      // that.updateInstall();
+      that.updateInstall();
       console.log('修改');
     }
   }
 
-  // 新增角色
+  // 新增安装区域
   addInstall() {
     const that = this;
     this.installzoneService.addNewInstall(this.installModelDate)
@@ -240,7 +253,6 @@ export class InstallComponent implements OnInit {
           message: '新增成功！',
         });
         that.mr.close();
-        console.log('新增val', val);
       },
       complete: function () {
         that.getInstallzone(); // 获取安装区域列表
@@ -257,19 +269,32 @@ export class InstallComponent implements OnInit {
     });
   }
 
-  // 删除 安装 区域 弹框
-  openDelInstall(content, install) {
+  // 修改安装区域
+  updateInstall() {
     const that = this;
-    that.install.itemDelId = install.id;
-    const modal = that.modalService.open(content, { size: 'sm' });
-    that.mr = modal;
-  }
-  // 删除规则
-  closeInstall($event) {
-    if ($event === 'ok') {
-      this.delInstall();
-    }
-    this.mr.close();
+    this.installzoneService.updateInstall(this.installModelDate)
+      .subscribe({
+        next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '修改成功！',
+          });
+          that.mr.close();
+        },
+        complete: function () {
+          that.getInstallzone(); // 获取安装区域列表
+        },
+        error: function (error) {
+          console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `修改失败：${message}！`,
+          });
+        }
+      });
   }
   // 删除接口处
   delInstall() {
@@ -282,7 +307,6 @@ export class InstallComponent implements OnInit {
     console.log(id);
     this.installzoneService.deleteInstall(body).subscribe({
       next: function (val) {
-        console.log(val);
         that.alerts.push({
           id: 1,
           type: 'success',
@@ -296,8 +320,16 @@ export class InstallComponent implements OnInit {
         console.log(error);
       }
     });
-    console.log('删除成功');
   }
+
+  // 删除规则
+  closeInstall($event) {
+    if ($event === 'ok') {
+      this.delInstall();
+    }
+    this.mr.close();
+  }
+
 }
 
 export interface IAlert {

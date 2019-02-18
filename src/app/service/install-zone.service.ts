@@ -63,5 +63,13 @@ export class InstallZoneService {
                 return res;
             }));
     }
+
+    // 修改安装区域
+    updateInstall(body): Observable<any> {
+        return this.http.put('/api/zone', body)
+            .pipe(map((res: Response) => { // 相当于一种映射
+                return res;
+            }));
+    }
 }
 

@@ -19,6 +19,8 @@ export class RoadComponent implements OnInit {
   total = 0;
   addOrUpdate = '新建道路'; // 新建/修改标识
   ROADMODEL: any = {};
+  road: any = {};
+  regionsIds = [];
 
 
   public mr: NgbModalRef; // 当前弹框
@@ -80,6 +82,26 @@ export class RoadComponent implements OnInit {
   ngOnInit() {
     this.getRegions();
     this.getlogs();
+  }
+
+  setZtreeNode(regionsIds) { // 修改：传入当前用户角色名数组；新建：传入空数组
+    const that = this;
+    console.log(regionsIds);
+    console.log('regionsIds');
+    // 树结构，树设置
+    this.getZoneTree();
+    // treeDemo界面中加载ztree的div
+    const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
+    if (!regionsIds) {
+      return;
+    }
+    regionsIds.map((item, i) => {
+      const node = treeObj.getNodeByParam('id', item, null); // 传入id
+      if (node) {
+        treeObj.checkNode(node, true, false); // 此处是用户勾选
+        // this.findParent(node.getParentNode());
+      }
+    });
   }
 // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
   getZoneTree() {
@@ -146,6 +168,11 @@ export class RoadComponent implements OnInit {
     this.roadService.addRoads(this.ROADMODEL)
       .subscribe({
         next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '新增成功！',
+          });
           that.mr.close();
         },
         complete: function() {
@@ -153,17 +180,36 @@ export class RoadComponent implements OnInit {
         },
         error: function (error) {
           console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `新增失败：${message}！`,
+          });
 
         }
       });
   }
 // 删除道路
-  delroad() {
+  delroads() {
     const that = this;
-    const body = {};
+    const id = this.road.itemDelId;
+    const wayIds = [];
+    wayIds.push(id);
+    const body  = {
+      wayIds: wayIds
+     };
     this.roadService.delRoads(body)
       .subscribe({
         next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '删除成功！',
+          });
+        },
+        complete: function () {
+          that.getlogs();
         },
         error: function (error) {
           console.log(error);
@@ -180,9 +226,24 @@ export class RoadComponent implements OnInit {
     this.roadService.updetaRoads(this.ROADMODEL)
       .subscribe({
         next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '修改成功！',
+          });
+          that.mr.close();
+        },
+        complete: function () {
+          that.getlogs();
         },
         error: function (error) {
           console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `修改失败：${message}！`,
+          });
 
         }
       });
@@ -195,6 +256,7 @@ export class RoadComponent implements OnInit {
   // 新建道路弹框
   openNew(content) {
     const that = this;
+    this.addOrUpdate = '新建道路';
     const modal = this.modalService.open(content);
     this.mr = modal;
     modal.result.then((result) => {
@@ -203,11 +265,18 @@ export class RoadComponent implements OnInit {
       // this.showPosiTable = false;
     });
     // 树结构，树设置
-    this.getZoneTree();
+    this.setZtreeNode([]);
   }
   // 修改弹框
-  openUpdata(content) {
+  openUpdata(content, item) {
     const that = this;
+    this.addOrUpdate = '修改道路';
+    this.ROADMODEL.wayId = item.wayId;
+    this.ROADMODEL.wayName = item.wayName;
+    this.ROADMODEL.regions = item.regions;
+    this.regionsIds = this.getkeys(item.regions);
+    console.log('ROADMODEL');
+    console.log(this.ROADMODEL);
     const modal = this.modalService.open(content);
     this.mr = modal;
     modal.result.then((result) => {
@@ -215,24 +284,48 @@ export class RoadComponent implements OnInit {
     }, (reason) => {
       // this.showPosiTable = false;
     });
+    // 树结构，树设置
+    this.setZtreeNode(this.regionsIds);
+  }
+
+  // 获取对象value
+  getkeys(arr) {
+    // if (!obj) {
+    //   return;
+    // }
+    // return Object.keys(obj);
+    const ids = [];
+    if (!arr) {
+      return ids;
+    }
+
+    arr.map(item => {
+      ids.push(item.id);
+    });
+    return ids;
+
   }
 
   // 新建道路 or 修改
   addorUpdate() {
-    this.addRoads();
+    if (this.addOrUpdate === '') {
+      this.addRoads();
+    } else {
+      this.updetaRoads();
+    }
+
   }
 
   // 删除弹框
-  openDel(content) {}
-
-  // 删除设备弹框
-  openDelDevice(content, item) {
-    // this.device.itemDelId = item.id;
+  openDel(content, item) {
+    this.road.itemDelId = item.wayId;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
   }
+
+
   // 删除设备规则
-  closeDevice($event) {
+  closeDelRoad($event) {
     console.log($event);
     if ($event === 'ok') {
       this.delroads();
