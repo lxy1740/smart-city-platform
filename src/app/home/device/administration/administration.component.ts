@@ -1,69 +1,337 @@
-import { Component, OnInit } from '@angular/core';
-import { GEOREGION } from '../../../data/Geo-region';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { RoadService } from '../../../service/road.service';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 declare var $: any;
-
+// baidu map
+declare let BMap;
+declare let BMAP_ANCHOR_TOP_LEFT;
 @Component({
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss']
 })
 export class AdministrationComponent implements OnInit {
+  @ViewChild('map1') map_container: ElementRef;
+
+  queryStr = '';
+  page = 1;
+  pageSize = 10;
+  total = 0;
 
   // 行政区树
   zTreeObj: any;
-  zNodes = GEOREGION;
+  regionsList = [];
+  regionsListChildren = [];
   administration: any = {}; // 存储数据
+  allRegin = [];
+  parent = {
+    id: '',
+    name: '所有'
+  };
 
+  public mr: NgbModalRef; // 当前弹框
+  modelData = { // 弹框
+    title: '删除',
+  };
+
+  region: any = {}; // 删除当前
+  addOrUpdate = '新增行政区域';
+  RegionMODEL: any = {
+    center: { lng: '', lat: '' },
+    name: '',
+    children: [],
+    level: 1
+  }; // 新增数据类
+  map: any = {}; // 地图
   // 关于树
   public zTreeOnClick: (event, treeId, treeNode) => void;
   public zTreeOnCheck: (event, treeId, treeNode) => void; // 触发勾选树的事件
 
-  constructor() {
+  @Input()
+  public alerts: Array<IAlert> = []; // 信息弹框
+  public alertsModal: Array<IAlert> = []; // 信息弹框
+  private backup: Array<IAlert>;  // 信息弹框
+
+  constructor(
+    private roadService: RoadService,
+    private modalService: NgbModal,
+  ) {
     // 树的操作
     // 点击
     const that = this;
     this.zTreeOnClick = (event, treeId, treeNode) => { // 点击
-      this.administration.geoRegion = {}; // 重新赋值前先清空
-      // 获取树的节点
-      const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
-      const nodes = treeObj.getCheckedNodes(true);
-      // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
-      nodes.map((item, i) => {
-      that.administration.geoRegion[item.id] = item.name;
-        console.log(item.region_id + item.name);
-      });
+      that.parent.id = treeNode.id;
+      that.parent.name = treeNode.name;
+      that.RegionMODEL.level = treeNode.level + 1;
+      that.getChildRegions();
     };
+
+    this.regionsList = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
+    this.allRegin.push({
+        full_name: '北京市',
+        id: '',
+        level: 0,
+        name: '所有',
+        open: true,
+        children: this.regionsList,
+
+    });
+
+  }
+
+  public closeAlert(alert: IAlert) {  // 信息弹框
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+  public closeAlertModal(alert: IAlert) {  // 信息弹框
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
+  }
+
+  public reset() {  // 信息弹框
+    this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
 
   ngOnInit() {
     // 树结构
     this.setZtreeNode([]);
+    this.getRegions();
+    this.getChildRegions();
   }
+
+  // 添加地图实例
+  addBaiduMap() {
+    const map = this.map = new BMap.Map('position_map', {
+      enableMapClick: true,
+      // minZoom: 11
+    }); // 创建地图实例
+    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    map.centerAndZoom(point, 5); // 设置中心和地图显示级别
+    map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+    // 添加控件缩放
+    // const offset = this.visible === true ? new BMap.Size(20, 140) : new BMap.Size(20, 15);
+    const offset = new BMap.Size(5, 5);
+    const navigationControl = new BMap.NavigationControl({
+      anchor: BMAP_ANCHOR_TOP_LEFT,
+      offset: offset,
+    });
+    map.addControl(navigationControl);
+    map.setMapStyle({ style: 'normal' });
+    this.mapClickOff(map);
+  }
+
+  // 监控-点击地图事件
+  mapClickOff(baiduMap) {
+    const that = this;
+    baiduMap.addEventListener('click', function (e) {
+      that.RegionMODEL.center = e.point;
+    });
+  }
+
+
+  allRegions() {
+    this.parent.id = '';
+    this.parent.name = '所有';
+    this.getChildRegions();
+  }
+
+  // 获取行政区域
+  getRegions() {
+    const that = this;
+
+    this.roadService.getRegions()
+      .subscribe({
+        next: function (val) {
+          that.regionsList = val;
+          that.allRegin = [];
+          that.allRegin.push({
+            full_name: '北京市',
+            id: '',
+            level: 0,
+            name: '所有',
+            open: true,
+            children: that.regionsList,
+
+          });
+          window.localStorage.regionsList = JSON.stringify(val);
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+     // 获取孩子行政区域-
+  getChildRegions() {
+    const that = this;
+
+    // this.roadService.getChildRegions(parentId, this.page, this.pageSize, this.queryStr)
+    this.roadService.getChildRegions(this.parent.id, this.page, this.pageSize, this.queryStr)
+      .subscribe({
+        next: function (val) {
+          that.regionsListChildren = val.items;
+          that.total = val.total;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 新建 or 修改
+  addorUpdate() {
+    if (this.addOrUpdate === '新增行政区域') {
+      this.addRegions();
+    } else {
+      this.updetRegions();
+    }
+
+  }
+
+  // 新增行政区域
+  addRegions() {
+    const that = this;
+    this.roadService.addRegions(this.RegionMODEL)
+      .subscribe({
+        next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '新增成功！',
+          });
+        },
+        complete: function () {
+          that.getChildRegions();
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 修改行政区域
+  updetRegions() {
+    const that = this;
+    this.roadService.updetRegions(this.RegionMODEL)
+      .subscribe({
+        next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '新增成功！',
+          });
+        },
+        complete: function () {
+          that.getChildRegions();
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 删除行政区域
+  delRegions() {
+    const that = this;
+    const id = this.region.itemDelId;
+    const body = {
+      id: id
+    };
+    this.roadService.delRegions(body)
+      .subscribe({
+        next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '删除成功！',
+          });
+        },
+        complete: function () {
+          that.getChildRegions();
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 新建弹框
+  openNew(content) {
+    const that = this;
+    this.RegionMODEL = {
+      center: { lng: '', lat: '' },
+      name: '',
+      children: [],
+      level: 1
+    }; // 新增数据类
+    this.addOrUpdate = '新增行政区域';
+    const modal = this.modalService.open(content, { size: 'lg'});
+    this.mr = modal;
+    this.addBaiduMap();
+    modal.result.then((result) => {
+      // this.showPosiTable = false;
+    }, (reason) => {
+      // this.showPosiTable = false;
+    });
+    // 树结构，树设置
+    // this.setZtreeNode([]);
+  }
+
+  // 修改弹框
+  openUpdata(content, item) {
+    const that = this;
+    this.addOrUpdate = '修改行政区域';
+    this.RegionMODEL.id = item.id;
+    this.RegionMODEL.name = item.name;
+    this.RegionMODEL.center = item.center;
+    this.RegionMODEL.level = item.level;
+    delete this.RegionMODEL.children;
+
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
+    this.addBaiduMap();
+    modal.result.then((result) => {
+      // this.showPosiTable = false;
+    }, (reason) => {
+      // this.showPosiTable = false;
+    });
+    // 树结构，树设置
+    // this.setZtreeNode(this.regionsIds);
+  }
+
+  // 删除弹框
+  openDel(content, item) {
+    this.region.itemDelId = item.wayId;
+    const modal = this.modalService.open(content, { size: 'sm' });
+    this.mr = modal;
+  }
+
+
+  // 删除设备规则
+  closeDelRegions($event) {
+    console.log($event);
+    if ($event === 'ok') {
+      this.delRegions();
+    }
+    this.mr.close();
+  }
+
+  // 分页
+  pageChange() {
+    this.getChildRegions();
+  }
+
 
   // 点击搜索
   execQuery() {
-
+    this.getChildRegions();
   }
 
-  // 点击“修改”
-  openUpdataAdministration() {
-
-  }
-
-  // 点击“删除”
-  openDelAdministration() {
-
-  }
-
-  // 新增区域
-  openNewAdministrationZone(content) {
-
-  }
-
-  // 选框选中
-  check() {
-
-  }
 
   setZtreeNode(georegion) { // 修改：传入当前用户角色名数组；新建：传入空数组
     const that = this;
@@ -106,7 +374,13 @@ export class AdministrationComponent implements OnInit {
     }
     };
 
-    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, this.zNodes);
+    this.zTreeObj = $.fn.zTree.init($('#treeDemo'), setting, this.allRegin);
   }
 
 }
+export interface IAlert {
+  id: number;
+  type: string;
+  message: string;
+}
+

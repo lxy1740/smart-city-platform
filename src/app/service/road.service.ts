@@ -14,29 +14,6 @@ export class RoadService {
 
     }
 
-    // 分页获取道路
-    getRoads(page, pageSize, queryStr): Observable<any> {
-
-
-        return this.http.get(`api/geo_way/?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
-            .pipe(
-                map((res) => {
-                    return res;
-                },
-                ));
-
-    }
-
-    // 获取行政区域
-    getRegions(): Observable<any>  {
-        return this.http.get(`/api/geo_region/all`)
-            .pipe(
-                map((res) => {
-                    return res;
-                },
-                ));
-    }
-
     // 添加道路
     addRoads(body): Observable<any> {
         return this.http.post(`/api/geo_way`, body)
@@ -68,4 +45,74 @@ export class RoadService {
                 },
                 ));
     }
+
+    // 分页获取道路
+    getRoads(page, pageSize, queryStr): Observable<any> {
+
+
+        return this.http.get(`api/geo_way/?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+
+    }
+
+    // 获取孩子行政区域-
+    getChildRegions(parentId, page, pageSize, queryStr): Observable<any> {
+        return this.http.get(`/api/geo_region/children?page=${page}&pageSize=${pageSize}&parentId=${parentId}&queryStr=${queryStr}`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+    }
+
+    // 获取行政区域
+    getRegions(): Observable<any>  {
+        return this.http.get(`/api/geo_region/all`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+    }
+// 删除
+    delRegions(body): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: body
+        };
+        return this.http.delete(`/api/geo_region`, httpOptions)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+    }
+// 新增
+
+    addRegions(body): Observable<any> {
+
+        return this.http.post(`/api/geo_region`, body)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+    }
+
+// 修改
+    updetRegions(body): Observable<any> {
+
+        return this.http.put(`/api/geo_region`, body)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+    }
+
+
+
 }

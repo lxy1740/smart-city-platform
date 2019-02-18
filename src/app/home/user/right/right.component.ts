@@ -13,18 +13,7 @@ declare var $: any;
 export class RightComponent implements OnInit {
 
   zTreeObj: any;
-  // zTreeObj1: any; // 树
-  // setting = {
-  //   data: {
-  //     simpleData: {
-  //       enable: true
-  //     }
-  //   },
-  //   view: {
-  //     showLine: false,
-  //     showIcon: false
-  //   }
-  // };
+
   zNodes = AUTHORITYTREE;
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
 

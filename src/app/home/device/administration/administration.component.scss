@@ -1,3 +1,16 @@
+
+.padding-15{
+    padding-bottom: 15px;
+}
+.map_container{
+    height: 400px;
+    width: 450px;
+}
+.regionsList {
+    padding: 15px;
+    height: calc(100% - 50px);
+    overflow: auto;
+}
 .thetree {
     background: #fff;
     padding: 25px;
@@ -10,7 +23,7 @@
     // flex-wrap: wrap;
     .air-left {
         width: 300px;
-        min-height: calc(100vh);
+        height: calc(100vh);
         background-color: rgb(233, 237, 241);
     }
     .title {
