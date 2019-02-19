@@ -17,34 +17,43 @@ export class PositionComponent implements OnInit {
   model: any = {}; // 存储数据
   closeResult: string;
   map: any; // 地图对象
-  cityList: any; // 城市列表
-  currentList: any; // 区域列表
   deviceList = []; // 设备列表
   deviceTypes = []; // 设备列表
   currentType: any; // 当前搜索设备类别
+
+  cityList: any; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
-  currentArea: any; // 当前区域
-  currentChildren: any; // 当前城市节点
+  currentRegion: any; // 当前区域
+  currentAreaList: any; // 当前城市节点区域
   currentBlockList: any; // // 当前城市街道列表
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
+  wayshow = false; // 默认道路列表不显示
+
   visible = true; // 控制可视区域
   zoom: any; // 地图级数
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点---当前城市
   positionListItems = []; // 位置列表
+  roadList = []; // 道路列表
   positionList: any; // 位置列表
-  total: number; // 分页
-  page: number;
-  pagesize = 10;
-  queryStr: any;
+  total = 0; // 分页
+  page = 1; // 分页
+  pagesize = 10; // 分页
+  total1 = 0; // 分页
+  page1 = 1; // 分页
+  pageSize1 = 10; // 分页
+  queryStr = '';
+  queryStr1 = '';
   public mr: NgbModalRef; // 当前弹框
   modelData = {
     title: '删除',
     body: 'hh',
   };
   errorMess = []; // 经纬度错误消息
+  currentWay: any = {}; // 当前道路
+  addOrupdata = '新建位置';
 
   @Input()
   public alerts: Array<IAlert> = [];
@@ -52,8 +61,7 @@ export class PositionComponent implements OnInit {
   private backup: Array<IAlert>;
 
   constructor(private modalService: NgbModal, private positionService: PositionService) {
-    this.queryStr = '';
-    this.page = 1;
+
     this.model.point = {lng: '', lat: ''};
   }
 
@@ -70,10 +78,26 @@ export class PositionComponent implements OnInit {
     this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   ngOnInit() {
     this.getCity();
     this.getPositionType();
     this.getPosition(0, this.page, this.pagesize);
+    this.getRoads();
+  }
+  // 选择道路
+  selecteWay(item) {
+    this.currentWay = item;
+    this.wayshow = false;
   }
   // 检索按键点击事件
   execQuery() {
@@ -96,17 +120,33 @@ export class PositionComponent implements OnInit {
     this.getPosition(this.currentType.id, this.page, this.pagesize);
   }
 
+  // 分页获取道路
+  getRoads() {
+    const that = this;
+
+    this.positionService.getRoads(this.page1, this.pageSize1, this.queryStr1)
+      .subscribe({
+        next: function (val) {
+          that.roadList = val.items;
+          that.total1 = val.total;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
   // 新建位置弹框
   openNewPosition(content) {
     const that = this;
+    this.addOrupdata = '新增位置';
     this.errorMess = [];
     this.model.name = ''; // name
     this.model.number = ''; // number
     this.model.point = { lng: '', lat: '' }; // 坐标
-    that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
-    that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
-    that.currentArea = that.currentChildren[0].children[0]; // 当前区域
-    that.currentList = that.currentChildren[0];
+    that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
+    that.currentRegion = that.currentAreaList[0].children[0]; // 当前区域
     that.model.device = this.deviceList[0]; // 类型
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
@@ -119,55 +159,10 @@ export class PositionComponent implements OnInit {
 
   }
 
-
-    // 新增位置信息
-  setPosition() {
-    this.typeofPoint();
-    if (this.errorMess[0] === '无错') {
-        const that = this;
-        const installZoneId = this.model.installZoneId;
-        const regionId = this.currentArea.id;
-        const name = this.model.name;
-        const number = this.model.number;
-        const point = this.model.point;
-        const type = this.model.device.id;
-
-        this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
-          next: function (val) {
-            that.alerts.push({
-              id: 1,
-              type: 'success',
-              message: '新建成功！',
-            });
-            that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
-            that.mr.close();
-          },
-          complete: function () {
-            that.getPosition(that.currentType.id, that.page, that.pagesize);
-          },
-          error: function (error) {
-            console.log(error);
-            const message = error.error.errors[0].defaultMessage;
-            that.alertsModal.push({
-              id: 1,
-              type: 'danger',
-              message: `新建失败: ${message}！`,
-            });
-          }
-        });
-    } else {
-      this.alertsModal.push({
-        id: 1,
-        type: 'danger',
-        message: '请输入正确的经纬度！',
-      });
-    }
-
-  }
-
-  // 修改位置
+  // 修改位置弹框
   openUpdataPosi(content, item, i) {
     const that = this;
+    this.addOrupdata = '修改位置';
     this.errorMess = [];
     this.model.updataId = item.id;
     this.model.installZoneId = item.installZoneId; // 安装区域
@@ -183,20 +178,17 @@ export class PositionComponent implements OnInit {
     }
 
     let region_id; // 当前城市id
-    const crrentProvince = this.cityList[0]; // 当前省会
-    for (let index = 0; index < crrentProvince.children.length; index++) {
-      const element = crrentProvince.children[index];
-      if (item.installZoneId === element.installZoneId) {
-        region_id = element.id;
-      }
-    }
-    that.node = null; // 用于递归查询JSON树 父子节点
+    region_id = item.regionId.toString().slice(0, 4);
+    console.log(region_id);
+
+    that.node = null; // 用于递归查询JSON树 父子节点 currentArea
     that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
-    that.currentChildren = that.node.children; // 当前城市下的区域列表
-    that.model.installZoneId = that.node.installZoneId; // 安装区域
+    console.log(that.currentCity);
+    that.currentAreaList = that.currentCity ? that.currentCity.children : []; // 当前城市下的区域列表
+    that.model.installZoneId = that.currentCity ? that.currentCity.installZoneId : null; // 安装区域
     const area_id = item.regionId; // 当前区域id
     that.node = null; // 用于递归查询JSON树 父子节点
-    that.currentArea = that.getNode(that.cityList, area_id); // 当前区域i
+    that.currentRegion = that.getNode(that.cityList, area_id); // 当前区域i
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
@@ -220,6 +212,62 @@ export class PositionComponent implements OnInit {
   }
 
 
+
+
+  addorupdata() {
+    if (this.addOrupdata === '新增位置') {
+      this.setPosition();
+    } else {
+      this.updataPosition();
+    }
+  }
+
+
+  // 新增位置信息
+  setPosition() {
+    this.typeofPoint();
+    if (this.errorMess[0] === '无错') {
+      const that = this;
+      const installZoneId = this.model.installZoneId;
+      const regionId = this.currentRegion.id;
+      const name = this.model.name;
+      const number = this.model.number;
+      const point = this.model.point;
+      const type = this.model.device.id;
+
+      this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
+        next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '新建成功！',
+          });
+          that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+          that.mr.close();
+        },
+        complete: function () {
+          that.getPosition(that.currentType.id, that.page, that.pagesize);
+        },
+        error: function (error) {
+          console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `新建失败: ${message}！`,
+          });
+        }
+      });
+    } else {
+      this.alertsModal.push({
+        id: 1,
+        type: 'danger',
+        message: '请输入正确的经纬度！',
+      });
+    }
+
+  }
+
   // 修改位置信息
   updataPosition() {
     this.typeofPoint();
@@ -227,7 +275,7 @@ export class PositionComponent implements OnInit {
           const that = this;
           const id = this.model.updataId;
           const installZoneId = this.model.installZoneId;
-          const regionId = this.currentArea.id;
+          const regionId = this.currentRegion.id;
           const name = this.model.name;
           const number = this.model.number;
           const point = this.model.point;
@@ -344,6 +392,11 @@ export class PositionComponent implements OnInit {
     this.getPosition(this.currentType.id, this.page, this.pagesize);
   }
 
+  // 分页
+  pageChange1() {
+    this.getRoads();
+  }
+
   // 获取位置类型列表
   getPositionType() {
     const that = this;
@@ -376,14 +429,10 @@ export class PositionComponent implements OnInit {
         that.cityList = val.regions;
         that.zoom = that.switchZone(val.zone.level);
         that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
-        console.log(that.currentCity);
-        that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
-        that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
-        that.currentList = that.currentChildren; // 区域列表
-        console.log(that.currentList);
-        that.currentArea = that.currentChildren[0].children[0]; // 当前区域
-        console.log( that.currentArea);
-        console.log('val', val);
+        that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
+        // that.currentList = that.currentAreaList; // 区域列表
+        // that.currentArea = that.currentAreaList[0].children[0]; // 当前区域
+
       },
       complete: function () {
 
@@ -407,15 +456,7 @@ export class PositionComponent implements OnInit {
   }
 
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+
   // 添加地图实例
   addBaiduMap() {
     const map = this.map = new BMap.Map('position_map', {
@@ -552,12 +593,9 @@ export class PositionComponent implements OnInit {
     return that.node;
   }
   getPoint(baiduMap, city) {
-    const that = this;
-    // 创建地址解析器实例
-    const myGeo = new BMap.Geocoder();
-    const zoom = this.zoom = this.switchZone(city.level);
-    const fullName = city.full_name;
 
+    // 创建地址解析器实例
+    const zoom = this.zoom = this.switchZone(city.level);
     const pt = city.center;
     const point = new BMap.Point(pt.lng, pt.lat);
     baiduMap.centerAndZoom(point, zoom);
@@ -569,25 +607,25 @@ export class PositionComponent implements OnInit {
     this.model.point = { lng: '', lat: '' };
     this.currentCity = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
-    this.currentChildren = city.children;
-    this.currentArea = null;
+    this.currentAreaList = city.children;
+    this.currentRegion = null;
   }
-  // 选择区
-  selectqu(qu) {
-    console.log(qu);
-    this.currentList = qu;
-    // console.log(this.currentList);
-    // this.currentCity.children = qu; // 当前城市下的区域列表
-    console.log(this.currentList);
-    this.model.point = { lng: '', lat: '' };
-    this.getPoint(this.map, qu);  // 解析地址- 设置中心和地图显示级别
-  }
+
   // 选择街道
   selecteblock(block) {
-    this.currentArea = block;
+    this.currentRegion = block;
+    this.model.installZoneId = block.installZoneId; // 安装区域
     console.log(block);
     this.model.point = { lng: '', lat: '' };
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
+  }
+
+  nolimt() {
+    this.model.installZoneId = this.currentCity.installZoneId; // 安装区域
+    this.currentRegion.id = this.currentCity.id;
+    this.currentRegion = {
+      name: '不限'
+    };
   }
 
   // 显示区域
@@ -597,6 +635,11 @@ export class PositionComponent implements OnInit {
   // 显示城市
   showCiyt() {
     this.cityshow = true;
+  }
+
+  // 显示道路
+  showWay() {
+    this.wayshow = true;
   }
   // 选择区域
   arealistMouseover(area) {
@@ -610,6 +653,10 @@ export class PositionComponent implements OnInit {
   // 离开城市
   citylistMouseleave() {
     this.cityshow = false;
+  }
+  // 离开道路
+  waylistMouseleave() {
+    this.wayshow = false;
   }
   arealistMouseNone() {
     this.areashow = true;

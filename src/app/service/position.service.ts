@@ -40,20 +40,7 @@ export class PositionService {
             }));
     }
 
-    // 新增位置信息
-
-//     {
-//     "id": 0,
-//         "installZoneId": 0,
-//             "name": "string",
-//                 "number": "string",
-//                     "point": {
-//         "lat": 0,
-//             "lng": 0
-//     },
-//     "regionId": "string",
-//      "type": 0
-// }
+// 新增
     setPosition(installZoneId, regionId, name, number, point, type): Observable<any> {
         return this.http.post(`/api/position`, {
             'installZoneId': installZoneId,
@@ -92,6 +79,19 @@ export class PositionService {
                 const data = { status: 200 };
                 return data;
             }));
+    }
+
+    // 分页获取道路
+    getRoads(page, pageSize, queryStr): Observable<any> {
+
+
+        return this.http.get(`api/geo_way/?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+                ));
+
     }
 
 

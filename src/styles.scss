@@ -321,9 +321,11 @@ address, cite, code, em, th, i, strong {
     }
 
 }
-
 .area-selection {
-    z-index: 1040;
+        z-index: 1040;
+}
+.area-selection , .area-selection1{
+
     top: 15px;
     .area-selection-block {
         cursor: pointer;

@@ -1,5 +1,18 @@
 @import '../../../../assets/css/variable.scss';
 @import '../../../../assets/css/xylg.scss';
+.way-list{
+    width: 360px;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+.way-table{
+    width: 100%;
+    overflow-x: auto;
+}
+.area-selection {
+    z-index: 1;
+}
 .bodyofposition {
     width: calc(100vw - 50px);
     height: 100vh;
