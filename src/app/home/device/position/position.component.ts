@@ -98,6 +98,7 @@ export class PositionComponent implements OnInit {
   selecteWay(item) {
     this.currentWay = item;
     this.wayshow = false;
+    this.model.wayId = item.id;
   }
   // 检索按键点击事件
   execQuery() {
@@ -139,18 +140,19 @@ export class PositionComponent implements OnInit {
 
   // 新建位置弹框
   openNewPosition(content) {
-    const that = this;
+
     this.addOrupdata = '新增位置';
     this.errorMess = [];
     this.model.name = ''; // name
     this.model.number = ''; // number
-    this.model.point = { lng: '', lat: '' }; // 坐标
-    that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
-    that.currentRegion = that.currentAreaList[0].children[0]; // 当前区域
-    that.model.device = this.deviceList[0]; // 类型
+    this.currentAreaList = this.currentCity.children; // 当前城市下的区域列表
+    this.currentRegion = this.currentAreaList[0].children[0]; // 当前区域
+    this.model.device = this.deviceList[0]; // 类型
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
+    this.bindPosition(this.model.point);
+    this.model.point = { lng: '', lat: '' }; // 坐标
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -161,7 +163,6 @@ export class PositionComponent implements OnInit {
 
   // 修改位置弹框
   openUpdataPosi(content, item, i) {
-    const that = this;
     this.addOrupdata = '修改位置';
     this.errorMess = [];
     this.model.updataId = item.id;
@@ -173,7 +174,7 @@ export class PositionComponent implements OnInit {
     for (let index = 0; index < this.deviceList.length; index++) {
       const element = this.deviceList[index];
       if (id === element.id) {
-        that.model.device = this.deviceList[index];
+        this.model.device = this.deviceList[index];
       }
     }
 
@@ -181,14 +182,17 @@ export class PositionComponent implements OnInit {
     region_id = item.regionId.toString().slice(0, 4);
     console.log(region_id);
 
-    that.node = null; // 用于递归查询JSON树 父子节点 currentArea
-    that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
-    console.log(that.currentCity);
-    that.currentAreaList = that.currentCity ? that.currentCity.children : []; // 当前城市下的区域列表
-    that.model.installZoneId = that.currentCity ? that.currentCity.installZoneId : null; // 安装区域
+    this.node = null; // 用于递归查询JSON树 父子节点 currentArea
+    this.currentCity = this.getNode(this.cityList, region_id); // 当前城市
+    console.log(this.currentCity);
+    this.currentAreaList = this.currentCity ? this.currentCity.children : []; // 当前城市下的区域列表
+    this.model.installZoneId = this.currentCity ? this.currentCity.installZoneId : null; // 安装区域
     const area_id = item.regionId; // 当前区域id
-    that.node = null; // 用于递归查询JSON树 父子节点
-    that.currentRegion = that.getNode(that.cityList, area_id); // 当前区域i
+    this.node = null; // 用于递归查询JSON树 父子节点
+    this.currentRegion = this.getNode(this.cityList, area_id); // 当前区域
+    this.currentWay.id = item.wayId; // 当前道路
+    this.currentWay.name = item.wayName; // 当前道路
+
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
@@ -228,14 +232,17 @@ export class PositionComponent implements OnInit {
     this.typeofPoint();
     if (this.errorMess[0] === '无错') {
       const that = this;
-      const installZoneId = this.model.installZoneId;
-      const regionId = this.currentRegion.id;
-      const name = this.model.name;
-      const number = this.model.number;
-      const point = this.model.point;
-      const type = this.model.device.id;
+      const body = {
+        'installZoneId': this.model.installZoneId,
+        'name': this.model.name,
+        'number': this.model.number,
+        'point': this.model.point,
+        'regionId': this.currentRegion.id,
+        'type': this.model.device.id,
+        'wayId': this.currentWay.wayId
+      };
 
-      this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
+      this.positionService.setPosition(body).subscribe({
         next: function (val) {
           that.alerts.push({
             id: 1,
@@ -273,15 +280,19 @@ export class PositionComponent implements OnInit {
     this.typeofPoint();
     if (this.errorMess[0] === '无错') {
           const that = this;
-          const id = this.model.updataId;
-          const installZoneId = this.model.installZoneId;
-          const regionId = this.currentRegion.id;
-          const name = this.model.name;
-          const number = this.model.number;
-          const point = this.model.point;
-          const type = this.model.device.id;
 
-          this.positionService.updataPosition(id, installZoneId, regionId, name, number, point, type).subscribe({
+          const body = {
+            'id': this.model.updataId,
+            'installZoneId': this.model.installZoneId,
+            'name': this.model.name,
+            'number': this.model.number,
+            'point': this.model.point,
+            'regionId': this.currentRegion.id,
+            'type': this.model.device.id,
+            'wayId': this.currentWay.wayId
+          };
+
+          this.positionService.updataPosition(body).subscribe({
             next: function (val) {
               that.alerts.push({
                 id: 1,

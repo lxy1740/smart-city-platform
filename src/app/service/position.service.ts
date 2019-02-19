@@ -41,15 +41,8 @@ export class PositionService {
     }
 
 // 新增
-    setPosition(installZoneId, regionId, name, number, point, type): Observable<any> {
-        return this.http.post(`/api/position`, {
-            'installZoneId': installZoneId,
-            'name': name,
-            'number': number,
-            'point': point,
-            'regionId': regionId,
-            'type': type
-        })
+    setPosition(body): Observable<any> {
+        return this.http.post(`/api/position`, body)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -65,16 +58,8 @@ export class PositionService {
     }
 
     // 修改位置
-    updataPosition(id, installZoneId, regionId, name, number, point, type): Observable<any> {
-        return this.http.put(`/api/position`, {
-            'id': id,
-            'installZoneId': installZoneId,
-            'name': name,
-            'number': number,
-            'point': point,
-            'regionId': regionId,
-            'type': type
-        })
+    updataPosition(body): Observable<any> {
+        return this.http.put(`/api/position`, body)
             .pipe(map((res: Response) => {
                 const data = { status: 200 };
                 return data;

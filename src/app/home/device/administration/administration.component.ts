@@ -96,7 +96,7 @@ export class AdministrationComponent implements OnInit {
 
   ngOnInit() {
     // 树结构
-    this.setZtreeNode([]);
+    this.getZoneTree();
     this.getRegions();
     this.getChildRegions();
   }
@@ -157,6 +157,9 @@ export class AdministrationComponent implements OnInit {
           });
           window.localStorage.regionsList = JSON.stringify(val);
         },
+        complete: function () {
+          that.getZoneTree();
+        },
         error: function (error) {
           console.log(error);
 
@@ -207,6 +210,8 @@ export class AdministrationComponent implements OnInit {
         },
         complete: function () {
           that.getChildRegions();
+          that.getRegions();
+
         },
         error: function (error) {
           console.log(error);
@@ -230,6 +235,8 @@ export class AdministrationComponent implements OnInit {
         },
         complete: function () {
           that.getChildRegions();
+          that.getRegions();
+
         },
         error: function (error) {
           console.log(error);
@@ -258,6 +265,8 @@ export class AdministrationComponent implements OnInit {
         },
         complete: function () {
           that.getChildRegions();
+          that.getRegions();
+
         },
         error: function (error) {
           console.log(error);
@@ -339,23 +348,7 @@ export class AdministrationComponent implements OnInit {
   }
 
 
-  setZtreeNode(georegion) { // 修改：传入当前用户角色名数组；新建：传入空数组
-    const that = this;
-    // 树结构，树设置
-    this.getZoneTree();
-    // treeDemo界面中加载ztree的div
-    const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
-    if ( !georegion) {
-      return;
-    }
-    georegion.map((item, i) => {
-      const node = treeObj.getNodeByParam('id', item, null); // 传入id
-      if (node) {
-        treeObj.clickNode(node, true, false ); // 此处是用户勾选
-        // this.findParent(node.getParentNode());
-      }
-    });
-  }
+
   getZoneTree() {
     const that = this;
     const setting = {// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）

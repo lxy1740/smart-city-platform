@@ -28,6 +28,7 @@ export class ProductHomeComponent implements OnInit {
     body: 'hh',
   };
   queryStr: any;
+  addOrUpdate = '';
 
   @Input()
   public alerts: Array<IAlert> = [];
@@ -40,7 +41,7 @@ export class ProductHomeComponent implements OnInit {
      private productService: ProductService) {
     this.page = 1;
     this.queryStr = '';
-    this.model.iot_platform = 0;
+    this.model.iotPlatform = 0;
   }
 
   public closeAlert(alert: IAlert) {
@@ -133,6 +134,7 @@ export class ProductHomeComponent implements OnInit {
 
   // 打开心建产品弹框
   openNewProduct(content) {
+    this.addOrUpdate = '新建产品';
     this.model.name = ''; // name
     this.model.description = ''; // description
     this.model.device = this.deviceList[0]; // 类型
@@ -145,6 +147,38 @@ export class ProductHomeComponent implements OnInit {
     });
   }
 
+  // 修改产品型号弹窗
+  openUpdataModal(content, item) {
+    this.addOrUpdate = '修改产品';
+    const that = this;
+    this.model.name = item.name; // name
+    this.model.description = item.description; // description
+    this.model.updateItemId = item.id; // id
+    this.model.iotPlatform = item.iotPlatform; // id
+    const id = item.type; // 类型
+    for (let index = 0; index < this.deviceList.length; index++) {
+      const element = this.deviceList[index];
+      if (id === element.id) {
+        that.model.device = this.deviceList[index];
+      }
+    }
+
+    const modal = this.modalService.open(content, { size: 'lg' });
+    this.mr = modal;
+
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    });
+  }
+
+  addorupdate() {
+    if (this.addOrUpdate === '新建产品') {
+      this.setModel();
+    } else {
+      this.updateModel();
+    }
+  }
   // 添加设备型号
   setModel() {
     const that = this;
@@ -153,7 +187,7 @@ export class ProductHomeComponent implements OnInit {
       description : this.model.description,
       type: this.model.device.id,
       isGateway: this.model.device.id === 1 ? true : false,
-      iot_platform: this.model.iot_platform
+      iotPlatform: this.model.iotPlatform
     };
     this.productService.setModel(body).subscribe({
       next: function (val) {
@@ -179,29 +213,6 @@ export class ProductHomeComponent implements OnInit {
     });
   }
 
-  // 修改产品型号弹窗
-  openUpdataModal(content, item) {
-    const that = this;
-    this.model.name = item.name; // name
-    this.model.description = item.description; // description
-    this.model.updateItemId = item.id; // id
-    this.model.iot_platform = item.iot_platform; // id
-    const id = item.type; // 类型
-    for (let index = 0; index < this.deviceList.length; index++) {
-      const element = this.deviceList[index];
-      if (id === element.id) {
-        that.model.device = this.deviceList[index];
-      }
-    }
-
-    const modal = this.modalService.open(content, { size: 'lg' });
-    this.mr = modal;
-
-    modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-    });
-  }
 
   // 修改设备型号
   updateModel() {
@@ -214,7 +225,7 @@ export class ProductHomeComponent implements OnInit {
       description: this.model.description,
       type: this.model.device.id,
       isGateway: this.model.device.id === 1 ? true : false,
-      iot_platform: this.model.iot_platform
+      iotPlatform: this.model.iotPlatform
     };
     this.productService.updateModel(body).subscribe({
       next: function (val) {

@@ -257,8 +257,8 @@
               <th>编号</th>
               <th>所属类型</th>
               <th>安装位置</th>
-              <th>区域</th>
-              <th>道路</th>
+              <th>行政区域</th>
+              <th>所属道路</th>
               <th>坐标</th>
 
               <th style="text-align: center">操作</th>
@@ -273,7 +273,7 @@
               <td>{{changeName(item.type)}}</td>
               <td>{{item.installZoneName}}</td>
               <td>{{item.regionName}}</td>
-              <td></td>
+              <td>{{item.wayName}}{{item.wayId}}</td>
               <td>{{item.point.lng}}/{{item.point.lat}}</td>
 
 
