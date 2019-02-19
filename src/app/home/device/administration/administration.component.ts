@@ -224,6 +224,12 @@ export class AdministrationComponent implements OnInit {
         },
         error: function (error) {
           console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `新增失败：${message}！`,
+          });
 
         }
       });
@@ -249,6 +255,12 @@ export class AdministrationComponent implements OnInit {
         },
         error: function (error) {
           console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `修改失败：${message}！`,
+          });
 
         }
       });

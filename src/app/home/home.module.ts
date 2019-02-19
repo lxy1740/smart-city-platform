@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { DataDefinitionComponent } from './devices/product/data-definition/data-definition.component';
+
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
@@ -19,7 +19,7 @@ import { DataDefinitionComponent } from './devices/product/data-definition/data-
     ],
     declarations: [
     HomeComponent,
-    DataDefinitionComponent,
+
 
 
 

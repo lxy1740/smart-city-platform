@@ -32,10 +32,10 @@ export class InstallZoneService {
     }
 
     // 获取所有安装区域
-    getZone(page, pageSize): Observable<any> {
+    getZone(page, pageSize, queryStr): Observable<any> {
     // return Observable.of(ARTICLESTYPE);
 
-        return this.http.get(`/api/zone?page=${page}&pageSize=${pageSize}`)
+        return this.http.get(`/api/zone?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
         .pipe(map((res: Response) => {
             return res;
         }));

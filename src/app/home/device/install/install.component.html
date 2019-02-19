@@ -53,7 +53,7 @@
                     <!-- <input id="sole-input3" [(ngModel)]="queryStr" class="form-control searchbox-content-common" type="text" 
                       name="word" autocomplete="off" maxlength="30" placeholder="检索区域名称" (keydown)="onKeydown($event)"> -->
                     <input id="sole-input3" class="form-control searchbox-content-common" type="text" 
-                    name="word" autocomplete="off" placeholder="检索区域名称">
+                    name="word" autocomplete="off" placeholder="检索区域名称" [(ngModel)]="queryStr">
                   </div>
               </div>
               <button class="btn btn-bg" (click)="execQuery()">搜索</button>

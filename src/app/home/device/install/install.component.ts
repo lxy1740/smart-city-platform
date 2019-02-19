@@ -149,7 +149,7 @@ export class InstallComponent implements OnInit {
   // 获取安装区域列表 --ok
   getInstallzone() {
     const that = this;
-    this.installzoneService.getZone(this.page, this.pageSize).subscribe({
+    this.installzoneService.getZone(this.page, this.pageSize, this.queryStr).subscribe({
       next: function (val) {
         console.log('安装区域列表');
         console.log(val);
@@ -166,6 +166,10 @@ export class InstallComponent implements OnInit {
   }
 
   pageChange() {
+    this.getInstallzone();
+  }
+
+  execQuery() {
     this.getInstallzone();
   }
   // 打开新增窗口

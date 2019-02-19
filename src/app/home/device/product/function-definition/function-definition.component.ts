@@ -223,7 +223,7 @@ export class FunctionDefinitionComponent implements OnInit {
     this.nav_index = i;
   }
   // 属性页面
-  goToZheRoute(para, item) {
+  goToZheRoute(para, ...item) {
     if (item) {
       this.router.navigate([para, { param: item }]);
     } else {
