@@ -41,7 +41,9 @@ export class AdministrationComponent implements OnInit {
     name: '',
     children: [],
     level: 1,
-    id: null
+    id: null,
+    parentId: null,
+
   }; // 新增数据类
   map: any = {}; // 地图
   // 关于树
@@ -147,7 +149,7 @@ export class AdministrationComponent implements OnInit {
           that.regionsList = val;
           that.allRegin = [];
           that.allRegin.push({
-            full_name: '北京市',
+            full_name: '所有',
             id: '',
             level: 0,
             name: '所有',
@@ -198,7 +200,14 @@ export class AdministrationComponent implements OnInit {
   // 新增行政区域
   addRegions() {
     const that = this;
-    this.roadService.addRegions(this.RegionMODEL)
+    const body = {
+      center: this.RegionMODEL.center,
+      children: this.RegionMODEL.children,
+      name: this.RegionMODEL.name,
+      parentId: this.RegionMODEL.parentId,
+
+    };
+    this.roadService.addRegions(body)
       .subscribe({
         next: function (val) {
           that.alerts.push({
@@ -281,7 +290,7 @@ export class AdministrationComponent implements OnInit {
     this.RegionMODEL.center = { lng: '', lat: '' };
     this.RegionMODEL.name = '';
     this.RegionMODEL.children = [];
-    delete this.RegionMODEL.id;
+    // delete this.RegionMODEL.id;
    // 新增数据类
     this.addOrUpdate = '新增行政区域';
     const modal = this.modalService.open(content, { size: 'lg'});
@@ -304,8 +313,8 @@ export class AdministrationComponent implements OnInit {
     this.RegionMODEL.name = item.name;
     this.RegionMODEL.center = item.center;
     this.RegionMODEL.level = item.level;
-    delete this.RegionMODEL.children;
-    delete this.RegionMODEL.parentId;
+    // delete this.RegionMODEL.children;
+    // delete this.RegionMODEL.parentId;
 
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;

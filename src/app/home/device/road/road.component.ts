@@ -2,6 +2,7 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { RoadService } from '../../../service/road.service';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 declare var $: any;
 @Component({
   selector: 'app-road',
@@ -164,8 +165,12 @@ export class RoadComponent implements OnInit {
   // 添加道路
   addRoads() {
     const that = this;
+    const body = {
+      wayName: this.ROADMODEL.name,
+      regions: this.ROADMODEL.regions
+    };
 
-    this.roadService.addRoads(this.ROADMODEL)
+    this.roadService.addRoads(body)
       .subscribe({
         next: function (val) {
           that.alerts.push({
@@ -222,8 +227,12 @@ export class RoadComponent implements OnInit {
 
   updetaRoads() {
     const that = this;
-
-    this.roadService.updetaRoads(this.ROADMODEL)
+    const body = {
+      wayName: this.ROADMODEL.name,
+      regions: this.ROADMODEL.regions,
+      wayId: this.ROADMODEL.wayId
+    };
+    this.roadService.updetaRoads(body)
       .subscribe({
         next: function (val) {
           that.alerts.push({
