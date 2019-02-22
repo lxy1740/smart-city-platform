@@ -5,6 +5,9 @@ import { DeviceService } from '../../../../service/device.service';
 import { GradOverlar } from '../../../../service/grad.overlay';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
+
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -223,6 +226,52 @@ export class DeviceHomeComponent implements OnInit {
     console.log(this.devicePid);
     this.getDevicesList(this.page, this.pageSize);
   }
+
+  // 批量导出
+  output() {
+    const that = this;
+    this.deviceService.getAllDeviceByModel(this.queryStr, this.curModelIndex, -1, -1, this.devicePid).subscribe({
+      next: function (val) {
+        // that.deviceslist = val.items;
+        // that.total = val.total;
+        console.log(val);
+        const a = [];
+        a.push(['设备名称', '设备描述', 'SECRET', 'KEY', '设备型号', '位置编号', '客户编号']);
+        val.items.map(item => {
+          a.push([item.name, item.description, item.secret, item.key, item.modelId, item.number, item.customerId ]);
+        });
+        that.daochu(a);
+      },
+      complete: function () { },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  // 导出
+  daochu(data) {
+    /* generate worksheet */
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+    // const ws2: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    // XLSX.utils.book_append_sheet(wb, ws2, 'Sheet2');
+
+    console.log(wb);
+    /* save to file */
+    XLSX.writeFile(wb, 'device.xlsx');
+  }
+  // 导出表格
+  exportTable() {
+    const blob = new Blob([document.getElementById('exportableTable').innerHTML], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'
+    });
+    saveAs(blob, 'device.xlsx');
+  }
+
   // 分页
   pageChange() {
     this.getDevicesList(this.page, this.pageSize);
@@ -231,7 +280,7 @@ export class DeviceHomeComponent implements OnInit {
     this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
   }
 
-  // 批量导入
+  // 批量导入弹窗
   openAddSurveys(content) {
     const that = this;
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
@@ -243,6 +292,8 @@ export class DeviceHomeComponent implements OnInit {
       console.log(this.closeResult);
     });
   }
+
+
   // 新建设备
   openNewSurvey(content) {
     this.addOrUpdate = '新建设备';

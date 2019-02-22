@@ -323,7 +323,7 @@
       <span>设备管理</span>
       <div class="add-survey">
         <a class="theme-text btn-a cur-pointer" (click)="openAddSurveys(content)">批量导入设备</a>
-        <a class="theme-text btn-a cur-pointer">导出设备</a>
+        <a class="theme-text btn-a cur-pointer" (click)="output()">导出设备</a>
         <a class="theme-text btn-a cur-pointer" (click)="openNewSurvey(content2)">新建设备</a>&nbsp;
         <!-- Single button -->
         <!-- 日志出现 -->
@@ -380,7 +380,7 @@
         <thead class="table-header">
           <tr>
             <th>序号</th>
-            <th>设备名称</th>
+            <th>设备描述</th>
             <th>设备状态</th>
             <th>设备编号</th>
             <th>设备型号</th>
