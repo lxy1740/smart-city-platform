@@ -10,7 +10,8 @@ import * as XLSX from 'xlsx';
 
 
 // const URL = '/api/';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+const URL = 'http://test1.siid.com.cn';
+
 
 declare let BMap;
 
@@ -64,6 +65,7 @@ export class DeviceHomeComponent implements OnInit {
   curModelIndex: any; // 当前设备型号标识
   devicePid: any;
   parentDescription = '';
+  dataFile = '';
 
   showonprogresslist = false; // 默认不显示日志消息
   logList = [
@@ -85,6 +87,8 @@ export class DeviceHomeComponent implements OnInit {
 
   constructor(public router: Router, private modalService: NgbModal,
     private deviceService: DeviceService) {
+    const that = this;
+    const url = `/api/device/import?dataFile=${that.dataFile}`;
     this.page = 1;
     this.pagePosi = 1;
     this.curModelIndex = 0; // 全选
@@ -93,7 +97,9 @@ export class DeviceHomeComponent implements OnInit {
     this.device.point = { lng: '', lat: '' };
   // 上传文件
     this.uploader = new FileUploader({
-      url: URL,
+      // url: `${URL}/api/device/import`,
+      url: url,
+      headers: [{ name: 'Authorization', value: `Bearer ${localStorage.getItem('token')}` }, { name: 'Accept', value: '*/*' }],
       disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
@@ -102,6 +108,7 @@ export class DeviceHomeComponent implements OnInit {
             name: item._file.name,
             length: item._file.size,
             contentType: item._file.type,
+            url: that.dataFile,
             date: new Date()
           });
         });
@@ -121,6 +128,7 @@ export class DeviceHomeComponent implements OnInit {
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
     console.log(this.uploader);
+
   }
   // 上传文件
   public fileOverAnother(e: any): void {
@@ -149,12 +157,14 @@ export class DeviceHomeComponent implements OnInit {
 
   // 下载文件
   domnload() {
-    console.log(this.uploader);
-    window.open('http://test1.siid.com.cn/resources/template/device-template.xlsx');
+
+    window.open(`${URL}/resources/template/device-template.xlsx`);
   }
 
   selectedFileOnChanged(event: any) {
     console.log(event.target.value);
+    console.log(this.uploader);
+    this.dataFile = event.target.value;
   }
   // 属性页面
   goToZheRoute(para, id) {
@@ -192,7 +202,6 @@ export class DeviceHomeComponent implements OnInit {
       next: function (val) {
         that.deviceslist = val.items;
         that.total = val.total;
-        console.log(that.deviceslist);
       },
       complete: function () { },
       error: function (error) {

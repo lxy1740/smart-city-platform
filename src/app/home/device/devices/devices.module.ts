@@ -11,12 +11,14 @@ import { LineLogComponent } from './line-log/line-log.component';
 import { DeviceHomeComponent } from './device-home/device-home.component';
 import { HistoryDataComponent } from './device-detail/history-data/history-data.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
+import { FileUploadModule } from 'ng2-file-upload';   // Should import HERE
 @NgModule({
   imports: [
     CommonModule,
     DevicesRoutingModule,
     FormsModule,
     SharedModule,
+    FileUploadModule,
     NgbModule.forRoot(),
   ],
   declarations: [

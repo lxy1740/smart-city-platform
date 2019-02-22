@@ -47,25 +47,26 @@
           </div> -->
 
           <!-- 支持多选 -->
-          <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"  (onFileSelected)="fileSelected($event)" multiple /><br />
+          <!-- <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"  (onFileSelected)="fileSelected($event)" multiple /><br /> -->
+          <!-- <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br /> -->
 
-          <!-- Single
-          <input type="file" ng2FileSelect [uploader]="uploader"(change)="selectedFileOnChanged($event)"  (onFileSelected)="fileSelected($event)"/> -->
+          <!-- Single -->
+          <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"  (onFileSelected)="fileSelected($event)"/>
         </div>
 
         <div class="col-md-12" style="margin-bottom: 40px">
 
           <h3>上传队列</h3>
-          <p>Queue length: {{ uploader?.queue?.length }}</p>
+          <p>队列大小: {{ uploader?.queue?.length }}</p>
 
           <table class="table">
             <thead>
               <tr>
                 <th width="50%">Name</th>
-                <th>Size</th>
-                <th>Progress</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>大小</th>
+                <th>进程</th>
+                <th>状态</th>
+                <th>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -84,13 +85,13 @@
                 </td>
                 <td nowrap>
                   <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                    <span class="glyphicon glyphicon-upload"></span> Upload
+                    <span class="glyphicon glyphicon-upload"></span> 上传
                   </button>
                   <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                    <span class="glyphicon glyphicon-ban-circle"></span> 取消
                   </button>
                   <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
-                    <span class="glyphicon glyphicon-trash"></span> Remove
+                    <span class="glyphicon glyphicon-trash"></span> 删除
                   </button>
                 </td>
               </tr>
@@ -104,7 +105,7 @@
                 <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
               </div>
             </div>
-            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            <!-- <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
               <span class="glyphicon glyphicon-upload"></span> Upload all
             </button>
             <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
@@ -112,7 +113,7 @@
             </button>
             <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
               <span class="glyphicon glyphicon-trash"></span> Remove all
-            </button>
+            </button> -->
           </div>
 
         </div>
