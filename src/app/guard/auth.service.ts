@@ -35,7 +35,7 @@ export class AuthService {
                     // 设置全局变量
                     // this.winRef.nativeWindow.userId = this.userId;
                     this._cookieService.putObject('currentUser', JSON.stringify({ loginName: userName, token: token }));
-                    this.getAuthorities(token);
+                    // this.getAuthorities(token);
 
                     localStorage.setItem('token', token);
                     this.isLoggedIn = true;

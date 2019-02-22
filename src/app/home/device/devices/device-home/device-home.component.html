@@ -397,7 +397,7 @@
               <p *ngIf="device.online === false">离线</p>
             </td>
             <td>{{device.name}}</td>
-            <td>{{modelName(device.modelId)}}</td>
+            <td>{{device.modelName}}</td>
             <td><span *ngIf="device.point && device.point.lng">{{device.point.lng}}/{{device.point.lat}}</span></td>
 
             <td style="text-align: center">

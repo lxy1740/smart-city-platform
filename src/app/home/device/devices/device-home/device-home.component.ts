@@ -238,7 +238,7 @@ export class DeviceHomeComponent implements OnInit {
         const a = [];
         a.push(['设备名称', '设备描述', 'SECRET', 'KEY', '设备型号', '位置编号', '客户编号']);
         val.items.map(item => {
-          a.push([item.name, item.description, item.secret, item.key, item.modelId, item.number, item.customerId ]);
+          a.push([item.name, item.description, item.secret, item.key, item.modelName, item.positionNumber, item.customerCode ]);
         });
         that.daochu(a);
       },
