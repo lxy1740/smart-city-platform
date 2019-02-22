@@ -6,6 +6,7 @@ import { PositionComponent } from './position/position.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { RoadComponent } from './road/road.component';
 import { InstallComponent } from './install/install.component';
+import { CustomerComponent } from './customer/customer.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
               { path: 'administration', component: AdministrationComponent},
               { path: 'road', component: RoadComponent },
               { path: 'install', component: InstallComponent },
+              { path: 'customer', component: CustomerComponent },
 
             ]
           }

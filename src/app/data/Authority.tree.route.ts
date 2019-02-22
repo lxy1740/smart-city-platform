@@ -40,6 +40,7 @@ export const AUTHORITYTREECOPYROUTE = [
             { id: 'DM-002', icon: 'fa fa-product-hunt nav-icon-s', routeLink: 'device/product/product-home', routeTitel: '产品', children: [
                 { id: 'DM-0021', name: '产品功能定义', routeLink: 'device/product/function-definition' },
             ]},
+        { id: 'DM-007', name: '客户管理', routeLink: 'device/customer', icon: 'fa fa-user-o nav-icon-s', routeTitel: '客户管理'},
             { id: 'DM-003', icon: 'fa fa-map-marker nav-icon-s', routeLink: 'device/position', routeTitel: '位置'},
             { id: 'DM-004', icon: 'fa fa-dropbox nav-icon-s', routeLink: 'device/administration', routeTitel: '行政区域'},
             { id: 'DM-005', icon: 'fa fa-road nav-icon-s',  routeLink: 'device/road', routeTitel: '道路'},

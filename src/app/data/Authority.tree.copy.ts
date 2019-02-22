@@ -27,6 +27,7 @@ export const AUTHORITYTREECOPY = [
     { id: 'DM-004', name: '行政区域', routeLink: 'device/administration' },
     { id: 'DM-005', name: '道路', routeLink: 'device/road' },
     { id: 'DM-006', name: '安装区域', routeLink: 'device/install' },
+    { id: 'DM-007', name: '客户管理', routeLink: 'device/customer' },
     { id: 'SM-000', name: '系统管理', routeLink: 'user'},
     { id: 'SM-001', name: '用户管理', routeLink: 'user/admin' },
     { id: 'SM-002', name: '角色管理', routeLink: 'user/right' }

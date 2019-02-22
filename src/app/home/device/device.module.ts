@@ -11,6 +11,7 @@ import { PositionComponent } from './position/position.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { RoadComponent } from './road/road.component';
 import { InstallComponent } from './install/install.component';
+import { CustomerComponent } from './customer/customer.component';
 
 
 
@@ -31,6 +32,7 @@ import { InstallComponent } from './install/install.component';
         AdministrationComponent,
         RoadComponent,
         InstallComponent,
+        CustomerComponent,
 
 
     ],
