@@ -1,5 +1,8 @@
 @import '../../../../../assets/css/variable.scss';
 @import '../../../../../assets/css/xylg.scss';
+.my-drop-zone { border: dotted 3px lightgray; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
 .map_container{
     height: 400px;
 }

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CookieModule } from 'ngx-cookie';
 import { HttpClientModule } from '@angular/common/http'; // HTTP_INTERCEPTORS,
+import { FileUploadModule } from 'ng2-file-upload';
 import { JwtModule } from '@auth0/angular-jwt';
 import { httpInterceptorProviders } from './interceptor/index';
 import { ServiceModule } from './service/service.module';
@@ -25,6 +26,7 @@ export function tokenGetter() {
     AppRoutingModule,
     ServiceModule,
     HttpClientModule,
+    FileUploadModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter

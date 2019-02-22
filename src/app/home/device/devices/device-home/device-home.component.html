@@ -11,14 +11,127 @@
     <div class="form-group">
       <img src="../../../../assets/imgs/num1.png">
       <label class="control-label">下载产品模板，批量填写信息</label>
-      <button type="button" class="btn btn-outline-dark btn1">下载</button>
+      <button type="button" class="btn btn-outline-dark btn1" (click)="domnload()">下载</button>
     </div>
     <div class="form-group">
       <img src="../../../../assets/imgs/num2.png">
       <label class="control-label">上传填写好的信息表</label>
-      <button type="button" class="btn btn-outline-dark btn1">选择文件</button>
-    </div>
+      <!-- <button type="button" class="btn btn-outline-dark btn1">选择文件</button> -->
+      <!-- <span class="btn btn-outline-dark btn1">选择文件</span> -->
+      <!-- <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" (onFileSelected)="fileSelected($event)"
+        multiple /><br /> -->
 
+    </div>
+    <div class="container">
+
+      <!-- <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <a class="navbar-brand" href>Angular2 File Upload</a>
+        </div>
+      </div> -->
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <!-- <h3>选择文件</h3> -->
+
+          <!-- <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader"
+            class="well my-drop-zone">
+            Base drop zone
+          </div> -->
+
+          <!-- <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}" (fileOver)="fileOverAnother($event)"
+            [uploader]="uploader" class="well my-drop-zone">
+            Another drop zone
+          </div> -->
+
+          <!-- 支持多选 -->
+          <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"  (onFileSelected)="fileSelected($event)" multiple /><br />
+
+          <!-- Single
+          <input type="file" ng2FileSelect [uploader]="uploader"(change)="selectedFileOnChanged($event)"  (onFileSelected)="fileSelected($event)"/> -->
+        </div>
+
+        <div class="col-md-12" style="margin-bottom: 40px">
+
+          <h3>上传队列</h3>
+          <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="50%">Name</th>
+                <th>Size</th>
+                <th>Progress</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of uploader.queue">
+                <td><strong>{{ item?.file?.name }}</strong></td>
+                <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                <td *ngIf="uploader.options.isHTML5">
+                  <div class="progress" style="margin-bottom: 0;">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                  <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                  <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </td>
+                <td nowrap>
+                  <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                  </button>
+                  <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                    <span class="glyphicon glyphicon-trash"></span> Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div>
+            <div>
+              Queue progress:
+              <div class="progress" style="">
+                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+              <span class="glyphicon glyphicon-upload"></span> Upload all
+            </button>
+            <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+              <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+            </button>
+            <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+              <span class="glyphicon glyphicon-trash"></span> Remove all
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <br><br>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">Response</div>
+            <div class="panel-body">
+              {{ response }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>

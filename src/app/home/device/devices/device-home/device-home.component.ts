@@ -4,6 +4,10 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { DeviceService } from '../../../../service/device.service';
 import { GradOverlar } from '../../../../service/grad.overlay';
 import { Router } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
+
+// const URL = '/api/';
+const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 declare let BMap;
 
@@ -64,11 +68,18 @@ export class DeviceHomeComponent implements OnInit {
     { id: 'DM-0012', name: '设备上下线日志', url: 'home/device/devices/line-log' },
     // { id: 'DM-0013', name: '历史数据', url: 'home/device/devices/history'},
   ];
+  // 上传文件
+  uploader: FileUploader;
+  hasBaseDropZoneOver: boolean;
+  hasAnotherDropZoneOver: boolean;
+  response: string;
+  // 上传文件
 
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
+
   constructor(public router: Router, private modalService: NgbModal,
     private deviceService: DeviceService) {
     this.page = 1;
@@ -77,6 +88,45 @@ export class DeviceHomeComponent implements OnInit {
     this.queryStr = '';
     this.queryStrPosi = '';
     this.device.point = { lng: '', lat: '' };
+  // 上传文件
+    this.uploader = new FileUploader({
+      url: URL,
+      disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
+      formatDataFunctionIsAsync: true,
+      formatDataFunction: async (item) => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            name: item._file.name,
+            length: item._file.size,
+            contentType: item._file.type,
+            date: new Date()
+          });
+        });
+      }
+    });
+
+    this.hasBaseDropZoneOver = false;
+    this.hasAnotherDropZoneOver = false;
+
+    this.response = '';
+
+    this.uploader.response.subscribe(res => this.response = res);
+    // 上传文件
+  }
+
+  // 上传文件
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+    console.log(this.uploader);
+  }
+  // 上传文件
+  public fileOverAnother(e: any): void {
+    this.hasAnotherDropZoneOver = e;
+  }
+
+  // 上传文件
+  public fileSelected(e: any): void {
+    console.log(e);
   }
 
   public closeAlert(alert: IAlert) {
@@ -92,6 +142,16 @@ export class DeviceHomeComponent implements OnInit {
     this.getCity();
     this.getAllDeviceModel();
     this.getDevicesList(this.page, this.pageSize);
+  }
+
+  // 下载文件
+  domnload() {
+    console.log(this.uploader);
+    window.open('http://test1.siid.com.cn/resources/template/device-template.xlsx');
+  }
+
+  selectedFileOnChanged(event: any) {
+    console.log(event.target.value);
   }
   // 属性页面
   goToZheRoute(para, id) {
@@ -174,7 +234,7 @@ export class DeviceHomeComponent implements OnInit {
   // 批量导入
   openAddSurveys(content) {
     const that = this;
-    this.modalService.open(content, { windowClass: 'md-modal' }).result.then((result) => {
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
 
