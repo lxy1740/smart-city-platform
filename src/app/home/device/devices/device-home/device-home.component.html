@@ -159,7 +159,7 @@
 
         <!-- 未完成：客户绑定 -->
         <div class="form-inline padding-15" *ngIf="!customerId">
-          <span class="text-danger">*</span>
+          <span >&nbsp;</span>
           <label class="control-label">客户:</label>
           <div class="area-selection1" *ngIf="visible == true">
             <div class="d-inline-block area-selection-block" (mouseleave)="CustomerlistMouseleave()">
@@ -432,6 +432,7 @@
         <thead class="table-header">
           <tr>
             <th>序号</th>
+            <th>所属客户</th>
             <th>设备描述</th>
             <th>设备状态</th>
             <th>设备编号</th>
@@ -443,6 +444,10 @@
         <tbody>
           <tr *ngFor="let device of deviceslist; let i = index" class="lineheight">
             <td>{{i + 1}}</td>
+            <td>
+              <span *ngIf="device.customerId">{{device.customerId}}</span>
+              <span *ngIf="!device.customerId">平台用户</span>
+            </td>
             <td>{{device.description}}</td>
             <td>
               <p *ngIf="device.online === true">在线</p>

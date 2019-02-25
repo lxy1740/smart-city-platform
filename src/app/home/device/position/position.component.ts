@@ -59,8 +59,9 @@ export class PositionComponent implements OnInit {
   };
   errorMess = []; // 经纬度错误消息
   currentWay: any = {}; // 当前道路
-  currentCustomer: any = {}; // 当前客户
+
   addOrupdata = '新建位置';
+  currentCustomer: any = {}; // 当前客户
   customerId: null; // 平台客户
 
   @Input()
@@ -76,7 +77,7 @@ export class PositionComponent implements OnInit {
     const token = localStorage.getItem('token');
     const tokenobj = this.jwtHelper.decodeToken(token);
     this.customerId = this.jwtHelper.decodeToken(token).customerId;
-    console.log(tokenobj);
+
   }
 
   public closeAlert(alert: IAlert) {
@@ -160,7 +161,7 @@ export class PositionComponent implements OnInit {
       });
   }
 
-  // 分页获取道路
+  // 分页获取客户
   getCustomer() {
     const that = this;
 

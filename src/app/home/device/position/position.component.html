@@ -57,7 +57,7 @@
           </div>
           <!-- 未完成：客户绑定 -->
           <div class="form-inline padding-15" *ngIf="!customerId">
-            <span class="text-danger">*</span>
+            <span>&nbsp;</span>
             <label class="control-label">客户:</label>
             <div class="area-selection1" *ngIf="visible == true">
               <div class="d-inline-block area-selection-block" (mouseleave)="CustomerlistMouseleave()">
@@ -184,7 +184,7 @@
                 <div  class="city-panel dropdown_panel way-list" *ngIf="wayshow">
                   <div class="dropdown_panel_inner">
                     <span class="menu_arrow_left"></span>
-                    <table class="table table-hover way-table">
+                    <table class="table table-hover way-table" >
                       <thead class="table-header">
                         <tr>
                           <th>名称</th>
@@ -303,6 +303,7 @@
           <thead class="table-header">
             <tr>
               <th>序号</th>
+              <th>所属客户</th>
               <th>名称</th>
               <th>编号</th>
               <th>所属类型</th>
@@ -318,6 +319,10 @@
 
             <tr *ngFor="let item of positionListItems; let i = index">
               <td>{{i + 1}}</td>
+              <td>
+                <span *ngIf="item.customerId">{{item.customerId}}</span>
+                <span *ngIf="!item.customerId">平台用户</span>
+              </td>
               <td>{{item.name}}</td>
               <td>{{item.number}}</td>
               <td>{{changeName(item.type)}}</td>

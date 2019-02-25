@@ -2,7 +2,6 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerService } from '../../../service/customer.service';
-// import { GEOREGION } from '../../../data/Geo-region';
 declare var $: any;
 
 @Component({
