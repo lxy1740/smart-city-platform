@@ -1,7 +1,7 @@
 
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { InstallZoneService } from '../../../service/install-zone.service';
+import { CustomerService } from '../../../service/customer.service';
 // import { GEOREGION } from '../../../data/Geo-region';
 declare var $: any;
 
@@ -11,21 +11,12 @@ declare var $: any;
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
+  customerModelDate: any = {};
 
   // 行政区树
   zTreeObj: any;
   zNodes = [];
-  install: any = {}; // 存储数据
-  installModelDate: any = {
-    'center': {
-      'lat': 0,
-      'lng': 0
-    },
-    'full_name': '',
-    'level': 0,
-    'name': '',
-    'region_id': ''
-  };
+
   // 弹框
   closeResult: string;
   // 新增/修改标识
@@ -41,7 +32,7 @@ export class CustomerComponent implements OnInit {
   public zTreeOnCheck: (event, treeId, treeNode) => void; // 触发勾选树的事件
 
   // 安装区域列表
-  installList = [];
+  List = [];
 
   queryStr = ''; // 检索字符串
   page = 1;
@@ -51,21 +42,21 @@ export class CustomerComponent implements OnInit {
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
 
-  constructor(private modalService: NgbModal, private installzoneService: InstallZoneService) {
+  constructor(private modalService: NgbModal, private customerService: CustomerService) {
     // 树的操作
     // 点击
     const that = this;
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
-      this.install.geoRegion = {}; // 重新赋值前先清空
+      this.customerModelDate.geoRegion = {}; // 重新赋值前先清空
       // 获取树的节点
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
       const nodes = treeObj.getCheckedNodes(true);
       console.log(nodes);
-      this.installModelDate.center = nodes[0].center;
-      this.installModelDate.full_name = nodes[0].full_name;
-      this.installModelDate.region_id = nodes[0].id;
-      this.installModelDate.name = nodes[0].name;
-      this.installModelDate.level = nodes[0].level;
+      this.customerModelDate.region_id = [];
+      nodes.map(item => {
+        this.customerModelDate.region_id.push(item.id);
+      });
+
     };
 
     this.zNodes = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
@@ -88,7 +79,7 @@ export class CustomerComponent implements OnInit {
   // 城市列表
   getRegions() {
     const that = this;
-    this.installzoneService.getRegions()
+    this.customerService.getRegions()
       .subscribe({
         next: function (val) {
           that.zNodes = val;
@@ -134,9 +125,9 @@ export class CustomerComponent implements OnInit {
       },
       check: {
         enable: true,
-        chkStyle: 'radio',
+        chkStyle: 'checkbox', // 单选radio 多选 checkbox
         radioType: 'all', // 对所有树实现单选
-        chkboxType: { 'Y': 'ps', 'N': 'ps' }
+        chkboxType: { 'Y': '', 'N': '' }
       },
       callback: {
         onClick: this.zTreeOnClick, // 点击事件
@@ -150,11 +141,11 @@ export class CustomerComponent implements OnInit {
   // 获取安装区域列表 --ok
   getInstallzone() {
     const that = this;
-    this.installzoneService.getZone(this.page, this.pageSize, this.queryStr).subscribe({
+    this.customerService.getCustomer(this.page, this.pageSize, this.queryStr).subscribe({
       next: function (val) {
         console.log('安装区域列表');
         console.log(val);
-        that.installList = val.items;
+        that.List = val.items;
         that.total = val.total;
       },
       complete: function () {
@@ -177,7 +168,7 @@ export class CustomerComponent implements OnInit {
   openNewInstallZone(content) {
     const that = this;
     this.AddorUpdate = '新增安装区域';
-    this.installModelDate = {
+    this.customerModelDate = {
       'center': {
         'lat': 0,
         'lng': 0
@@ -188,15 +179,15 @@ export class CustomerComponent implements OnInit {
       'region_id': ''
     };
 
-    this.install.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
-    this.install.geoRegion = '';
+    this.customerModelDate.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
+    this.customerModelDate.geoRegion = '';
     // 此处添加树
     this.zNodes.map((item, i) => {
-      that.install.geoRegionChecked.push({ check: true }); // 对应树结构
+      that.customerModelDate.geoRegionChecked.push({ check: true }); // 对应树结构
     });
 
     // 关于弹框
-    const modal = this.modalService.open(content, { windowClass: 'md' });
+    const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -210,13 +201,13 @@ export class CustomerComponent implements OnInit {
   }
 
   // 打开 修改 弹框
-  openUpdataInstall(contentUpdate, item) {
+  openUpdata(contentUpdate, item) {
     this.AddorUpdate = '修改角色';
-    this.installModelDate = item;
+    this.customerModelDate = item;
     // 所修改的区域
 
-    this.install.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
-    const modal = this.modalService.open(contentUpdate, { windowClass: 'md' });
+    this.customerModelDate.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
+    const modal = this.modalService.open(contentUpdate, { size: 'lg' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -226,9 +217,9 @@ export class CustomerComponent implements OnInit {
     this.setZtreeNode([]);
   }
   // 删除 安装 区域 弹框
-  openDelInstall(content, install) {
+  openDel(content, item) {
     const that = this;
-    that.install.itemDelId = install.id;
+    that.customerModelDate.itemDelId = item.id;
     const modal = that.modalService.open(content, { size: 'sm' });
     that.mr = modal;
   }
@@ -238,18 +229,22 @@ export class CustomerComponent implements OnInit {
   addorUpdt() {
     const that = this;
     if (this.AddorUpdate === '新增安装区域') {
-      that.addInstall();
+      that.addCustomer();
       console.log('新增');
     } else {
-      that.updateInstall();
+      that.updateCustomer();
       console.log('修改');
     }
   }
 
   // 新增安装区域
-  addInstall() {
+  addCustomer() {
     const that = this;
-    this.installzoneService.addNewInstall(this.installModelDate)
+    const body = {
+      name: this.customerModelDate.name,
+      code: this.customerModelDate.code
+    };
+    this.customerService.addNewCustomer(body)
       .subscribe({
         next: function (val) {
           that.alerts.push({
@@ -275,9 +270,14 @@ export class CustomerComponent implements OnInit {
   }
 
   // 修改安装区域
-  updateInstall() {
+  updateCustomer() {
     const that = this;
-    this.installzoneService.updateInstall(this.installModelDate)
+    const body = {
+      id: this.customerModelDate.id,
+      name: this.customerModelDate.name,
+      code: this.customerModelDate.code
+    };
+    this.customerService.updateCustomer(body)
       .subscribe({
         next: function (val) {
           that.alerts.push({
@@ -302,15 +302,15 @@ export class CustomerComponent implements OnInit {
       });
   }
   // 删除接口处
-  delInstall() {
+  delCustomer() {
     const that = this;
-    const id = this.install.itemDelId;
-    const body = {
-      ids: []
-    };
-    body.ids.push(id);
-    console.log(id);
-    this.installzoneService.deleteInstall(body).subscribe({
+    const id = this.customerModelDate.itemDelId;
+    // const body = {
+    //   ids: []
+    // };
+    // body.ids.push(id);
+    // console.log(id);
+    this.customerService.deleteCustomer(id).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,
@@ -328,9 +328,9 @@ export class CustomerComponent implements OnInit {
   }
 
   // 删除规则
-  closeInstall($event) {
+  closeCustomer($event) {
     if ($event === 'ok') {
-      this.delInstall();
+      this.delCustomer();
     }
     this.mr.close();
   }

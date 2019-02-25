@@ -10,18 +10,32 @@
     </button>
   </div>
   <div class="modal-body add-user-modal">
-    <!-- 新建信息表单 -->
-    <div class="row user-info">
-      <div class="col-12 col-md-3">
-        <!-- 行政区域列表 -->
-        <div style="padding: 20px;">
-          <!-- 树状 -->
-          <ul id="treeDemo" class="ztree"></ul>
+    <div class="row">
+      <div class="col-5">
+            <div class="form-group">
+              <label class="control-label"><span style="color:red;">*</span>客户名称:</label>
+              <input type="text" [(ngModel)]="customerModelDate.name" class="form-control" placeholder="" maxlength="30">
+            </div>
+            <div class="form-group">
+              <label class="control-label"><span style="color:red;">*</span>客户编号:</label>
+              <input type="text" [(ngModel)]="customerModelDate.code" class="form-control" placeholder="" maxlength="30">
+            </div>
+      </div>
+      <div class="col-7">
+        <!-- 新建信息表单 -->
+        <div class="user-info">
+          <label class="control-label"><span style="color:red;">*</span>设备安装区域:</label>
+          <!-- 行政区域列表 -->
+          <div style="padding: 20px;">
+            <!-- 树状 -->
+            <ul id="treeDemo" class="ztree"></ul>
+        
+          </div>
         </div>
       </div>
-
-
     </div>
+
+
 
   </div>
   <div class="modal-footer">
@@ -31,7 +45,7 @@
 </ng-template>
 <!-- 删除位置 -->
 <ng-template #contentDelUser let-c="close" let-d="dismiss">
-  <app-sq-modal [input]="InstallData" (output)="closeInstall($event)"></app-sq-modal>
+  <app-sq-modal [input]="InstallData" (output)="closeCustomer($event)"></app-sq-modal>
 </ng-template>
 
 <!-- 安装区域管理页面 -->
@@ -65,7 +79,7 @@
       <table class="table table-hover">
         <thead class="table-header">
           <tr>
-            <th>序号</th>
+            <th>客户名称</th>
             <th>客户编码</th>
             <th>安装区域</th>
             <th style="text-align: center">操作</th>
@@ -73,14 +87,14 @@
         </thead>
         <tbody>
 
-          <tr *ngFor="let install of installList">
-            <td>{{install.id}}</td>
-            <td>{{install.region_id}}</td>
-            <td>{{install.full_name}}</td>
+          <tr *ngFor="let item of List">
+            <td>{{item.name}}</td>
+            <td>{{item.code}}</td>
+            <td>{{item.region_name}}</td>
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataInstall(content, install)">修改</a>
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelInstall(contentDelUser, install)">删除</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdata(content, item)">修改</a>
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openDel(contentDelUser, item)">删除</a>
               </div>
             </td>
 
@@ -89,9 +103,9 @@
       </table>
 
       <!-- 判断显示无数据 -->
-      <div *ngIf="installList.length === 0 || !installList">无数据！</div>
+      <div *ngIf="List.length === 0 || !List">无数据！</div>
       <!-- 判断显示页面 -->
-      <div *ngIf="installList.length > 0">
+      <div *ngIf="List.length > 0">
         <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
           [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
       </div>
