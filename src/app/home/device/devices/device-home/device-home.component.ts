@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 // const URL = '/api/';
@@ -41,14 +42,19 @@ export class DeviceHomeComponent implements OnInit {
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
   deviceslist = [];  // 设备列表
-  page: any;
-  pageSize = 10;
-  total: number;
+
+  page = 1; // 分页
+  pageSize = 10; // 分页
+  total = 0; // 分页
+  page2 = 1; // 分页
+  pageSize2 = 10; // 分页
+  total2 = 0; // 分页
   deviceModels = [];  // 设备型号列表
+  CustomerList = [];  // 客户列表
   deviceModels1 = [];
   currentModel: any; // 当前设备型号
-  queryStr: any; // 检索字符串
-  queryStrPosi: any; // 按区域显示的位置点，检索字符串
+  queryStr = ''; // 检索字符串
+  queryStrPosi = ''; // 按区域显示的位置点，检索字符串
   device: any = {}; // 存储数据
   public mr: NgbModalRef; // 当前弹框
   modelData = {
@@ -56,16 +62,19 @@ export class DeviceHomeComponent implements OnInit {
     body: 'hh',
   };
   posiListByRegion = []; // 按区域返回的位置点列表
-  pagePosi: any;
-  pageSizePosi = 10;
-  total1: number;
+  pagePosi = 1; // 分页
+  pageSizePosi = 10;  // 分页
+  total1 = 0;  // 分页
   showPosiTable = false; // 默认不显示表格内容，只显示表头
   bindedPosition: any; // 修改的设备
   addOrUpdate: any; // 新建/修改标识
   curModelIndex: any; // 当前设备型号标识
-  devicePid: any;
-  parentDescription = '';
-  dataFile = '';
+  devicePid: any; // 子设备
+  parentDescription = ''; // 子设备
+  dataFile = ''; // 文件路径
+  currentCustomer: any = {}; // 当前客户
+  Customershow = false;
+  customerId: null; // 平台客户
 
   showonprogresslist = false; // 默认不显示日志消息
   logList = [
@@ -80,21 +89,24 @@ export class DeviceHomeComponent implements OnInit {
   response: string;
   // 上传文件
 
+
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
 
   constructor(public router: Router, private modalService: NgbModal,
-    private deviceService: DeviceService) {
+    private deviceService: DeviceService,
+    public jwtHelper: JwtHelperService,
+    ) {
     const that = this;
     const url = `/api/device/import?dataFile=${that.dataFile}`;
-    this.page = 1;
-    this.pagePosi = 1;
     this.curModelIndex = 0; // 全选
-    this.queryStr = '';
-    this.queryStrPosi = '';
+
     this.device.point = { lng: '', lat: '' };
+    const token = localStorage.getItem('token');
+    const tokenobj = this.jwtHelper.decodeToken(token);
+    this.customerId = this.jwtHelper.decodeToken(token).customerId;
   // 上传文件
     this.uploader = new FileUploader({
       // url: `${URL}/api/device/import`,
@@ -153,6 +165,7 @@ export class DeviceHomeComponent implements OnInit {
     this.getCity();
     this.getAllDeviceModel();
     this.getDevicesList(this.page, this.pageSize);
+    this.getCustomer();
   }
 
   // 下载文件
@@ -285,8 +298,46 @@ export class DeviceHomeComponent implements OnInit {
   pageChange() {
     this.getDevicesList(this.page, this.pageSize);
   }
+
+  // 分页
+  pageChange2() {
+    this.getCustomer();
+  }
   pageChangePosi() {
     this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
+  }
+
+  // 分页获取道路
+  getCustomer() {
+    const that = this;
+
+    this.deviceService.getCustomer(this.page2, this.pageSize2, '')
+      .subscribe({
+        next: function (val) {
+          that.CustomerList = val.items;
+          that.total2 = val.tota2;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 选择客户
+  selecteCustomer(item) {
+    this.currentCustomer = item;
+    this.Customershow = false;
+  }
+
+  // 显示客户
+  showCustomer() {
+    this.Customershow = true;
+  }
+
+  // 离开客户
+  CustomerlistMouseleave() {
+    this.Customershow = false;
   }
 
   // 批量导入弹窗
@@ -303,7 +354,7 @@ export class DeviceHomeComponent implements OnInit {
   }
 
 
-  // 新建设备
+  // 新建设备弹框
   openNewSurvey(content) {
     this.addOrUpdate = '新建设备';
     this.device.name = '';
@@ -354,15 +405,20 @@ export class DeviceHomeComponent implements OnInit {
   // 新增设备
   addDevice() {
     const that = this;
-    const name = this.device.name;
-    const modelId = this.device.model.id;
-    const descr = this.device.descr;
-    const bindedPosi = this.bindedPosition;
-    const lng = bindedPosi.point.lng;
-    const lat = bindedPosi.point.lat;
-    const posiId = bindedPosi.id;
 
-    this.deviceService.addNewDevice(name, modelId, descr, posiId, lng, lat).subscribe({
+    const body = {
+      'name': this.device.name,
+      'modelId': this.device.model.id,
+      'description': this.device.descr,
+      'positionId': this.bindedPosition ? this.bindedPosition.id : null,
+      'point': {
+        'lat': this.bindedPosition && this.bindedPosition.point.lat,
+        'lng': this.bindedPosition && this.bindedPosition.point.lng
+      },
+      'customerId': this.currentCustomer.id,
+    };
+
+    this.deviceService.addNewDevice(body).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,
@@ -386,7 +442,7 @@ export class DeviceHomeComponent implements OnInit {
       }
     });
   }
-  // 修改设备
+  // 修改设备弹框
   openUpdataDevice(content, item, i) {
     this.queryStrPosi = '';
     this.addOrUpdate = '更新设备';
@@ -396,8 +452,9 @@ export class DeviceHomeComponent implements OnInit {
     this.device.updateId = item.id;
     this.device.name = item.name;
     this.device.point = item.point;
+    this.currentCustomer.id = item.customerId; // 当前客户
+    this.currentCustomer.name = item.customerName; // 当前客户
     const id = item.modelId;
-
     this.device.descr = item.description;
     // 传入当前设备的类型
     for (let index = 0; index < this.deviceModels1.length; index++) {
@@ -420,15 +477,20 @@ export class DeviceHomeComponent implements OnInit {
   // 修改设备信息
   updataDevice() {
     const that = this;
-    const id = this.device.updateId;
-    const name = this.device.name;
-    const modelId = this.device.modelId;
-    const descr = this.device.descr;
-    const bindedPosi = this.bindedPosition;
-    const lng = bindedPosi.point.lng;
-    const lat = bindedPosi.point.lat;
-    const posiId = bindedPosi.id;
-    this.deviceService.updateDevice(id, name, modelId, descr, posiId, lng, lat).subscribe({
+
+    const body = {
+      'id': this.device.updateId,
+      'name': this.device.name,
+      'modelId': this.device.model.id,
+      'description': this.device.descr,
+      'positionId': this.bindedPosition ? this.bindedPosition.id : null,
+      'point': {
+        'lat': this.bindedPosition && this.bindedPosition.point.lat,
+        'lng': this.bindedPosition && this.bindedPosition.point.lng
+      },
+      'customerId': this.currentCustomer.id,
+    };
+    this.deviceService.updateDevice(body).subscribe({
       next: function (val) {
         that.alerts.push({
           id: 1,
@@ -501,7 +563,6 @@ export class DeviceHomeComponent implements OnInit {
   // position表点击事件
   bindPosition(position) {
     this.map.clearOverlays();
-    this.bindedPosition = position;
     const point = new BMap.Point(position.point.lng, position.point.lat);
     this.map.centerAndZoom(point, 18);
     const mySquare = new GradOverlar(point, 50, 'tag-bule');

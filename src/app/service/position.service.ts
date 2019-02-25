@@ -79,6 +79,15 @@ export class PositionService {
 
     }
 
+    // 获取所有Customer
+    getCustomer(page, pageSize, queryStr): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/api/customer?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
 
 
 

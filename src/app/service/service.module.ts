@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FullScreenService } from './full-screen.service';
 import { DialogService } from './dialog.service';
-import { BeiduAPIService } from './servers/baiduApi';
-import { BeiduMAPService } from './servers/baiduMap';
+
 import { MonitorService } from './monitor.service';
 
 import { MessService } from './mess.service';
@@ -31,7 +30,7 @@ import { CustomerService } from './customer.service';
     CommonModule
   ],
   declarations: [],
-  providers: [FullScreenService, BeiduAPIService, BeiduMAPService, MonitorService,
+  providers: [FullScreenService,  MonitorService,
     LightService, CoverService, AirmonitorService, CameraService, StrategyService,
     DeviceService, PositionService, ProductService, LedService, DialogService, AdminService, RightService,
     MessService, UrlService, CommunicateService, VideoService, IssuedataService,

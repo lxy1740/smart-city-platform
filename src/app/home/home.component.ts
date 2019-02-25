@@ -5,7 +5,6 @@ import { CookieService } from 'ngx-cookie';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AUTHORITYTREECOPYROUTE } from '../data/Authority.tree.route';
 import { MessService } from '../service/mess.service';
-// import { UrlService } from '../service/url.service';s
 import { CommunicateService } from '../service/communicate.service';
 declare let $: any;
 

@@ -2,6 +2,7 @@ import { Input, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { PositionService } from '../../../service/position.service';
 import { GradOverlar } from '../../../service/grad.overlay';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 // baidu map
 declare let BMap;
@@ -30,6 +31,7 @@ export class PositionComponent implements OnInit {
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
   wayshow = false; // 默认道路列表不显示
+  Customershow = false; // 默认客户列表不显示
 
   visible = true; // 控制可视区域
   zoom: any; // 地图级数
@@ -37,6 +39,7 @@ export class PositionComponent implements OnInit {
   node = null; // 用于递归查询JSON树 父子节点---当前城市
   positionListItems = []; // 位置列表
   roadList = []; // 道路列表
+  CustomerList = []; // CustomerList列表
   positionList: any; // 位置列表
   total = 0; // 分页
   page = 1; // 分页
@@ -44,6 +47,9 @@ export class PositionComponent implements OnInit {
   total1 = 0; // 分页
   page1 = 1; // 分页
   pageSize1 = 10; // 分页
+  total2 = 0; // 分页
+  page2 = 1; // 分页
+  pageSize2 = 10; // 分页
   queryStr = '';
   queryStr1 = '';
   public mr: NgbModalRef; // 当前弹框
@@ -53,16 +59,24 @@ export class PositionComponent implements OnInit {
   };
   errorMess = []; // 经纬度错误消息
   currentWay: any = {}; // 当前道路
+  currentCustomer: any = {}; // 当前客户
   addOrupdata = '新建位置';
+  customerId: null; // 平台客户
 
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
 
-  constructor(private modalService: NgbModal, private positionService: PositionService) {
+  constructor(private modalService: NgbModal, private positionService: PositionService,
+    public jwtHelper: JwtHelperService,
+    ) {
 
     this.model.point = {lng: '', lat: ''};
+    const token = localStorage.getItem('token');
+    const tokenobj = this.jwtHelper.decodeToken(token);
+    this.customerId = this.jwtHelper.decodeToken(token).customerId;
+    console.log(tokenobj);
   }
 
   public closeAlert(alert: IAlert) {
@@ -93,12 +107,20 @@ export class PositionComponent implements OnInit {
     this.getPositionType();
     this.getPosition(0, this.page, this.pagesize);
     this.getRoads();
+    this.getCustomer();
   }
   // 选择道路
   selecteWay(item) {
     this.currentWay = item;
     this.wayshow = false;
     this.model.wayId = item.id;
+  }
+
+  // 选择客户
+  selecteCustomer(item) {
+    this.currentCustomer = item;
+    this.Customershow = false;
+    this.model.CustomerId = item.id;
   }
   // 检索按键点击事件
   execQuery() {
@@ -125,11 +147,28 @@ export class PositionComponent implements OnInit {
   getRoads() {
     const that = this;
 
-    this.positionService.getRoads(this.page1, this.pageSize1, this.queryStr1)
+    this.positionService.getRoads(this.page1, this.pageSize1, '')
       .subscribe({
         next: function (val) {
           that.roadList = val.items;
           that.total1 = val.total;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 分页获取道路
+  getCustomer() {
+    const that = this;
+
+    this.positionService.getCustomer(this.page2, this.pageSize2, '')
+      .subscribe({
+        next: function (val) {
+          that.CustomerList = val.items;
+          that.total2 = val.tota2;
         },
         error: function (error) {
           console.log(error);
@@ -193,6 +232,9 @@ export class PositionComponent implements OnInit {
     this.currentWay.id = item.wayId; // 当前道路
     this.currentWay.name = item.wayName; // 当前道路
 
+    this.currentCustomer.id = item.customerId; // 当前客户
+    this.currentCustomer.name = item.customerName; // 当前客户
+
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
@@ -239,7 +281,8 @@ export class PositionComponent implements OnInit {
         'point': this.model.point,
         'regionId': this.currentRegion.id,
         'type': this.model.device.id,
-        'wayId': this.currentWay.wayId
+        'wayId': this.currentWay.wayId,
+        'customerId': this.currentCustomer.id,
       };
 
       this.positionService.setPosition(body).subscribe({
@@ -289,7 +332,8 @@ export class PositionComponent implements OnInit {
             'point': this.model.point,
             'regionId': this.currentRegion.id,
             'type': this.model.device.id,
-            'wayId': this.currentWay.wayId
+            'wayId': this.currentWay.wayId,
+            'customerId': this.currentCustomer.id,
           };
 
           this.positionService.updataPosition(body).subscribe({
@@ -406,6 +450,11 @@ export class PositionComponent implements OnInit {
   // 分页
   pageChange1() {
     this.getRoads();
+  }
+
+  // 分页
+  pageChange2() {
+    this.getCustomer();
   }
 
   // 获取位置类型列表
@@ -652,6 +701,11 @@ export class PositionComponent implements OnInit {
   showWay() {
     this.wayshow = true;
   }
+
+  // 显示客户
+  showCustomer() {
+    this.Customershow = true;
+  }
   // 选择区域
   arealistMouseover(area) {
     this.currentBlockList = area.children;
@@ -668,6 +722,10 @@ export class PositionComponent implements OnInit {
   // 离开道路
   waylistMouseleave() {
     this.wayshow = false;
+  }
+  // 离开客户
+  CustomerlistMouseleave() {
+    this.Customershow = false;
   }
   arealistMouseNone() {
     this.areashow = true;

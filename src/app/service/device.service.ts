@@ -61,17 +61,9 @@ export class DeviceService {
     }
 
     // 新增设备
-    addNewDevice(name: String, modelId: Number, descr: String, positionId: Number, lng: Number, lat: Number): Observable<any> {
-        return this.http.post('/api/device', {
-            'name': name,
-            'modelId': modelId,
-            'description': descr,
-            'positionId': positionId,
-            'point': {
-                'lat': lat,
-                'lng': lng
-            }
-        })
+    addNewDevice(body): Observable<any> {
+        return this.http.post('/api/device', body
+        )
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -87,18 +79,8 @@ export class DeviceService {
     }
 
     // 修改设备
-    updateDevice(id: Number, name: String, modelId: Number, descr: String, positionId: Number, lng: Number, lat: Number): Observable<any> {
-        return this.http.put(`/api/device`, {
-            'id': id,
-            'name': name,
-            'modelId': modelId,
-            'description': descr,
-            'positionId': positionId,
-            'point': {
-                'lat': lat,
-                'lng': lng
-            }
-        })
+    updateDevice(body): Observable<any> {
+        return this.http.put(`/api/device`, body)
             .pipe(map((res: Response) => {
                 const data = { status: 200 };
                 return data;
@@ -116,6 +98,16 @@ export class DeviceService {
     // 获取指定位置点
     getPosiById(id: number): Observable<any> {
         return this.http.get(`/api/position/${id}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
+    // 获取所有Customer
+    getCustomer(page, pageSize, queryStr): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/api/customer?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
