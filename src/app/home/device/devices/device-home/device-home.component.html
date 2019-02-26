@@ -445,7 +445,7 @@
           <tr *ngFor="let device of deviceslist; let i = index" class="lineheight">
             <td>{{i + 1}}</td>
             <td>
-              <span *ngIf="device.customerId">{{device.customerId}}</span>
+              <span *ngIf="device.customerId">{{device.customerName}}</span>
               <span *ngIf="!device.customerId">平台用户</span>
             </td>
             <td>{{device.description}}</td>

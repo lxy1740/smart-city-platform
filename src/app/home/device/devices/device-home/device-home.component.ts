@@ -71,7 +71,7 @@ export class DeviceHomeComponent implements OnInit {
   curModelIndex: any; // 当前设备型号标识
   devicePid: any; // 子设备
   parentDescription = ''; // 子设备
-  dataFile = ''; // 文件路径
+  fileUrl = ''; // 文件路径
   currentCustomer: any = {}; // 当前客户
   Customershow = false;
   customerId: null; // 平台客户
@@ -100,7 +100,7 @@ export class DeviceHomeComponent implements OnInit {
     public jwtHelper: JwtHelperService,
     ) {
     const that = this;
-    const url = `/api/device/import?dataFile=${that.dataFile}`;
+    const url = `/api/device/import`;
     this.curModelIndex = 0; // 全选
 
     this.device.point = { lng: '', lat: '' };
@@ -111,7 +111,8 @@ export class DeviceHomeComponent implements OnInit {
     this.uploader = new FileUploader({
       // url: `${URL}/api/device/import`,
       url: url,
-      headers: [{ name: 'Authorization', value: `Bearer ${localStorage.getItem('token')}` }, { name: 'Accept', value: '*/*' }],
+      headers: [{ name: 'Authorization', value: `Bearer ${localStorage.getItem('token')}` },
+        { name: 'Accept', value: '*/*' }, { name: 'content-type', value: 'application/x-xls;charset=utf-8'}],
       disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
@@ -120,7 +121,7 @@ export class DeviceHomeComponent implements OnInit {
             name: item._file.name,
             length: item._file.size,
             contentType: item._file.type,
-            url: that.dataFile,
+            fileUrl: that.fileUrl,
             date: new Date()
           });
         });
@@ -177,7 +178,7 @@ export class DeviceHomeComponent implements OnInit {
   selectedFileOnChanged(event: any) {
     console.log(event.target.value);
     console.log(this.uploader);
-    this.dataFile = event.target.value;
+    this.fileUrl = event.target.value;
   }
   // 属性页面
   goToZheRoute(para, id) {
