@@ -117,7 +117,7 @@ export class RoadComponent implements OnInit {
         enable: true,
         chkStyle: 'checkbox', // 勾选框类型(checkbox 或 radio）
         radioType: 'all', // 对所有树实现单选
-        chkboxType: { 'Y': 's', 'N': 'ps' }
+        chkboxType: { 'Y': '', 'N': '' }
       },
       callback: {
         onClick: this.zTreeOnClick, // 点击事件
@@ -166,7 +166,7 @@ export class RoadComponent implements OnInit {
   addRoads() {
     const that = this;
     const body = {
-      wayName: this.ROADMODEL.name,
+      wayName: this.ROADMODEL.wayName,
       regions: this.ROADMODEL.regions
     };
 
@@ -228,7 +228,7 @@ export class RoadComponent implements OnInit {
   updetaRoads() {
     const that = this;
     const body = {
-      wayName: this.ROADMODEL.name,
+      wayName: this.ROADMODEL.wayName,
       regions: this.ROADMODEL.regions,
       wayId: this.ROADMODEL.wayId
     };
