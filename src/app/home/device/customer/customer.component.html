@@ -90,7 +90,9 @@
           <tr *ngFor="let item of List">
             <td>{{item.name}}</td>
             <td>{{item.code}}</td>
-            <td>{{item.region_name}}</td>
+            <td>
+              <span *ngFor="let  item1 of item.installZone">{{item1.fullName}};</span>
+              </td>
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdata(content, item)">修改</a>

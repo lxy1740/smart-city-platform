@@ -76,7 +76,7 @@ export class PositionComponent implements OnInit {
     this.model.point = {lng: '', lat: ''};
     const token = localStorage.getItem('token');
     const tokenobj = this.jwtHelper.decodeToken(token);
-    this.customerId = this.jwtHelper.decodeToken(token).customerId;
+    this.customerId = this.jwtHelper.decodeToken(token).customerid;
 
   }
 
@@ -283,7 +283,7 @@ export class PositionComponent implements OnInit {
         'regionId': this.currentRegion.id,
         'type': this.model.device.id,
         'wayId': this.currentWay.wayId,
-        'customerId': this.currentCustomer.id,
+        'customerId': this.currentCustomer.id || this.customerId,
       };
 
       this.positionService.setPosition(body).subscribe({
@@ -334,7 +334,7 @@ export class PositionComponent implements OnInit {
             'regionId': this.currentRegion.id,
             'type': this.model.device.id,
             'wayId': this.currentWay.wayId,
-            'customerId': this.currentCustomer.id,
+            'customerId': this.currentCustomer.id || this.customerId,
           };
 
           this.positionService.updataPosition(body).subscribe({

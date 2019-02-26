@@ -106,7 +106,8 @@ export class DeviceHomeComponent implements OnInit {
     this.device.point = { lng: '', lat: '' };
     const token = localStorage.getItem('token');
     const tokenobj = this.jwtHelper.decodeToken(token);
-    this.customerId = this.jwtHelper.decodeToken(token).customerId;
+    console.log(tokenobj);
+    this.customerId = this.jwtHelper.decodeToken(token).customerid;
   // 上传文件
     this.uploader = new FileUploader({
       // url: `${URL}/api/device/import`,
@@ -418,7 +419,7 @@ export class DeviceHomeComponent implements OnInit {
         'lat': this.bindedPosition && this.bindedPosition.point.lat,
         'lng': this.bindedPosition && this.bindedPosition.point.lng
       },
-      'customerId': this.currentCustomer.id,
+      'customerId': this.currentCustomer.id || this.customerId,
     };
 
     this.deviceService.addNewDevice(body).subscribe({
@@ -491,7 +492,7 @@ export class DeviceHomeComponent implements OnInit {
         'lat': this.bindedPosition && this.bindedPosition.point.lat,
         'lng': this.bindedPosition && this.bindedPosition.point.lng
       },
-      'customerId': this.currentCustomer.id,
+      'customerId': this.currentCustomer.id || this.customerId,
     };
     this.deviceService.updateDevice(body).subscribe({
       next: function (val) {

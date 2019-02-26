@@ -2,7 +2,7 @@ import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from '../../../service/admin.service';
 import { CustomerService } from '../../../service/customer.service';
-// import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 declare var $: any;
@@ -58,13 +58,13 @@ export class AdminComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
     private adminService: AdminService,
-    private customerService: CustomerService
-    // public jwtHelper: JwtHelperService,
+    private customerService: CustomerService,
+    public jwtHelper: JwtHelperService,
     ) {
 
-    // const token = localStorage.getItem('token');
-    // const tokenobj = this.jwtHelper.decodeToken(token);
-    // this.customerId = this.jwtHelper.decodeToken(token).customerId;
+    const token = localStorage.getItem('token');
+    const tokenobj = this.jwtHelper.decodeToken(token);
+    this.customerId = this.jwtHelper.decodeToken(token).customerid;
     // 树的操作
     // 点击
     const that = this;
@@ -229,7 +229,7 @@ export class AdminComponent implements OnInit {
       'fullName': this.user.fullName,
       'nickName': this.user.nickName,
       'roles': this.user.roleIds,
-      'customerId': this.currentCustomer.id,
+      'customerId': this.currentCustomer.id || this.customerId,
     };
     this.adminService.addNewUser(body).subscribe({
       next: function(val) {
@@ -317,7 +317,7 @@ export class AdminComponent implements OnInit {
       'fullName': this.user.fullName,
       'nickName': this.user.nickName,
       'roles': this.user.roleIds,
-      'customerId': this.currentCustomer.id,
+      'customerId': this.currentCustomer.id || this.customerId,
     };
     this.adminService.updateUser(body).subscribe({
       next: function(val) {

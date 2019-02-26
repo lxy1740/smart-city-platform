@@ -46,14 +46,14 @@ export class CustomerComponent implements OnInit {
     // 点击
     const that = this;
     this.zTreeOnCheck = (event, treeId, treeNode) => { // 勾选
-      this.customerModelDate.geoRegion = {}; // 重新赋值前先清空
+      // this.customerModelDate.geoRegion = {}; // 重新赋值前先清空
       // 获取树的节点
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo');
       const nodes = treeObj.getCheckedNodes(true);
       console.log(nodes);
-      this.customerModelDate.region_id = [];
+      this.customerModelDate.regionIds = [];
       nodes.map(item => {
-        this.customerModelDate.region_id.push(item.id);
+        that.customerModelDate.regionIds.push(item.id);
       });
 
     };
@@ -167,23 +167,15 @@ export class CustomerComponent implements OnInit {
   openNewInstallZone(content) {
     const that = this;
     this.AddorUpdate = '新增安装区域';
-    this.customerModelDate = {
-      'center': {
-        'lat': 0,
-        'lng': 0
-      },
-      'full_name': '',
-      'level': 0,
-      'name': '',
-      'region_id': ''
-    };
 
-    this.customerModelDate.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
-    this.customerModelDate.geoRegion = '';
+    this.customerModelDate.name = '';
+    this.customerModelDate.code = '';
+    // this.customerModelDate.geoRegionChecked = []; // 新建用户时各角色的选中状态（check）
+    // this.customerModelDate.geoRegion = '';
     // 此处添加树
-    this.zNodes.map((item, i) => {
-      that.customerModelDate.geoRegionChecked.push({ check: true }); // 对应树结构
-    });
+    // this.zNodes.map((item, i) => {
+    //   that.customerModelDate.geoRegionChecked.push({ check: true }); // 对应树结构
+    // });
 
     // 关于弹框
     const modal = this.modalService.open(content, { size: 'lg' });
@@ -202,10 +194,13 @@ export class CustomerComponent implements OnInit {
   // 打开 修改 弹框
   openUpdata(contentUpdate, item) {
     this.AddorUpdate = '修改角色';
-    this.customerModelDate = item;
+    this.customerModelDate.id = item.id;
+    this.customerModelDate.name = item.name;
+    this.customerModelDate.code = item.code;
+    this.customerModelDate.regionIds = item.regionIds;
     // 所修改的区域
 
-    this.customerModelDate.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
+    // this.customerModelDate.geoRegionChecked = []; // 新建及修改用户时各角色的选中状态（check）
     const modal = this.modalService.open(contentUpdate, { size: 'lg' });
     this.mr = modal;
     modal.result.then((result) => {
@@ -213,7 +208,7 @@ export class CustomerComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    this.setZtreeNode([]);
+    this.setZtreeNode(item.regionIds);
   }
   // 删除 安装 区域 弹框
   openDel(content, item) {
@@ -241,7 +236,8 @@ export class CustomerComponent implements OnInit {
     const that = this;
     const body = {
       name: this.customerModelDate.name,
-      code: this.customerModelDate.code
+      code: this.customerModelDate.code,
+      regionIds: this.customerModelDate.regionIds
     };
     this.customerService.addNewCustomer(body)
       .subscribe({
@@ -274,7 +270,8 @@ export class CustomerComponent implements OnInit {
     const body = {
       id: this.customerModelDate.id,
       name: this.customerModelDate.name,
-      code: this.customerModelDate.code
+      code: this.customerModelDate.code,
+      regionIds: this.customerModelDate.regionIds
     };
     this.customerService.updateCustomer(body)
       .subscribe({

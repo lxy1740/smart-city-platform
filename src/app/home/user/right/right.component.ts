@@ -91,12 +91,12 @@ export class RightComponent implements OnInit {
     this.AddorUpdate = '新增角色';
     this.role.name = '';
 
-    this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
+    // this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
     this.role.authorities = {};
     // 此处添加树
-    this.zNodes.map((item, i) => {
-      that.role.deskListChecked.push({check: true}); // 对应树结构
-    });
+    // this.zNodes.map((item, i) => {
+    //   that.role.deskListChecked.push({check: true}); // 对应树结构
+    // });
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
@@ -140,11 +140,10 @@ export class RightComponent implements OnInit {
     const that = this;
     this.AddorUpdate = '修改角色';
     this.role.curRole = item; // 所修改的用户
-    console.log('item', item);
     this.role.name = item.name;
     this.role.authorityIds = this.getkeys(item.authorities);
     this.role.authorities = item.authorities; // 权限加上
-    this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
+    // this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
