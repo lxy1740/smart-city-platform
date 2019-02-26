@@ -67,7 +67,7 @@ export class InstallComponent implements OnInit {
       this.installModelDate.level = nodes[0].level;
     };
 
-    this.zNodes = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
+    // this.zNodes = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
   }
 
   public closeAlert(alert: IAlert) {
@@ -91,7 +91,7 @@ export class InstallComponent implements OnInit {
     .subscribe({
       next: function (val) {
         that.zNodes = val;
-        window.localStorage.regionsList = JSON.stringify(val);
+        // window.localStorage.regionsList = JSON.stringify(val);
       }
     });
   }

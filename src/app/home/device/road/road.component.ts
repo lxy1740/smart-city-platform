@@ -63,7 +63,7 @@ export class RoadComponent implements OnInit {
       console.log(that.ROADMODEL.regions);
     };
     this.ROADMODEL.regions = [];
-    this.regionsList = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
+    // this.regionsList = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
 
   }
 
@@ -136,7 +136,7 @@ export class RoadComponent implements OnInit {
       .subscribe({
         next: function (val) {
           that.regionsList = val;
-          window.localStorage.regionsList = JSON.stringify(val);
+          // window.localStorage.regionsList = JSON.stringify(val);
         },
         error: function (error) {
           console.log(error);
@@ -317,7 +317,7 @@ export class RoadComponent implements OnInit {
 
   // 新建道路 or 修改
   addorUpdate() {
-    if (this.addOrUpdate === '') {
+    if (this.addOrUpdate === '新建道路') {
       this.addRoads();
     } else {
       this.updetaRoads();

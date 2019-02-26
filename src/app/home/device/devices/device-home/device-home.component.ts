@@ -112,19 +112,20 @@ export class DeviceHomeComponent implements OnInit {
       // url: `${URL}/api/device/import`,
       url: url,
       headers: [{ name: 'Authorization', value: `Bearer ${localStorage.getItem('token')}` },
-        { name: 'Accept', value: '*/*' }, { name: 'content-type', value: 'application/x-xls;charset=utf-8'}],
+        { name: 'Accept', value: '*/*' }, { name: 'content-type', value: 'application/octet-stream;charset=utf-8'}],
       disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
-        return new Promise((resolve, reject) => {
-          resolve({
-            name: item._file.name,
-            length: item._file.size,
-            contentType: item._file.type,
-            fileUrl: that.fileUrl,
-            date: new Date()
-          });
-        });
+        console.log(item);
+        // return new Promise((resolve, reject) => {
+        //   resolve({
+        //     name: item._file.name,
+        //     length: item._file.size,
+        //     contentType: item._file.type,
+        //     fileUrl: that.fileUrl,
+        //     date: new Date()
+        //   });
+        // });
       }
     });
 

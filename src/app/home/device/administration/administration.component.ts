@@ -70,7 +70,7 @@ export class AdministrationComponent implements OnInit {
       that.getChildRegions();
     };
 
-    this.regionsList = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
+    // this.regionsList = window.localStorage.regionsList ? JSON.parse(window.localStorage.regionsList) : [];
     this.allRegin.push({
         full_name: '北京市',
         id: '',
@@ -157,7 +157,7 @@ export class AdministrationComponent implements OnInit {
             children: that.regionsList,
 
           });
-          window.localStorage.regionsList = JSON.stringify(val);
+          // // window.localStorage.regionsList = JSON.stringify(val);
         },
         complete: function () {
           that.getZoneTree();
