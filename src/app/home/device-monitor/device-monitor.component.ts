@@ -578,7 +578,7 @@ export class DeviceMonitorComponent implements OnInit {
     //     that.getDeviceDetails(positionId, deviceType);
     //   }
     // }
-    that.getDeviceDetails(this.currentDevice.id, that.currentDeviceDetail.deviceType);
+    that.getDeviceDetails(this.currentDevice.id, that.currentDeviceDetail.items[0]);
   }
 
   // 点击子设备
