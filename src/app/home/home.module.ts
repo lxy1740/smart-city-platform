@@ -9,6 +9,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
 
+
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
          SharedModule,
@@ -19,6 +20,7 @@ import { HomeComponent } from './home.component';
     ],
     declarations: [
     HomeComponent,
+
 
 
 

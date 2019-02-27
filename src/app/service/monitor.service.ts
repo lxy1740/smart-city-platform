@@ -95,5 +95,17 @@ export class MonitorService {
                 ));
     }
 
+    // 获取设备信息
+    getDeviceByName(name): Observable<any> {
+        return this.http.get(`/api/device/getByName?name=${name}`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+
+                ));
+    }
+
+
 
 }
