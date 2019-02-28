@@ -41,7 +41,7 @@
     
     <div class="row modal-body">
         <!-- 左列 -->
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-4">
 
           <div class="form-inline padding-15">
             <span class="text-danger">*</span>
@@ -247,8 +247,16 @@
 
         </div>
         <!-- 右列 -->
-        <div class="col-12 col-md-6">
-            <div #map1  id="position_map" class="map_container"></div>
+        <div class="col-12 col-md-8">
+          <div class="form-inline inner-addon left-addon " style="margin-bottom: 15px;">
+          
+            <input [(ngModel)]="address" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off"
+              placeholder="地址搜索" style="width: 75%">
+            <button class="btn btn-bg" (click)="adGeocoder(address)" style="margin-left: 5px">搜索</button>
+          </div>
+
+
+          <div #map1  id="position_map" class="map_container"></div>
         </div>
     </div>
 

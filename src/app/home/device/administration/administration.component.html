@@ -38,6 +38,15 @@
     </div>
     <!-- 右列 -->
     <div class="col-12 col-md-8">
+      <!-- <input type="text" [(ngModel)]="address">
+      <button (click)="adGeocoder(address)">搜索</button> -->
+      <div class="form-inline inner-addon left-addon " style="margin-bottom: 15px;">
+
+          <input [(ngModel)]="address" class="form-control searchbox-content-common" type="text" name="word" autocomplete="off"
+            placeholder="地址搜索" style="width: 75%">
+          <button class="btn btn-bg" (click)="adGeocoder(address)" style="margin-left: 5px">搜索</button>
+      </div>
+
       <div #map1 id="position_map" class="map_container"></div>
     </div>
   </div>
@@ -138,13 +147,7 @@
             </div>
 
 
-          <!-- <div *ngIf=" historydatalistItems.length ==0">无数据！</div> -->
-          <!-- 分页 开始-->
-          <!-- <div *ngIf=" historydatalistItems.length > 0">
-            <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true"
-              [ellipses]="false" [boundaryLinks]="true" (pageChange) = "pageChange()"></ngb-pagination>
-          </div> -->
-            <!-- 分页 结束 -->
+
         </div>
     </div>
   </div>

@@ -63,6 +63,7 @@ export class PositionComponent implements OnInit {
   addOrupdata = '新建位置';
   currentCustomer: any = {}; // 当前客户
   customerId: null; // 平台客户
+  address = '';
 
   @Input()
   public alerts: Array<IAlert> = [];
@@ -109,6 +110,22 @@ export class PositionComponent implements OnInit {
     this.getPosition(0, this.page, this.pagesize);
     this.getRoads();
     this.getCustomer();
+  }
+
+  adGeocoder(name) {
+    const myGeo = new BMap.Geocoder();
+    const that = this;
+    // 将地址解析结果显示在地图上,并调整地图视野
+    myGeo.getPoint(name, function (point) {
+      if (point) {
+        that.map.centerAndZoom(point, 7);
+        that.map.addOverlay(new BMap.Marker(point));
+        that.model.center.lng = point.lng;
+        that.model.center.lat = point.lat;
+      } else {
+        alert('您选择地址没有解析到结果!');
+      }
+    }, '');
   }
   // 选择道路
   selecteWay(item) {
@@ -186,7 +203,7 @@ export class PositionComponent implements OnInit {
     this.model.name = ''; // name
     this.model.number = ''; // number
     this.currentAreaList = this.currentCity.children; // 当前城市下的区域列表
-    this.currentRegion = this.currentAreaList[0].children[0]; // 当前区域
+    this.currentRegion = this.currentAreaList && this.currentAreaList[0].children[0]; // 当前区域
     this.model.device = this.deviceList[0]; // 类型
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;

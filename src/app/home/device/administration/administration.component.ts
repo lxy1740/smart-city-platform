@@ -46,6 +46,7 @@ export class AdministrationComponent implements OnInit {
 
   }; // 新增数据类
   map: any = {}; // 地图
+  address = '';
   // 关于树
   public zTreeOnClick: (event, treeId, treeNode) => void;
   public zTreeOnCheck: (event, treeId, treeNode) => void; // 触发勾选树的事件
@@ -101,6 +102,22 @@ export class AdministrationComponent implements OnInit {
     this.getZoneTree();
     this.getRegions();
     this.getChildRegions();
+  }
+
+  adGeocoder(name) {
+    const myGeo = new BMap.Geocoder();
+    const that = this;
+    // 将地址解析结果显示在地图上,并调整地图视野
+    myGeo.getPoint(name, function (point) {
+      if (point) {
+        that.map.centerAndZoom(point, 7);
+        that.map.addOverlay(new BMap.Marker(point));
+        that.RegionMODEL.center.lng = point.lng;
+        that.RegionMODEL.center.lat = point.lat;
+      } else {
+        alert('您选择地址没有解析到结果!');
+      }
+    }, '');
   }
 
   // 添加地图实例
@@ -301,6 +318,7 @@ export class AdministrationComponent implements OnInit {
     const that = this;
     this.RegionMODEL.center = { lng: '', lat: '' };
     this.RegionMODEL.name = '';
+    this.address = '';
     this.RegionMODEL.children = [];
     // delete this.RegionMODEL.id;
    // 新增数据类
@@ -325,6 +343,7 @@ export class AdministrationComponent implements OnInit {
     this.RegionMODEL.name = item.name;
     this.RegionMODEL.center = item.center;
     this.RegionMODEL.level = item.level;
+    this.address = item.name;
     // delete this.RegionMODEL.children;
     // delete this.RegionMODEL.parentId;
 
