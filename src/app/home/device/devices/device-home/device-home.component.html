@@ -1,5 +1,8 @@
 <!-- 批量导入设备 -->
 <ng-template #content let-c="close" let-d="dismiss">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+  </p>
   <div class="modal-header">
     <h4 class="modal-title">批量导入设备</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -98,14 +101,14 @@
             </tbody>
           </table>
 
-          <div>
+          <!-- <div>
             <div>
-              Queue progress:
+              队列上传进度:
               <div class="progress" style="">
                 <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
               </div>
             </div>
-            <!-- <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
               <span class="glyphicon glyphicon-upload"></span> Upload all
             </button>
             <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
@@ -113,8 +116,8 @@
             </button>
             <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
               <span class="glyphicon glyphicon-trash"></span> Remove all
-            </button> -->
-          </div>
+            </button>
+          </div> -->
 
         </div>
 
@@ -122,16 +125,16 @@
 
       <br><br>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Response</div>
+            <div class="panel-heading">反馈信息：</div>
             <div class="panel-body">
               {{ response }}
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="modal-footer">
@@ -366,7 +369,7 @@
   <app-sq-modal [input]="modelData" (output)="closeDevice($event)"></app-sq-modal>
 </ng-template>
 <div class="bodyofclass cart-over">
-  <p *ngFor="let alert of alerts" class="lsq-alert">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
   </p>
 

@@ -91,7 +91,7 @@ export class DeviceHomeComponent implements OnInit {
 
 
   @Input()
-  public alerts: Array<IAlert> = [];
+
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
 
@@ -136,7 +136,32 @@ export class DeviceHomeComponent implements OnInit {
 
     this.response = '';
 
-    this.uploader.response.subscribe(res => this.response = res);
+    this.uploader.response.subscribe(res => {
+      this.response = res;
+      console.log(res.errors);
+      console.log(typeof(res));
+      if (typeof (res) === 'string') {
+        const res1 = JSON.parse(res);
+        if (res1.errors) {
+          console.log(res1);
+          const message = res1.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `上传失败: ${message}！`,
+          });
+        } else {
+          that.alertsModal.push({
+            id: 1,
+            type: 'success',
+            message: '上传成功！',
+          });
+          that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
+        }
+
+      }
+
+    });
     // 上传文件
   }
 
@@ -156,10 +181,7 @@ export class DeviceHomeComponent implements OnInit {
     console.log(e);
   }
 
-  public closeAlert(alert: IAlert) {
-    const index: number = this.alerts.indexOf(alert);
-    this.alerts.splice(index, 1);
-  }
+
   public closeAlertModal(alert: IAlert) {
     const index: number = this.alertsModal.indexOf(alert);
     this.alertsModal.splice(index, 1);
@@ -424,12 +446,12 @@ export class DeviceHomeComponent implements OnInit {
 
     this.deviceService.addNewDevice(body).subscribe({
       next: function (val) {
-        that.alerts.push({
+        that.alertsModal.push({
           id: 1,
           type: 'success',
           message: '新建成功！',
         });
-        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
         that.mr.close();
       },
       complete: function () {
@@ -496,12 +518,12 @@ export class DeviceHomeComponent implements OnInit {
     };
     this.deviceService.updateDevice(body).subscribe({
       next: function (val) {
-        that.alerts.push({
+        that.alertsModal.push({
           id: 1,
           type: 'success',
           message: '修改成功！',
         });
-        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
         that.mr.close();
       },
       complete: function () {
@@ -543,12 +565,12 @@ export class DeviceHomeComponent implements OnInit {
     }
     this.deviceService.delDevice(id).subscribe({
       next: function (val) {
-        that.alerts.push({
+        that.alertsModal.push({
           id: 1,
           type: 'success',
           message: '删除成功！',
         });
-        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+        that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
         if (flag) {
