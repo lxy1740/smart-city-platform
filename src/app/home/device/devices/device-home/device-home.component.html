@@ -369,8 +369,8 @@
   <app-sq-modal [input]="modelData" (output)="closeDevice($event)"></app-sq-modal>
 </ng-template>
 <div class="bodyofclass cart-over">
-  <p *ngFor="let alert of alertsModal" class="lsq-alert">
-    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+  <p *ngFor="let alert of alerts" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">>{{ alert.message }}</ngb-alert>
   </p>
 
   <div class="card card-primary panel-default cart-min">

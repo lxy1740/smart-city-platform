@@ -93,6 +93,7 @@ export class DeviceHomeComponent implements OnInit {
   @Input()
 
   public alertsModal: Array<IAlert> = [];
+  public alerts: Array<IAlert> = [];
   private backup: Array<IAlert>;
 
   constructor(public router: Router, private modalService: NgbModal,
@@ -181,7 +182,10 @@ export class DeviceHomeComponent implements OnInit {
     console.log(e);
   }
 
-
+  public closeAlert(alert: IAlert) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
   public closeAlertModal(alert: IAlert) {
     const index: number = this.alertsModal.indexOf(alert);
     this.alertsModal.splice(index, 1);
