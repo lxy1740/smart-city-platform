@@ -15,20 +15,6 @@ export class HomepageComponent implements OnInit {
   flag = true;
 
 
-  // setChange() {
-  //   const styApp = this.elementRef.nativeElement.querySelector('.app');
-  //   const sty = this.elementRef.nativeElement.querySelector('.btn1');
-  //   if (styApp) {
-  //     sty.style.background = 'url(../../../assets/imgs/user-profile.png) no-repeat center';
-  //     this.elementRef.nativeElement.querySelector('.pp').remove();
-  //   } else {
-  //     sty.style.background = '#45939D';
-  //     const d1 = this.elementRef.nativeElement.querySelector('.btn1');
-  //     d1.insertAdjacentHTML('beforeend', '<div class="col-md-12 content pp"><p><span><i class="fa  nav-icon">
-  //         </i></span></p><p class="app">APP下载</p></div>');
-  //   }
-  //  }
-
   ngOnInit() {
   }
 
