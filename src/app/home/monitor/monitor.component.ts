@@ -352,7 +352,8 @@ export class MonitorComponent implements OnInit {
       next: function (val) {
         that.map_model.cityList = val.regions;
         that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.map_model.currentCity = that.node;
         that.map_model.currentRegion = that.node.children;
       },

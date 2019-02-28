@@ -183,7 +183,8 @@ export class DeviceMonitorComponent implements OnInit {
       next: function (val) {
         that.map_model.cityList = val.regions; // 安装区域列表
         that.map_model.zone = val.zone; // 第一个显示的安装区域列表
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.map_model.currentCity = that.node; // 当前城市
         that.map_model.currentRegion = that.node.children; // 当前区域
       },

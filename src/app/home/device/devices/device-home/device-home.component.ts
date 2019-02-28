@@ -1,5 +1,5 @@
 
-import { Input, Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit, ɵConsole } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceService } from '../../../../service/device.service';
 import { GradOverlar } from '../../../../service/grad.overlay';
@@ -697,10 +697,11 @@ export class DeviceHomeComponent implements OnInit {
     this.deviceService.getZoneDefault().subscribe({
       next: function (val) {
         that.cityList = val.regions;
-        that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        // that.zoom = that.switchZone(val.zone.level);
+        // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.currentCity = that.node;
-        that.currentChildren = that.node.children;
+        that.currentChildren = that.currentCity.children;
       },
       complete: function () {
 
@@ -783,9 +784,12 @@ export class DeviceHomeComponent implements OnInit {
     this.device.point = { lng: '', lat: '' };
     this.currentCity = city;
     this.currentChildren = city.children;
+    console.log(city);
     this.currentArea = null;
     this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
+    this.pagePosi = 1;
+    this.getPosiByRegionId(this.currentCity.id, this.pagePosi, this.pageSizePosi);
   }
 
   // 街道点击事件

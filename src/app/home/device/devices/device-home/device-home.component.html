@@ -284,7 +284,7 @@
 
                       <ul class="arealist" data-type="area">
                         <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
-                          <em>{{node.name}}</em>
+                          <em (click)="selecteblock(node)">{{node.name}}</em>
                         </li>
                       </ul>
                       <div class="blocklist-wrap" *ngIf="currentBlock">

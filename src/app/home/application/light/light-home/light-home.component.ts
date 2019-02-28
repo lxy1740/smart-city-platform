@@ -645,7 +645,8 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
       next: function (val) {
         that.cityList = val.regions;
         that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.currentCity = that.node ;
         that.currentChildren = that.node.children;
 
