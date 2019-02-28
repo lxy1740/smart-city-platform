@@ -68,6 +68,7 @@ export class AdministrationComponent implements OnInit {
       that.parent.name = treeNode.name;
       that.RegionMODEL.level = treeNode.level + 1;
       that.RegionMODEL.parentId = treeNode.id;
+      that.page = 1;
       that.getChildRegions();
     };
 
@@ -121,13 +122,22 @@ export class AdministrationComponent implements OnInit {
   }
 
   // 添加地图实例
-  addBaiduMap() {
+  addBaiduMap(...center) {
     const map = this.map = new BMap.Map('position_map', {
       enableMapClick: true,
       // minZoom: 11
     }); // 创建地图实例
-    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
-    map.centerAndZoom(point, 5); // 设置中心和地图显示级别
+    let point ;
+    if (center) {
+      point = new BMap.Point(center[0].lng, center[0].lat);
+    } else {
+      point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+
+    }
+
+    map.centerAndZoom(point, 7);
+    map.addOverlay(new BMap.Marker(point));
+    // map.centerAndZoom(point, 5); // 设置中心和地图显示级别
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     // 添加控件缩放
     // const offset = this.visible === true ? new BMap.Size(20, 140) : new BMap.Size(20, 15);
@@ -343,13 +353,12 @@ export class AdministrationComponent implements OnInit {
     this.RegionMODEL.name = item.name;
     this.RegionMODEL.center = item.center;
     this.RegionMODEL.level = item.level;
-    this.address = item.name;
-    // delete this.RegionMODEL.children;
-    // delete this.RegionMODEL.parentId;
+    this.address = item.full_name;
+
 
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
-    this.addBaiduMap();
+    this.addBaiduMap(item.center);
     modal.result.then((result) => {
       // this.showPosiTable = false;
     }, (reason) => {

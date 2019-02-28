@@ -120,6 +120,7 @@ export class PositionComponent implements OnInit {
       if (point) {
         that.map.centerAndZoom(point, 7);
         that.map.addOverlay(new BMap.Marker(point));
+        that.model.center = {};
         that.model.center.lng = point.lng;
         that.model.center.lat = point.lat;
       } else {
@@ -203,12 +204,15 @@ export class PositionComponent implements OnInit {
     this.model.name = ''; // name
     this.model.number = ''; // number
     this.currentAreaList = this.currentCity.children; // 当前城市下的区域列表
-    this.currentRegion = this.currentAreaList && this.currentAreaList[0].children[0]; // 当前区域
+    console.log(this.currentAreaList);
+    this.currentRegion = this.currentAreaList && this.currentAreaList[0]
+    && this.currentAreaList[0].children && this.currentAreaList[0].children[0]; // 当前区域
     this.model.device = this.deviceList[0]; // 类型
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
-    this.bindPosition(this.model.point);
+    const point = new BMap.Point(114.062769, 22.477677); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    this.bindPosition(point);
     this.model.point = { lng: '', lat: '' }; // 坐标
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -505,8 +509,10 @@ export class PositionComponent implements OnInit {
     this.positionService.getZoneDefault().subscribe({
       next: function (val) {
         that.cityList = val.regions;
-        that.zoom = that.switchZone(val.zone.level);
-        that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
+        // that.zoom = that.switchZone(val.zone.level);
+        // that.currentCity = val.regions[0].children;
+        // that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
+        that.currentCity = that.getNode(that.cityList, val.regions[0].children[0].id); // 当前城市
         that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
         // that.currentList = that.currentAreaList; // 区域列表
         // that.currentArea = that.currentAreaList[0].children[0]; // 当前区域
@@ -541,8 +547,8 @@ export class PositionComponent implements OnInit {
       enableMapClick: true,
       // minZoom: 11
     }); // 创建地图实例
-    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
-    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
+    const point = new BMap.Point(114.062769 , 22.477677); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    map.centerAndZoom(point, 7); // 设置中心和地图显示级别
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     map.setMapStyle({ style: 'normal' });
     this.mapClickOff(map);

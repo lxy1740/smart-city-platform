@@ -208,7 +208,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   // 百度地图API功能
   addBeiduMap() {
 
-    const map = this.map = new BMap.Map(this.map_container.nativeElement, {
+    const map = this.map = new BMap.Map('map_container5', {
       enableMapClick: true,
       // minZoom: 11,
       // maxZoom : 20
