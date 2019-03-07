@@ -136,7 +136,7 @@ export class DeviceMonitorComponent implements OnInit {
     this.monitorService.getDeviceByName(number)
       .subscribe({
         next: function (val) {
-          that.currentDeviceDetail = val; // 该点上的位置
+          that.currentDeviceDetail = val[0]; // 该点上的位置
           console.log(val);
         },
         complete: function () {
@@ -579,7 +579,7 @@ export class DeviceMonitorComponent implements OnInit {
     //     that.getDeviceDetails(positionId, deviceType);
     //   }
     // }
-    that.getDeviceDetails(this.currentDevice.id, that.currentDeviceDetail.items[0]);
+    that.getDeviceDetails(this.currentDevice.id, that.currentDeviceDetail.modelId);
   }
 
   // 点击子设备
