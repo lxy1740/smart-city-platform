@@ -25,6 +25,7 @@ import { IssuedataService } from './issuedata.service';
 import { DeviceHistoryService } from './device-history.service';
 import { RoadService } from './road.service';
 import { CustomerService } from './customer.service';
+import { FunctionDefinitionService } from './function-definition';
 @NgModule({
   imports: [
     CommonModule
@@ -36,7 +37,8 @@ import { CustomerService } from './customer.service';
     MessService, UrlService, CommunicateService, VideoService, IssuedataService,
     DeviceHistoryService,
     RoadService,
-    CustomerService
+    CustomerService,
+    FunctionDefinitionService
    ]
 })
 export class ServiceModule { }

@@ -75,6 +75,7 @@ export class DeviceHomeComponent implements OnInit {
   currentCustomer: any = {}; // 当前客户
   Customershow = false;
   customerId: null; // 平台客户
+  curPosition: any;
 
   showonprogresslist = false; // 默认不显示日志消息
   logList = [
@@ -390,7 +391,7 @@ export class DeviceHomeComponent implements OnInit {
     this.device.name = '';
     this.device.model = this.deviceModels1[0];
     this.device.descr = '';
-    this.device.bindedPosi = this.bindedPosition;
+    // this.device.bindedPosi = this.bindedPosition;
     this.bindedPosition = null;
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.mr = modal;
@@ -592,6 +593,8 @@ export class DeviceHomeComponent implements OnInit {
 
   // position表点击事件
   bindPosition(position) {
+    this.curPosition = position;
+    this.bindedPosition = position;
     this.map.clearOverlays();
     const point = new BMap.Point(position.point.lng, position.point.lat);
     this.map.centerAndZoom(point, 18);
@@ -653,6 +656,9 @@ export class DeviceHomeComponent implements OnInit {
 
   // 根据positionId返回指定位置点
   getPosiById(id) {
+    if (!id) {
+      return;
+    }
     const that = this;
     let curPosition;
     this.deviceService.getPosiById(id).subscribe({
