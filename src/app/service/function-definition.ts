@@ -11,19 +11,10 @@ export class FunctionDefinitionService {
 
     constructor(private http: HttpClient) {
     }
-    // 获取指定坐标范围内的所有设备
-    getAirDevice(ne: any, sw: any): Observable<any> {
-        return this.http.post(`/api/airmonitor/inbounds`, {
-            'ne': ne,
-            'sw': sw
-        })
-            .pipe(map((res) => {
-                return res;
-            }));
-    }
-    // 获取指定设备的多项历史数据
-    getHistoryData(id: number, from: string, to: string, page: number, pageSize: number): Observable<any> {
-        return this.http.get(`/api/airmonitor/history/${id}?from=${from}&to=${to}&page=${page}&pageSize=${pageSize}`)
+
+    // 获取数据定义
+    getProperty(modelId): Observable<any> {
+        return this.http.get(`/api/device/model/property/all?modelId=${modelId}`)
             .pipe(map((res) => {
                 return res;
             }));

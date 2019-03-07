@@ -29,7 +29,11 @@
               <ul [ngbCollapse]="routes.isCollapsed" *ngIf=" routes.children" class="sec-menu">
                 <li *ngFor="let children of routes.children" class="cur-pointer nav-item ">
                   <!-- <a *ngIf="getture(children.id)" [routerLink]="[children.routeLink]" routerLinkActive="active" class="nav-link"> -->
-                    <a [routerLink]="[children.routeLink]" routerLinkActive="active" class="nav-link">
+                  <a *ngIf="getture(children.id)" [routerLink]="[children.routeLink]" routerLinkActive="active" class="nav-link">
+                    <i class={{children.icon}}></i>
+                    <p class="p-left">{{children.routeTitel}}</p>
+                  </a>
+                  <a *ngIf="!getture(children.id)" routerLinkActive="active" class="nav-link">
                     <i class={{children.icon}}></i>
                     <p class="p-left">{{children.routeTitel}}</p>
                   </a>

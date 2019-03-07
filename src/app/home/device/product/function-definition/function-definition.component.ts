@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { Router, ActivatedRoute} from '@angular/router';
 import { TYPEDATA, TYPEDATA1} from '../../../../data/type-data';
 import { UNITDATA} from '../../../../data/unit-data';
+import { FunctionDefinitionService} from '../../../../service/function-definition';
 
 @Component({
   selector: 'app-function-definition',
@@ -47,7 +48,8 @@ export class FunctionDefinitionComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public router: Router,
-    private routerinfo: ActivatedRoute
+    private routerinfo: ActivatedRoute,
+    private functionDefinitionService: FunctionDefinitionService,
   ) {
     // 1 数据定义弹框
     this.dataModel.read = 0; // 读写
@@ -203,6 +205,17 @@ export class FunctionDefinitionComponent implements OnInit {
   ngOnInit() {
     this.deviceParams = JSON.parse(this.routerinfo.snapshot.params.param);
     console.log(this.deviceParams);
+    this.getProperty();
+  }
+
+  // 获取数据定义
+  getProperty() {
+    const id = this.deviceParams.id;
+    this.functionDefinitionService.getProperty(id).subscribe({
+      next: function(val) {
+        console.log(val);
+      }
+    });
   }
   // 添加枚举项
   addEnum() {
