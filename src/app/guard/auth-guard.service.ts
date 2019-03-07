@@ -7,8 +7,8 @@ import {
     CanLoad, Route
 } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-// import { AUTHORITYTREE} from '../data/Authority.tree';
 import { AUTHORITYTREECOPY} from '../data/Authority.tree.copy';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable()
@@ -16,7 +16,14 @@ import { AUTHORITYTREECOPY} from '../data/Authority.tree.copy';
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     routerList: Array<any>;
     urlid: string;
-    constructor(private router: Router, private _cookieService: CookieService) { }
+    customerId: any;
+
+    constructor(private router: Router, private _cookieService: CookieService,
+        public jwtHelper: JwtHelperService,
+        ) {
+        const token = localStorage.getItem('token');
+        this.customerId = this.jwtHelper.decodeToken(token).customerid;
+     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // CanActivate 这种类型的 Guard用来控制是否允许进入当前的路径
@@ -93,6 +100,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             res = true;
             return res;
         }
+        if (this.customerId && str === 'DM-007') {
+            res = false;
+            return res;
+        }
         arr.map(item => {
             if (item === str) {
                 res = true;
@@ -110,84 +121,19 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             console.log('首页');
             that.urlid = 'HP-000';
             return;
-        } else {
-            AUTHORITYTREECOPY.map(item => {
-                // console.log(item.routeLink);
-                if (item.routeLink === urlArr[1]) {
-                    that.urlid = item.id;
-                    return;
-                } else {
-                    console.log('no-->leave');
-                }
-            });
-            // console.log('that.urlid');
-            // console.log(that.urlid);
         }
 
-        // if (urlArr.length > 1) {
-        //     const urlArr1 = urlArr[1].split('/');
-        //     const len = urlArr1.length;
 
-        //     if (urlArr1.length === 1) { // 一级菜单
-        //         if (urlArr1[0] === 'homepage') {
-        //             console.log(urlArr1);
-        //             that.urlid = 'HP-000';
-        //             return;
-        //         }
-        //         if (urlArr1[0] === 'issuedata') {
-        //             console.log(urlArr1);
-        //             that.urlid = 'SC-0011';
-        //             return;
-        //         }
-        //         if (urlArr1[0] === 'airreport') {
-        //             console.log(urlArr1);
-        //             that.urlid = 'SC-0041';
-        //             return;
-        //         }
-        //         if (urlArr1[0] === 'dashboard') {
-        //             console.log(urlArr1);
-        //             that.urlid = 'SC-00411';
-        //             return;
-        //         }
-        //         if (urlArr1[0] === 'strategy') {
-        //             console.log(urlArr1);
-        //             that.urlid = 'SC-0051';
-        //             return;
-        //         }
-        //         if (urlArr1[0] === 'led') {
-        //             console.log(urlArr1);
-        //             that.urlid = 'SC-008';
-        //             return;
-        //         }
-        //         AUTHORITYTREE.map(item => {
-        //             if (item.routeLink === urlArr1[0]) {
-        //                 console.log('一级菜单yes-->go');
-        //                 that.urlid = item.id;
-        //                 return;
-        //             } else {
-        //                 console.log('一级菜单no-->leave');
-        //             }
-        //         });
-        //     } else  { // 二级菜单
-        //         AUTHORITYTREE.map(item => {
-        //             if (item.routeLink === urlArr1[0]) {
-        //                 console.log('二级菜单yes-->go');
-        //                 item.children.map(item1 => {
-        //                     if (item1.routeLink === urlArr[1]) {
-        //                         console.log('二级菜单yes-->go-->next');
-        //                         that.urlid = item1.id;
-        //                         return;
-        //                     } else  {
+        AUTHORITYTREECOPY.map(item => {
+            // console.log(item.routeLink);
+            if (item.routeLink === urlArr[1]) {
+                that.urlid = item.id;
+                return;
+            } else {
+                console.log('no-->leave');
+            }
+        });
 
-        //                         console.log('二级菜单no-->leave--》next');
-        //                     }
-        //                 });
-        //             } else {
-        //                 console.log('二级菜单no-->leave');
-        //             }
-        //         });
-        //     }
-        // }
     }
 }
 

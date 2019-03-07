@@ -6,6 +6,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AUTHORITYTREECOPYROUTE } from '../data/Authority.tree.route';
 import { MessService } from '../service/mess.service';
 import { CommunicateService } from '../service/communicate.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 declare let $: any;
 
 @Component({
@@ -22,14 +23,20 @@ export class HomeComponent implements OnInit {
   messageList: any; // 消息列表
   queryPoint: any;
   visible = true; // 控制可视区域
+  customerId: any;
 
 
   constructor(public authService: AuthService, public router: Router, private _cookieService: CookieService,
     public messService: MessService,
-    public config: NgbDropdownConfig, private communicateService: CommunicateService) {
+    public config: NgbDropdownConfig,
+    private communicateService: CommunicateService,
+    public jwtHelper: JwtHelperService,
+     ) {
     this.routeTree = AUTHORITYTREECOPYROUTE;
     // customize default values of dropdowns used by this component tree
     config.placement = 'top-left';
+    const token = localStorage.getItem('token');
+    this.customerId = this.jwtHelper.decodeToken(token).customerid;
 
 
     // this.visible = urlService.getURLParam('visible') === '' ? true : false;
@@ -66,6 +73,10 @@ export class HomeComponent implements OnInit {
     let res = false;
     if (str === 'HP-000') {
       res = true;
+      return res;
+    }
+    if (this.customerId && str === 'DM-007') {
+      res = false;
       return res;
     }
     Auth.map(item => {

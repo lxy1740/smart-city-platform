@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 // import { ROUTELIST } from './route-list';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-homepage',
@@ -9,8 +10,13 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
 
-  // routes = ROUTELIST;
-  constructor(public router: Router,  private elementRef: ElementRef) { }
+  customerId: any;
+  constructor(public router: Router,  private elementRef: ElementRef,
+      public jwtHelper: JwtHelperService,
+    ) {
+    const token = localStorage.getItem('token');
+    this.customerId = this.jwtHelper.decodeToken(token).customerid;
+  }
 
   flag = true;
 
@@ -40,6 +46,10 @@ export class HomepageComponent implements OnInit {
     let res = false;
     if (str === 'HP-000') {
       res = true;
+      return res;
+    }
+    if (this.customerId && str === 'DM-007') {
+      res = false;
       return res;
     }
     Auth.map(item => {
