@@ -63,8 +63,7 @@ export class AdminComponent implements OnInit {
     ) {
 
     const token = localStorage.getItem('token');
-    const tokenobj = this.jwtHelper.decodeToken(token);
-    this.customerId = this.jwtHelper.decodeToken(token).customerid;
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
     // 树的操作
     // 点击
     const that = this;

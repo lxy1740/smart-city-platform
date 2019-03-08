@@ -109,7 +109,7 @@ export class DeviceHomeComponent implements OnInit {
     const token = localStorage.getItem('token');
     const tokenobj = this.jwtHelper.decodeToken(token);
     console.log(tokenobj);
-    this.customerId = this.jwtHelper.decodeToken(token).customerid;
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
   // 上传文件
     this.uploader = new FileUploader({
       // url: `${URL}/api/device/import`,

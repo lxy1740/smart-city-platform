@@ -15,7 +15,7 @@ export class HomepageComponent implements OnInit {
       public jwtHelper: JwtHelperService,
     ) {
     const token = localStorage.getItem('token');
-    this.customerId = this.jwtHelper.decodeToken(token).customerid;
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
   }
 
   flag = true;

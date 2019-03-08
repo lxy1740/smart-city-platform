@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     // customize default values of dropdowns used by this component tree
     config.placement = 'top-left';
     const token = localStorage.getItem('token');
-    this.customerId = this.jwtHelper.decodeToken(token).customerid;
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
 
 
     // this.visible = urlService.getURLParam('visible') === '' ? true : false;
