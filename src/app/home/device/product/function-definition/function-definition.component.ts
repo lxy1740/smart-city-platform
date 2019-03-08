@@ -40,6 +40,7 @@ export class FunctionDefinitionComponent implements OnInit {
   nav_index = 0; // 菜单索引
   AddParamModel: any = {}; // 新增参数窗口数据
   AddParam = []; // 新增参数窗口
+  messageIssue: any = {};
 
   @Input()
   public alerts: Array<IAlert> = []; // 信息弹框
@@ -51,6 +52,7 @@ export class FunctionDefinitionComponent implements OnInit {
     private routerinfo: ActivatedRoute,
     private functionDefinitionService: FunctionDefinitionService,
   ) {
+
     // 1 数据定义弹框
     this.dataModel.read = 0; // 读写
     this.dataModel.type = this.TYPEDATA1[0]; // 数据类型
@@ -81,36 +83,36 @@ export class FunctionDefinitionComponent implements OnInit {
 
     this.dataModel.STRUCT = []; // STRUCT参数
 
-    this.dataModel.STRUCT.push({
-      identifier: 'LightError',
-      name: '路灯故障',
-      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-      intParams: {
-        unit: { Symbol: 'GB', Name: '吉字节' },
-        stepSize: '1',
-        min: 0,
-        max: 10,
-      },
-      enumParams: [],
-      STRUCT: [],
-      BOOL: {},
-      TEXT: {},
-    }); // 举例 要删
-    this.dataModel.STRUCT.push({
-      identifier: 'LightError',
-      name: '路灯故障',
-      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-      intParams: {
-        unit: { Symbol: 'GB', Name: '吉字节' },
-        stepSize: '1',
-        min: 0,
-        max: 10,
-      },
-      enumParams: [],
-      STRUCT: [],
-      BOOL: {},
-      TEXT: {},
-    }); // 举例 要删
+    // this.dataModel.STRUCT.push({
+    //   identifier: 'LightError',
+    //   name: '路灯故障',
+    //   type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+    //   intParams: {
+    //     unit: { Symbol: 'GB', Name: '吉字节' },
+    //     stepSize: '1',
+    //     min: 0,
+    //     max: 10,
+    //   },
+    //   enumParams: [],
+    //   STRUCT: [],
+    //   BOOL: {},
+    //   TEXT: {},
+    // }); // 举例 要删
+    // this.dataModel.STRUCT.push({
+    //   identifier: 'LightError',
+    //   name: '路灯故障',
+    //   type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+    //   intParams: {
+    //     unit: { Symbol: 'GB', Name: '吉字节' },
+    //     stepSize: '1',
+    //     min: 0,
+    //     max: 10,
+    //   },
+    //   enumParams: [],
+    //   STRUCT: [],
+    //   BOOL: {},
+    //   TEXT: {},
+    // }); // 举例 要删
 
     // 2、添加参数弹框
 
@@ -141,44 +143,44 @@ export class FunctionDefinitionComponent implements OnInit {
    // 3.服务定义弹框
     this.functionModel.synchronism = '异步'; // 异步同步 调用方式
     // 举例 要删
-    this.dataListItems.push({
-      describe: '路灯故障',
-      read: 0,
-      identifier: 'LightError',
-      name: '路灯故障',
-      type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-      intParams: {
-        unit: { Symbol: 'GB', Name: '吉字节' },
-        stepSize: '1',
-        min: 0,
-        max: 10,
-      },
-      enumParams: [],
-      STRUCT: [],
-      BOOL: {},
-      TEXT: {},
+    // this.dataListItems.push({
+    //   describe: '路灯故障',
+    //   read: 0,
+    //   identifier: 'LightError',
+    //   name: '路灯故障',
+    //   type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
+    //   intParams: {
+    //     unit: { Symbol: 'GB', Name: '吉字节' },
+    //     stepSize: '1',
+    //     min: 0,
+    //     max: 10,
+    //   },
+    //   enumParams: [],
+    //   STRUCT: [],
+    //   BOOL: {},
+    //   TEXT: {},
 
 
-    });
-    // 举例 要删
-    this.dataListItems.push({
-      describe: 'pig微笑',
-      identifier: 'pig',
-      name: 'pig微笑',
-      read: 0,
-      type: { 'Name': 'enum (枚举型)', 'Value': 'ENUM' },
-      intParams: {
-        // unit: { Symbol: 'GB', Name: '吉字节' },
-        // stepSize: '1',
-        // min: 0,
-        // max: 10,
-      },
-      enumParams: [
-        {value: '0', describe: '呵呵'},
-        {value: '1', describe: '哈哈'},
-      ],
+    // });
+    // // 举例 要删
+    // this.dataListItems.push({
+    //   describe: 'pig微笑',
+    //   identifier: 'pig',
+    //   name: 'pig微笑',
+    //   read: 0,
+    //   type: { 'Name': 'enum (枚举型)', 'Value': 'ENUM' },
+    //   intParams: {
+    //     // unit: { Symbol: 'GB', Name: '吉字节' },
+    //     // stepSize: '1',
+    //     // min: 0,
+    //     // max: 10,
+    //   },
+    //   enumParams: [
+    //     {value: '0', describe: '呵呵'},
+    //     {value: '1', describe: '哈哈'},
+    //   ],
 
-    });
+    // });
     // 举例 要删
     this.functionListItems.push({
       describe: 'ggg',
@@ -193,10 +195,7 @@ export class FunctionDefinitionComponent implements OnInit {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
   }
-  public closeAlertModal(alert: IAlert) {  // 信息弹框
-    const index: number = this.alertsModal.indexOf(alert);
-    this.alertsModal.splice(index, 1);
-  }
+
 
   public reset() {  // 信息弹框
     this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
@@ -210,10 +209,21 @@ export class FunctionDefinitionComponent implements OnInit {
 
   // 获取数据定义
   getProperty() {
+    const that = this;
     const id = this.deviceParams.id;
     this.functionDefinitionService.getProperty(id).subscribe({
       next: function(val) {
         console.log(val);
+      },
+      error: function (error) {
+        console.log(error);
+        // const message = error.error.errors[0].defaultMessage;
+        that.messageIssue = error.error.errors[0];
+        // that.alerts.push({
+        //   id: 1,
+        //   type: 'danger',
+        //   message: `${message}！`,
+        // });
       }
     });
   }

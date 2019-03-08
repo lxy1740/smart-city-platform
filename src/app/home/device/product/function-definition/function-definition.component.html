@@ -360,7 +360,7 @@
       <!-- 数据定义 -->
       <div *ngIf="nav_index === 0">
         <div style=" text-align: right;">
-          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddDATA)">添加数据定义</a>
+          <a *ngIf="messageIssue.field !== 'iot'" class="cur-pointer theme-text btn-a" (click)="openNewModal(AddDATA)">添加数据定义</a>
         </div>
         <table class="table table-hover">
           <thead class="table-header">
@@ -398,8 +398,11 @@
             </tr>
           </tbody>
         </table>
-        
+        <div *ngIf="messageIssue.field === 'iot' ">{{messageIssue.defaultMessage}}</div>
+        <div *ngIf="messageIssue.field !== 'iot' ">
         <div *ngIf="dataListItems.length === 0 || !dataListItems">无数据！</div>
+        </div>
+
         <div *ngIf="dataListItems.length > 0">
           <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
             [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
@@ -408,7 +411,7 @@
       <!-- 服务定义 -->
       <div *ngIf="nav_index === 1">
         <div style=" text-align: right;">
-          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
+          <a *ngIf="messageIssue.field !== 'iot'" class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
         </div>
         <table class="table table-hover">
           <thead class="table-header">
@@ -443,8 +446,11 @@
             </tr>
           </tbody>
         </table>
-        
+        <div *ngIf="messageIssue.field === 'iot' ">{{messageIssue.defaultMessage}}</div>
+        <div *ngIf="messageIssue.field !== 'iot' ">
         <div *ngIf="functionListItems.length === 0 || !functionListItems">无数据！</div>
+        </div>
+
         <div *ngIf="functionListItems.length > 0">
           <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
             [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
