@@ -369,9 +369,9 @@
               <th>名称</th>
               <th>标识符</th>
               <th>数据类型</th>
-              <th>数据定义</th>
-              <!-- <th>步长</th>
-              <th>单位</th> -->
+              <th>取值范围</th>
+              <th>步长</th>
+              <th>单位</th>
               <th>读写类型</th>
               <th>描述</th>
               <th style="text-align: center">操作</th>
@@ -382,11 +382,13 @@
             <tr *ngFor="let item of dataListItems; let i = index">
               <td>{{i + 1}}</td>
               <td>{{item.name}}</td>
-              <td>{{item.identifier}}</td>
-              <td>{{item.type.Name}}</td>
-              <td *ngIf="item.intParams.min || item.intParams.min == 0"><span >取值范围：{{item.intParams.min}} ~ {{item.intParams.max}}; 步长：{{item.intParams.stepSize}}; 单位：{{item.intParams.unit.Name}}</span> </td>
-              <td *ngIf="item.enumParams.length > 0"><span >枚举值：</span><span *ngFor="let itemnuem of item.enumParams">{{itemnuem.value}}:{{itemnuem.describe}};</span> </td>
-              <td>{{item.read}}</td>
+              <td>{{item.key}}</td>
+              <td>{{item.dataType}}</td>
+              <td  ><span *ngIf="item.dataMin !== null">{{item.dataMin}} ~ {{item.dataMax}}</span> </td>
+              <!-- <td *ngIf="item.enumParams.length > 0"><span >枚举值：</span><span *ngFor="let itemnuem of item.enumParams">{{itemnuem.value}}:{{itemnuem.describe}};</span> </td> -->
+              <td>{{item.dataLength}}</td>
+              <td>{{item.readOnly}}</td>
+              <td>{{item.unit}}</td>
               <td>{{item.describe}}</td>
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
@@ -398,15 +400,15 @@
             </tr>
           </tbody>
         </table>
-        <div *ngIf="messageIssue.field === 'iot' ">{{messageIssue.defaultMessage}}</div>
+        <!-- <div *ngIf="messageIssue.field === 'iot' ">{{messageIssue.defaultMessage}}</div>
         <div *ngIf="messageIssue.field !== 'iot' ">
+        
+        </div> -->
         <div *ngIf="dataListItems.length === 0 || !dataListItems">无数据！</div>
-        </div>
-
-        <div *ngIf="dataListItems.length > 0">
+        <!-- <div *ngIf="dataListItems.length > 0">
           <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
             [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
-        </div>
+        </div> -->
       </div>
       <!-- 服务定义 -->
       <div *ngIf="nav_index === 1">

@@ -38,7 +38,7 @@ export class FunctionDefinitionComponent implements OnInit {
       name: '服务定义'
     }
   ];
-  nav_index = 1; // 菜单索引
+  nav_index = 0; // 菜单索引
   AddParamModel: any = {}; // 新增参数窗口数据
   AddParam = []; // 新增参数窗口
   messageIssue: any = {};
