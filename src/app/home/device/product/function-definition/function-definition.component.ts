@@ -5,6 +5,7 @@ import { TYPEDATA, TYPEDATA1} from '../../../../data/type-data';
 import { UNITDATA} from '../../../../data/unit-data';
 import { FunctionDefinitionService} from '../../../../service/function-definition';
 
+
 @Component({
   selector: 'app-function-definition',
   templateUrl: './function-definition.component.html',
@@ -37,7 +38,7 @@ export class FunctionDefinitionComponent implements OnInit {
       name: '服务定义'
     }
   ];
-  nav_index = 0; // 菜单索引
+  nav_index = 1; // 菜单索引
   AddParamModel: any = {}; // 新增参数窗口数据
   AddParam = []; // 新增参数窗口
   messageIssue: any = {};
@@ -83,36 +84,6 @@ export class FunctionDefinitionComponent implements OnInit {
 
     this.dataModel.STRUCT = []; // STRUCT参数
 
-    // this.dataModel.STRUCT.push({
-    //   identifier: 'LightError',
-    //   name: '路灯故障',
-    //   type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-    //   intParams: {
-    //     unit: { Symbol: 'GB', Name: '吉字节' },
-    //     stepSize: '1',
-    //     min: 0,
-    //     max: 10,
-    //   },
-    //   enumParams: [],
-    //   STRUCT: [],
-    //   BOOL: {},
-    //   TEXT: {},
-    // }); // 举例 要删
-    // this.dataModel.STRUCT.push({
-    //   identifier: 'LightError',
-    //   name: '路灯故障',
-    //   type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-    //   intParams: {
-    //     unit: { Symbol: 'GB', Name: '吉字节' },
-    //     stepSize: '1',
-    //     min: 0,
-    //     max: 10,
-    //   },
-    //   enumParams: [],
-    //   STRUCT: [],
-    //   BOOL: {},
-    //   TEXT: {},
-    // }); // 举例 要删
 
     // 2、添加参数弹框
 
@@ -142,52 +113,8 @@ export class FunctionDefinitionComponent implements OnInit {
 
    // 3.服务定义弹框
     this.functionModel.synchronism = '异步'; // 异步同步 调用方式
-    // 举例 要删
-    // this.dataListItems.push({
-    //   describe: '路灯故障',
-    //   read: 0,
-    //   identifier: 'LightError',
-    //   name: '路灯故障',
-    //   type: { Name: 'float (单精度浮点型)', Value: 'FLOAT' },
-    //   intParams: {
-    //     unit: { Symbol: 'GB', Name: '吉字节' },
-    //     stepSize: '1',
-    //     min: 0,
-    //     max: 10,
-    //   },
-    //   enumParams: [],
-    //   STRUCT: [],
-    //   BOOL: {},
-    //   TEXT: {},
 
-
-    // });
-    // // 举例 要删
-    // this.dataListItems.push({
-    //   describe: 'pig微笑',
-    //   identifier: 'pig',
-    //   name: 'pig微笑',
-    //   read: 0,
-    //   type: { 'Name': 'enum (枚举型)', 'Value': 'ENUM' },
-    //   intParams: {
-    //     // unit: { Symbol: 'GB', Name: '吉字节' },
-    //     // stepSize: '1',
-    //     // min: 0,
-    //     // max: 10,
-    //   },
-    //   enumParams: [
-    //     {value: '0', describe: '呵呵'},
-    //     {value: '1', describe: '哈哈'},
-    //   ],
-
-    // });
-    // 举例 要删
-    this.functionListItems.push({
-      describe: 'ggg',
-      identifier: 'AdjustLightLevel',
-      name: '调光',
-      synchronism: '异步',
-    });
+ 
 
   }
 
@@ -205,6 +132,7 @@ export class FunctionDefinitionComponent implements OnInit {
     this.deviceParams = JSON.parse(this.routerinfo.snapshot.params.param);
     console.log(this.deviceParams);
     this.getProperty();
+    this.getService();
   }
 
   // 获取数据定义
@@ -214,6 +142,7 @@ export class FunctionDefinitionComponent implements OnInit {
     this.functionDefinitionService.getProperty(id).subscribe({
       next: function(val) {
         console.log(val);
+        that.dataListItems = val;
       },
       error: function (error) {
         console.log(error);
@@ -224,6 +153,111 @@ export class FunctionDefinitionComponent implements OnInit {
         //   type: 'danger',
         //   message: `${message}！`,
         // });
+      }
+    });
+  }
+
+  // 获取服务定义
+  getService() {
+    const that = this;
+    const id = this.deviceParams.id;
+    this.functionDefinitionService.getService(id).subscribe({
+      next: function (val) {
+        console.log(val);
+        that.functionListItems = val;
+      },
+      error: function (error) {
+        console.log(error);
+        // const message = error.error.errors[0].defaultMessage;
+        that.messageIssue = error.error.errors[0];
+        // that.alerts.push({
+        //   id: 1,
+        //   type: 'danger',
+        //   message: `${message}！`,
+        // });
+      }
+    });
+  }
+
+  //    // 添加数据定义
+  addProperty() {
+    const that = this;
+    const body = {
+      'dataLength': 0,
+      'dataMax': 0,
+      'dataMin': 0,
+      'dataType': 'string',
+      // 'id': 0,
+      'key': 'string',
+      'modelId': this.deviceParams.id,
+      'name': 'string',
+      'readOnly': true,
+      'resolution': 0,
+      'unit': 'string'
+    };
+    this.functionDefinitionService.addProperty(body).subscribe({
+      next: function (val) {
+        console.log(val);
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '添加成功！',
+        });
+        that.mr.close();
+      },
+      error: function (error) {
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `${message}！`,
+        });
+      }
+    });
+  }
+  addService() {
+    const that = this;
+    const body = {
+      'description': this.functionModel.description,
+      'identifier': this.functionModel.identifier,
+      'modelId': this.deviceParams.id,
+      'name': this.functionModel.name,
+      'param': [
+        // {
+        //   'dataKey': 'string',
+        //   'dataLength': 0,
+        //   'dataMax': 0,
+        //   'dataMin': 0,
+        //   'dataOrder': 0,
+        //   'dataType': 'string',
+        //   'dataUnit': 'string',
+        //   'id': 0,
+        //   'isOutput': 0,
+        //   'modelServeId': 0,
+        //   'name': 'string'
+        // }
+      ],
+      'synchrony': this.functionModel.synchrony
+    };
+    this.functionDefinitionService.addService(body).subscribe({
+      next: function (val) {
+        console.log(val);
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '添加成功！',
+          });
+          that.mr.close();
+      },
+      error: function (error) {
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `${message}！`,
+        });
       }
     });
   }

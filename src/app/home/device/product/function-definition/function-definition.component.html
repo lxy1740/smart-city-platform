@@ -167,8 +167,8 @@
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>调用方式：</label>
       <div>
-        <input type="radio" name="synchronism" [value]="'异步'" placeholder="" [(ngModel)]="functionModel.synchronism">异步
-        <input type="radio" name="synchronism" [value]="'同步'" placeholder="" [(ngModel)]="functionModel.synchronism">同步
+        <input type="radio" name="synchrony" [value]="1" placeholder="" [(ngModel)]="functionModel.synchrony">异步
+        <input type="radio" name="synchrony" [value]="0" placeholder="" [(ngModel)]="functionModel.synchrony">同步
       </div>
     </div>
     <div class="form-group">
@@ -188,7 +188,7 @@
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>描述：</label>
       <div>
-        <textarea name="" id="" cols="60" rows="3" [(ngModel)]="functionModel.describe" placeholder="请输入描述"></textarea>
+        <textarea name="" id="" cols="60" rows="3" [(ngModel)]="functionModel.description" placeholder="请输入描述"></textarea>
       </div>
     </div>
 
@@ -360,7 +360,7 @@
       <!-- 数据定义 -->
       <div *ngIf="nav_index === 0">
         <div style=" text-align: right;">
-          <a *ngIf="messageIssue.field !== 'iot'" class="cur-pointer theme-text btn-a" (click)="openNewModal(AddDATA)">添加数据定义</a>
+          <a class="cur-pointer theme-text btn-a" (click)="openNewModal(AddDATA)">添加数据定义</a>
         </div>
         <table class="table table-hover">
           <thead class="table-header">
@@ -411,7 +411,7 @@
       <!-- 服务定义 -->
       <div *ngIf="nav_index === 1">
         <div style=" text-align: right;">
-          <a *ngIf="messageIssue.field !== 'iot'" class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
+          <a  class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
         </div>
         <table class="table table-hover">
           <thead class="table-header">
@@ -420,8 +420,8 @@
               <th>名称</th>
               <th>标识符</th>
               <th>调用方式</th>
-              <th>输入参数</th>
-              <th>输出参数</th>
+              <!-- <th>输入参数</th>
+              <th>输出参数</th> -->
               <th>描述</th>
               <th style="text-align: center">操作</th>
             </tr>
@@ -432,10 +432,10 @@
               <td>{{i + 1}}</td>
               <td>{{item.name}}</td>
               <td>{{item.identifier}}</td>
-              <td>{{item.synchronism}}</td>
-              <td>{{item.input}}</td>
-              <td>{{item.output}}</td>
-              <td>{{item.describe}}</td>
+              <td>{{item.synchrony}}</td>
+              <!-- <td>{{item.input}}</td>
+              <td>{{item.output}}</td> -->
+              <td>{{item.description}}</td>
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(AddSERVICE, item)">修改</a>
@@ -451,10 +451,10 @@
         <div *ngIf="functionListItems.length === 0 || !functionListItems">无数据！</div>
         </div>
 
-        <div *ngIf="functionListItems.length > 0">
+        <!-- <div *ngIf="functionListItems.length > 0">
           <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
             [boundaryLinks]="true" (pageChange)="pageChange()"></ngb-pagination>
-        </div>
+        </div> -->
       </div>
 
 

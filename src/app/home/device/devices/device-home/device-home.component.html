@@ -283,7 +283,7 @@
                       <span class="menu_arrow_left"></span>
 
                       <ul class="arealist" data-type="area">
-                        <li class="arealist-item" *ngFor="let node of currentChildren" (mouseover)="arealistMouseover(node)">
+                        <li class="arealist-item" *ngFor="let node of currentAreaList" (mouseover)="arealistMouseover(node)">
                           <em (click)="selecteblock(node)">{{node.name}}</em>
                         </li>
                       </ul>
