@@ -66,7 +66,7 @@
                 <th>事件ID</th>
                 <th>状态</th>
                 <th>附言</th>
-                <th>负责人ID</th>
+                <th>负责人</th>
                 <!-- <th>操作</th> -->
               </tr>
             </thead>
@@ -78,8 +78,8 @@
                   <span *ngIf="item.state === 1">处理中</span>
                   <span *ngIf="item.state === 2">已处理</span></td>
                 <td>{{item.comment}}</td>
-                <td><span *ngIf="!item.assigneeId || item.assigneeId === null">null</span>
-                  <span *ngIf="item.assigneeId">{{item.assigneeId}}</span></td>
+                <td>
+                  <span>{{item.userName}}</span></td>
                 <!-- <td>
                   <div class="modify-strategy d-inline">
                     <a class="cur-pointer btn-a theme-text d-inline">修改</a>
