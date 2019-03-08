@@ -692,7 +692,7 @@ export class DeviceHomeComponent implements OnInit {
 
     that.node = null; // 用于递归查询JSON树 父子节点
     that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
-    that.currentChildren = that.node.children; // 当前城市下的区域列表
+    that.currentChildren = that.node && that.node.children; // 当前城市下的区域列表
     const area_id = that.bindedPosition.regionId; // 当前区域id
     that.node = null; // 用于递归查询JSON树 父子节点
     that.currentArea = that.getNode(that.cityList, area_id); // 当前区域i

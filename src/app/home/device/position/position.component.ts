@@ -203,7 +203,8 @@ export class PositionComponent implements OnInit {
     this.errorMess = [];
     this.model.name = ''; // name
     this.model.number = ''; // number
-    this.currentAreaList = this.currentCity.children; // 当前城市下的区域列表
+    this.currentCustomer = {};
+    this.currentAreaList = this.currentCity && this.currentCity.children; // 当前城市下的区域列表
     console.log(this.currentAreaList);
     this.currentRegion = this.currentAreaList && this.currentAreaList[0]
     && this.currentAreaList[0].children && this.currentAreaList[0].children[0]; // 当前区域
@@ -231,6 +232,7 @@ export class PositionComponent implements OnInit {
     this.model.name = item.name; // name
     this.model.number = item.number; // number
     this.model.point = item.point; // point
+
     const id = item.type; // 类型
     for (let index = 0; index < this.deviceList.length; index++) {
       const element = this.deviceList[index];
@@ -252,7 +254,7 @@ export class PositionComponent implements OnInit {
     this.node = null; // 用于递归查询JSON树 父子节点
     this.currentRegion = this.getNode(this.cityList, area_id); // 当前区域
     this.currentWay.id = item.wayId; // 当前道路
-    this.currentWay.name = item.wayName; // 当前道路
+    this.currentWay.wayName = item.wayName; // 当前道路
 
     this.currentCustomer.id = item.customerId; // 当前客户
     this.currentCustomer.name = item.customerName; // 当前客户
