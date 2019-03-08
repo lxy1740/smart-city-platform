@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         public jwtHelper: JwtHelperService,
         ) {
         const token = localStorage.getItem('token');
-        this.customerId = this.jwtHelper.decodeToken(token).customerid;
+        this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
      }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
