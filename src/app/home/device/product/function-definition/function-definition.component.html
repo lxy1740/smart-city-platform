@@ -1,7 +1,7 @@
 <!-- modal下modal:增加数据定义 -->
 <ng-template #AddDATA class="modal1" let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">添加数据定义</h4>
+    <h4 class="modal-title">{{addorupdate}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -14,41 +14,41 @@
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>标识符：</label>
-      <input type="text" class="form-control" [(ngModel)]="dataModel.identifier" placeholder="请输入您的标识符">
+      <input type="text" class="form-control" [(ngModel)]="dataModel.key" placeholder="请输入您的标识符">
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>数据类型：</label>
-      <select class="form-control" [(ngModel)]="dataModel.type">
+      <select class="form-control" [(ngModel)]="dataModel.dataType">
         <option *ngFor="let unit of TYPEDATA1" [ngValue]="unit">{{unit.Name}}</option>
       </select>
     </div>
     <!-- INT、FLOAT、DOUBLE -->
-    <div *ngIf="dataModel.type.Value == 'INT' || dataModel.type.Value == 'FLOAT' || dataModel.type.Value == 'DOUBLE' ">
+    <div *ngIf="dataModel.dataType.Value == 'INT' || dataModel.dataType.Value == 'FLOAT' || dataModel.dataType.Value == 'DOUBLE' ">
           <div class="form-group">
             <label class="control-label"><span style="color:red">*</span>取值范围：</label>
             <div class="form-inline">
-              <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.intParams.min" placeholder="最小值">
+              <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.dataMin" placeholder="最小值">
               <span class="ssm-width">~</span>
-              <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.intParams.max" placeholder="最大值">
+              <input type="number" class="form-control sm-width" [(ngModel)]="dataModel.dataMax" placeholder="最大值">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label"><span style="color:red">*</span>分辨率/步长：</label>
             <div>
-              <input type="text" class="form-control" [(ngModel)]="dataModel.stepSize" placeholder="请输入步长">
+              <input type="number" class="form-control" [(ngModel)]="dataModel.dataLength" placeholder="请输入步长">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label">单位：</label>
             <div>
-              <select class="form-control" [(ngModel)]="dataModel.intParams.unit" placeholder="请选择单位">
+              <select class="form-control" [(ngModel)]="dataModel.unit" placeholder="请选择单位">
                 <option *ngFor="let unit of UNITDATA1" [ngValue]="unit">{{unit.Name}}</option>
               </select>
             </div>
           </div>
     </div>
     <!-- ENUM -->
-    <div *ngIf="dataModel.type.Value == 'ENUM'">
+    <div *ngIf="dataModel.dataType.Value == 'ENUM'">
           <div class="form-group">
             <label class="control-label"><span style="color:red">*</span>枚举项:</label>
             <div class="form-inline">
@@ -67,7 +67,7 @@
           </div>
     </div>
     <!-- BOOL -->
-    <div *ngIf="dataModel.type.Value == 'BOOL'">
+    <div *ngIf="dataModel.dataType.Value == 'BOOL'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>布尔值:</label>
         <div class="form-inline" >
@@ -80,7 +80,7 @@
       </div>
     </div>
     <!-- TEXT -->
-    <div *ngIf="dataModel.type.Value == 'TEXT'">
+    <div *ngIf="dataModel.dataType.Value == 'TEXT'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>数据长度:</label>
         <div class="form-inline">
@@ -90,7 +90,7 @@
       </div>
     </div>
     <!-- DATE -->
-    <div *ngIf="dataModel.type.Value == 'DATE'">
+    <div *ngIf="dataModel.dataType.Value == 'DATE'">
       <div class="form-group">
         <label class="control-label">时间格式:</label>
         <div class="form-inline">
@@ -99,7 +99,7 @@
       </div>
     </div>
     <!-- STRUCT -->
-    <div *ngIf="dataModel.type.Value == 'STRUCT'">
+    <div *ngIf="dataModel.dataType.Value == 'STRUCT'">
       <div class="form-group" style="position: relative;">
         <label class="control-label"><span style="color:red">*</span>JSON对象:</label>
         <div class="form-inline" *ngFor="let itemSTRUCT of dataModel.STRUCT" style="background-color: rgb(230, 249, 252);padding: 3px;margin:3px 0;">
@@ -113,7 +113,7 @@
       </div>
     </div>
     <!-- ARRAY -->
-    <div *ngIf="dataModel.type.Value == 'ARRAY'">
+    <div *ngIf="dataModel.dataType.Value == 'ARRAY'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>元素类型:</label>
       <div>
@@ -128,8 +128,8 @@
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>读写类型：</label>
       <div>
-        <input type="radio" name="read"  [value]="0" placeholder=""  [(ngModel)]="dataModel.read"><span style="padding-right: 30px">读写</span>
-        <input type="radio" name="read"  [value]="1" placeholder=""  [(ngModel)]="dataModel.read">只读
+        <input type="radio" name="readOnly"  [value]="false" placeholder=""  [(ngModel)]="dataModel.readOnly"><span style="padding-right: 30px">读写</span>
+        <input type="radio" name="readOnly"  [value]="true" placeholder=""  [(ngModel)]="dataModel.readOnly">只读
       </div>
     </div>
     <div class="form-group">
@@ -141,7 +141,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="addData()">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="addProperty()">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
@@ -228,9 +228,9 @@
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>取值范围：</label>
         <div class="form-inline">
-          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.intParams.min" placeholder="最小值">
+          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.min" placeholder="最小值">
           <span class="ssm-width">~</span>
-          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.intParams.max" placeholder="最大值">
+          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.max" placeholder="最大值">
         </div>
       </div>
       <div class="form-group">
@@ -242,7 +242,7 @@
       <div class="form-group">
         <label class="control-label">单位：</label>
         <div>
-          <select class="form-control" [(ngModel)]="AddParamModel.intParams.unit" placeholder="请选择单位">
+          <select class="form-control" [(ngModel)]="AddParamModel.unit" placeholder="请选择单位">
             <option *ngFor="let unit of UNITDATA1" [ngValue]="unit">{{unit.Name}}</option>
           </select>
         </div>

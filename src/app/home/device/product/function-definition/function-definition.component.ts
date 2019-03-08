@@ -42,6 +42,8 @@ export class FunctionDefinitionComponent implements OnInit {
   AddParamModel: any = {}; // 新增参数窗口数据
   AddParam = []; // 新增参数窗口
   messageIssue: any = {};
+  addorupdate = '添加数据定义';
+  delDataItemId: any;
 
   @Input()
   public alerts: Array<IAlert> = []; // 信息弹框
@@ -55,12 +57,11 @@ export class FunctionDefinitionComponent implements OnInit {
   ) {
 
     // 1 数据定义弹框
-    this.dataModel.read = 0; // 读写
-    this.dataModel.type = this.TYPEDATA1[0]; // 数据类型
+    this.dataModel.readOnly = false; // 读写
+    this.dataModel.dataType = this.TYPEDATA1[0]; // 数据类型
 
-    this.dataModel.intParams = {  // int参数
-      unit: this.UNITDATA1[0], // 单位
-    };
+    this.dataModel.unit = this.UNITDATA1[0]; // int参数
+
 
     this.dataModel.ARRAY = { // ARRAY参数
       value: 0
@@ -88,9 +89,8 @@ export class FunctionDefinitionComponent implements OnInit {
     // 2、添加参数弹框
 
     this.AddParamModel.type = this.TYPEDATA2[0]; // 新增参数窗口数据类型
-    this.AddParamModel.intParams = {  // int参数
-      unit: this.UNITDATA1[0], // 单位
-    };
+    this.AddParamModel.unit = this.UNITDATA1[0]; // 单位{  // int参数
+
 
     this.AddParamModel.ARRAY = { // ARRAY参数
       value: 0
@@ -114,7 +114,7 @@ export class FunctionDefinitionComponent implements OnInit {
    // 3.服务定义弹框
     this.functionModel.synchronism = '异步'; // 异步同步 调用方式
 
- 
+
 
   }
 
@@ -157,6 +157,33 @@ export class FunctionDefinitionComponent implements OnInit {
     });
   }
 
+    // 删除数据定义
+    delProperty() {
+      const that = this;
+      const id = this.delDataItemId;
+      this.functionDefinitionService.delProperty(id).subscribe({
+        next: function(val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: `删除成功！`,
+          });
+        },
+        complete: function() {
+          that.getProperty();
+        },
+        error: function (error) {
+          console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alerts.push({
+            id: 1,
+            type: 'danger',
+            message: `删除失败：${message}！`,
+          });
+        }
+      });
+    }
+
   // 获取服务定义
   getService() {
     const that = this;
@@ -165,6 +192,9 @@ export class FunctionDefinitionComponent implements OnInit {
       next: function (val) {
         console.log(val);
         that.functionListItems = val;
+      },
+      complete: function() {
+        that.getProperty();
       },
       error: function (error) {
         console.log(error);
@@ -182,19 +212,45 @@ export class FunctionDefinitionComponent implements OnInit {
   //    // 添加数据定义
   addProperty() {
     const that = this;
-    const body = {
-      'dataLength': 0,
-      'dataMax': 0,
-      'dataMin': 0,
-      'dataType': 'string',
-      // 'id': 0,
-      'key': 'string',
-      'modelId': this.deviceParams.id,
-      'name': 'string',
-      'readOnly': true,
-      'resolution': 0,
-      'unit': 'string'
-    };
+    let body;
+    switch (this.dataModel.dataType.Value) {
+      case 'INT':
+      case 'FLOAT':
+      case 'DOUBLE':
+      body = {
+        'dataLength': this.dataModel.dataLength,
+        'dataMax': this.dataModel.dataMax,
+        'dataMin': this.dataModel.dataMin,
+        'unit': this.dataModel.unit.Symbol,
+        'dataType': this.dataModel.dataType.Value,
+        // 'id': 0,
+        'key': this.dataModel.key,
+        'modelId': this.deviceParams.id,
+        'name': this.dataModel.name,
+        'readOnly': this.dataModel.readOnly,
+        'resolution': this.dataModel.describe,
+      };
+      break;
+      case 'DATE':
+      body = {
+        // 'dataLength': this.dataModel.dataLength,
+        // 'dataMax': this.dataModel.dataMax,
+        // 'dataMin': this.dataModel.dataMin,
+        // 'unit': this.dataModel.unit.Symbol,
+        'dataType': this.dataModel.dataType.Value,
+        // 'id': 0,
+        'key': this.dataModel.key,
+        'modelId': this.deviceParams.id,
+        'name': this.dataModel.name,
+        'readOnly': this.dataModel.readOnly,
+        'resolution': this.dataModel.describe,
+      };
+      break;
+      default:
+      break;
+    }
+
+
     this.functionDefinitionService.addProperty(body).subscribe({
       next: function (val) {
         console.log(val);
@@ -204,6 +260,9 @@ export class FunctionDefinitionComponent implements OnInit {
           message: '添加成功！',
         });
         that.mr.close();
+      },
+      complete: function() {
+        that.getProperty();
       },
       error: function (error) {
         console.log(error);
@@ -289,19 +348,31 @@ export class FunctionDefinitionComponent implements OnInit {
 
   }
 
-  openUpdataModal() {
+    // 修改数据定义弹框
+  openUpdataModal(content, item) {
+    this.addorupdate = '修改数据定义';
+    this.dataModel.name = item.name;
+    const modal = this.modalService.open(content, { windowClass: 'myCustomModalClass' });
+    this.mr = modal;
 
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    });
   }
 
   // 删除设备型号弹框
   openDelModal(content, item) {
+    this.delDataItemId = item.id;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
 
   }
 
-  // 新建数据定义
+  // 新建数据定义弹框
   openNewModal(content) {
+    this.addorupdate = '添加数据定义';
+    this.dataModel.name = '';
 
     const modal = this.modalService.open(content, { windowClass: 'myCustomModalClass' });
     this.mr = modal;
@@ -312,7 +383,7 @@ export class FunctionDefinitionComponent implements OnInit {
     });
   }
 
-  // 添加参数
+  // 添加参数弹框
   openParameterModal(content) {
 
     const modal = this.modalService.open(content );
@@ -325,10 +396,11 @@ export class FunctionDefinitionComponent implements OnInit {
   }
 
   //  // 新建数据定义 -ok
-  addData() {
-    console.log(this.dataModel);
-    this.mr.close();
-  }
+  // addData() {
+  //   console.log(this.dataModel);
+
+
+  // }
   //  // 新建数据定义 -ok
   addFuntion() {
     console.log(this.functionModel);
@@ -341,13 +413,12 @@ export class FunctionDefinitionComponent implements OnInit {
   closeModal($event) {
     console.log($event);
     if ($event === 'ok') {
-      this.delModal();
+      this.delProperty();
     }
     this.mr.close();
   }
 
-  // 删除设备型号-接口处
-  delModal() {}
+
 
   // 分页
   pageChange() {}

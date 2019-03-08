@@ -45,7 +45,7 @@ export class FunctionDefinitionService {
             }));
     }
 
-    // 删除服务定义 /api/device/model/property/{id}
+    // 删除数据定义 /api/device/model/property/{id}
     delProperty(id) {
         return this.http.delete(`/api/device/model/property/${id}`)
             .pipe(map((res) => {
