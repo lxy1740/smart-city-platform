@@ -388,6 +388,7 @@ export class DeviceHomeComponent implements OnInit {
   // 新建设备弹框
   openNewSurvey(content) {
     this.addOrUpdate = '新建设备';
+    // this.alertsModal = [];
     this.device.name = '';
     this.device.model = this.deviceModels1[0];
     this.device.descr = '';
@@ -456,7 +457,7 @@ export class DeviceHomeComponent implements OnInit {
           type: 'success',
           message: '新建成功！',
         });
-        that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
+        that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
         that.mr.close();
       },
       complete: function () {
@@ -478,6 +479,7 @@ export class DeviceHomeComponent implements OnInit {
     this.queryStrPosi = '';
     this.addOrUpdate = '更新设备';
     const that = this;
+    // this.alertsModal = [];
     this.getPosiById(item.positionId); // device.positionId -> position. (设备->位置点)
 
     this.device.updateId = item.id;
@@ -532,12 +534,11 @@ export class DeviceHomeComponent implements OnInit {
     };
     this.deviceService.updateDevice(body).subscribe({
       next: function (val) {
-        that.alertsModal.push({
+        that.alerts.push({
           id: 1,
           type: 'success',
           message: '修改成功！',
         });
-        that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
         that.mr.close();
       },
       complete: function () {
@@ -579,12 +580,11 @@ export class DeviceHomeComponent implements OnInit {
     }
     this.deviceService.delDevice(id).subscribe({
       next: function (val) {
-        that.alertsModal.push({
+        that.alerts.push({
           id: 1,
           type: 'success',
           message: '删除成功！',
         });
-        that.backup = that.alertsModal.map((alert: IAlert) => Object.assign({}, alert));
       },
       complete: function () {
         if (flag) {
