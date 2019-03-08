@@ -1,4 +1,7 @@
 <div class="nav-margin strategy">
+    <p *ngFor="let alert of alerts" class="lsq-alert">
+      <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
   <!-- 左侧 -->
   <div class="strategy-left">
     <div class="strategy-add">

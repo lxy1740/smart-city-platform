@@ -6,7 +6,7 @@ Author: luo.shuqi@live.com
 @time: 2018 /8 / 16 9: 00
 
 */
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -165,6 +165,14 @@ export class ThestrategyComponent implements OnInit {
   setRegionMess = false; // 下发策略
   currentTreeNodeId: any; // 当前选中的区域
 
+  @Input()
+  public alerts: Array<IAlert> = []; // 信息弹框
+  public alertsModal: Array<IAlert> = []; // 信息弹框
+  private backup: Array<IAlert>;  // 信息弹框
+
+
+
+
 
   public zTreeOnClick: (event, treeId, treeNode) => void;
   public zTreeOnCheck: (event, treeId, treeNode) => void;
@@ -222,6 +230,16 @@ export class ThestrategyComponent implements OnInit {
 
 
 
+  }
+
+  public closeAlert(alert: IAlert) {  // 信息弹框
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+
+
+  public reset() {  // 信息弹框
+    this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
 
   ngOnInit() {
@@ -337,11 +355,21 @@ export class ThestrategyComponent implements OnInit {
     this.strategyService.addStrategy(this.strategyName).subscribe({
       next: function (val) {
         that.getStrategyList(); // 重新获取策略
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '添加成功！',
+        });
       },
       complete: function () {
       },
       error: function (error) {
-        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `添加失败: ${message}！`,
+        });
       }
     });
   }
@@ -368,12 +396,21 @@ export class ThestrategyComponent implements OnInit {
       next: function (val) {
         that.currentStrategy.name = name;
         that.getStrategyList(); // 重新获取策略
-        // that.strategy_index = 0;
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '更新成功！',
+        });
       },
       complete: function () {
       },
       error: function (error) {
-        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `更新失败: ${message}！`,
+        });
       }
     });
   }
@@ -408,12 +445,23 @@ export class ThestrategyComponent implements OnInit {
         that.strategy_index = 0;
         that.currentStrategy = null;
         that.getStrategyList(); // 重新获取策略
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '删除成功！',
+        });
 
       },
       complete: function () {
       },
       error: function (error) {
         console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `删除失败: ${message}！`,
+        });
       }
     });
   }
@@ -1050,4 +1098,10 @@ export class ThestrategyComponent implements OnInit {
   }
 
 }
+export interface IAlert {
+  id: number;
+  type: string;
+  message: string;
+}
+
 
