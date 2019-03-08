@@ -249,7 +249,6 @@ export class PositionComponent implements OnInit {
     this.currentCity = this.getNode(this.cityList, region_id); // 当前城市
     console.log(this.currentCity);
     this.currentAreaList = this.currentCity ? this.currentCity.children : []; // 当前城市下的区域列表
-    this.model.installZoneId = this.currentCity ? this.currentCity.installZoneId : null; // 安装区域
     const area_id = item.regionId; // 当前区域id
     this.node = null; // 用于递归查询JSON树 父子节点
     this.currentRegion = this.getNode(this.cityList, area_id); // 当前区域
