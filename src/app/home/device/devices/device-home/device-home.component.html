@@ -274,8 +274,8 @@
                 <div class="d-inline-block area-selection-block" (mouseleave)="arealistMouseleave()">
 
                   <span class="cl-blue cur-pointer" (mouseover)="showArea()">
-                    <span class="filter" *ngIf="!currentArea">选择区域</span>
-                    <span class="filter" *ngIf="currentArea">{{currentArea.name}}</span>
+                    <span class="filter" *ngIf="!currentRegion">选择区域</span>
+                    <span class="filter" *ngIf="currentRegion">{{currentRegion.name}}</span>
                   </span>
 
                   <div class="arealist-wrap dropdown_panel" *ngIf="areashow">

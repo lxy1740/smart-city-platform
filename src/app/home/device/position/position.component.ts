@@ -263,6 +263,7 @@ export class PositionComponent implements OnInit {
     this.mr = modal;
     this.addBaiduMap();
     this.bindPosition(item.point);
+
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
@@ -354,7 +355,7 @@ export class PositionComponent implements OnInit {
             'name': this.model.name,
             'number': this.model.number,
             'point': this.model.point,
-            'regionId': this.currentRegion.id,
+            'regionId': this.currentRegion && this.currentRegion.id,
             'type': this.model.device.id,
             'wayId': this.currentWay.wayId,
             'customerId': this.currentCustomer.id || this.customerId,
@@ -465,6 +466,8 @@ export class PositionComponent implements OnInit {
       }
     });
   }
+
+
 
   // 分页
   pageChange() {

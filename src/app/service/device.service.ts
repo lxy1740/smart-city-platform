@@ -112,4 +112,14 @@ export class DeviceService {
                 return res;
             }));
     }
+
+    // 获取位置信息
+    getPositionById(id): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/api/position/${id}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
 }

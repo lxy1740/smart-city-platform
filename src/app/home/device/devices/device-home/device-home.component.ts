@@ -29,8 +29,8 @@ export class DeviceHomeComponent implements OnInit {
   deviceList: any; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
-  currentArea: any; // 当前区域
-  currentChildren: any; // 当前城市节点
+  currentRegion: any; // 当前区域
+  currentAreaList: any; // 当前城市节点
   currentBlock: any; // // 当前城市街道
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
@@ -335,7 +335,7 @@ export class DeviceHomeComponent implements OnInit {
     this.getCustomer();
   }
   pageChangePosi() {
-    this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
+    this.getPosiByRegionId(this.currentRegion.id, this.pagePosi, this.pageSizePosi);
   }
 
   // 分页获取道路
@@ -498,11 +498,20 @@ export class DeviceHomeComponent implements OnInit {
     const modal = this.modalService.open(content, { windowClass: 'ex-lg-modal' });
     this.mr = modal;
     this.addBaiduMap();
+    // this.getPositionById(item.positionId);
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log(this.closeResult);
+    });
+  }
+    // 获取位置信息
+  getPositionById(id) {
+    this.deviceService.getPositionById(id).subscribe({
+      next: function (val) {
+        console.log(val);
+      }
     });
   }
   // 修改设备信息
@@ -665,10 +674,10 @@ export class DeviceHomeComponent implements OnInit {
       next: function (val) {
         curPosition = val;
         that.bindedPosition = val;
-        console.log(val);
+        that.updatePosiRegion(val.regionId);
       },
       complete: function () {
-        that.updatePosiRegion();
+
         that.bindPosition(curPosition);
         that.getPosiByRegionId(curPosition.regionId, 1, that.pageSizePosi);
       },
@@ -679,23 +688,34 @@ export class DeviceHomeComponent implements OnInit {
   }
 
   // 传入'修改设备位置点所在区域'到模态框
-  updatePosiRegion() {
+  updatePosiRegion(regionId) {
     const that = this;
-    let region_id; // 当前城市id
-    const crrentProvince = this.cityList[0]; // 当前省会
-    for (let index = 0; index < crrentProvince.children.length; index++) {
-      const element = crrentProvince.children[index];
-      if (that.bindedPosition.installZoneId === element.installZoneId) {
-        region_id = element.id;
-      }
-    }
+    // let region_id; // 当前城市id
+    // const crrentProvince = this.cityList[0]; // 当前省会
+    // for (let index = 0; index < crrentProvince.children.length; index++) {
+    //   const element = crrentProvince.children[index];
+    //   if (that.bindedPosition.installZoneId === element.installZoneId) {
+    //     region_id = element.id;
+    //   }
+    // }
 
-    that.node = null; // 用于递归查询JSON树 父子节点
-    that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
-    that.currentChildren = that.node && that.node.children; // 当前城市下的区域列表
-    const area_id = that.bindedPosition.regionId; // 当前区域id
-    that.node = null; // 用于递归查询JSON树 父子节点
-    that.currentArea = that.getNode(that.cityList, area_id); // 当前区域i
+    // that.node = null; // 用于递归查询JSON树 父子节点
+    // that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
+    // that.currentAreaList = that.node && that.node.children; // 当前城市下的区域列表
+    // const area_id = that.bindedPosition.regionId; // 当前区域id
+    // that.node = null; // 用于递归查询JSON树 父子节点
+    // that.currentRegion = that.getNode(that.cityList, area_id); // 当前区域i
+
+    const region_id = regionId.toString().slice(0, 4); // 当前城市id
+    console.log(region_id);
+
+    this.node = null; // 用于递归查询JSON树 父子节点 currentRegion
+    this.currentCity = this.getNode(this.cityList, region_id); // 当前城市
+    console.log(this.currentCity);
+    this.currentAreaList = this.currentCity ? this.currentCity.children : []; // 当前城市下的区域列表区域
+    const area_id = regionId; // 当前区域id
+    this.node = null; // 用于递归查询JSON树 父子节点
+    this.currentRegion = this.getNode(this.cityList, area_id); // 当前区域
   }
 
   getCity() {
@@ -707,7 +727,7 @@ export class DeviceHomeComponent implements OnInit {
         // that.node = that.getNode(val.regions, val.zone.region_id);
         that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.currentCity = that.node;
-        that.currentChildren = that.currentCity.children;
+        that.currentAreaList = that.currentCity.children;
       },
       complete: function () {
 
@@ -789,9 +809,9 @@ export class DeviceHomeComponent implements OnInit {
     this.device.installZoneId = city.installZoneId; // 安装区域
     this.device.point = { lng: '', lat: '' };
     this.currentCity = city;
-    this.currentChildren = city.children;
+    this.currentAreaList = city.children;
     console.log(city);
-    this.currentArea = null;
+    this.currentRegion = null;
     this.node = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
     this.pagePosi = 1;
@@ -802,15 +822,15 @@ export class DeviceHomeComponent implements OnInit {
   selecteblock(block) {
     this.queryStrPosi = '';
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
-    this.currentArea = block;
+    this.currentRegion = block;
     this.device.point = { lng: '', lat: '' };
     this.pagePosi = 1;
-    this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
+    this.getPosiByRegionId(this.currentRegion.id, this.pagePosi, this.pageSizePosi);
   }
   // 新建/修改设备中检索点击事件
   execQueryPosi() {
     this.pagePosi = 1;
-    this.getPosiByRegionId(this.currentArea.id, this.pagePosi, this.pageSizePosi);
+    this.getPosiByRegionId(this.currentRegion.id, this.pagePosi, this.pageSizePosi);
   }
   // 通过安装区域和检索字符串获取位置点
   getPosiByRegionId(regionId, page, pageSize) {
