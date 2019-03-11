@@ -19,7 +19,7 @@ export class FunctionDefinitionComponent implements OnInit {
   deviceParams: any = {}; // 设备信息
   TYPEDATA1 = TYPEDATA; // 数据类型
   UNITDATA1 = UNITDATA; // 单位
-  TYPEDATA2 = TYPEDATA1; // 单位
+  TYPEDATA2 = TYPEDATA1; // 数据类型
   dataListItems = []; // 数据定义数据列表
   functionListItems = []; // 服务定义数据列表
   total = 1; // 分页
@@ -63,25 +63,23 @@ export class FunctionDefinitionComponent implements OnInit {
     this.dataModel.unit = this.UNITDATA1[0]; // int参数
 
 
-    this.dataModel.ARRAY = { // ARRAY参数
-      value: 0
-    };
+    // this.dataModel.ARRAY = { // ARRAY参数
+    //   value: 0
+    // };
 
 
-    this.dataModel.ENUM = []; // 枚举参数
-    this.dataModel.ENUM.push({ // 枚举参数
-      value: '',
-      describe: ''
-    });
+    // this.dataModel.ENUM = []; // 枚举参数
+    // this.dataModel.ENUM.push({ // 枚举参数
+    //   value: '',
+    //   describe: ''
+    // });
 
     this.dataModel.BOOL = {
       no: '',
       yes: ''
     }; // BOOL参数
 
-    this.dataModel.TEXT = {
-      length: 1024
-    }; // TEXT参数
+    this.dataModel.dataLength = 1024; // TEXT参数
 
     this.dataModel.STRUCT = []; // STRUCT参数
 
@@ -92,24 +90,23 @@ export class FunctionDefinitionComponent implements OnInit {
     this.AddParamModel.unit = this.UNITDATA1[0]; // 单位{  // int参数
 
 
-    this.AddParamModel.ARRAY = { // ARRAY参数
-      value: 0
-    };
+    // this.AddParamModel.ARRAY = { // ARRAY参数
+    //   value: 0
+    // };
 
-    this.AddParamModel.ENUM = []; // 枚举参数
-    this.AddParamModel.ENUM.push({ // 枚举参数
-      value: '',
-      describe: ''
-    });
+    // this.AddParamModel.ENUM = []; // 枚举参数
+    // this.AddParamModel.ENUM.push({ // 枚举参数
+    //   value: '',
+    //   describe: ''
+    // });
 
     this.AddParamModel.BOOL = {  // BOOL参数
       no: '',
       yes: ''
     };
 
-    this.AddParamModel.TEXT = { // TEXT参数
-      length: 1024
-    };
+    this.AddParamModel.dataLength = 1024; // TEXT参数
+
 
    // 3.服务定义弹框
     this.functionModel.synchronism = '异步'; // 异步同步 调用方式
@@ -121,6 +118,11 @@ export class FunctionDefinitionComponent implements OnInit {
   public closeAlert(alert: IAlert) {  // 信息弹框
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+
+  public closeAlertModal(alert: IAlert) {  // 信息弹框
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
   }
 
 
@@ -194,7 +196,6 @@ export class FunctionDefinitionComponent implements OnInit {
         that.functionListItems = val;
       },
       complete: function() {
-        that.getProperty();
       },
       error: function (error) {
         console.log(error);
@@ -215,10 +216,10 @@ export class FunctionDefinitionComponent implements OnInit {
     let body;
     switch (this.dataModel.dataType.Value) {
       case 'INT':
-      case 'FLOAT':
-      case 'DOUBLE':
+      case 'Float':
+      case 'double':
       body = {
-        'dataLength': this.dataModel.dataLength,
+        // 'dataLength': this.dataModel.dataLength,
         'dataMax': this.dataModel.dataMax,
         'dataMin': this.dataModel.dataMin,
         'unit': this.dataModel.unit.Symbol,
@@ -228,7 +229,8 @@ export class FunctionDefinitionComponent implements OnInit {
         'modelId': this.deviceParams.id,
         'name': this.dataModel.name,
         'readOnly': this.dataModel.readOnly,
-        'resolution': this.dataModel.describe,
+        'resolution': this.dataModel.resolution,
+        'describe': this.dataModel.describe,
       };
       break;
       case 'DATE':
@@ -243,7 +245,40 @@ export class FunctionDefinitionComponent implements OnInit {
         'modelId': this.deviceParams.id,
         'name': this.dataModel.name,
         'readOnly': this.dataModel.readOnly,
-        'resolution': this.dataModel.describe,
+        // 'resolution': this.dataModel.resolution,
+        'describe': this.dataModel.describe,
+      };
+      break;
+      case 'TEXT':
+      body = {
+        'dataLength': this.dataModel.dataLength,
+        // 'dataMax': this.dataModel.dataMax,
+        // 'dataMin': this.dataModel.dataMin,
+        // 'unit': this.dataModel.unit.Symbol,
+        'dataType': this.dataModel.dataType.Value,
+        // 'id': 0,
+        'key': this.dataModel.key,
+        'modelId': this.deviceParams.id,
+        'name': this.dataModel.name,
+        'readOnly': this.dataModel.readOnly,
+        // 'resolution': this.dataModel.resolution,
+        'describe': this.dataModel.describe,
+      };
+       break;
+      case 'BOOL':
+      body = {
+        // 'dataLength': this.dataModel.dataLength,
+        // 'dataMax': this.dataModel.dataMax,
+        // 'dataMin': this.dataModel.dataMin,
+        // 'unit': this.dataModel.unit.Symbol,
+        'dataType': this.dataModel.dataType.Value,
+        // 'id': 0,
+        'key': this.dataModel.key,
+        'modelId': this.deviceParams.id,
+        'name': this.dataModel.name,
+        'readOnly': this.dataModel.readOnly,
+        // 'resolution': this.dataModel.resolution,
+        'describe': this.dataModel.describe,
       };
       break;
       default:
@@ -262,6 +297,93 @@ export class FunctionDefinitionComponent implements OnInit {
         that.mr.close();
       },
       complete: function() {
+        that.getProperty();
+      },
+      error: function (error) {
+        console.log(error);
+        const message = error.error.errors[0].defaultMessage;
+        that.alerts.push({
+          id: 1,
+          type: 'danger',
+          message: `${message}！`,
+        });
+      }
+    });
+  }
+
+  //    // 修改数据定义
+  updateProperty() {
+    const that = this;
+    let body;
+    switch (this.dataModel.dataType.Value) {
+      case 'INT':
+      case 'Float':
+      case 'double':
+        body = {
+          'dataMax': this.dataModel.dataMax,
+          'dataMin': this.dataModel.dataMin,
+          'unit': this.dataModel.unit.Symbol,
+          'dataType': this.dataModel.dataType.Value,
+          'id': this.dataModel.updateId,
+          'key': this.dataModel.key,
+          'modelId': this.deviceParams.id,
+          'name': this.dataModel.name,
+          'readOnly': this.dataModel.readOnly,
+          'resolution': this.dataModel.resolution,
+          'describe': this.dataModel.describe,
+        };
+        break;
+      case 'DATE':
+        body = {
+
+          'dataType': this.dataModel.dataType.Value,
+          'id': this.dataModel.updateId,
+          'key': this.dataModel.key,
+          'modelId': this.deviceParams.id,
+          'name': this.dataModel.name,
+          'readOnly': this.dataModel.readOnly,
+          'describe': this.dataModel.describe,
+        };
+        break;
+      case 'TEXT':
+        body = {
+          'dataLength': this.dataModel.dataLength,
+          'dataType': this.dataModel.dataType.Value,
+          'id': this.dataModel.updateId,
+          'key': this.dataModel.key,
+          'modelId': this.deviceParams.id,
+          'name': this.dataModel.name,
+          'readOnly': this.dataModel.readOnly,
+          'describe': this.dataModel.describe,
+        };
+        break;
+      case 'BOOL':
+        body = {
+          'dataType': this.dataModel.dataType.Value,
+          'id': this.dataModel.updateId,
+          'key': this.dataModel.key,
+          'modelId': this.deviceParams.id,
+          'name': this.dataModel.name,
+          'readOnly': this.dataModel.readOnly,
+          'describe': this.dataModel.describe,
+        };
+        break;
+      default:
+        break;
+    }
+
+
+    this.functionDefinitionService.updateProperty(body).subscribe({
+      next: function (val) {
+        console.log(val);
+        that.alerts.push({
+          id: 1,
+          type: 'success',
+          message: '添加成功！',
+        });
+        that.mr.close();
+      },
+      complete: function () {
         that.getProperty();
       },
       error: function (error) {
@@ -328,6 +450,14 @@ export class FunctionDefinitionComponent implements OnInit {
     });
   }
 
+  addorupdateProperty() {
+    if (this.addorupdate === '添加数据定义') {
+      this.addProperty();
+    } else {
+      this.updateProperty();
+    }
+  }
+
   // 删除枚举项
   delEnum() {
     if (this.dataModel.ENUM.length > 1) {
@@ -347,11 +477,36 @@ export class FunctionDefinitionComponent implements OnInit {
     }
 
   }
+  findTYPEDATA(Value) {
+    if (!Value) {
+      return this.TYPEDATA1[0];
+    }
+    return this.TYPEDATA1.find((n) => n.Value === Value);
+  }
+
+  findTUNITDATA(Value) {
+    if (!Value) {
+      return this.UNITDATA1[0];
+    }
+    return this.UNITDATA1.find((n) => n.Symbol === Value);
+  }
 
     // 修改数据定义弹框
   openUpdataModal(content, item) {
     this.addorupdate = '修改数据定义';
     this.dataModel.name = item.name;
+    this.dataModel.updateId = item.id;
+
+    this.dataModel.key = item.key;
+    this.dataModel.dataMin = item.dataMin;
+    this.dataModel.dataMax = item.dataMax;
+    this.dataModel.resolution = item.resolution;
+    this.dataModel.readOnly = item.readOnly;
+    this.dataModel.describe = item.describe;
+
+    this.dataModel.dataType = this.findTYPEDATA(item.dataType);
+    this.dataModel.unit = this.findTUNITDATA(item.unit);
+
     const modal = this.modalService.open(content, { windowClass: 'myCustomModalClass' });
     this.mr = modal;
 
@@ -373,6 +528,15 @@ export class FunctionDefinitionComponent implements OnInit {
   openNewModal(content) {
     this.addorupdate = '添加数据定义';
     this.dataModel.name = '';
+    this.dataModel.key = '';
+    this.dataModel.dataMin = null;
+    this.dataModel.dataMax = null;
+    this.dataModel.resolution = null;
+    this.dataModel.readOnly = false;
+    this.dataModel.describe = '';
+
+    this.dataModel.dataType = this.TYPEDATA1[0];
+    this.dataModel.unit = this.UNITDATA1[0];
 
     const modal = this.modalService.open(content, { windowClass: 'myCustomModalClass' });
     this.mr = modal;
