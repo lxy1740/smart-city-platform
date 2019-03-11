@@ -79,17 +79,21 @@
               <th>服务名称</th>
               <th>输入参数</th>
               <th>输出参数</th>
+              <th>操作</th>
               <!-- <th style="text-align: center">操作</th> -->
             </tr>
           </thead>
           <tbody>
-        
+            
             <tr *ngFor="let item of functionList">
               <td>{{item.time | date: 'yyyy-MM-ddTHH:mm:ss'}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.dataValue}}</td>
-              <td>{{item.dataValue}}</td>
-              <td>{{item.dataValue}}</td>
+              <td>{{item.identifier}}</td>
+              <td>{{item.serverName }}</td>
+              <td>{{item.inputPara}}</td>
+              <td>{{item.outputPara}}</td>
+              <td>
+                <a class="cur-pointer btn-a theme-text d-inline">调用</a>
+              </td>
               <!-- <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/history-data',item.dataKey)">查看历史数据</a>

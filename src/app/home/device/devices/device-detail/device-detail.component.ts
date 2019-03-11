@@ -10,6 +10,7 @@ import { DeviceHistoryService } from '../../../../service/device-history.service
 })
 export class DeviceDetailComponent implements OnInit {
   deviceId: string; // 设备id
+  modelId: string; // 设备id
   deviceInfo: any = {}; // 设备信息
   CurrentPropertyList = []; // 数据列表
   functionList = []; // 服务列表
@@ -38,8 +39,10 @@ export class DeviceDetailComponent implements OnInit {
 
   ngOnInit() {
     this.deviceId = this.routerinfo.snapshot.params.deviceId;
+    this.modelId = this.routerinfo.snapshot.params.modelId;
     this.getDevice();
     this.getCurrentProperty();
+    this.getDeviceService();
 
   }
 
@@ -68,6 +71,20 @@ export class DeviceDetailComponent implements OnInit {
   getDevice() {
     const that = this;
     this.deviceHistoryService.getDevice(this.deviceId)
+      .subscribe({
+        next: function (val) {
+          that.deviceInfo = val;
+        }
+      });
+
+  }
+
+
+  // 获取某个设备的所有服务调用
+  getDeviceService() {
+    const that = this;
+    const modelId = this.modelId;
+    this.deviceHistoryService.getDeviceService(modelId)
       .subscribe({
         next: function (val) {
           that.deviceInfo = val;

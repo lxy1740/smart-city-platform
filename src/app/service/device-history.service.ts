@@ -81,4 +81,12 @@ export class DeviceHistoryService {
                 ));
 
     }
+
+    // 获取某个设备的所有服务调用
+    getDeviceService(modelId): Observable<any> {
+        return this.http.get(`/api/device/model/service/all/modelId=${modelId}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
 }

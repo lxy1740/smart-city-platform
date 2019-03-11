@@ -43,7 +43,7 @@
             </li>
 
           </ul>
-          <div class="blocklist-wrap" *ngIf="map_model.currentBlock.length > 0">
+          <div class="blocklist-wrap" *ngIf="map_model.currentBlock && map_model.currentBlock.length > 0">
             <ul class="blocklist" data-type="block">
               <li *ngFor="let block of map_model.currentBlock" (click)="selecteblock(block)">{{block.name}}</li>
             </ul>
