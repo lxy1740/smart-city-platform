@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './guard/auth-guard.service';
 import { AuthService } from './guard/auth.service';
 import { PageNotFoundComponent } from './not-found.component';
+import { PipesModule } from './pipes/pipes.module';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -31,7 +32,8 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter
       }
-    })
+    }),
+    PipesModule
 
   ],
   exports: [],

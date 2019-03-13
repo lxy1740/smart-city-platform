@@ -19,6 +19,9 @@
 .modal-body {
     padding-left: 80px;
     padding-right: 80px;
+    max-height: 600px;
+    overflow-y: auto;
+
 }
 
 .myCustomModalClass .modal-dialog {
@@ -44,7 +47,7 @@
         margin-left: 15px;
     }
     .sm-width {
-        width: 208px;
+        width: 200px;
     }
     .sm-width1 {
         width: 108px;
@@ -54,6 +57,9 @@
     }
     .sm-width3 {
         width: 158px;
+    }
+    .sm-width4 {
+        width: 138px;
     }
     .ssm-width {
         width: 11px;

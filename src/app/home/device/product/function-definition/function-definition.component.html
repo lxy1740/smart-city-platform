@@ -152,10 +152,13 @@
   </div>
 </ng-template>
 
-<!-- modal下modal:增加服务定义 -->
+<!-- modal下modal:增加/修改服务定义 -->
 <ng-template #AddSERVICE class="modal1" let-c="close" let-d="dismiss">
+    <p *ngFor="let alert of alertsModal" class="lsq-alert">
+      <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+    </p>
   <div class="modal-header">
-    <h4 class="modal-title">添加服务定义</h4>
+    <h4 class="modal-title">{{addorupdate}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -173,26 +176,64 @@
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>调用方式：</label>
       <div>
-        <input type="radio" name="synchrony" [value]="1" placeholder="" [(ngModel)]="functionModel.synchrony">异步
-        <input type="radio" name="synchrony" [value]="0" placeholder="" [(ngModel)]="functionModel.synchrony">同步
+        <input type="radio" name="synchrony" [value]="1" placeholder="" [(ngModel)]="functionModel.synchrony">同步
+        <input type="radio" name="synchrony" [value]="0" placeholder="" [(ngModel)]="functionModel.synchrony">异步
       </div>
     </div>
     <div class="form-group">
       <label class="control-label">输入参数：</label>
+      <div class="form-inline" *ngIf="functionModel.inputparam && functionModel.inputparam.length > 0" style="padding: 5px 0;">
+              <table class="table">
+                <tr>
+    
+                  <th>标识符</th>
+                  <th>数据类型</th>
+                  <th>操作</th>
+                </tr>
+                <tr *ngFor="let items of (functionModel.inputparam); index as i ">
+                  
+                  <td>{{items.dataKey}}</td>
+                  <td>{{items.dataType}}</td>
+                  <td><span style="padding-left: 15px;"><a class="cur-pointer theme-text " (click)="delParam(i, 'inputparam')">删除</a> </span></td>
+                </tr>
+              </table>
+
+
+      </div>
       <div>
-        <span><a class="theme-text cur-pointer" (click)="openParameterModal(parameterAdd)">+ 增加参数</a></span>
+        <span><a class="theme-text cur-pointer" (click)="openParameterModal(parameterAdd, 0)">+ 增加参数</a></span>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label">输出参数：</label>
+      <div class="form-inline" *ngIf="functionModel.outputparam && functionModel.outputparam.length > 0" style="padding: 5px 0;">
+        <table class="table">
+          <tr>
+            
+            <th>标识符</th>
+            <th>数据类型</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let items of (functionModel.outputparam); index as i  ">
+
+            <td>{{items.dataKey}}</td>
+            <td>{{items.dataType}}</td>
+            <td><span style="padding-left: 15px;"><a class="cur-pointer theme-text " (click)="delParam(i, 'outputparam')">删除</a> </span></td>
+          </tr>
+        </table>
+      
+      
+      </div>
       <div>
-        <span><a class="theme-text cur-pointer" (click)="openParameterModal(parameterAdd)">+ 增加参数</a></span>
+        <span><a class="theme-text cur-pointer" (click)="openParameterModal(parameterAdd, 1)">+ 增加参数</a></span>
       </div>
     </div>
 
 
     <div class="form-group">
-      <label class="control-label"><span style="color:red">*</span>描述：</label>
+      <label class="control-label">
+        <!-- <span style="color:red">*</span> -->
+        描述：</label>
       <div>
         <textarea name="" id="" cols="60" rows="3" [(ngModel)]="functionModel.description" placeholder="请输入描述"></textarea>
       </div>
@@ -200,13 +241,16 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="addFuntion()">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="addorupdateService()">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
 
 <!-- modal下modal:增加参数 -->
 <ng-template #parameterAdd class="modal1" let-c="close" let-d="dismiss">
+  <p *ngFor="let alert of alertsModal" class="lsq-alert">
+    <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+  </p>
   <div class="modal-header">
     <h4 class="modal-title">新建参数</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -221,28 +265,28 @@
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>标识符</label>
-      <input type="text" class="form-control"  [(ngModel)]="AddParamModel.identifier" placeholder="">
+      <input type="text" class="form-control"  [(ngModel)]="AddParamModel.dataKey" placeholder="">
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>数据类型</label>
-      <select class="form-control" [(ngModel)]="AddParamModel.type">
+      <select class="form-control" [(ngModel)]="AddParamModel.dataType">
         <option *ngFor="let unit of TYPEDATA2" [ngValue]="unit">{{unit.Name}}</option>
       </select>
     </div>
     <!-- INT、FLOAT、DOUBLE -->
-    <div *ngIf="AddParamModel.type.Value == 'INT' || AddParamModel.type.Value == 'FLOAT' || AddParamModel.type.Value == 'DOUBLE' ">
+    <div *ngIf="AddParamModel.dataType.Value == 'INT' || AddParamModel.dataType.Value == 'Float' || AddParamModel.dataType.Value == 'double' ">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>取值范围：</label>
         <div class="form-inline">
-          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.min" placeholder="最小值">
+          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.dataMin" placeholder="最小值">
           <span class="ssm-width">~</span>
-          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.max" placeholder="最大值">
+          <input type="number" class="form-control sm-width3" [(ngModel)]="AddParamModel.dataMax" placeholder="最大值">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>分辨率/步长：</label>
         <div>
-          <input type="text" class="form-control" [(ngModel)]="AddParamModel.stepSize" placeholder="请输入步长">
+          <input type="text" class="form-control" [(ngModel)]="AddParamModel.resolution" placeholder="请输入步长">
         </div>
       </div>
       <div class="form-group">
@@ -254,8 +298,41 @@
         </div>
       </div>
     </div>
+
+    <!-- BOOL -->
+    <div *ngIf="AddParamModel.dataType.Value == 'BOOL'">
+      <div class="form-group">
+        <label class="control-label"><span style="color:red">*</span>布尔值:</label>
+        <div class="form-inline">
+          <span class="ssm-width">0-</span>
+          <input type="number" class="form-control sm-width4" [(ngModel)]="AddParamModel.BOOL.no" placeholder="如：关">
+          <span class="ssm-width" style="padding: 15px;">1-</span>
+          <input type="number" class="form-control sm-width4" [(ngModel)]="AddParamModel.BOOL.yes" placeholder="如：开">
+    
+        </div>
+      </div>
+    </div>
+    <!-- TEXT -->
+    <div *ngIf="AddParamModel.dataType.Value == 'TEXT'">
+      <div class="form-group">
+        <label class="control-label"><span style="color:red">*</span>数据长度:</label>
+        <div class="form-inline">
+          <input type="number" class="form-control sm-width" [(ngModel)]="AddParamModel.dataLength" placeholder="如：关">
+          <span style="padding-left: 15px;">字节</span>
+        </div>
+      </div>
+    </div>
+    <!-- DATE -->
+    <div *ngIf="AddParamModel.dataType.Value == 'DATE'">
+      <div class="form-group">
+        <label class="control-label">时间格式:</label>
+        <div class="form-inline">
+          <span>String类型的UTC时间戳（毫秒）</span>
+        </div>
+      </div>
+    </div>
     <!-- ENUM -->
-    <div *ngIf="AddParamModel.type.Value == 'ENUM'">
+    <div *ngIf="AddParamModel.dataType.Value == 'ENUM'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>枚举项:</label>
         <div class="form-inline">
@@ -273,41 +350,9 @@
         <span><a class="cur-pointer theme-text " (click)="addEnum()">+添加枚举项</a></span>
       </div>
     </div>
-    <!-- BOOL -->
-    <div *ngIf="AddParamModel.type.Value == 'BOOL'">
-      <div class="form-group">
-        <label class="control-label"><span style="color:red">*</span>布尔值:</label>
-        <div class="form-inline">
-          <span class="ssm-width">0-</span>
-          <input type="number" class="form-control sm-width2" [(ngModel)]="AddParamModel.BOOL.no" placeholder="如：关">
-          <span class="ssm-width" style="padding: 15px;">1-</span>
-          <input type="number" class="form-control sm-width2" [(ngModel)]="AddParamModel.BOOL.yes" placeholder="如：开">
-    
-        </div>
-      </div>
-    </div>
-    <!-- TEXT -->
-    <div *ngIf="AddParamModel.type.Value == 'TEXT'">
-      <div class="form-group">
-        <label class="control-label"><span style="color:red">*</span>数据长度:</label>
-        <div class="form-inline">
-          <input type="number" class="form-control sm-width" [(ngModel)]="AddParamModel.TEXT.length" placeholder="如：关">
-          <span style="padding-left: 15px;">字节</span>
-        </div>
-      </div>
-    </div>
-    <!-- DATE -->
-    <div *ngIf="AddParamModel.type.Value == 'DATE'">
-      <div class="form-group">
-        <label class="control-label">时间格式:</label>
-        <div class="form-inline">
-          <span>String类型的UTC时间戳（毫秒）</span>
-        </div>
-      </div>
-    </div>
 
     <!-- ARRAY -->
-    <div *ngIf="AddParamModel.type.Value == 'ARRAY'">
+    <div *ngIf="AddParamModel.dataType.Value == 'ARRAY'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>元素类型:</label>
         <div>
@@ -322,14 +367,15 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-info" (click)="c('Close click')">确认</button>
+    <button type="button" class="btn btn-outline-info" (click)="addParam()">确认</button>
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
-<!-- 删除位置 -->
+<!-- 删除 -->
 <ng-template #contentDel let-c="close" let-d="dismiss">
   <app-sq-modal [input]="modelData" (output)="closeModal($event)"></app-sq-modal>
 </ng-template>
+
 <!-- 产品管理页面 -->
 <div class="bodyofproduct cart-over">
   <p *ngFor="let alert of alerts" class="lsq-alert">
@@ -400,7 +446,7 @@
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
                   <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(AddDATA, item)">修改</a>
-                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item, 'property')">删除</a>
                 </div>
               </td>
         
@@ -420,7 +466,7 @@
       <!-- 服务定义 -->
       <div *ngIf="nav_index === 1">
         <div style=" text-align: right;">
-          <a  class="cur-pointer theme-text btn-a" (click)="openNewModal(AddSERVICE)">添加服务定义</a>
+          <a  class="cur-pointer theme-text btn-a" (click)="openNewServiceModal(AddSERVICE)">添加服务定义</a>
         </div>
         <table class="table table-hover">
           <thead class="table-header">
@@ -441,14 +487,17 @@
               <td>{{i + 1}}</td>
               <td>{{item.name}}</td>
               <td>{{item.identifier}}</td>
-              <td>{{item.synchrony}}</td>
+              <td>
+                <span *ngIf="item.synchrony">同步</span>
+                <span *ngIf="!item.synchrony">异步</span>
+              </td>
               <!-- <td>{{item.input}}</td>
               <td>{{item.output}}</td> -->
               <td>{{item.description}}</td>
               <td style="text-align: center">
                 <div class="modify-strategy d-inline">
-                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataModal(AddSERVICE, item)">修改</a>
-                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item)">删除</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataServiceModal(AddSERVICE, item)">修改</a>
+                  <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelModal(contentDel, item, 'service')">删除</a>
                 </div>
               </td>
         
