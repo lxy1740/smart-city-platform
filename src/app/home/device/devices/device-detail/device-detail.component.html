@@ -1,3 +1,51 @@
+
+<!-- 调用服务 -->
+<ng-template #serviceCall  class="modal1" let-c="close" let-d="dismiss">
+    <p *ngFor="let alert of alertsModal" class="lsq-alert">
+      <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+    <div class="modal-header">
+      <h4 class="modal-title">服务调用</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body">
+      <div class="form-group">
+        <table class="table table-hover">
+          <thead class="table-header table-align">
+            <tr>
+              <!-- <th>name</th> -->
+              <th>dataKey</th>
+              <th>dataType</th>
+              <!-- <th>identifier</th>
+              <th>deviceName</th> -->
+              <th>value</th>    
+            </tr>
+          </thead>
+          <tbody>        
+            <tr *ngFor="let item of serviceList">
+              <!-- <td>{{ item.name }}</td> -->
+              <td>{{ item.dataKey }}</td> 
+              <td>{{ item.dataType }}</td>
+              <!-- <td>{{ identifier }}</td> 
+              <td>{{ deviceName }}</td> -->
+              <td>
+                <input type="text" class="form-control form-control-left" maxlength="30" placeholder=""
+                [(ngModel)]="item.value">
+              </td>
+              <!-- <td>{{ item.isOutput }}</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-info" (click)="addInvokeService()">确认</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+    </div>
+</ng-template>
 <!-- 产品管理页面 -->
 <div class="bodyofproduct cart-over">
   <!-- <p class="lsq-alert">
@@ -74,40 +122,31 @@
         <table class="table table-hover">
           <thead class="table-header">
             <tr>
-              <th>时间</th>
+              <th>序号</th>
               <th>标识符</th>
-              <th>服务名称</th>
-              <th>输入参数</th>
-              <th>输出参数</th>
+              <th>服务名称</th>             
+              <th>调用方式</th>
+              <th>描述</th>
               <th>操作</th>
-              <!-- <th style="text-align: center">操作</th> -->
+
             </tr>
           </thead>
           <tbody>
             
-            <tr *ngFor="let item of functionList">
-              <td>{{item.time | date: 'yyyy-MM-ddTHH:mm:ss'}}</td>
+            <tr *ngFor="let item of functionList;let i = index;"  >
+              <td>{{i + 1}}</td>
               <td>{{item.identifier}}</td>
-              <td>{{item.serverName }}</td>
-              <td>{{item.inputPara}}</td>
-              <td>{{item.outputPara}}</td>
+              <td>{{item.name }}</td>
+              <td>{{item.synchrony === 0 ? '同步' : '异步'}}</td>
+              <td>{{item.description}}</td>
               <td>
-                <a class="cur-pointer btn-a theme-text d-inline">调用</a>
-              </td>
-              <!-- <td style="text-align: center">
-                <div class="modify-strategy d-inline">
-                  <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/history-data',item.dataKey)">查看历史数据</a>
-                </div>
-              </td> -->
-        
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="openServiceModel(serviceCall, item.param, item.id,item.identifier)">调用</a>
+              </td>  
+
             </tr>
           </tbody>
         </table>
         <div *ngIf="functionList.length === 0 || !functionList">无数据！</div>
-        <div *ngIf="functionList.length > 0">
-          <ngb-pagination [collectionSize]=total1 [(page)]="page1" [maxSize]="5" [rotate]="true" [ellipses]="false"
-            [boundaryLinks]="true" (pageChange)="pageChange1()"></ngb-pagination>
-        </div>
       </div>
 
     </div>

@@ -463,7 +463,7 @@
             <td style="text-align: center">
               <div class="modify-strategy d-inline">
                 <a class="cur-pointer btn-a theme-text d-inline" *ngIf="isGateway(device.modelId)" (click)="searchSubDevice(device.id,device.description)">子设备</a>
-                <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/devices-detail',device.id, device.modelId)"
+                <a class="cur-pointer btn-a theme-text d-inline" (click)="goToZheRoute('home/device/devices/devices-detail',device.id, device.modelId,device.name)"
                   *ngIf="getture('DM-0010')">查看</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openUpdataDevice(content2, device, i)">修改</a>
                 <a class="cur-pointer btn-a theme-text d-inline" (click)="openDelDevice(contentDelDevice, device)">删除</a>

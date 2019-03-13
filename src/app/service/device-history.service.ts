@@ -84,8 +84,27 @@ export class DeviceHistoryService {
 
     // 获取某个设备的所有服务调用
     getDeviceService(modelId): Observable<any> {
-        return this.http.get(`/api/device/model/service/all/modelId=${modelId}`)
+        return this.http.get(`/api/device/model/service/all?modelId=${modelId}`)
             .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
+    // 获取服务调用所需的参数
+    getServeParam(serviceId): Observable<any> {
+        return this.http.get(`/api/device/model/service/getServeParam?serviceId=${serviceId}`)
+            .pipe(map((res: Response) => {
+                // console.log('res:' + res);
+                return res;
+            }));
+    }
+
+    // 服务调用
+    addInvokeService(body) {
+        console.log('body: ' + body.param + 'deviceName ' + body.deviceName );
+        return this.http.post(`/api/device/model/service/invokeService`, body)
+            .pipe(map((res) => {
+                console.log('res: ' + res);
                 return res;
             }));
     }

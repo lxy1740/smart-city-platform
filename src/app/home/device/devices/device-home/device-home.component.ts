@@ -216,7 +216,7 @@ export class DeviceHomeComponent implements OnInit {
       console.log(id);
       console.log(id[0]);
       console.log(id[1]);
-      this.router.navigate([para, { deviceId: id[0], modelId: id[1] }]);
+      this.router.navigate([para, { deviceId: id[0], modelId: id[1],  deviceName: id[2]}]);
     } else {
       this.router.navigate([para]);
     }
@@ -478,7 +478,7 @@ export class DeviceHomeComponent implements OnInit {
     });
   }
   // 修改设备弹框
-  openUpdataDevice(content, item, i) { 
+  openUpdataDevice(content, item, i) {
     this.queryStrPosi = '';
     this.addOrUpdate = '更新设备';
     const that = this;
