@@ -120,12 +120,11 @@ export class DeviceMonitorComponent implements OnInit {
           } else {
             message = '结果不唯一！';
           }
-          that.alerts.push({
+          that.alerts[0] = {
             id: 1,
             type: 'danger',
             message: message,
-          });
-          console.log(message);
+          };
           that.alerts.map((alert: IAlert) => Object.assign({}, alert));
         }
       });
