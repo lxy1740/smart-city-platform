@@ -140,6 +140,7 @@ export class PositionComponent implements OnInit {
     this.currentCustomer = item;
     this.Customershow = false;
     this.model.CustomerId = item.id;
+    this.getCity(item.id);
   }
   // 检索按键点击事件
   execQuery() {
@@ -187,6 +188,7 @@ export class PositionComponent implements OnInit {
       .subscribe({
         next: function (val) {
           that.CustomerList = val.items;
+          that.CustomerList.unshift({'name': '平台用户', code: ''}); // 添加平台用户
           that.total2 = val.tota2;
         },
         error: function (error) {
@@ -508,18 +510,28 @@ export class PositionComponent implements OnInit {
   }
 
   // 获取城市列表
-  getCity() {
+  getCity(...cusid) {
     const that = this;
-    this.positionService.getZoneDefault().subscribe({
+    this.positionService.getZoneDefault(cusid).subscribe({
       next: function (val) {
+        if (!val) {
+          that.cityList = [];
+          that.currentCity = null;
+          that.currentAreaList = [];
+          that.currentRegion = null;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `该客户安装区域为空！`,
+          });
+          return;
+        }
         that.cityList = val.regions;
-        // that.zoom = that.switchZone(val.zone.level);
-        // that.currentCity = val.regions[0].children;
-        // that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
-        that.currentCity = that.getNode(that.cityList, val.regions[0].children[0].id); // 当前城市
+        that.node = null; // 用于递归查询JSON树 父子节点
+        that.currentCity = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
-        // that.currentList = that.currentAreaList; // 区域列表
-        // that.currentArea = that.currentAreaList[0].children[0]; // 当前区域
+        that.currentRegion = that.currentAreaList && that.currentAreaList[0]
+          && that.currentAreaList[0].children && that.currentAreaList[0].children[0]; // 当前区域
 
       },
       complete: function () {

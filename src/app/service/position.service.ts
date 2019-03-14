@@ -13,10 +13,14 @@ export class PositionService {
 
     }
     // 城市列表
-    getZoneDefault(): Observable<any> {
+    getZoneDefault(...cusid): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
+        // console.log(cusid);
+        // console.log(typeof cusid);
+        const url = cusid && cusid[0] ? `/api/zone/default?cusid=${cusid}` : `/api/zone/default`;
 
-        return this.http.get('/api/zone/default')
+
+        return this.http.get(url)
             .pipe(map((res: Response) => {
                 return res;
             }));
