@@ -48,7 +48,7 @@ export class DeviceHomeComponent implements OnInit {
   total = 0; // 分页
   page2 = 1; // 分页
   pageSize2 = 5; // 分页
-  total2 = 0; // 分页
+  total3 = 0; // 分页
   deviceModels = [];  // 设备型号列表
   CustomerList = [];  // 客户列表
   deviceModels1 = [];
@@ -350,7 +350,8 @@ export class DeviceHomeComponent implements OnInit {
         next: function (val) {
           that.CustomerList = val.items;
           that.CustomerList.unshift({ 'name': '平台用户', code: '' }); // 添加平台用户
-          that.total2 = val.total;
+          that.total3 = val.total;
+          console.log(that.total3);
         },
         error: function (error) {
           console.log(error);

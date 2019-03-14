@@ -198,7 +198,7 @@
                   <div *ngIf="CustomerList.length === 0 || !CustomerList">无数据！</div>
                   <!-- 判断显示页面 -->
                   <div *ngIf="CustomerList.length > 0">
-                    <ngb-pagination [collectionSize]=total2 [(page)]="page2" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                    <ngb-pagination [collectionSize]=total3 [(page)]="page2" [pageSize]="5" [maxSize]="5" [rotate]="true" [ellipses]="false"
                       [boundaryLinks]="true" (pageChange)="pageChange2()"></ngb-pagination>
                   </div>
         
