@@ -14,16 +14,13 @@ export class DeviceService {
 
     }
     // 城市列表
-    getZoneDefault(): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
+    getZoneDefault(...cusid): Observable<any> {
+        const url = cusid && cusid[0] ? `/api/zone/default?cusid=${cusid}` : `/api/zone/default`;
 
-        // 4.通过HTTP的get方法请求数据
-        return this.http.get('/api/zone/default')
+
+        return this.http.get(url)
             .pipe(map((res: Response) => {
-                const data = res;
-                // data.regions[0].open = true;
-                return data;
-
+                return res;
             }));
     }
 

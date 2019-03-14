@@ -47,7 +47,7 @@ export class DeviceHomeComponent implements OnInit {
   pageSize = 10; // 分页
   total = 0; // 分页
   page2 = 1; // 分页
-  pageSize2 = 10; // 分页
+  pageSize2 = 5; // 分页
   total2 = 0; // 分页
   deviceModels = [];  // 设备型号列表
   CustomerList = [];  // 客户列表
@@ -349,7 +349,8 @@ export class DeviceHomeComponent implements OnInit {
       .subscribe({
         next: function (val) {
           that.CustomerList = val.items;
-          that.total2 = val.tota2;
+          that.CustomerList.unshift({ 'name': '平台用户', code: '' }); // 添加平台用户
+          that.total2 = val.total;
         },
         error: function (error) {
           console.log(error);
@@ -362,6 +363,7 @@ export class DeviceHomeComponent implements OnInit {
   selecteCustomer(item) {
     this.currentCustomer = item;
     this.Customershow = false;
+    this.getCity(item.id);
   }
 
   // 显示客户
@@ -693,21 +695,6 @@ export class DeviceHomeComponent implements OnInit {
   // 传入'修改设备位置点所在区域'到模态框
   updatePosiRegion(regionId) {
     const that = this;
-    // let region_id; // 当前城市id
-    // const crrentProvince = this.cityList[0]; // 当前省会
-    // for (let index = 0; index < crrentProvince.children.length; index++) {
-    //   const element = crrentProvince.children[index];
-    //   if (that.bindedPosition.installZoneId === element.installZoneId) {
-    //     region_id = element.id;
-    //   }
-    // }
-
-    // that.node = null; // 用于递归查询JSON树 父子节点
-    // that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
-    // that.currentAreaList = that.node && that.node.children; // 当前城市下的区域列表
-    // const area_id = that.bindedPosition.regionId; // 当前区域id
-    // that.node = null; // 用于递归查询JSON树 父子节点
-    // that.currentRegion = that.getNode(that.cityList, area_id); // 当前区域i
 
     const region_id = regionId.toString().slice(0, 4); // 当前城市id
     console.log(region_id);
@@ -721,16 +708,28 @@ export class DeviceHomeComponent implements OnInit {
     this.currentRegion = this.getNode(this.cityList, area_id); // 当前区域
   }
 
-  getCity() {
+  getCity(...cusid) {
     const that = this;
-    this.deviceService.getZoneDefault().subscribe({
+    this.deviceService.getZoneDefault(cusid).subscribe({
       next: function (val) {
+        if (!val) {
+          that.cityList = [];
+          that.currentCity = null;
+          that.currentAreaList = [];
+          that.currentRegion = null;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `该客户安装区域为空！`,
+          });
+          return;
+        }
         that.cityList = val.regions;
-        // that.zoom = that.switchZone(val.zone.level);
-        // that.node = that.getNode(val.regions, val.zone.region_id);
-        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
-        that.currentCity = that.node;
-        that.currentAreaList = that.currentCity.children;
+        that.node = null; // 用于递归查询JSON树 父子节点
+        that.currentCity = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
+        that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
+        that.currentRegion = that.currentAreaList && that.currentAreaList[0]
+          && that.currentAreaList[0].children && that.currentAreaList[0].children[0]; // 当前区域
       },
       complete: function () {
 

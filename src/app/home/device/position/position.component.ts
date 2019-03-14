@@ -49,7 +49,7 @@ export class PositionComponent implements OnInit {
   pageSize1 = 10; // 分页
   total2 = 0; // 分页
   page2 = 1; // 分页
-  pageSize2 = 10; // 分页
+  pageSize2 = 5; // 分页
   queryStr = '';
   queryStr1 = '';
   public mr: NgbModalRef; // 当前弹框
@@ -189,7 +189,7 @@ export class PositionComponent implements OnInit {
         next: function (val) {
           that.CustomerList = val.items;
           that.CustomerList.unshift({'name': '平台用户', code: ''}); // 添加平台用户
-          that.total2 = val.tota2;
+          that.total2 = val.total;
         },
         error: function (error) {
           console.log(error);

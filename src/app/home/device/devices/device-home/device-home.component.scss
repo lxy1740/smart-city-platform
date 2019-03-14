@@ -6,6 +6,10 @@
 .map_container{
     height: 400px;
 }
+.way-table{
+    width: 250px;
+    overflow-x: auto;
+}
 .bodyofclass {
     width: calc(100vw - 50px);
     height: 100vh;
