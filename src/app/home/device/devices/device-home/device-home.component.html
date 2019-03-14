@@ -364,6 +364,7 @@
     <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
   </div>
 </ng-template>
+
 <!-- 删除位置 -->
 <ng-template #contentDelDevice let-c="close" let-d="dismiss">
   <app-sq-modal [input]="modelData" (output)="closeDevice($event)"></app-sq-modal>

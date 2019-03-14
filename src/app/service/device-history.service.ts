@@ -101,7 +101,7 @@ export class DeviceHistoryService {
 
     // 服务调用
     addInvokeService(body) {
-        console.log('body: ' + body.param + 'deviceName ' + body.deviceName );
+        console.log('body: ' + body.args + 'deviceName ' + body.deviceName );
         return this.http.post(`/api/device/model/service/invokeService`, body)
             .pipe(map((res) => {
                 console.log('res: ' + res);

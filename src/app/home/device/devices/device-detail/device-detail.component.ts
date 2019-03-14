@@ -2,12 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DeviceHistoryService } from '../../../../service/device-history.service';
+import { IAlert } from '../../customer/customer.component';
 
 @Component({
   selector: 'app-device-detail',
   templateUrl: './device-detail.component.html',
   styleUrls: ['./device-detail.component.scss']
 })
+
 export class DeviceDetailComponent implements OnInit {
   mr: NgbModalRef;
   closeResult: string;
@@ -37,12 +39,25 @@ export class DeviceDetailComponent implements OnInit {
   ];
   nav_index = 1; // 默认菜单
 
+  public alertsModal: Array<IAlert> = [];
+  public alerts: Array<IAlert> = [];
+  private backup: Array<IAlert>;
+
   constructor(public router: Router,
     private modalService: NgbModal,
     private deviceHistoryService: DeviceHistoryService,
     private routerinfo: ActivatedRoute
-  ) {
-   }
+  ) {}
+
+   public closeAlert(alert: IAlert) {  // 信息弹框
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+
+  public closeAlertModal(alert: IAlert) {  // 信息弹框
+    const index: number = this.alertsModal.indexOf(alert);
+    this.alertsModal.splice(index, 1);
+  }
 
   ngOnInit() {
     this.deviceId = this.routerinfo.snapshot.params.deviceId;
@@ -110,60 +125,76 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   // 弹出服务调用框
-  openServiceModel(serviceCall, param, serviceId, identifier) {
-    this.identifier = identifier;
+  openServiceModel(serviceCall, service) {
+    this.identifier = service.identifier;
     this.serviceList = [];
-    if (param.length === 0) {
+    if (service.param.length === 0) {
       this.addInvokeService();
       return;
     }
-    this.getServeParam(serviceId);
+    this.getServeParam(service.id);
     const modal = this.mr = this.modalService.open(serviceCall, { windowClass: 'myCustomModalClass' });
-
     // const modal = this.modalService.open(serviceCall, { size: 'lg' });
+    this.mr = modal;
+    modal.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    });
   }
 
   // 添加服务调用
   addInvokeService() {
-    let body;
-    if (this.serviceList.length === 0) {
-      body = {
-        'deviceId': this.deviceId,
-        'deviceName': this.deviceName,
-        'identifier': this.identifier
-      };
-    } else {
-      const param = {};
-      for (const item of this.serviceList) {
-        param[item.dataKey] = item.value;
-      }
-      console.log(param) ;
-      body = {
-        'args': param,
-        'deviceId': this.deviceId,
-        'deviceName': this.deviceName,
-        'identifier': this.identifier
-      };
-    }
-
-
-
     const that = this;
-    this.deviceHistoryService.addInvokeService(body)
+    let body;
+    const param = {};
+    for (const item of this.serviceList) {
+      if (item.value === undefined || item.value.trim() === '') { // 输入框无内容时，禁止提交
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `${item.dataKey}的值不能为空！`,
+        });
+        return;
+      }
+      param[item.dataKey] = item.value;
+    }
+    body = {
+      'args': param,
+      'deviceId': this.deviceId,
+      'deviceName': this.deviceName,
+      'identifier': this.identifier
+    };
+      this.deviceHistoryService.addInvokeService(body)
       .subscribe({
         next: function (val) {
-          console.log('val: ' + val);
-          // that.alerts.push({
-          //   id: 1,
-          //   type: 'success',
-          //   message: '服务调用成功！',
-          // });
-        that.mr.close();
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '服务调用成功！',
+          });
+          if (that.serviceList.length !== 0) { // 有模态框弹出，才需要关闭
+            that.mr.close();
+          }
         },
         complete: function() {
-
+          that.getDeviceService();
         },
         error: function(error) {
+          console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          if (that.serviceList.length === 0) {
+            that.alerts.push({
+              id: 1,
+              type: 'danger',
+              message: `${message}！`,
+            });
+          } else {
+            that.alertsModal.push({
+              id: 1,
+              type: 'danger',
+              message: `${message}！`,
+            });
+          }
 
         }
       });
