@@ -41,7 +41,7 @@ export class MonitorComponent implements OnInit {
   @currentBlock: array // 当前城市街道 = []; // 区域列表2级
   */
   map_model: any = {}; // 存储数据
-
+  zone: any = []; // 安装区域
   currentDevice: any; // // 当前设备点
   // deviceChild: any; // // 当前设备点上-被点击的子设备
   domShow = { // dom 显示对象
@@ -351,7 +351,8 @@ export class MonitorComponent implements OnInit {
     this.monitorService.getZoneDefault().subscribe({
       next: function (val) {
         that.map_model.cityList = val.regions;
-        that.zoom = that.switchZone(val.zone.level);
+        that.zone = val.zone;
+        // that.zoom = that.switchZone(val.zone.level);
         // that.node = that.getNode(val.regions, val.zone.region_id);
         that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.map_model.currentCity = that.node;
@@ -359,6 +360,9 @@ export class MonitorComponent implements OnInit {
       },
       complete: function () {
         that.addBeiduMap(); // 创建地图
+        const zoom = that.map.getZoom();
+        const point =  new BMap.Point(that.zone.center.lng, that.zone.center.lat); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+        that.map.centerAndZoom(point, zoom);
       },
       error: function (error) {
         console.log(error);

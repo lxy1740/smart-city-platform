@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { CircleOverlarAirService } from '../../../service/circle-overlay-air.service';
 // baidu map
 declare let BMap;
-declare let BMAP_ANCHOR_TOP_LEFT;
+declare let BMAP_ANCHOR_TOP_LEFT; // 控件定位于地图的左上角
 
 // 装饰器函数
 @Component({
@@ -182,7 +182,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
   }
 
-    // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
+    // 监控- -显示用户拖动地图后地图中心的经纬度信息。
     dragendOff(baiduMap) {
       const that = this;
       baiduMap.addEventListener('dragend', function () {

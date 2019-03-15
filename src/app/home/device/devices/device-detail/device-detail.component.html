@@ -17,10 +17,11 @@
           <thead class="table-header table-align">
             <tr>
 
-              <th>dataKey</th>
-              <th>dataType</th> 
+              <th>名称</th>
+              <th>数据类型</th> 
 
-              <th>value</th>    
+              <th style="text-align: center;">值</th>
+              <!-- <th>单位</th>     -->
             </tr>
           </thead>
           <tbody>        
@@ -30,10 +31,28 @@
               <td>{{ item.dataType }}</td>
 
               <td>
-                <input type="text" class="form-control form-control-left" maxlength="30" placeholder=""
+                <input type="string" class="form-control form-control-left" maxlength="30" placeholder=""
                 [(ngModel)]="item.value">
               </td>
 
+              <!-- <td *ngIf="item.dataType == 'int' || item.dataType == 'float' || item.dataType == 'double'">
+                  <input type="number" class="form-control form-control-left" maxlength="30" placeholder=""
+                [(ngModel)]="item.value">
+              </td>
+              <td *ngIf="item.dataType == 'string'">
+                  <input type="text" class="form-control form-control-left" maxlength="30" placeholder=""
+                [(ngModel)]="item.value">
+              </td>
+              <td *ngIf="item.dataType == 'bool'">
+                  <input type="radio" name="iotPlatform" [value]="1" placeholder="" [(ngModel)]="item.value">是
+                  <input type="radio" name="iotPlatform" [value]="0" placeholder="" [(ngModel)]="item.value">否
+              </td>
+              <td *ngIf="item.dataType == 'date'">
+                  <input type="date" class="form-control form-control-left" placeholder=""
+                [(ngModel)]="item.value">
+              </td> -->
+
+              <!-- <td>{{ item.dataUnit }}</td> -->
             </tr>
           </tbody>
         </table>

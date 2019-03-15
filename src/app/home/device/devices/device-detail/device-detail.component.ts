@@ -148,13 +148,15 @@ export class DeviceDetailComponent implements OnInit {
     let body;
     const param = {};
     for (const item of this.serviceList) {
-      if (item.value === undefined || item.value.trim() === '') { // 输入框无内容时，禁止提交
-        that.alertsModal.push({
-          id: 1,
-          type: 'danger',
-          message: `${item.dataKey}的值不能为空！`,
-        });
-        return;
+      if (item.dataType === 'string') {
+        if (item.value === undefined || item.value.trim() === '') { // 输入框无内容时，禁止提交
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `${item.dataKey}的值不能为空！`,
+          });
+          return;
+        }
       }
       param[item.dataKey] = item.value;
     }
@@ -180,7 +182,7 @@ export class DeviceDetailComponent implements OnInit {
           that.getDeviceService();
         },
         error: function(error) {
-          console.log(error);
+
           const message = error.error.errors[0].defaultMessage;
           if (that.serviceList.length === 0) {
             that.alerts.push({

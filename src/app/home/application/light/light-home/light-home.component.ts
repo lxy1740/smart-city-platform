@@ -29,6 +29,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   model: any = {}; // 存储数据
 
   map: any; // 地图对象
+  zone: any; // 安装区域
 
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
@@ -644,16 +645,18 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     this.monitorService.getZoneDefault().subscribe({
       next: function (val) {
         that.cityList = val.regions;
-        that.zoom = that.switchZone(val.zone.level);
+        // that.zoom = that.switchZone(val.zone.level);
         // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.zone = val.zone;
         that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.currentCity = that.node ;
         that.currentChildren = that.node.children;
 
       },
       complete: function () {
-
-
+        const zoom = that.map.getZoom();
+        const point = new BMap.Point(that.zone.center.lng, that.zone.center.lat);
+        that.map.centerAndZoom(point, zoom);
       },
       error: function (error) {
         console.log(error);

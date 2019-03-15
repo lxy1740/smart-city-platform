@@ -38,7 +38,7 @@ export class TrafficComponent implements OnInit {
   map_model: any = {}; // 存储数据
 
   map: any; // 地图对象
-
+  zone: any; // 安装区域
   currentCamera: any;  // 当前摄像头
   videoUrl: any;  // 当前摄像头
 
@@ -309,6 +309,7 @@ export class TrafficComponent implements OnInit {
     this.monitorService.getZoneDefault().subscribe({
       next: function (val) {
         that.map_model.cityList = val.regions;
+        that.zone = val.zone;
         // that.zoom = that.switchZone(val.zone.level);
         // that.node = that.getNode(val.regions, val.zone.region_id);
         that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
@@ -318,7 +319,9 @@ export class TrafficComponent implements OnInit {
       },
       complete: function () {
         that.addBeiduMap(); // 创建地图
-
+        const zoom = that.map.getZoom();
+        const point =  new BMap.Point(that.zone.center.lng, that.zone.center.lat); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+        that.map.centerAndZoom(point, zoom);
       },
       error: function (error) {
         console.log(error);

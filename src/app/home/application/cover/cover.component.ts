@@ -46,7 +46,7 @@ export class CoverComponent implements OnInit, OnDestroy {
   */
 
   map_model: any = {}; // 存储数据
-
+  zone: any = []; // 安装区域
   map: any; // 地图对象
 
   areashow = false; // 默认区域列表不显示

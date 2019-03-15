@@ -94,7 +94,7 @@ export class DeviceHistoryService {
     getServeParam(serviceId): Observable<any> {
         return this.http.get(`/api/device/model/service/getServeParam?serviceId=${serviceId}`)
             .pipe(map((res: Response) => {
-                // console.log('res:' + res);
+                console.log('res:' + res[0].dataType);
                 return res;
             }));
     }

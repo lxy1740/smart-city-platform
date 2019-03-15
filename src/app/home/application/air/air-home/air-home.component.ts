@@ -31,6 +31,7 @@ export class AirHomeComponent implements OnInit, OnDestroy {
 */
 
   map_model: any = {}; // 存储数据
+  zone: any; // 安装区域
   map: any; // 地图对象
   currentAirIndex: any; // 当前空气指标选项
   visible = true; // 控制可视区域
@@ -314,12 +315,15 @@ export class AirHomeComponent implements OnInit, OnDestroy {
       next: function (val) {
         that.map_model.cityList = val.regions;
         // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.zone = val.zone;
         that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.map_model.currentCity = that.node;
         that.map_model.currentChildren = that.node.children;
       },
       complete: function () {
-
+        const zoom = that.map.getZoom();
+        const point =  new BMap.Point(that.zone.center.lng, that.zone.center.lat); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+        that.map.centerAndZoom(point, zoom);
       },
       error: function (error) {
         console.log(error);
