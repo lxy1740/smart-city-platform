@@ -108,14 +108,18 @@
 .search-warp {
     position: relative;
 }
-.search-input{
+.search-input, .search-input2{
     font-size: 14px;
     width: 200px;
     height: 32px;
     margin-right: 5px;
     margin-left: 20px;
 }
-.search-icon{
+.search-input2 {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.search-icon, .search-icon2{
     position: absolute;
     right: 5px;
     top: 0;
@@ -127,6 +131,9 @@
     cursor: pointer;
     background: #ccc;
     border-radius:0 5px 5px 0;
+}
+.search-icon2 {
+    right: 22px;
 }
 //
 .video-play{

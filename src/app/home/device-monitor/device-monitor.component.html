@@ -99,7 +99,14 @@
     </div>
     <div style="border-bottom: 1px solid #39c32f;">
       <p>设备总数：{{currentDevice.deviceChild && currentDevice.deviceChild.length}}</p>
-      <p>设备搜索：<input type="text" name="" id=""></p>
+      <p>设备搜索：</p>
+      <p style="position: relative">
+              <input type="text" [(ngModel)]="queryStr" class="form-control search-input2" autocomplete="off" maxlength="30"
+                placeholder="检索设备编号">
+              <!-- <span class="search-icon2" (click)="execQueryId()"><i class="fa fa-search" aria-hidden="true"></i></span> -->
+              <span class="search-icon2" ><i class="fa fa-search" aria-hidden="true"></i></span>
+           
+      </p>
 
     </div>
     <div *ngFor="let item of currentDevice.deviceChild">
