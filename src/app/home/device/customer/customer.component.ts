@@ -161,6 +161,7 @@ export class CustomerComponent implements OnInit {
   }
 
   execQuery() {
+    this.page = 1;
     this.getInstallzone();
   }
   // 打开新增窗口

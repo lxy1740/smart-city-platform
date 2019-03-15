@@ -120,6 +120,7 @@ export class ProductHomeComponent implements OnInit {
 
 
   deviceTypeChange() {
+    this.page = 1;
     this.getModel(this.currentType.id, this.page, this.pagesize);
   }
   changeName(modelId) {

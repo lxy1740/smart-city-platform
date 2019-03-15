@@ -260,11 +260,13 @@ export class DeviceHomeComponent implements OnInit {
   // 设备类型选择
   deviceTypeChange() {
     this.curModelIndex = this.currentModel.id;
+    this.page = 1;
     this.getDevicesList(this.page, this.pageSize);
     // 显示特定型号的设备列表分页
   }
   // 检索按键点击事件
   execQuery() {
+    this.page = 1;
     this.getDevicesList(this.page, this.pageSize);
   }
   // 子设备

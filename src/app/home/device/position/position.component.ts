@@ -160,6 +160,7 @@ export class PositionComponent implements OnInit {
   }
 
   deviceTypeChange() {
+    this.page = 1;
     this.getPosition(this.currentType.id, this.page, this.pagesize);
   }
 

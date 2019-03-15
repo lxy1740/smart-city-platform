@@ -393,6 +393,7 @@ export class AdministrationComponent implements OnInit {
 
   // 点击搜索
   execQuery() {
+    this.page = 1;
     this.getChildRegions();
   }
 
