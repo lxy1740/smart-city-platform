@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>标识符：</label>
-      <input type="text" class="form-control" [(ngModel)]="dataModel.key" placeholder="请输入您的标识符">
+      <input type="text" class="form-control" [(ngModel)]="dataModel.dataKey" placeholder="请输入您的标识符">
     </div>
     <div class="form-group">
       <label class="control-label"><span style="color:red">*</span>数据类型：</label>
@@ -52,14 +52,14 @@
     </div>
 
     <!-- BOOL -->
-    <div *ngIf="dataModel.dataType.Value == 'BOOL'">
+    <div *ngIf="dataModel.dataType.Value == 'Bool'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>布尔值:</label>
         <div class="form-inline" >
           <span class="ssm-width">0-</span>
-          <input type="number" class="form-control sm-width2" [(ngModel)]="dataModel.BOOL.no" placeholder="如：关">
+          <input type="text" class="form-control sm-width2" [(ngModel)]="dataModel.BOOL.no" placeholder="如：关">
           <span class="ssm-width" style="padding: 15px;">1-</span>
-          <input type="number" class="form-control sm-width2" [(ngModel)]="dataModel.BOOL.yes" placeholder="如：开">
+          <input type="text" class="form-control sm-width2" [(ngModel)]="dataModel.BOOL.yes" placeholder="如：开">
 
         </div>
       </div>
@@ -300,14 +300,14 @@
     </div>
 
     <!-- BOOL -->
-    <div *ngIf="AddParamModel.dataType.Value == 'BOOL'">
+    <div *ngIf="AddParamModel.dataType.Value == 'Bool'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>布尔值:</label>
         <div class="form-inline">
           <span class="ssm-width">0-</span>
-          <input type="number" class="form-control sm-width4" [(ngModel)]="AddParamModel.BOOL.no" placeholder="如：关">
+          <input type="text" class="form-control sm-width4" [(ngModel)]="AddParamModel.BOOL.no" placeholder="如：关">
           <span class="ssm-width" style="padding: 15px;">1-</span>
-          <input type="number" class="form-control sm-width4" [(ngModel)]="AddParamModel.BOOL.yes" placeholder="如：开">
+          <input type="text" class="form-control sm-width4" [(ngModel)]="AddParamModel.BOOL.yes" placeholder="如：开">
     
         </div>
       </div>

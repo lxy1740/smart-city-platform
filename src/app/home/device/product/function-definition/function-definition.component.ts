@@ -62,29 +62,16 @@ export class FunctionDefinitionComponent implements OnInit {
     // 1 数据定义弹框
     this.dataModel.readOnly = false; // 读写
     this.dataModel.dataType = this.TYPEDATA1[0]; // 数据类型
-
     this.dataModel.unit = this.UNITDATA1[0]; // int参数
-
-
-
-    this.dataModel.BOOL = {
-      no: '',
-      yes: ''
-    }; // BOOL参数
-
+    this.dataModel.enums = []; // BOOL参数
+    this.dataModel.BOOL = {}; // BOOL参数
     this.dataModel.dataLength = 1024; // TEXT参数
 
     // 2、添加参数弹框
-
     this.AddParamModel.dataType = this.TYPEDATA2[0]; // 新增参数窗口数据类型
     this.AddParamModel.unit = this.UNITDATA1[0]; // 单位{  // int参数
-
-
-    this.AddParamModel.BOOL = {  // BOOL参数
-      no: '',
-      yes: ''
-    };
-
+    this.AddParamModel.enums = []; // BOOL参数
+    this.AddParamModel.BOOL = {}; // BOOL参数
     this.AddParamModel.dataLength = 1024; // TEXT参数
 
 
@@ -93,7 +80,6 @@ export class FunctionDefinitionComponent implements OnInit {
     this.functionModel.param = []; // 参数列表
     this.functionModel.inputparam = []; // 输入参数列表
     this.functionModel.outputparam = []; // 输出参数列表
-
 
 
   }
@@ -205,7 +191,7 @@ export class FunctionDefinitionComponent implements OnInit {
         message: `名称不能为空！`,
       });
       return;
-    } else if (!this.dataModel.key) {
+    } else if (!this.dataModel.dataKey) {
       that.alertsModal.push({
         id: 1,
         type: 'danger',
@@ -225,7 +211,7 @@ export class FunctionDefinitionComponent implements OnInit {
         'unit': this.dataModel.unit.Symbol,
         'dataType': this.dataModel.dataType.Value,
         // 'id': 0,
-        'key': this.dataModel.key,
+        'dataKey': this.dataModel.dataKey,
         'modelId': this.deviceParams.id,
         'name': this.dataModel.name,
         'readOnly': this.dataModel.readOnly,
@@ -241,7 +227,7 @@ export class FunctionDefinitionComponent implements OnInit {
         // 'unit': this.dataModel.unit.Symbol,
         'dataType': this.dataModel.dataType.Value,
         // 'id': 0,
-        'key': this.dataModel.key,
+        'dataKey': this.dataModel.dataKey,
         'modelId': this.deviceParams.id,
         'name': this.dataModel.name,
         'readOnly': this.dataModel.readOnly,
@@ -257,7 +243,7 @@ export class FunctionDefinitionComponent implements OnInit {
         // 'unit': this.dataModel.unit.Symbol,
         'dataType': this.dataModel.dataType.Value,
         // 'id': 0,
-        'key': this.dataModel.key,
+        'dataKey': this.dataModel.dataKey,
         'modelId': this.deviceParams.id,
         'name': this.dataModel.name,
         'readOnly': this.dataModel.readOnly,
@@ -265,7 +251,10 @@ export class FunctionDefinitionComponent implements OnInit {
         'describe': this.dataModel.describe,
       };
        break;
-      case 'BOOL':
+      case 'Bool':
+      const enums = [];
+        enums.push({ name: this.dataModel.BOOL.no, value: 0});
+        enums.push({ name: this.dataModel.BOOL.yes, value: 1});
       body = {
         // 'dataLength': this.dataModel.dataLength,
         // 'dataMax': this.dataModel.dataMax,
@@ -273,12 +262,13 @@ export class FunctionDefinitionComponent implements OnInit {
         // 'unit': this.dataModel.unit.Symbol,
         'dataType': this.dataModel.dataType.Value,
         // 'id': 0,
-        'key': this.dataModel.key,
+        'dataKey': this.dataModel.dataKey,
         'modelId': this.deviceParams.id,
         'name': this.dataModel.name,
         'readOnly': this.dataModel.readOnly,
         // 'resolution': this.dataModel.resolution,
-        'describe': this.dataModel.describe,
+        // 'describe': this.dataModel.describe,
+        'enums': enums
       };
       break;
       default:
@@ -321,7 +311,7 @@ export class FunctionDefinitionComponent implements OnInit {
         message: `名称不能为空！`,
       });
       return;
-    } else if (!this.dataModel.key) {
+    } else if (!this.dataModel.dataKey) {
       that.alertsModal.push({
         id: 1,
         type: 'danger',
@@ -340,7 +330,7 @@ export class FunctionDefinitionComponent implements OnInit {
           'unit': this.dataModel.unit.Symbol,
           'dataType': this.dataModel.dataType.Value,
           'id': this.dataModel.updateId,
-          'key': this.dataModel.key,
+          'dataKey': this.dataModel.dataKey,
           'modelId': this.deviceParams.id,
           'name': this.dataModel.name,
           'readOnly': this.dataModel.readOnly,
@@ -353,7 +343,7 @@ export class FunctionDefinitionComponent implements OnInit {
 
           'dataType': this.dataModel.dataType.Value,
           'id': this.dataModel.updateId,
-          'key': this.dataModel.key,
+          'dataKey': this.dataModel.dataKey,
           'modelId': this.deviceParams.id,
           'name': this.dataModel.name,
           'readOnly': this.dataModel.readOnly,
@@ -365,7 +355,7 @@ export class FunctionDefinitionComponent implements OnInit {
           'dataLength': this.dataModel.dataLength,
           'dataType': this.dataModel.dataType.Value,
           'id': this.dataModel.updateId,
-          'key': this.dataModel.key,
+          'dataKey': this.dataModel.dataKey,
           'modelId': this.deviceParams.id,
           'name': this.dataModel.name,
           'readOnly': this.dataModel.readOnly,
@@ -373,10 +363,13 @@ export class FunctionDefinitionComponent implements OnInit {
         };
         break;
       case 'BOOL':
+        const enums = [];
+        enums.push({ name: this.dataModel.BOOL.no, value: 0 });
+        enums.push({ name: this.dataModel.BOOL.yes, value: 1 });
         body = {
           'dataType': this.dataModel.dataType.Value,
           'id': this.dataModel.updateId,
-          'key': this.dataModel.key,
+          'dataKey': this.dataModel.dataKey,
           'modelId': this.deviceParams.id,
           'name': this.dataModel.name,
           'readOnly': this.dataModel.readOnly,
@@ -495,7 +488,10 @@ export class FunctionDefinitionComponent implements OnInit {
           }
         );
         break;
-      case 'BOOL':
+      case 'Bool':
+        const enums = [];
+        enums.push({ name: this.AddParamModel.BOOL.no, value: 0 });
+        enums.push({ name: this.AddParamModel.BOOL.yes, value: 1 });
         this.functionModel[isOutput].push(
           {
             'dataKey': this.AddParamModel.dataKey,
@@ -508,7 +504,8 @@ export class FunctionDefinitionComponent implements OnInit {
             // 'id': 0,
             'isOutput': this.AddParamModel.isOutput,
             // 'modelServeId': 0,
-            'name': this.AddParamModel.name
+            'name': this.AddParamModel.name,
+            'paramEnums': enums
           }
         );
         break;
@@ -544,14 +541,16 @@ export class FunctionDefinitionComponent implements OnInit {
       });
       return;
     }
-
+    console.log(this.functionModel.inputparam);
+    console.log(this.functionModel.outputparam);
     const param = [...this.functionModel.inputparam, ...this.functionModel.outputparam];
+    console.log(param);
     const body = {
       'description': this.functionModel.description,
       'identifier': this.functionModel.identifier,
       'modelId': this.deviceParams.id,
       'name': this.functionModel.name,
-      'param': param,
+      'params': param,
       'synchrony': this.functionModel.synchrony
     };
     this.functionDefinitionService.addService(body).subscribe({
@@ -599,12 +598,12 @@ export class FunctionDefinitionComponent implements OnInit {
 
     const param = [...this.functionModel.inputparam, ...this.functionModel.outputparam];
     const body = {
-      'id': this.functionModel.id,
+      'id': this.functionModel.updateId,
       'description': this.functionModel.description,
       'identifier': this.functionModel.identifier,
       'modelId': this.deviceParams.updateId,
       'name': this.functionModel.name,
-      'param': param,
+      'params': param,
       'synchrony': this.functionModel.synchrony
     };
     this.functionDefinitionService.updateService(body).subscribe({
@@ -721,13 +720,19 @@ export class FunctionDefinitionComponent implements OnInit {
     this.addorupdate = '修改数据定义';
     this.dataModel.name = item.name;
     this.dataModel.updateId = item.id;
-
-    this.dataModel.key = item.key;
+    this.dataModel.dataKey = item.dataKey;
     this.dataModel.dataMin = item.dataMin;
     this.dataModel.dataMax = item.dataMax;
     this.dataModel.resolution = item.resolution;
     this.dataModel.readOnly = item.readOnly;
     this.dataModel.describe = item.describe;
+    this.dataModel.enums = item.enums;
+    this.dataModel.BOOL.no = '';
+    this.dataModel.BOOL.yes = '';
+    if (item.dataType === 'Bool') {
+      this.dataModel.BOOL.no = item.enums[0].name;
+      this.dataModel.BOOL.yes = item.enums[1].name;
+    }
 
     this.dataModel.dataType = this.findTYPEDATA(item.dataType);
     this.dataModel.unit = this.findTUNITDATA(item.unit);
@@ -744,13 +749,19 @@ export class FunctionDefinitionComponent implements OnInit {
   // 修改服务定义弹框
   openUpdataServiceModal(content, item) {
     this.addorupdate = '修改服务定义';
-    this.deviceParams.updateId = item.id;
+    this.functionModel.updateId = item.id;
     this.functionModel.description = item.description;
     this.functionModel.identifier = item.identifier;
     this.functionModel.name = item.name;
     this.functionModel.synchrony = item.synchrony;
-    this.functionModel.inputparam = item.param.filter(ite => ite.isOutput === 0); // 输入参数列表
-    this.functionModel.outputparam = item.param.filter(ite => ite.isOutput === 1); // 输出参数列表
+    this.functionModel.inputparam = item.params && item.params.length > 0 ? item.params.filter(ite => ite.isOutput === 0) : []; // 输入参数列表
+    this.functionModel.outputparam = item.params && item.params.length > 0 ? item.params.filter(ite => ite.isOutput === 1) : []; // 输出参数列表
+    this.AddParamModel.BOOL.no = '';
+    this.AddParamModel.BOOL.yes = '';
+    // if (item.dataType === 'Bool') {
+    //   this.AddParamModel.BOOL.no = item.enums[0].name;
+    //   this.AddParamModel.BOOL.yes = item.enums[1].name;
+    // }
 
     this.dataModel.dataType = this.findTYPEDATA(item.dataType);
     this.dataModel.unit = this.findTUNITDATA(item.unit);
@@ -785,13 +796,12 @@ export class FunctionDefinitionComponent implements OnInit {
   openNewModal(content) {
     this.addorupdate = '添加数据定义';
     this.dataModel.name = '';
-    this.dataModel.key = '';
+    this.dataModel.dataKey = '';
     this.dataModel.dataMin = null;
     this.dataModel.dataMax = null;
     this.dataModel.resolution = null;
     this.dataModel.readOnly = false;
     this.dataModel.describe = '';
-
     this.dataModel.dataType = this.TYPEDATA1[0];
     this.dataModel.unit = this.UNITDATA1[0];
 
@@ -813,11 +823,11 @@ export class FunctionDefinitionComponent implements OnInit {
     this.functionModel.synchrony = 1;
     this.functionModel.inputparam = []; // 输入参数列表
     this.functionModel.outputparam = []; // 输出参数列表
-
+    this.AddParamModel.BOOL.no = '';
+    this.AddParamModel.BOOL.yes = '';
 
     const modal = this.modalService.open(content, { windowClass: 'myCustomModalClass' });
     this.mr = modal;
-
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -834,6 +844,7 @@ export class FunctionDefinitionComponent implements OnInit {
     this.AddParamModel.dataMax = null;
     this.AddParamModel.resolution = null;
     this.AddParamModel.isOutput = isOutput;
+
     const modal = this.modalService.open(content );
     this.mr2 = modal;
 
