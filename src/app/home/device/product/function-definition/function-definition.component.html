@@ -26,7 +26,7 @@
       </select>
     </div>
     <!-- INT、FLOAT、DOUBLE -->
-    <div *ngIf="dataModel.dataType.Value == 'INT' || dataModel.dataType.Value == 'Float' || dataModel.dataType.Value == 'double' ">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'int' || dataModel.dataType.Value.toLowerCase() == 'float' || dataModel.dataType.Value.toLowerCase() == 'double' ">
           <div class="form-group">
             <label class="control-label"><span style="color:red">*</span>取值范围：</label>
             <div class="form-inline">
@@ -52,7 +52,7 @@
     </div>
 
     <!-- BOOL -->
-    <div *ngIf="dataModel.dataType.Value == 'Bool'">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'bool'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>布尔值:</label>
         <div class="form-inline" >
@@ -65,7 +65,7 @@
       </div>
     </div>
     <!-- TEXT -->
-    <div *ngIf="dataModel.dataType.Value == 'TEXT'">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'text'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>数据长度:</label>
         <div class="form-inline">
@@ -75,7 +75,7 @@
       </div>
     </div>
     <!-- DATE -->
-    <div *ngIf="dataModel.dataType.Value == 'DATE'">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'data'">
       <div class="form-group">
         <label class="control-label">时间格式:</label>
         <div class="form-inline">
@@ -84,7 +84,7 @@
       </div>
     </div>
     <!-- ENUM -->
-    <div *ngIf="dataModel.dataType.Value == 'ENUM'">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'enum'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>枚举项:</label>
         <div class="form-inline">
@@ -103,7 +103,7 @@
       </div>
     </div>
     <!-- STRUCT -->
-    <div *ngIf="dataModel.dataType.Value == 'STRUCT'">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'struct'">
       <div class="form-group" style="position: relative;">
         <label class="control-label"><span style="color:red">*</span>JSON对象:</label>
         <div class="form-inline" *ngFor="let itemSTRUCT of dataModel.STRUCT" style="background-color: rgb(230, 249, 252);padding: 3px;margin:3px 0;">
@@ -117,7 +117,7 @@
       </div>
     </div>
     <!-- ARRAY -->
-    <div *ngIf="dataModel.dataType.Value == 'ARRAY'">
+    <div *ngIf="dataModel.dataType.Value.toLowerCase() == 'array'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>元素类型:</label>
       <div>
@@ -274,7 +274,7 @@
       </select>
     </div>
     <!-- INT、FLOAT、DOUBLE -->
-    <div *ngIf="AddParamModel.dataType.Value == 'INT' || AddParamModel.dataType.Value == 'Float' || AddParamModel.dataType.Value == 'double' ">
+    <div *ngIf="AddParamModel.dataType.Value.toLowerCase() == 'int' || AddParamModel.dataType.Value.toLowerCase() == 'float' || AddParamModel.dataType.Value.toLowerCase() == 'double' ">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>取值范围：</label>
         <div class="form-inline">
@@ -300,7 +300,7 @@
     </div>
 
     <!-- BOOL -->
-    <div *ngIf="AddParamModel.dataType.Value == 'Bool'">
+    <div *ngIf="AddParamModel.dataType.Value.toLowerCase() == 'bool'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>布尔值:</label>
         <div class="form-inline">
@@ -313,7 +313,7 @@
       </div>
     </div>
     <!-- TEXT -->
-    <div *ngIf="AddParamModel.dataType.Value == 'TEXT'">
+    <div *ngIf="AddParamModel.dataType.Value.toLowerCase() == 'text'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>数据长度:</label>
         <div class="form-inline">
@@ -323,7 +323,7 @@
       </div>
     </div>
     <!-- DATE -->
-    <div *ngIf="AddParamModel.dataType.Value == 'DATE'">
+    <div *ngIf="AddParamModel.dataType.Value.toLowerCase() == 'date'">
       <div class="form-group">
         <label class="control-label">时间格式:</label>
         <div class="form-inline">
@@ -332,7 +332,7 @@
       </div>
     </div>
     <!-- ENUM -->
-    <div *ngIf="AddParamModel.dataType.Value == 'ENUM'">
+    <div *ngIf="AddParamModel.dataType.Value.toLowerCase() == 'enum'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>枚举项:</label>
         <div class="form-inline">
@@ -352,7 +352,7 @@
     </div>
 
     <!-- ARRAY -->
-    <div *ngIf="AddParamModel.dataType.Value == 'ARRAY'">
+    <div *ngIf="AddParamModel.dataType.Value.toLowerCase() == 'array'">
       <div class="form-group">
         <label class="control-label"><span style="color:red">*</span>元素类型:</label>
         <div>

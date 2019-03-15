@@ -200,9 +200,9 @@ export class FunctionDefinitionComponent implements OnInit {
       return;
     }
     let body;
-    switch (this.dataModel.dataType.Value) {
-      case 'INT':
-      case 'Float':
+    switch (this.dataModel.dataType.Value.toLowerCase()) {
+      case 'int':
+      case 'float':
       case 'double':
       body = {
         // 'dataLength': this.dataModel.dataLength,
@@ -219,7 +219,7 @@ export class FunctionDefinitionComponent implements OnInit {
         'describe': this.dataModel.describe,
       };
       break;
-      case 'DATE':
+      case 'date':
       body = {
         // 'dataLength': this.dataModel.dataLength,
         // 'dataMax': this.dataModel.dataMax,
@@ -235,7 +235,7 @@ export class FunctionDefinitionComponent implements OnInit {
         'describe': this.dataModel.describe,
       };
       break;
-      case 'TEXT':
+      case 'text':
       body = {
         'dataLength': this.dataModel.dataLength,
         // 'dataMax': this.dataModel.dataMax,
@@ -251,7 +251,7 @@ export class FunctionDefinitionComponent implements OnInit {
         'describe': this.dataModel.describe,
       };
        break;
-      case 'Bool':
+      case 'bool':
       const enums = [];
         enums.push({ name: this.dataModel.BOOL.no, value: 0});
         enums.push({ name: this.dataModel.BOOL.yes, value: 1});
@@ -320,9 +320,9 @@ export class FunctionDefinitionComponent implements OnInit {
       return;
     }
     let body;
-    switch (this.dataModel.dataType.Value) {
-      case 'INT':
-      case 'Float':
+    switch (this.dataModel.dataType.toLowerCase()) {
+      case 'int':
+      case 'float':
       case 'double':
         body = {
           'dataMax': this.dataModel.dataMax,
@@ -338,7 +338,7 @@ export class FunctionDefinitionComponent implements OnInit {
           'describe': this.dataModel.describe,
         };
         break;
-      case 'DATE':
+      case 'date':
         body = {
 
           'dataType': this.dataModel.dataType.Value,
@@ -350,7 +350,7 @@ export class FunctionDefinitionComponent implements OnInit {
           'describe': this.dataModel.describe,
         };
         break;
-      case 'TEXT':
+      case 'text':
         body = {
           'dataLength': this.dataModel.dataLength,
           'dataType': this.dataModel.dataType.Value,
@@ -362,7 +362,7 @@ export class FunctionDefinitionComponent implements OnInit {
           'describe': this.dataModel.describe,
         };
         break;
-      case 'BOOL':
+      case 'bool':
         const enums = [];
         enums.push({ name: this.dataModel.BOOL.no, value: 0 });
         enums.push({ name: this.dataModel.BOOL.yes, value: 1 });
@@ -432,9 +432,9 @@ export class FunctionDefinitionComponent implements OnInit {
     if (this.AddParamModel.isOutput) {
       isOutput = 'outputparam';
     }
-    switch (this.AddParamModel.dataType.Value) {
-      case 'INT':
-      case 'Float':
+    switch (this.AddParamModel.dataType.Value.toLowerCase()) {
+      case 'int':
+      case 'float':
       case 'double':
         this.functionModel[isOutput].push(
           {
@@ -452,7 +452,7 @@ export class FunctionDefinitionComponent implements OnInit {
           }
         );
         break;
-      case 'DATE':
+      case 'date':
         this.functionModel[isOutput].push(
           {
             'dataKey': this.AddParamModel.dataKey,
@@ -470,7 +470,7 @@ export class FunctionDefinitionComponent implements OnInit {
           }
         );
         break;
-      case 'TEXT':
+      case 'text':
         this.functionModel[isOutput].push(
           {
             'dataKey': this.AddParamModel.dataKey,
@@ -488,7 +488,7 @@ export class FunctionDefinitionComponent implements OnInit {
           }
         );
         break;
-      case 'Bool':
+      case 'bool':
         const enums = [];
         enums.push({ name: this.AddParamModel.BOOL.no, value: 0 });
         enums.push({ name: this.AddParamModel.BOOL.yes, value: 1 });
@@ -705,7 +705,7 @@ export class FunctionDefinitionComponent implements OnInit {
     if (!Value) {
       return this.TYPEDATA1[0];
     }
-    return this.TYPEDATA1.find((n) => n.Value === Value);
+    return this.TYPEDATA1.find((n) => n.Value.toLowerCase() === Value.toLowerCase());
   }
 
   findTUNITDATA(Value) {
