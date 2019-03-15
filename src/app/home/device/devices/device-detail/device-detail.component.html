@@ -5,15 +5,20 @@
       <ngb-alert [type]="alert.type" (close)="closeAlertModal(alert)">{{ alert.message }}</ngb-alert>
     </p>
     <div class="modal-header">
-      <h4 class="modal-title">"{{serviceName}}"服务调用</h4>
+      <h4 class="modal-title"><span style="color: #28a745;">"{{serviceName}}"</span>服务调用</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
   
     <div class="modal-body">
+      <div *ngIf="inPutList.length == 0" class="form-group">
+        <span>无输入参数！</span><hr>
+        <!-- <span>无输出参数！</span> -->
+      </div>
       <div class="form-group">
-        <div>输入参数</div>
+        <div *ngIf="inPutList.length !== 0">
+            <span>输入参数</span>
         <table class="table table-hover">
           <thead class="table-header table-align">
             <tr>
@@ -22,7 +27,7 @@
               <th>数据类型</th> 
 
               <th style="text-align: center;">值</th>
-              <!-- <th>单位</th>     -->
+
             </tr>
           </thead>
           <tbody>        
@@ -30,11 +35,6 @@
 
               <td>{{ item.dataKey }}</td> 
               <td>{{ item.dataType }}</td>
-
-              <!-- <td>
-                <input type="string" class="form-control form-control-left" maxlength="30" placeholder=""
-                [(ngModel)]="item.value">
-              </td> -->
 
               <td *ngIf="item.dataType.toLowerCase() == 'int' || item.dataType.toLowerCase() == 'float' || item.dataType.toLowerCase() == 'double'">
                   <input type="number" class="form-control form-control-left" maxlength="30" placeholder=""
@@ -45,67 +45,23 @@
                 [(ngModel)]="item.value">
               </td>
               <td *ngIf="item.dataType.toLowerCase() == 'bool'">
-                  <input type="radio" name="iotPlatform" [value]="1" placeholder="" [(ngModel)]="item.value">1
-                  <input type="radio" name="iotPlatform" [value]="0" placeholder="" [(ngModel)]="item.value">0
+                <span style="margin-right:15px;"><input type="radio" name="iotPlatform" [value]="1" placeholder="" [(ngModel)]="item.value"> 1 </span>
+                <span><input type="radio" name="iotPlatform" [value]="0" placeholder="" [(ngModel)]="item.value"> 0 </span>                                  
               </td>
               <td *ngIf="item.dataType.toLowerCase() == 'date'">
                   <input type="date" class="form-control form-control-left" placeholder=""
                 [(ngModel)]="item.value">
               </td>
 
-              <!-- <td>{{ item.dataUnit }}</td> -->
-            </tr>
-          </tbody>
-        </table>
-        <div>输出参数</div>
-        <table class="table table-hover">
-          <thead class="table-header table-align">
-            <tr>
-
-              <th>名称</th>
-              <th>数据类型</th> 
-
-              <!-- <th style="text-align: center;">值</th> -->
-              <!-- <th>单位</th>     -->
-            </tr>
-          </thead>
-          <tbody>        
-            <tr *ngFor="let item of outPutList">
-
-              <td>{{ item.dataKey }}</td> 
-              <td>{{ item.dataType }}</td>
-
-              <!-- <td>
-                <input type="string" class="form-control form-control-left" maxlength="30" placeholder=""
-                [(ngModel)]="item.value">
-              </td> -->
-
-              <!-- <td *ngIf="item.dataType == 'INT' || item.dataType == 'Float' || item.dataType == 'double'">
-                  <input type="number" class="form-control form-control-left" maxlength="30" placeholder=""
-                [(ngModel)]="item.value">
-              </td>
-              <td *ngIf="item.dataType == 'text' || item.dataType == 'TEXT'">
-                  <input type="text" class="form-control form-control-left" maxlength="30" placeholder=""
-                [(ngModel)]="item.value">
-              </td>
-              <td *ngIf="item.dataType == 'Bool'">
-                  <input type="radio" name="iotPlatform" [value]="1" placeholder="" [(ngModel)]="item.value">1
-                  <input type="radio" name="iotPlatform" [value]="0" placeholder="" [(ngModel)]="item.value">0
-              </td>
-              <td *ngIf="item.dataType == 'DATE'">
-                  <input type="date" class="form-control form-control-left" placeholder=""
-                [(ngModel)]="item.value">
-              </td> -->
-
-              <!-- <td>{{ item.dataUnit }}</td> -->
             </tr>
           </tbody>
         </table>
       </div>
+      </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-info" (click)="addInvokeService()">确认</button>
-      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">取消</button>
+      <button type="button" class="btn btn-outline-info" (click)="addInvokeService()">调用</button>
+      <button type="button" class="btn btn-outline-metal" (click)="d('Cross click')">关闭</button>
     </div>
 </ng-template>
 <!-- 产品管理页面 -->

@@ -131,10 +131,6 @@ export class DeviceDetailComponent implements OnInit {
   openServiceModel(serviceCall, service) {
     this.identifier = service.identifier;
     this.serviceName = service.name;
-    if (service.params.length === 0) {
-      this.addInvokeService();
-      return;
-    }
     this.getServeParam(service.id);
     const modal = this.mr = this.modalService.open(serviceCall, { windowClass: 'myCustomModalClass' });
     // const modal = this.modalService.open(serviceCall, { size: 'lg' });
@@ -151,13 +147,30 @@ export class DeviceDetailComponent implements OnInit {
     let body;
     const param = {};
     for (const item of this.inPutList) {
-      if ((item.dataType === 'text' && item.value.trim() === '') || item.value === undefined) { // 输入框无内容时，禁止提交
+      if ((item.dataType.toLowerCase() === 'text' && !item.value) ||
+       (item.dataType.toLowerCase() === 'text' && item.value.trim() === '')) { // 输入框无内容时，禁止提交
           that.alertsModal.push({
             id: 1,
             type: 'danger',
             message: `${item.dataKey}的值不能为空！`,
           });
           return;
+      } else
+      if ((item.dataType.toLowerCase() === 'int' || item.dataType.toLowerCase() === 'float' || item.dataType.toLowerCase() === 'double')
+       && item.value === null)  {
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `${item.dataKey}的值为数字！`,
+        });
+        return;
+      } else if (item.value === '' || item.value === undefined) {
+        that.alertsModal.push({
+          id: 1,
+          type: 'danger',
+          message: `${item.dataKey}的值不能为空！`,
+        });
+        return;
       }
       param[item.dataKey] = item.value;
     }
@@ -170,17 +183,17 @@ export class DeviceDetailComponent implements OnInit {
       this.deviceHistoryService.addInvokeService(body)
       .subscribe({
         next: function (val) {
-          that.alerts.push({
+          that.alertsModal.push({
             id: 1,
             type: 'success',
             message: '服务调用成功！',
           });
           if (that.inPutList.length !== 0) { // 有模态框弹出，才需要关闭
-            that.mr.close();
+            // that.mr.close();
           }
         },
         complete: function() {
-          that.getDeviceService();
+          // that.getDeviceService();
         },
         error: function(error) {
           const message = error.error.errors[0].defaultMessage;
