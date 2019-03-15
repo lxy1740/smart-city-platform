@@ -320,7 +320,7 @@ export class FunctionDefinitionComponent implements OnInit {
       return;
     }
     let body;
-    switch (this.dataModel.dataType.toLowerCase()) {
+    switch (this.dataModel.dataType.Value.toLowerCase()) {
       case 'int':
       case 'float':
       case 'double':
