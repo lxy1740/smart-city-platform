@@ -458,10 +458,10 @@ export class DeviceHomeComponent implements OnInit {
 
     this.deviceService.addNewDevice(body).subscribe({
       next: function (val) {
-        that.alertsModal.push({
+        that.alerts.push({
           id: 1,
           type: 'success',
-          message: '新建成功！',
+          message: `新建成功`,
         });
         that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
         that.mr.close();

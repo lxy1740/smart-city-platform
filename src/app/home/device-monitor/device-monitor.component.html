@@ -97,6 +97,11 @@
     <div class="device-title">
       <span class="device-close float-right" (click)="closeDetail()">X</span>
     </div>
+    <div style="border-bottom: 1px solid #39c32f;">
+      <p>设备总数：{{currentDevice.deviceChild && currentDevice.deviceChild.length}}</p>
+      <p>设备搜索：<input type="text" name="" id=""></p>
+
+    </div>
     <div *ngFor="let item of currentDevice.deviceChild">
       <p>
         <span>设备描述:</span>
