@@ -440,7 +440,10 @@
               <!-- <td *ngIf="item.enumParams.length > 0"><span >枚举值：</span><span *ngFor="let itemnuem of item.enumParams">{{itemnuem.value}}:{{itemnuem.describe}};</span> </td> -->
               <td>{{item.resolution}}</td>
               <td>{{item.unit}}</td>
-              <td>{{item.readOnly}}</td>
+              <td>
+                <span *ngIf="item.readOnly === false">读写</span>
+                <span *ngIf="item.readOnly === true">只读</span>
+              </td>
        
               <td>{{item.describe}}</td>
               <td style="text-align: center">
