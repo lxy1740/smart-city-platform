@@ -19,7 +19,8 @@ export class DeviceDetailComponent implements OnInit {
   deviceInfo: any = {}; // 设备信息
   CurrentPropertyList = []; // 数据列表
   functionList = []; // 服务列表
-  serviceList = []; // 服务调用列表
+  outPutList = []; // 输出服务参数列表
+  inPutList = []; // 输入服务参数列表
   page = 1; // 分页
   pageSize = 10; // 分页
   total = 0; // 分页
@@ -27,6 +28,7 @@ export class DeviceDetailComponent implements OnInit {
   pageSize1 = 10; // 分页
   total1 = 0; // 分页
   identifier: string; //
+  serviceName: string; // 服务名称
   navs = [ // 菜单
     {
       id: 0,
@@ -118,7 +120,8 @@ export class DeviceDetailComponent implements OnInit {
     this.deviceHistoryService.getServeParam(serviceId)
       .subscribe({
         next: function (val) {
-          that.serviceList = val;
+          that.inPutList = val && val.length > 0 ? val.filter((item) => item.isOutput === 0) : [];
+          that.outPutList = val && val.length > 0 ? val.filter((item) => item.isOutput === 1) : [];
         }
       });
 
@@ -127,8 +130,8 @@ export class DeviceDetailComponent implements OnInit {
   // 弹出服务调用框
   openServiceModel(serviceCall, service) {
     this.identifier = service.identifier;
-    this.serviceList = [];
-    if (service.param.length === 0) {
+    this.serviceName = service.name;
+    if (service.params.length === 0) {
       this.addInvokeService();
       return;
     }
@@ -147,16 +150,14 @@ export class DeviceDetailComponent implements OnInit {
     const that = this;
     let body;
     const param = {};
-    for (const item of this.serviceList) {
-      if (item.dataType === 'string') {
-        if (item.value === undefined || item.value.trim() === '') { // 输入框无内容时，禁止提交
+    for (const item of this.inPutList) {
+      if ((item.dataType === 'text' && item.value.trim() === '') || item.value === undefined) { // 输入框无内容时，禁止提交
           that.alertsModal.push({
             id: 1,
             type: 'danger',
             message: `${item.dataKey}的值不能为空！`,
           });
           return;
-        }
       }
       param[item.dataKey] = item.value;
     }
@@ -174,7 +175,7 @@ export class DeviceDetailComponent implements OnInit {
             type: 'success',
             message: '服务调用成功！',
           });
-          if (that.serviceList.length !== 0) { // 有模态框弹出，才需要关闭
+          if (that.inPutList.length !== 0) { // 有模态框弹出，才需要关闭
             that.mr.close();
           }
         },
@@ -182,9 +183,8 @@ export class DeviceDetailComponent implements OnInit {
           that.getDeviceService();
         },
         error: function(error) {
-
           const message = error.error.errors[0].defaultMessage;
-          if (that.serviceList.length === 0) {
+          if (that.inPutList.length === 0) {
             that.alerts.push({
               id: 1,
               type: 'danger',
