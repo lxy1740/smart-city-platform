@@ -61,6 +61,8 @@ export class DeviceMonitorComponent implements OnInit {
   total = 0;
   pageSize = 1;
   queryStr1 = '';
+  positionId: any;
+  typeId: any;
 
   navigationControl: any; // 缩放控件
   queryStr = ''; // 搜索
@@ -113,10 +115,6 @@ export class DeviceMonitorComponent implements OnInit {
         },
         complete: function () {
           that.openSideBar1();
-          // setTimeout(() => {
-          //   that.findPoint(point);   // 搜索设备
-
-          // }, 100);
         },
         error: function (error) {
           let message;
@@ -278,10 +276,11 @@ export class DeviceMonitorComponent implements OnInit {
     });
   }
   pageChange() {
-    // this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
+    this.getDeviceDetails(this.positionId, this.typeId);
   }
   execQuery() {
     this.page = 1;
+    this.getDeviceDetails(this.positionId, this.typeId);
   }
   // 标注消息列表中点击的路灯事件   // 搜索设备
   findPoint(point) {
@@ -306,8 +305,10 @@ export class DeviceMonitorComponent implements OnInit {
     if (this.queryStr === '' || !this.queryStr) {
       return;
     }
-    this.getDetailsByDeviceNumber(this.queryStr);
+    this.queryStr1 = this.queryStr;
     this.getDeviceByName(this.queryStr);
+    this.getDetailsByDeviceNumber(this.queryStr);
+
 
   }
 
@@ -350,6 +351,7 @@ export class DeviceMonitorComponent implements OnInit {
     baiduMap.addEventListener('click', function (e) {
       if (that.currentDevice && that.currentDevice.deviceChild) {
         that.currentDevice.deviceChild = null;
+        that.queryStr1 = '';
       }
 
     });
@@ -580,16 +582,11 @@ export class DeviceMonitorComponent implements OnInit {
     console.log(that.currentDevice.point);
     const point = new BMap.Point(that.currentDevice.point.lng, that.currentDevice.point.lat);
     that.map.openInfoWindow(infoWindow, point); // 开启信息窗口
-    setTimeout(() => {
-      that.deviceAddEventListener();
-    }, 0);
-    // if (this.currentDevice.device_types) {
-    //   for (let index = 0; index < this.currentDevice.device_types.length; index++) {
-    //     const positionId = this.currentDevice.id;
-    //     const deviceType = this.currentDevice.device_types[index].id;
-    //     that.getDeviceDetails(positionId, deviceType);
-    //   }
-    // }
+    // setTimeout(() => {
+    //   that.deviceAddEventListener();
+    // }, 0);
+    that.positionId = this.currentDevice.id;
+    that.typeId = that.currentDeviceDetail.typeId;
     that.getDeviceDetails(this.currentDevice.id, that.currentDeviceDetail.typeId);
   }
 
@@ -601,9 +598,9 @@ export class DeviceMonitorComponent implements OnInit {
         const positionId = this.currentDevice.id;
         const deviceType = this.currentDevice.device_types[index].id;
         const device = $(`#${deviceType}`);
-        // that.currentDeviceDetail = this.currentDevice;
-        // that.currentDeviceDetail.typeId = deviceType;
         device.on('click', function () {
+          that.positionId = positionId;
+          that.typeId = deviceType;
           that.getDeviceDetails(positionId, deviceType);
         });
       }
