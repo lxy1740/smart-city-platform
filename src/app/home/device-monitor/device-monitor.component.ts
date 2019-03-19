@@ -57,6 +57,11 @@ export class DeviceMonitorComponent implements OnInit {
   type = 0; // 设备类型id
   typeName: string; // 设备类型名称
 
+  page = 1;
+  total = 0;
+  pageSize = 1;
+  queryStr1 = '';
+
   navigationControl: any; // 缩放控件
   queryStr = ''; // 搜索
   deviceModels = []; // 设备型号
@@ -255,12 +260,13 @@ export class DeviceMonitorComponent implements OnInit {
 
   // // 获取指定位置所挂设备参数定义
   getDeviceDetails(positionId: string, deviceType: Number) {
-    let value;
+    // let value;
     const that = this;
-    this.monitorService.getDeviceDetails(positionId, deviceType).subscribe({
+    this.monitorService.getDeviceDetails(positionId, deviceType, this.page, this.pageSize, this.queryStr1).subscribe({
       next: function (val) {
-        value = val;
+        // value = val;
         that.currentDevice.deviceChild = val.items;
+        that.total = val.total;
       },
       complete: function () {
 
@@ -271,7 +277,12 @@ export class DeviceMonitorComponent implements OnInit {
       }
     });
   }
-
+  pageChange() {
+    // this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
+  }
+  execQuery() {
+    this.page = 1;
+  }
   // 标注消息列表中点击的路灯事件   // 搜索设备
   findPoint(point) {
     let marker;
@@ -590,6 +601,8 @@ export class DeviceMonitorComponent implements OnInit {
         const positionId = this.currentDevice.id;
         const deviceType = this.currentDevice.device_types[index].id;
         const device = $(`#${deviceType}`);
+        // that.currentDeviceDetail = this.currentDevice;
+        // that.currentDeviceDetail.typeId = deviceType;
         device.on('click', function () {
           that.getDeviceDetails(positionId, deviceType);
         });
