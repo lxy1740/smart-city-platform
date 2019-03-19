@@ -57,6 +57,7 @@ export class CustomerService {
 
     // 新增Customer
     addNewCustomer(body): Observable<any> {
+        console.log('body: ' + body);
         return this.http.post('/api/customer', body)
             .pipe(map((res: Response) => { // 相当于一种映射
                 return res;

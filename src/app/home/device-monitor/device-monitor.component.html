@@ -138,6 +138,12 @@
           <td>{{items.Unit}}</td>
         </tr>
       </table>
+      <div *ngIf="item.deviceProperties.length === 0 || !item.deviceProperties">无数据！</div>
+        <div *ngIf="item.deviceProperties.length > page">
+          <ngb-pagination [collectionSize]=total [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
+            (pageChange)="pageChange()"></ngb-pagination>
+        </div>
     </div>
+    
   </div>
 </div>

@@ -260,9 +260,10 @@ export class DeviceMonitorComponent implements OnInit {
     this.monitorService.getDeviceDetails(positionId, deviceType).subscribe({
       next: function (val) {
         value = val;
+        that.currentDevice.deviceChild = val.items;
       },
       complete: function () {
-        that.currentDevice.deviceChild = value;
+
 
       },
       error: function (error) {
