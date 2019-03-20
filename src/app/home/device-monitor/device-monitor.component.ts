@@ -59,7 +59,7 @@ export class DeviceMonitorComponent implements OnInit {
 
   page = 1;
   total = 0;
-  pageSize = 1;
+  pageSize = 2;
   queryStr1 = '';
 
   navigationControl: any; // 缩放控件
@@ -278,10 +278,12 @@ export class DeviceMonitorComponent implements OnInit {
     });
   }
   pageChange() {
-    // this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
+    console.log(this.currentDeviceDetail.typeId);
+    this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
   }
   execQuery() {
-    this.page = 1;
+    console.log('aaaaa');
+    this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
   }
   // 标注消息列表中点击的路灯事件   // 搜索设备
   findPoint(point) {
@@ -590,6 +592,7 @@ export class DeviceMonitorComponent implements OnInit {
     //     that.getDeviceDetails(positionId, deviceType);
     //   }
     // }
+    // console.log(that.currentDeviceDetail);
     that.getDeviceDetails(this.currentDevice.id, that.currentDeviceDetail.typeId);
   }
 

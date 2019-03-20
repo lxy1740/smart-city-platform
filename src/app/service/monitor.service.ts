@@ -78,7 +78,8 @@ export class MonitorService {
 
     // 获取指定位置所挂设备参数定义
     getDeviceDetails(positionId: string, deviceType: Number, page, pageSize, queryStr): Observable<any> {
-        return this.http.get(`/api/position/device?positionId=${positionId}&deviceType=${deviceType}&page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
+        return this.http.get(`/api/position/device?positionId=
+        ${positionId}&deviceType=${deviceType}&page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
