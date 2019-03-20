@@ -158,7 +158,7 @@ export class CustomerComponent implements OnInit {
       check: {
         enable: true,
         chkStyle: 'checkbox',
-        chkboxType: { 'Y': 'ps', 'N': 'ps' }
+        chkboxType: { 'Y': '', 'N': '' }
       },
       callback: {
         onClick: this.rTreeOnClick, // 点击事件
