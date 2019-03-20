@@ -282,7 +282,7 @@ export class DeviceMonitorComponent implements OnInit {
     this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
   }
   execQuery() {
-    console.log('aaaaa');
+    console.log('aaaaa:' + this.currentDevice.id + ' : ' + this.currentDeviceDetail.typeId);
     this.getDeviceDetails(this.currentDevice.id, this.currentDeviceDetail.typeId);
   }
   // 标注消息列表中点击的路灯事件   // 搜索设备
