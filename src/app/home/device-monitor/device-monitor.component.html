@@ -143,7 +143,7 @@
   <div *ngIf="currentDevice.deviceChild.length === 0 || !currentDevice.deviceChild">无数据！</div>
   <div *ngIf="currentDevice.deviceChild.length > 0">
 
-     <ngb-pagination [collectionSize]=total [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" -->
+     <ngb-pagination [collectionSize]=total [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"
 
       (pageChange)="pageChange()"></ngb-pagination>
   </div>
