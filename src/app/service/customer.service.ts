@@ -37,6 +37,7 @@ export class CustomerService {
 
         return this.http.get(`/api/customer?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
             .pipe(map((res: Response) => {
+                console.log(res);
                 return res;
             }));
     }
