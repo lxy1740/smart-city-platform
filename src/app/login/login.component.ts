@@ -52,7 +52,7 @@ export class LoginComponent {
       },
       complete: function() {
         const token = localStorage.getItem('token');
-        that.authService.getAuthorities(token);
+        // that.authService.getAuthorities(token);
       },
       error: function(error) {
         console.log(error);

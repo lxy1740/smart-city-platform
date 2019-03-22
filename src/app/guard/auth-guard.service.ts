@@ -109,7 +109,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             res = true;
             AUTHSYSTEM.map(item => {
                 if (item.id === str) {
-                    console.log(111111111);
                     res = false;
                     return res;
                 }

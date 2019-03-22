@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AUTHORITYTREECOPYROUTE } from '../data/Authority.tree.route';
-// import { AUTHORITYTREEROUTE } from '../data/Authority.tree.route.copy';
 import { MessService } from '../service/mess.service';
 import { CommunicateService } from '../service/communicate.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
