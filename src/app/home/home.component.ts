@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     config.placement = 'top-left';
     const token = localStorage.getItem('token');
     this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
-
+      console.log(this.authService.routerList);
 
     // this.visible = urlService.getURLParam('visible') === '' ? true : false;
 

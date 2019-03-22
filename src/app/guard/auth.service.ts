@@ -73,6 +73,7 @@ export class AuthService {
             that.rightService.getAuthoritiesByUserId(id).subscribe({
                 next: function (val) {
                     console.log('获取用户权限');
+                    console.log(val);
                     const res = that.getVaule(val);
                     that.routerList = [];
                     res.map((item, i) => {
