@@ -35,7 +35,7 @@ export class AuthService {
                     // 设置全局变量
                     // this.winRef.nativeWindow.userId = this.userId;
                     this._cookieService.putObject('currentUser', JSON.stringify({ loginName: userName, token: token }));
-                    // this.getAuthorities(token);
+                    this.getAuthorities(token);
 
                     localStorage.setItem('token', token);
                     this.isLoggedIn = true;
@@ -72,8 +72,8 @@ export class AuthService {
         const promise = new Promise(function (resolve, reject) {
             that.rightService.getAuthoritiesByUserId(id).subscribe({
                 next: function (val) {
-                    console.log('获取用户权限');
-                    console.log(val);
+                    // console.log('获取用户权限');
+                    // console.log(val);
                     const res = that.getVaule(val);
                     that.routerList = [];
                     res.map((item, i) => {
@@ -93,7 +93,11 @@ export class AuthService {
 
     }
 
-
+    // 获取权限列表
+    getAuthoritiesList() {
+        // console.log(this.routerList);
+        return this.routerList;
+    }
     // 获取对象value
     getkeys(obj) {
         if (!obj) {

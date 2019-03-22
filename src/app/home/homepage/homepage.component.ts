@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-// import { ROUTELIST } from './route-list';
+
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Component({
   selector: 'app-homepage',
@@ -13,9 +14,12 @@ export class HomepageComponent implements OnInit {
   customerId: any;
   constructor(public router: Router,  private elementRef: ElementRef,
       public jwtHelper: JwtHelperService,
+
     ) {
     const token = localStorage.getItem('token');
     this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
+
+    console.log(router.routerState.snapshot.url);
   }
 
   flag = true;
@@ -41,9 +45,11 @@ export class HomepageComponent implements OnInit {
 
   // 判断数组中是否存在值
   getture(str) {
+    let res = false;
+
     const Authorities = JSON.parse(localStorage.getItem('Authorities'));
     const Auth = Authorities ? Authorities.Authorities : [];
-    let res = false;
+    res = false;
     if (str === 'HP-000') {
       res = true;
       return res;
@@ -52,6 +58,7 @@ export class HomepageComponent implements OnInit {
       res = false;
       return res;
     }
+
     Auth.map(item => {
       if (item === str) {
         res = true;
