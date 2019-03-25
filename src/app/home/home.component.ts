@@ -67,10 +67,6 @@ export class HomeComponent implements OnInit {
 
   // 判断数组中是否存在值
   getture( str) {
-    if (this.customerId) {
-
-    }
-
       const Authorities = JSON.parse(localStorage.getItem('Authorities'));
       const Auth = Authorities ? Authorities.Authorities : [];
       let res = false;
@@ -89,8 +85,6 @@ export class HomeComponent implements OnInit {
         }
       });
       return res;
-
-
   }
 
 

@@ -18,8 +18,6 @@ export class HomepageComponent implements OnInit {
     ) {
     const token = localStorage.getItem('token');
     this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
-
-    console.log(router.routerState.snapshot.url);
   }
 
   flag = true;
@@ -46,7 +44,6 @@ export class HomepageComponent implements OnInit {
   // 判断数组中是否存在值
   getture(str) {
     let res = false;
-
     const Authorities = JSON.parse(localStorage.getItem('Authorities'));
     const Auth = Authorities ? Authorities.Authorities : [];
     res = false;
@@ -67,6 +64,4 @@ export class HomepageComponent implements OnInit {
     });
     return res;
   }
-
-
 }

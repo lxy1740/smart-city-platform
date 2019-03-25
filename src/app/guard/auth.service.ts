@@ -72,8 +72,6 @@ export class AuthService {
         const promise = new Promise(function (resolve, reject) {
             that.rightService.getAuthoritiesByUserId(id).subscribe({
                 next: function (val) {
-                    // console.log('获取用户权限');
-                    // console.log(val);
                     const res = that.getVaule(val);
                     that.routerList = [];
                     res.map((item, i) => {
@@ -91,12 +89,6 @@ export class AuthService {
         });
         return promise;
 
-    }
-
-    // 获取权限列表
-    getAuthoritiesList() {
-        // console.log(this.routerList);
-        return this.routerList;
     }
     // 获取对象value
     getkeys(obj) {
