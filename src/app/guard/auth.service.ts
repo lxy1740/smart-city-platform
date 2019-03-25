@@ -25,17 +25,17 @@ export class AuthService {
 
     }
 
-
     login(userName: String, password: String): Observable<any> {
         return this.http.post('/security/login', { 'userName': userName, 'password': password }, { responseType: 'text' })
             .pipe(map((res) => {
                 const token = res;
+                console.log(res);
                 if (token) {
                     this.token = token;
                     // 设置全局变量
                     // this.winRef.nativeWindow.userId = this.userId;
                     this._cookieService.putObject('currentUser', JSON.stringify({ loginName: userName, token: token }));
-                    this.getAuthorities(token);
+                    // this.getAuthorities(token);
 
                     localStorage.setItem('token', token);
                     this.isLoggedIn = true;
@@ -46,6 +46,7 @@ export class AuthService {
                 }
             }));
     }
+
     logout(): void {
         this.isLoggedIn = false;
         this.token = null;
