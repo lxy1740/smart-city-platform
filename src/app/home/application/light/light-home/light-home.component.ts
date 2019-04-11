@@ -307,6 +307,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     const a_arr: any[] = [];
     let i = 0;
       for (let j = 0; j < b.length; j++) {
+        if (a.length > 0) {
           while (i < a.length && a[i].id < b[j].id) {
             i++;
           }
@@ -315,6 +316,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
             i++;
           }
         }
+      }
     return a_arr;
   }
 
