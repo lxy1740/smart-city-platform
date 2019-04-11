@@ -133,7 +133,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
       }
     });
     console.log(this.lightListRes);
-    this.execQuery();
+    this.clearSelected();
   }
   // 点击搜索
   execQueryId() {
