@@ -38,7 +38,7 @@ export class TrafficComponent implements OnInit {
   map_model: any = {}; // 存储数据
 
   map: any; // 地图对象
-
+  zone: any; // 安装区域
   currentCamera: any;  // 当前摄像头
   videoUrl: any;  // 当前摄像头
 
@@ -50,6 +50,7 @@ export class TrafficComponent implements OnInit {
 
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点
+  deviceTypeId = 3; // 视频监控
 
 
   constructor(private monitorService: MonitorService, public router: Router,
@@ -71,7 +72,6 @@ export class TrafficComponent implements OnInit {
     const map = this.map = new BMap.Map(this.map_container.nativeElement, {
       enableMapClick: true,
       minZoom: 11,
-      // maxZoom : 11
     }); // 创建地图实例
 
 
@@ -307,18 +307,22 @@ export class TrafficComponent implements OnInit {
   getCity() {
     const that = this;
 
-    this.monitorService.getZoneDefault().subscribe({
+    this.monitorService.getZoneDefault(this.deviceTypeId).subscribe({
       next: function (val) {
         that.map_model.cityList = val.regions;
+        that.zone = val.zone;
         // that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.map_model.currentCity = that.node;
         that.map_model.currentChildren = that.node.children || [];
 
       },
       complete: function () {
         that.addBeiduMap(); // 创建地图
-
+        const zoom = that.map.getZoom();
+        const point =  new BMap.Point(that.zone.center.lng, that.zone.center.lat); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+        that.map.centerAndZoom(point, zoom);
       },
       error: function (error) {
         console.log(error);

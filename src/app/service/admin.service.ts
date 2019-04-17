@@ -23,53 +23,19 @@ export class AdminService {
     }
 
     // 新增用户
-    addNewUser(name: String, password: String, gender: number, avatarUrl: String, email: String,
-        mobile: String, fullName: String, nickName: String, roleIds: any): Observable<any> {
-        return this.http.post('/security/user', {
-            'userName': name,
-            'password': password,
-            'gender': gender,
-            'avatarurl': avatarUrl,
-            'email': email,
-            'mobile': mobile,
-            'fullName': fullName,
-            'nickName': nickName,
-            'roles': roleIds
-        })
+    addNewUser(body): Observable<any> {
+        return this.http.post('/security/user', body)
             .pipe(map((res: Response) => {
                 return res;
-                // if (res.status === 200) {
-                //     const data = res.json();
-                //     return data;
-                // } else if (res.status === 400) {
-                //     return res.json();
-                // }
+
             }));
     }
     // 修改用户
-    updateUser(id: number, name: String, password: String, gender: number, avatarUrl: String, email: String,
-        mobile: String, fullName: String, nickName: String, roleIds: any): Observable<any> {
-        return this.http.put('/security/user', {
-            'id': id,
-            'userName': name,
-            'password': password,
-            'gender': gender,
-            'avatarurl': avatarUrl,
-            'email': email,
-            'mobile': mobile,
-            'fullName': fullName,
-            'nickName': nickName,
-            'roles': roleIds
-        })
+    updateUser(body): Observable<any> {
+        return this.http.put('/security/user', body)
             .pipe(map((res: Response) => {
                 const data = { status: 200 };
                 return data;
-                // if (res.status === 200) {
-                //     const data = {status: 200};
-                //     return data;
-                // } else if (res.status === 400) {
-                //     return res.json();
-                // }
             }));
     }
 
@@ -79,12 +45,7 @@ export class AdminService {
             .pipe(map((res: Response) => {
                 const data = { status: 200 };
                 return data;
-                // if (res.status === 200) {
-                //     const data = { status: 200};
-                //     return data;
-                // } else if (res.status === 202) {
-                //     return res.json().code.toString();
-                // }
+
             }));
     }
 
@@ -93,12 +54,7 @@ export class AdminService {
         return this.http.get(`/security/role/all`)
             .pipe(map((res: Response) => {
                 return res;
-                // if (res.status === 200) {
-                //     const data = res.json();
-                //     return data;
-                // } else if (res.status === 202) {
-                //     return res.json().code.toString();
-                // }
+
             }));
     }
 

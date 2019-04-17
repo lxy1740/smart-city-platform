@@ -46,7 +46,7 @@ export class CoverComponent implements OnInit, OnDestroy {
   */
 
   map_model: any = {}; // 存储数据
-
+  zone: any = []; // 安装区域
   map: any; // 地图对象
 
   areashow = false; // 默认区域列表不显示
@@ -62,6 +62,7 @@ export class CoverComponent implements OnInit, OnDestroy {
   showonprogresslist = false; // 默认不显示“处理中”的异常消息
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
   timer: any; // 定时器
+  deviceTypeId = 5; // 井盖
 
   constructor(private coverService: CoverService, private monitorService: MonitorService, public messService: MessService,
     public router: Router) {
@@ -566,11 +567,12 @@ export class CoverComponent implements OnInit, OnDestroy {
   getCity() {
     const that = this;
 
-    this.monitorService.getZoneDefault().subscribe({
+    this.monitorService.getZoneDefault(this.deviceTypeId).subscribe({
       next: function (val) {
         that.map_model.cityList = val.regions;
         // that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        // that.node = that.getNode(val.regions, val.zone.region_id);
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
         that.map_model.currentCity = that.node;
         that.map_model.currentChildren = that.node.children;
 
@@ -675,7 +677,7 @@ export class CoverComponent implements OnInit, OnDestroy {
 
   // 进入数据监控页面
   jumpHandle() {
-    this.router.navigate([`home/issuedata`]);
+    this.router.navigate([`home/application/issuedata`]);
 
   }
 

@@ -2,21 +2,25 @@ import { NgModule } from '@angular/core';
 import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
-
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { UserRoutingModule } from './user-routing.module';
+import { UserComponent } from './user.component';
 
 import { AdminComponent } from './admin/admin.component';
 import { RightComponent } from './right/right.component';
+import { CustomerComponent } from './customer/customer.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    UserRoutingModule,
+    NgbModule.forRoot(),
   ],
-  declarations: [AdminComponent, RightComponent],
+  declarations: [UserComponent, AdminComponent, RightComponent, CustomerComponent, AdministrationComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA

@@ -40,27 +40,16 @@ export class ProductService {
     }
 
     // 新增设备型号
-    setModel(name, description, type, isGateway): Observable<any> {
-        return this.http.post(`/api/device/model`, {
-            'name': name,
-            'description': description,
-            'type': type,
-            'isGateway': isGateway,
-        })
+    setModel(body): Observable<any> {
+        return this.http.post(`/api/device/model`, body)
         .pipe(map((res: Response) => {
             return res;
         }));
     }
 
     // 修改设备型号
-    updateModel(id, name, description, type, isGateway): Observable<any> {
-        return this.http.put(`/api/device/model`, {
-            'id': id,
-            'name': name,
-            'description': description,
-            'type': type,
-            'isGateway': isGateway
-        })
+    updateModel(body): Observable<any> {
+        return this.http.put(`/api/device/model`, body)
             .pipe(map((res: Response) => {
                 const data = { status: 200 };
                 return data;

@@ -7,7 +7,9 @@ import {
     CanLoad, Route
 } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { AUTHORITYTREE} from '../data/Authority.tree';
+import { AUTHORITYTREECOPY} from '../data/Authority.tree.copy';
+import { AUTHSYSTEM} from '../data/Auth.system';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable()
@@ -15,12 +17,19 @@ import { AUTHORITYTREE} from '../data/Authority.tree';
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     routerList: Array<any>;
     urlid: string;
-    constructor(private router: Router, private _cookieService: CookieService) { }
+    customerId: any;
+
+    constructor(private router: Router, private _cookieService: CookieService,
+        public jwtHelper: JwtHelperService,
+        ) {
+        const token = localStorage.getItem('token');
+        this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
+     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // CanActivate 这种类型的 Guard用来控制是否允许进入当前的路径
         // console.log(route);
-        console.log(state.url);
+        // console.log(state.url);
         const url: string = state.url;
 
         this.geturlid(url);
@@ -29,7 +38,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         // CanActivateChild 这种类型的 Guard用来控制是否允许进入当前路径的所有子路径
-        console.log(11);
+        // console.log(11);
         return this.canActivate(route, state);
     }
 
@@ -40,17 +49,23 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         return this.checkLogin(url);
     }
 
+
     checkLogin(url: string): boolean {
+
         if (this._cookieService.getObject('currentUser')) {
-            const token = localStorage.getItem('token');
+            // const token = localStorage.getItem('token');
             const Authorities = JSON.parse(localStorage.getItem('Authorities'));
-            console.log('urlid');
-            console.log(this.urlid);
+            // console.log('urlid');
+            // console.log(this.urlid);
 
             // logged in so return true
-            console.log(Authorities);
-            if (Authorities) {
-                return this.getture(Authorities.Authorities, this.urlid);
+            // console.log(Authorities);
+            if (this.urlid === 'HP-000') {
+                return true;
+            } else {
+                if (Authorities) {
+                    return this.getture(Authorities.Authorities, this.urlid);
+                }
             }
 
 
@@ -60,25 +75,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             this.router.navigate(['/login']);
             return false;
         }
-        // if (this.authService.isLoggedIn) { return true; }
-
-        // // Store the attempted URL for redirecting
-        // this.authService.redirectUrl = url;
-
-        // // Create a dummy session id
-        // const sessionId = 123456789;
-
-        // // Set our navigation extras object
-        // // that contains our global query params and fragment
-        // const navigationExtras: NavigationExtras = {
-        //     queryParams: { 'session_id': sessionId },
-        //     fragment: 'anchor'
-        // };
-
-        // // Navigate to the login page with extras
-        // // this.router.navigate(['/login'], navigationExtras);
-        // this.router.navigate(['/login']);
-        // return false;
     }
 
     // 获取对象value
@@ -105,6 +101,20 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             res = true;
             return res;
         }
+        if (this.customerId && str === 'DM-007') {
+            res = false;
+            return res;
+        }
+        if (this.customerId) {
+            res = true;
+            AUTHSYSTEM.map(item => {
+                if (item.id === str) {
+                    res = false;
+                    return res;
+                }
+            });
+            return res;
+        }
         arr.map(item => {
             if (item === str) {
                 res = true;
@@ -116,45 +126,25 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     geturlid(url) {
         const that = this;
-        const urlArr = url.split('/home/');
-        console.log(urlArr);
-        if (urlArr.length > 1) {
-            const urlArr1 = urlArr[1].split('/');
-
-            if (urlArr1.length === 1) { // 一级菜单
-                if (urlArr1[0] === 'homepage') {
-                    console.log(urlArr1);
-                    that.urlid = 'HP-000';
-                    return;
-                }
-                AUTHORITYTREE.map(item => {
-                    if (item.routeLink === urlArr1[0]) {
-                        console.log('一级菜单yes-->go');
-                        that.urlid = item.id;
-                        return;
-                    } else {
-                        console.log('一级菜单no-->leave');
-                    }
-                });
-            } else { // 二级菜单
-                AUTHORITYTREE.map(item => {
-                    if (item.routeLink === urlArr1[0]) {
-                        console.log('二级菜单yes-->go');
-                        item.children.map(item1 => {
-                            if (item1.routeLink === urlArr[1]) {
-                                console.log('二级菜单yes-->go-->next');
-                                that.urlid = item1.id;
-                                return;
-                            } else {
-                                console.log('二级菜单no-->leave--》next');
-                            }
-                        });
-                    } else {
-                        console.log('二级菜单no-->leave');
-                    }
-                });
-            }
+        const urlArr1 = url.split(';');
+        const urlArr = urlArr1[0].split('/home/');
+        if (urlArr[1] === 'homepage') {
+            console.log('首页');
+            that.urlid = 'HP-000';
+            return;
         }
+
+
+        AUTHORITYTREECOPY.map(item => {
+            // console.log(item.routeLink);
+            if (item.routeLink === urlArr[1]) {
+                that.urlid = item.id;
+                return;
+            } else {
+                console.log('no-->leave');
+            }
+        });
+
     }
 }
 

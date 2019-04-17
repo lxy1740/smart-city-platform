@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  Router,
-  NavigationExtras
-} from '@angular/router';
+import {Router, NavigationExtras } from '@angular/router';
 import { AuthService } from '../guard/auth.service';
 
 @Component({
@@ -19,7 +16,6 @@ export class LoginComponent {
 
   }
 
-
   onKeydown(event: any) {
     if (event.keyCode !== 13) {
       this.error = '';
@@ -34,11 +30,13 @@ export class LoginComponent {
     this.authService.login(this.model.username, this.model.password)
     .subscribe({
       next: function(val) {
+        console.log(val);
         if (that.authService.isLoggedIn) {
+          console.log(that.authService.isLoggedIn);
           // Get the redirect URL from our auth service
           // If no redirect has been set, use the default
           const redirect = that.authService.redirectUrl ? that.authService.redirectUrl : '/home';
-
+          console.log(redirect);
           // Set our navigation extras object
           // that passes on our global query params and fragment
           const navigationExtras: NavigationExtras = {
@@ -54,7 +52,12 @@ export class LoginComponent {
           that.loading = false;
         }
       },
-      complete: function() {},
+      complete: function() {
+        const token = localStorage.getItem('token');
+        that.authService.getAuthorities(token);
+
+
+      },
       error: function(error) {
         console.log(error);
         const errormes = JSON.parse(error.error);

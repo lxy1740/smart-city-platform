@@ -3,10 +3,10 @@ import { AuthService } from '../guard/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ROUTETREE } from '../data/route-tree';
+import { AUTHORITYTREECOPYROUTE } from '../data/Authority.tree.route';
 import { MessService } from '../service/mess.service';
-// import { UrlService } from '../service/url.service';s
 import { CommunicateService } from '../service/communicate.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 declare let $: any;
 
 @Component({
@@ -23,33 +23,37 @@ export class HomeComponent implements OnInit {
   messageList: any; // 消息列表
   queryPoint: any;
   visible = true; // 控制可视区域
+  customerId: any;
+  authoritiesList: any; // 当前用户权限列表
 
 
-  constructor(public authService: AuthService, public router: Router, private _cookieService: CookieService,
+  constructor(public authService: AuthService, public router: Router,
+    // state: RouterStateSnapshot,
+    private _cookieService: CookieService,
     public messService: MessService,
-    public config: NgbDropdownConfig, private communicateService: CommunicateService) {
-    this.routeTree = ROUTETREE;
-    // customize default values of dropdowns used by this component tree
+    public config: NgbDropdownConfig,
+    private communicateService: CommunicateService,
+    public jwtHelper: JwtHelperService,
+     ) {
+    this.routeTree = AUTHORITYTREECOPYROUTE;
     config.placement = 'top-left';
-
-
+    const token = localStorage.getItem('token');
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
     // this.visible = urlService.getURLParam('visible') === '' ? true : false;
-
- // 全屏
+    // 全屏
     this.communicateService.getMessage().subscribe((message: any) => {
-      // console.log(message); // send a message
-
       this.visible = message.mess;
-
     });
+    // console.log(this.customerId);
+
+    // const url: string = state.url;
+    // console.log(router);
   }
 
   ngOnInit() {
     this.currentUser = this._cookieService.getObject('currentUser');
     const currentUser = JSON.parse(this.currentUser);
     this.loginName = currentUser.loginName;
-
-
   }
 
   // 路由跳转-传递参数-这是在html中绑定的click跳转事件
@@ -60,21 +64,27 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`home/monitor`]);
 
   }
+
   // 判断数组中是否存在值
   getture( str) {
-    const Authorities = JSON.parse(localStorage.getItem('Authorities')).Authorities;
-    let res = false;
-    if (str === 'HP-000') {
-      res = true;
-      return res;
-    }
-    Authorities.map(item => {
-      if (item === str) {
+      const Authorities = JSON.parse(localStorage.getItem('Authorities'));
+      const Auth = Authorities ? Authorities.Authorities : [];
+      let res = false;
+      if (str === 'HP-000') {
         res = true;
         return res;
       }
-    });
-    return res;
+      if (this.customerId && str === 'DM-007') {
+        res = false;
+        return res;
+      }
+      Auth.map(item => {
+        if (item === str) {
+          res = true;
+          return res;
+        }
+      });
+      return res;
   }
 
 
@@ -87,7 +97,6 @@ export class HomeComponent implements OnInit {
   // 侧边栏开合按钮
   switchSidebar() {
     this.open = !this.open;
-    console.log(this.open);
   }
 
 

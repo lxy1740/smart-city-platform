@@ -36,11 +36,16 @@ export class InterceptorService implements HttpInterceptor { //  implements Http
             }
             return of(event); // break;
 
-            case 500: // 过期状态码
-            if (event['error'].message && event['error'].message.indexOf('expired') > 0) {
-                localStorage.removeItem('token');
-                that.goTo('/login');
-            }
+            case 403: // 过期状态码
+            localStorage.removeItem('token');
+            that.goTo('/login');
+            // if (event['error'].message && event['error'].message.indexOf('expired') > 0) {
+            //     localStorage.removeItem('token');
+            //     that.goTo('/login');
+            // } else if (event['message'] && event['message'] === 'Missing or invalid Authorization header') {
+            //     localStorage.removeItem('token');
+            //     that.goTo('/login');
+            // }
             return throwError(event); // break;
             default:
             return throwError(event); // break;

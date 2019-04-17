@@ -16,6 +16,7 @@ export class LightService {
 
     // 获取策略表
     getLightByDeviceName(lightName: String): Observable<any> {
+        console.log(lightName);
         return this.http.get(`/api/streetlight?lightName=${lightName}`)
             .pipe(map((res: Response) => {
                 return res;

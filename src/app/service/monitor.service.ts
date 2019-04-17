@@ -25,10 +25,12 @@ export class MonitorService {
     }
 
     // 城市列表
-    getZoneDefault(): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
-
-        return this.http.get('/api/zone/default')
+    getZoneDefault(...deviceTypeId): Observable<any> {
+        let url = '/api/zone/default';
+        if (deviceTypeId) {
+            url = `/api/zone/default?deviceTypeId=${deviceTypeId}`;
+        }
+        return this.http.get(url)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -49,6 +51,7 @@ export class MonitorService {
 
     }
 
+    // 获取策略表
 
 
     // 获取详细的位置数据
@@ -65,14 +68,55 @@ export class MonitorService {
             }));
     }
 
+    // 获取详细的位置数据ByDeviceNumber
+    getDetailsByDeviceNumber(number): Observable<any> {
+        return this.http.post(`/api/position/inbounds/details/${number}`, {
+
+        })
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
     // 获取指定位置所挂设备参数定义
-    getDeviceDetails(positionId: string, deviceType: Number): Observable<any> {
+    getDeviceDetails(positionId: string, deviceType: Number, page, pageSize, queryStr): Observable<any> {
+        return this.http.get(`/api/position/device?positionId=
+        ${positionId}&deviceType=${deviceType}&page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
+    // 获取指定位置所挂设备参数定义
+    getDeviceDetailsAll(positionId: string, deviceType: Number): Observable<any> {
         return this.http.get(`/api/position/device?positionId=${positionId}&deviceType=${deviceType}`)
             .pipe(map((res: Response) => {
                 return res;
             }));
     }
 
+
+    // 获取设备型号
+    getModels(): Observable<any> {
+        return this.http.get(`/api/device/model/all`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+
+                ));
+    }
+
+    // 获取设备信息
+    getDeviceByName(name): Observable<any> {
+        return this.http.get(`/api/device/getByName?name=${name}`)
+            .pipe(
+                map((res) => {
+                    return res;
+                },
+
+                ));
+    }
 
 
 

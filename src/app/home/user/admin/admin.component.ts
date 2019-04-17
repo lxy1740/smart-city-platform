@@ -1,6 +1,8 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from '../../../service/admin.service';
+import { CustomerService } from '../../../service/customer.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 declare var $: any;
@@ -18,35 +20,6 @@ export class AdminComponent implements OnInit {
 
   setting = {}; // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 
-      // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-  // zNodes = [
-  //   {
-  //     name: '设备概览', open: true, children: [
-  //       { name: 'test1_1' }, { name: 'test1_2' }]
-  //   },
-  //   {
-  //     name: '设备监控', open: true, children: [
-  //       { name: 'test2_1' }, { name: 'test2_2' }]
-  //   },
-  //   {
-  //     name: '设备管理', open: true, children: [
-  //       { name: '新增' }, { name: '添加' }, { name: '报销' }]
-  //   },
-  //   {
-  //     name: '系统管理', open: true, children: [
-  //       {
-  //         name: '用户管理', children: [
-  //           { name: '新增' }, { name: '添加' }, { name: '修改' }
-  //         ]
-  //       },
-  //       {
-  //         name: '权限管理', children: [
-  //           { name: '新增' }, { name: '添加' }, { name: '修改' }
-  //         ]
-  //       }
-  //     ]
-  //   }
-  // ];
 
   public mr: NgbModalRef; // 当前弹框
   modelData = {
@@ -61,12 +34,19 @@ export class AdminComponent implements OnInit {
   roleList = []; // 角色表
   roleList1 = []; // 不含“不限”项
   queryStr = ''; // 检索字符串
-  page: any;
+  page = 1;
   pageSize = 10;
   total: number;
+  total2 = 0; // 分页
+  page2 = 1; // 分页
+  pageSize2 = 10; // 分页
 
   curRole: any; // 当前角色
   addOrUpdate: any; // 新建或修改标识
+  currentCustomer: any = {}; // 当前客户
+  CustomerList  = [];
+  customerId: null; // 平台客户
+  Customershow = false;
 
   currentTreeNodeId: any; // 当前选中的区域
   public zTreeOnClick: (event, treeId, treeNode) => void;
@@ -76,8 +56,14 @@ export class AdminComponent implements OnInit {
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
 
-  constructor(private modalService: NgbModal, private adminService: AdminService) {
-    this.page = 1;
+  constructor(private modalService: NgbModal,
+    private adminService: AdminService,
+    private customerService: CustomerService,
+    public jwtHelper: JwtHelperService,
+    ) {
+
+    const token = localStorage.getItem('token');
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
     // 树的操作
     // 点击
     const that = this;
@@ -100,8 +86,46 @@ export class AdminComponent implements OnInit {
     this.zTreeObj = $.fn.zTree.init($('#treeDemo'), this.setting);
     this.getUserList();
     this.getRoleList();
+    this.getCustomer();
     // console.log(this.zNodes);
   }
+  // 选择客户
+  selecteCustomer(item) {
+    this.currentCustomer = item;
+    this.Customershow = false;
+  }
+
+  // 分页获取客户
+  getCustomer() {
+    const that = this;
+
+    this.customerService.getCustomer(this.page2, this.pageSize2, '')
+      .subscribe({
+        next: function (val) {
+          that.CustomerList = val.items;
+          that.total2 = val.tota2;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 分页
+  pageChange2() {
+    this.getCustomer();
+  }
+  // 显示客户
+  showCustomer() {
+    this.Customershow = true;
+  }
+
+  // 离开客户
+  CustomerlistMouseleave() {
+    this.Customershow = false;
+  }
+
   // 获取用户列表
   getUserList() {
     const that = this;
@@ -162,6 +186,7 @@ export class AdminComponent implements OnInit {
     this.user.nickName = '';
     this.user.gender = '0';
     this.user.avatar = '';
+    this.currentCustomer = {};
 
     this.user.roleListCheck = []; // 新建用户时各角色的选中状态（check）
     this.user.roleIds = [];
@@ -193,8 +218,19 @@ export class AdminComponent implements OnInit {
   // 新增用户点击事件
   addUser() {
     const that = this;
-    this.adminService.addNewUser(this.user.userName, this.user.password, this.user.gender, this.user.avatar,
-      this.user.email, this.user.mobile, this.user.fullName, this.user.nickName, this.user.roleIds).subscribe({
+    const body = {
+      'userName': this.user.userName,
+      'password': this.user.password,
+      'gender': this.user.gender,
+      'avatarurl': this.user.avatar,
+      'email': this.user.email,
+      'mobile': this.user.mobile,
+      'fullName': this.user.fullName,
+      'nickName': this.user.nickName,
+      'roles': this.user.roleIds,
+      'customerId': this.currentCustomer.id || this.customerId,
+    };
+    this.adminService.addNewUser(body).subscribe({
       next: function(val) {
         that.alerts.push({
           id: 1,
@@ -228,6 +264,8 @@ export class AdminComponent implements OnInit {
     this.user.mobile = item.mobile;
     this.user.fullName = item.fullName;
     this.user.nickName = item.nickName;
+    this.currentCustomer.id = item.customerId;
+    this.currentCustomer.name = item.customerName;
     this.user.gender = String(item.gender);
     console.log(item);
     console.log(item.gender);
@@ -267,8 +305,20 @@ export class AdminComponent implements OnInit {
   // 修改用户点击事件
   updataUser() {
     const that = this;
-    this.adminService.updateUser(this.user.curUser.id, this.user.userName, this.user.password, this.user.gender, this.user.avatar,
-      this.user.email, this.user.mobile, this.user.fullName, this.user.nickName, this.user.roleIds).subscribe({
+    const body = {
+      'id': this.user.curUser.id,
+      'userName': this.user.userName,
+      'password': this.user.password,
+      'gender': this.user.gender,
+      'avatarurl': this.user.avatar,
+      'email': this.user.email,
+      'mobile': this.user.mobile,
+      'fullName': this.user.fullName,
+      'nickName': this.user.nickName,
+      'roles': this.user.roleIds,
+      'customerId': this.currentCustomer.id || this.customerId,
+    };
+    this.adminService.updateUser(body).subscribe({
       next: function(val) {
         that.alerts.push({
           id: 1,

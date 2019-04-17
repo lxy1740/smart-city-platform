@@ -1,17 +1,11 @@
 import { Injectable} from '@angular/core';
-
 import { Observable } from 'rxjs/';
-
 import { HttpClient } from '@angular/common/http';
-
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { RightService } from '../service/right.service';
-
 import { map } from 'rxjs/operators';
-
-
 
 @Injectable()
 export class AuthService {
@@ -20,7 +14,6 @@ export class AuthService {
     model: any;
     routerList: Array<any>;
     urlid: string;
-
     // store the URL so we can redirect after logging in
     // 存储URL以便在登录后可以重定向
     redirectUrl: string;
@@ -29,21 +22,20 @@ export class AuthService {
 
     constructor(private http: HttpClient, private _cookieService: CookieService, public router: Router, public jwtHelper: JwtHelperService,
         private rightService: RightService) {
-        // set token if saved in local storage
 
     }
-
 
     login(userName: String, password: String): Observable<any> {
         return this.http.post('/security/login', { 'userName': userName, 'password': password }, { responseType: 'text' })
             .pipe(map((res) => {
                 const token = res;
+                console.log(res);
                 if (token) {
                     this.token = token;
                     // 设置全局变量
                     // this.winRef.nativeWindow.userId = this.userId;
                     this._cookieService.putObject('currentUser', JSON.stringify({ loginName: userName, token: token }));
-                    this.getAuthorities(token);
+                    // this.getAuthorities(token);
 
                     localStorage.setItem('token', token);
                     this.isLoggedIn = true;
@@ -54,6 +46,7 @@ export class AuthService {
                 }
             }));
     }
+
     logout(): void {
         this.isLoggedIn = false;
         this.token = null;
@@ -64,10 +57,7 @@ export class AuthService {
     }
 
     getAuthorities(token ) {
-        const that = this;
         const userId = this.jwtHelper.decodeToken(token).userid;
-        console.log('userId');
-        console.log(userId);
         this.getAuthoritiesByUserId(userId)
         .then(function (res) {
             localStorage.setItem('Authorities', JSON.stringify({ Authorities: res }));
@@ -83,7 +73,6 @@ export class AuthService {
         const promise = new Promise(function (resolve, reject) {
             that.rightService.getAuthoritiesByUserId(id).subscribe({
                 next: function (val) {
-                    console.log('获取用户权限');
                     const res = that.getVaule(val);
                     that.routerList = [];
                     res.map((item, i) => {
@@ -102,8 +91,6 @@ export class AuthService {
         return promise;
 
     }
-
-
     // 获取对象value
     getkeys(obj) {
         if (!obj) {

@@ -31,8 +31,10 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "jquery.marquee": "^1.5.0",
+    "ng2-file-upload": "^1.3.0",
     "ngx-cookie": "^4.0.2",
     "rxjs": "^6.0.0",
+    "xlsx": "^0.14.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
