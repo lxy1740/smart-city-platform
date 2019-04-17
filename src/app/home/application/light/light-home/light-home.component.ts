@@ -123,12 +123,17 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     this.lightListRes = [];
     this.lightList.filter((item, i) => {
       str_name = item.name;
+      if (item.description === null) {
+        item.description = '';
+      }
       str_descr = item.description;
       str_posi = item.positionNumber;
-      if (str_name.includes(queryString) || str_descr.includes(queryString) || str_posi.includes(queryString)) {
+      if (str_posi.includes(queryString) || str_name.includes(queryString) || str_descr.includes(queryString)) {
         this.lightListRes.push(item);
       }
     });
+    console.log(this.lightListRes);
+    this.clearSelected();
   }
   // 点击搜索
   execQueryId() {
@@ -142,8 +147,6 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   getLightByDeviceName() {
     const that = this;
     const posNum = this.queryStr;
-    console.log('typeof (posNum)');
-    console.log(typeof (posNum));
     that.lightService.getLightByDeviceName(posNum).subscribe({
       next: function (val) {
         const point = new BMap.Point(val.point.lng, val.point.lat);
@@ -274,7 +277,7 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
         compar = that.comparison(that.lightList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
         // console.log('value');
-        // console.log(value);
+        // console.log(val);
 
 
         that.changeMarker(value); // 替换
@@ -303,15 +306,17 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   comparison1(a, b) {
     const a_arr: any[] = [];
     let i = 0;
-    for (let j = 0; j < b.length; j++) {
-      while (i < a.length && a[i].id < b[j].id) {
-        i++;
+      for (let j = 0; j < b.length; j++) {
+        if (a.length > 0) {
+          while (i < a.length && a[i].id < b[j].id) {
+            i++;
+          }
+          if (a[i].id === b[j].id) {
+            a_arr.push(a[i]);
+            i++;
+          }
+        }
       }
-      if (a[i].id === b[j].id) {
-        a_arr.push(a[i]);
-        i++;
-      }
-    }
     return a_arr;
   }
 
@@ -546,35 +551,40 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
 
   }
 
+  // 清除选中的状态
+  clearSelected () {
+    this.lightList_check.map((item, i) => {
+      item.check = false;
+    });
+  }
+
   // 多选框 - 单选：选择需要统一分配策略的路灯
   addLightstoCtrl() {
     this.selectedLightList = [];
     this.lightList_check.map((item, i) => {
       if (item.check === true) {
-        const item1 = this.lightList[i];
+        const item1 = this.lightListRes[i];
         if (item1) {
           this.selectedLightList.push(item1);
         }
       }
     });
-    // console.log(this.selectedLightList);
+    console.log(this.selectedLightList);
   }
   // 多选框 - 全选
   allCheckMe() {
-    if (this.allCheck) {
       this.selectedLightList = [];
       this.lightList_check.map((item, i) => {
-        this.lightList_check[i].check = true;
-        const item1 = this.lightList[i];
-
+        this.lightList_check[i].check = this.allCheck;
+        if (this.allCheck) {
+        const item1 = this.lightListRes[i];
         if (item1) {
           this.selectedLightList.push(item1);
         }
-
+      }
 
       });
-    }
-    // console.log(this.selectedLightList);
+    console.log(this.selectedLightList);
   }
 
   addArr(arr) {}
