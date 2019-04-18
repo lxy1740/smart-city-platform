@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {Router, NavigationExtras } from '@angular/router';
+import { Component,Renderer2} from '@angular/core';
+import {Router, NavigationExtras} from '@angular/router';
 import { AuthService } from '../guard/auth.service';
 
 @Component({
@@ -7,19 +7,54 @@ import { AuthService } from '../guard/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent {
   message: string;
   model:  any = {};
   error: any;
   loading = false;
-  constructor(public authService: AuthService, public router: Router) {
+
+  constructor(public authService: AuthService, public router: Router,public renderer2:Renderer2 ) {
 
   }
-
+  ngOnInit() {
+    if(location.pathname=="/login"){
+      const video1=document.getElementById("video1")
+      const video2=document.getElementById("video2")
+    
+      video1.style.display="block";
+      video2.style.display="none";
+  
+    }
+   
+  }
   onKeydown(event: any) {
     if (event.keyCode !== 13) {
       this.error = '';
     }
+  }
+  
+  focusPlay(event:any){
+    const video1:HTMLVideoElement=this.renderer2.selectRootElement("#video1")
+    const video2:HTMLVideoElement=this.renderer2.selectRootElement("#video2")
+    if(!video1.paused){
+      video1.pause()
+    }
+    if(!video2.paused){
+      video2.pause()
+    }   
+  }
+  blurPlay(event:any){
+    const video1:HTMLVideoElement=this.renderer2.selectRootElement("#video1")
+    const video2:HTMLVideoElement=this.renderer2.selectRootElement("#video2")
+   
+    if(video1.paused){
+      video1.play()
+    }
+    if(video2.paused){
+      video2.play()
+    }
+      
   }
 
   login() {
