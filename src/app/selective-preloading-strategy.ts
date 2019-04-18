@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Renderer2} from '@angular/core';
 import { PreloadingStrategy, Route } from '@angular/router';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 @Injectable()
 export class SelectivePreloadingStrategy implements PreloadingStrategy {
     preloadedModules: string[] = [];
-
+  
     preload(route: Route, load: () => Observable<any>): Observable<any> {
         if (route.data && route.data['preload']) {
             // add the route path to the preloaded module array
@@ -14,7 +14,17 @@ export class SelectivePreloadingStrategy implements PreloadingStrategy {
 
             // log the route path to the console
             console.log('Preloaded: ' + route.path);
-
+           if(location.pathname=="/login"){
+             
+                const video1=document.getElementById("video1")
+                const video2=document.getElementById("video2")
+                video1.addEventListener("ended",function(){
+                    video1.style.display="none";
+                    video2.style.display="block";
+                    
+                })
+            }
+          
             return load();
         } else {
             return of(null);
