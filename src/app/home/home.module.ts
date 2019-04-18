@@ -9,16 +9,19 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
 
+
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(),
          SharedModule,
-        MaterialModule,
+         MaterialModule,
          HomeRoutingModule,
 
 
     ],
     declarations: [
     HomeComponent,
+
+
 
 
 

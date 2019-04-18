@@ -13,23 +13,13 @@ declare var $: any;
 export class RightComponent implements OnInit {
 
   zTreeObj: any;
-  // zTreeObj1: any; // 树
-  // setting = {
-  //   data: {
-  //     simpleData: {
-  //       enable: true
-  //     }
-  //   },
-  //   view: {
-  //     showLine: false,
-  //     showIcon: false
-  //   }
-  // };
+
   zNodes = AUTHORITYTREE;
   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
 
 
   role: any = {}; // 存储数据
+
   public mr: NgbModalRef; // 当前弹框
   modelData = {
     title: '删除',
@@ -70,13 +60,11 @@ export class RightComponent implements OnInit {
      // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
       nodes.map((item, i) => {
       that.role.authorities[item.id] = item.name;
-
       });
     };
   }
 
   ngOnInit() {
-
     this.getRoleList();
   }
 
@@ -103,13 +91,12 @@ export class RightComponent implements OnInit {
     this.AddorUpdate = '新增角色';
     this.role.name = '';
 
-    this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
+    // this.role.deskListChecked = []; // 新建用户时各角色的选中状态（check）
     this.role.authorities = {};
     // 此处添加树
-    this.zNodes.map((item, i) => {
-      that.role.deskListChecked.push({check: true}); // 对应树结构
-    });
-
+    // this.zNodes.map((item, i) => {
+    //   that.role.deskListChecked.push({check: true}); // 对应树结构
+    // });
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
@@ -156,12 +143,11 @@ export class RightComponent implements OnInit {
     this.role.name = item.name;
     this.role.authorityIds = this.getkeys(item.authorities);
     this.role.authorities = item.authorities; // 权限加上
-    this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
+    // this.role.deskListCheck = []; // 新建及修改用户时各角色的选中状态（check）
     const modal = this.modalService.open(content, { windowClass: 'md' });
     this.mr = modal;
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

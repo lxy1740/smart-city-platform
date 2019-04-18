@@ -21,6 +21,36 @@ address, cite, code, em, th, i, strong {
      background-color:#2A697A !important;
      color: #fff !important;
 }
+
+// 卡片
+.bodyofall {
+    width: calc(100vw - 50px);
+    height: 100vh;
+    padding: 30px;
+    position: relative;
+}
+.card-header {
+    border-bottom: 0px;
+    position: relative;
+}
+
+.card-block {
+    margin: 5px 0px 0px;
+    min-height: 38px;
+}
+.card-primary {
+    margin-bottom: 15px;
+}
+.cart-min{
+    min-width: 1000px;
+
+}
+.cart-over {
+    overflow-x: auto;
+}
+// 卡片
+
+
 // 地图区域标注
 .i-circle{
     border-radius: 50%;
@@ -291,9 +321,11 @@ address, cite, code, em, th, i, strong {
     }
 
 }
-
 .area-selection {
-    z-index: 1040;
+        z-index: 1040;
+}
+.area-selection , .area-selection1{
+
     top: 15px;
     .area-selection-block {
         cursor: pointer;
@@ -381,6 +413,11 @@ address, cite, code, em, th, i, strong {
     .modal-dialog {
         width: 400px;
     }
+}
+// 数据定义弹框
+
+.myCustomModalClass .modal-dialog {
+  max-width: 600px;
 }
 .basic-container {
   padding: 30px;

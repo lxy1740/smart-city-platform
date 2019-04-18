@@ -2,6 +2,8 @@ import { Input, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { PositionService } from '../../../service/position.service';
 import { GradOverlar } from '../../../service/grad.overlay';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 // baidu map
 declare let BMap;
 
@@ -16,43 +18,67 @@ export class PositionComponent implements OnInit {
   model: any = {}; // 存储数据
   closeResult: string;
   map: any; // 地图对象
-  cityList: any; // 城市列表
   deviceList = []; // 设备列表
   deviceTypes = []; // 设备列表
   currentType: any; // 当前搜索设备类别
+
+  cityList: any; // 城市列表
   defaultZone: any; // 默认城市
   currentCity: any; // 当前城市
-  currentArea: any; // 当前区域
-  currentChildren: any; // 当前城市节点
+  currentRegion: any; // 当前区域
+  currentAreaList: any; // 当前城市节点区域
   currentBlockList: any; // // 当前城市街道列表
   areashow = false; // 默认区域列表不显示
   cityshow = false; // 默认区域列表不显示
+  wayshow = false; // 默认道路列表不显示
+  Customershow = false; // 默认客户列表不显示
+
   visible = true; // 控制可视区域
   zoom: any; // 地图级数
   parentNode = null; // 用于递归查询JSON树 父子节点
   node = null; // 用于递归查询JSON树 父子节点---当前城市
   positionListItems = []; // 位置列表
+  roadList = []; // 道路列表
+  CustomerList = []; // CustomerList列表
   positionList: any; // 位置列表
-  total: number; // 分页
-  page: number;
-  pagesize = 10;
-  queryStr: any;
+  total = 0; // 分页
+  page = 1; // 分页
+  pagesize = 10; // 分页
+  total1 = 0; // 分页
+  page1 = 1; // 分页
+  pageSize1 = 10; // 分页
+  total2 = 0; // 分页
+  page2 = 1; // 分页
+  pageSize2 = 5; // 分页
+  queryStr = '';
+  queryStr1 = '';
   public mr: NgbModalRef; // 当前弹框
   modelData = {
     title: '删除',
     body: 'hh',
   };
   errorMess = []; // 经纬度错误消息
+  currentWay: any = {}; // 当前道路
+
+  addOrupdata = '新建位置';
+  currentCustomer: any = {}; // 当前客户
+  customerId: null; // 平台客户
+  address = '';
 
   @Input()
   public alerts: Array<IAlert> = [];
   public alertsModal: Array<IAlert> = [];
   private backup: Array<IAlert>;
 
-  constructor(private modalService: NgbModal, private positionService: PositionService) {
-    this.queryStr = '';
-    this.page = 1;
+  constructor(private modalService: NgbModal, private positionService: PositionService,
+    public jwtHelper: JwtHelperService,
+    ) {
+
     this.model.point = {lng: '', lat: ''};
+    const token = localStorage.getItem('token');
+    const tokenobj = this.jwtHelper.decodeToken(token);
+    this.customerId = this.jwtHelper.decodeToken(token).customerid;
+
   }
 
   public closeAlert(alert: IAlert) {
@@ -68,10 +94,53 @@ export class PositionComponent implements OnInit {
     this.alerts = this.backup.map((alert: IAlert) => Object.assign({}, alert));
   }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   ngOnInit() {
     this.getCity();
     this.getPositionType();
     this.getPosition(0, this.page, this.pagesize);
+    this.getRoads();
+    this.getCustomer();
+  }
+
+  adGeocoder(name) {
+    const myGeo = new BMap.Geocoder();
+    const that = this;
+    // 将地址解析结果显示在地图上,并调整地图视野
+    myGeo.getPoint(name, function (point) {
+      if (point) {
+        that.map.centerAndZoom(point, 7);
+        that.map.addOverlay(new BMap.Marker(point));
+        that.model.center = {};
+        that.model.center.lng = point.lng;
+        that.model.center.lat = point.lat;
+      } else {
+        alert('您选择地址没有解析到结果!');
+      }
+    }, '');
+  }
+  // 选择道路
+  selecteWay(item) {
+    this.currentWay = item;
+    this.wayshow = false;
+    this.model.wayId = item.id;
+  }
+
+  // 选择客户
+  selecteCustomer(item) {
+    this.currentCustomer = item;
+    this.Customershow = false;
+    this.model.CustomerId = item.id;
+    this.getCity(item.id);
   }
   // 检索按键点击事件
   execQuery() {
@@ -91,23 +160,64 @@ export class PositionComponent implements OnInit {
   }
 
   deviceTypeChange() {
+    this.page = 1;
     this.getPosition(this.currentType.id, this.page, this.pagesize);
+  }
+
+  // 分页获取道路
+  getRoads() {
+    const that = this;
+
+    this.positionService.getRoads(this.page1, this.pageSize1, '')
+      .subscribe({
+        next: function (val) {
+          that.roadList = val.items;
+          that.total1 = val.total;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
+  }
+
+  // 分页获取客户
+  getCustomer() {
+    const that = this;
+
+    this.positionService.getCustomer(this.page2, this.pageSize2, '')
+      .subscribe({
+        next: function (val) {
+          that.CustomerList = val.items;
+          that.CustomerList.unshift({'name': '平台用户', code: ''}); // 添加平台用户
+          that.total2 = val.total;
+        },
+        error: function (error) {
+          console.log(error);
+
+        }
+      });
   }
 
   // 新建位置弹框
   openNewPosition(content) {
-    const that = this;
+
+    this.addOrupdata = '新增位置';
     this.errorMess = [];
     this.model.name = ''; // name
     this.model.number = ''; // number
-    this.model.point = { lng: '', lat: '' }; // 坐标
-    that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
-    that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
-    that.currentArea = that.currentChildren[0].children[0]; // 当前区域
-    that.model.device = this.deviceList[0]; // 类型
+    this.currentCustomer = {};
+    this.currentAreaList = this.currentCity && this.currentCity.children; // 当前城市下的区域列表
+    console.log(this.currentAreaList);
+    this.currentRegion = this.currentAreaList && this.currentAreaList[0]
+    && this.currentAreaList[0].children && this.currentAreaList[0].children[0]; // 当前区域
+    this.model.device = this.deviceList[0]; // 类型
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
+    const point = new BMap.Point(114.062769, 22.477677); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    this.bindPosition(point);
+    this.model.point = { lng: '', lat: '' }; // 坐标
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -116,88 +226,46 @@ export class PositionComponent implements OnInit {
 
   }
 
-
-    // 新增位置信息
-  setPosition() {
-    this.typeofPoint();
-    if (this.errorMess[0] === '无错') {
-        const that = this;
-        const installZoneId = this.model.installZoneId;
-        const regionId = this.currentArea.id;
-        const name = this.model.name;
-        const number = this.model.number;
-        const point = this.model.point;
-        const type = this.model.device.id;
-
-        this.positionService.setPosition(installZoneId, regionId, name, number, point, type).subscribe({
-          next: function (val) {
-            that.alerts.push({
-              id: 1,
-              type: 'success',
-              message: '新建成功！',
-            });
-            that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
-            that.mr.close();
-          },
-          complete: function () {
-            that.getPosition(that.currentType.id, that.page, that.pagesize);
-          },
-          error: function (error) {
-            console.log(error);
-            const message = error.error.errors[0].defaultMessage;
-            that.alertsModal.push({
-              id: 1,
-              type: 'danger',
-              message: `新建失败: ${message}！`,
-            });
-          }
-        });
-    } else {
-      this.alertsModal.push({
-        id: 1,
-        type: 'danger',
-        message: '请输入正确的经纬度！',
-      });
-    }
-
-  }
-
-  // 修改位置
+  // 修改位置弹框
   openUpdataPosi(content, item, i) {
-    const that = this;
+    this.addOrupdata = '修改位置';
     this.errorMess = [];
     this.model.updataId = item.id;
     this.model.installZoneId = item.installZoneId; // 安装区域
     this.model.name = item.name; // name
     this.model.number = item.number; // number
     this.model.point = item.point; // point
+
     const id = item.type; // 类型
     for (let index = 0; index < this.deviceList.length; index++) {
       const element = this.deviceList[index];
       if (id === element.id) {
-        that.model.device = this.deviceList[index];
+        this.model.device = this.deviceList[index];
       }
     }
 
     let region_id; // 当前城市id
-    const crrentProvince = this.cityList[0]; // 当前省会
-    for (let index = 0; index < crrentProvince.children.length; index++) {
-      const element = crrentProvince.children[index];
-      if (item.installZoneId === element.installZoneId) {
-        region_id = element.id;
-      }
-    }
-    that.node = null; // 用于递归查询JSON树 父子节点
-    that.currentCity = that.getNode(that.cityList, region_id); // 当前城市
-    that.currentChildren = that.node.children; // 当前城市下的区域列表
-    that.model.installZoneId = that.node.installZoneId; // 安装区域
+    region_id = item.regionId.toString().slice(0, 4);
+    console.log(region_id);
+
+    this.node = null; // 用于递归查询JSON树 父子节点 currentArea
+    this.currentCity = this.getNode(this.cityList, region_id); // 当前城市
+    console.log(this.currentCity);
+    this.currentAreaList = this.currentCity ? this.currentCity.children : []; // 当前城市下的区域列表
     const area_id = item.regionId; // 当前区域id
-    that.node = null; // 用于递归查询JSON树 父子节点
-    that.currentArea = that.getNode(that.cityList, area_id); // 当前区域i
+    this.node = null; // 用于递归查询JSON树 父子节点
+    this.currentRegion = this.getNode(this.cityList, area_id); // 当前区域
+    this.currentWay.id = item.wayId; // 当前道路
+    this.currentWay.wayName = item.wayName; // 当前道路
+
+    this.currentCustomer.id = item.customerId; // 当前客户
+    this.currentCustomer.name = item.customerName; // 当前客户
+
     const modal = this.modalService.open(content, { size: 'lg' });
     this.mr = modal;
     this.addBaiduMap();
     this.bindPosition(item.point);
+
     modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
@@ -211,27 +279,91 @@ export class PositionComponent implements OnInit {
   bindPosition(point1) {
     this.map.clearOverlays();
     const point = new BMap.Point(point1.lng, point1.lat);
-    this.map.centerAndZoom(point, 18);
+    this.map.centerAndZoom(point, 19); // 设置中心和地图显示级别
     const mySquare = new GradOverlar(point, 50, 'tag-bule');
     this.map.addOverlay(mySquare);
   }
 
 
 
+
+  addorupdata() {
+    if (this.addOrupdata === '新增位置') {
+      this.setPosition();
+    } else {
+      this.updataPosition();
+    }
+  }
+
+
+  // 新增位置信息
+  setPosition() {
+    this.typeofPoint();
+    if (this.errorMess[0] === '无错') {
+      const that = this;
+      const body = {
+        'installZoneId': this.model.installZoneId,
+        'name': this.model.name,
+        'number': this.model.number,
+        'point': this.model.point,
+        'regionId': this.currentRegion.id,
+        'type': this.model.device.id,
+        'wayId': this.currentWay.wayId,
+        'customerId': this.currentCustomer.id || this.customerId,
+      };
+
+      this.positionService.setPosition(body).subscribe({
+        next: function (val) {
+          that.alerts.push({
+            id: 1,
+            type: 'success',
+            message: '新建成功！',
+          });
+          that.backup = that.alerts.map((alert: IAlert) => Object.assign({}, alert));
+          that.mr.close();
+        },
+        complete: function () {
+          that.getPosition(that.currentType.id, that.page, that.pagesize);
+        },
+        error: function (error) {
+          console.log(error);
+          const message = error.error.errors[0].defaultMessage;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `新建失败: ${message}！`,
+          });
+        }
+      });
+    } else {
+      this.alertsModal.push({
+        id: 1,
+        type: 'danger',
+        message: '请输入正确的经纬度！',
+      });
+    }
+
+  }
+
   // 修改位置信息
   updataPosition() {
     this.typeofPoint();
     if (this.errorMess[0] === '无错') {
           const that = this;
-          const id = this.model.updataId;
-          const installZoneId = this.model.installZoneId;
-          const regionId = this.currentArea.id;
-          const name = this.model.name;
-          const number = this.model.number;
-          const point = this.model.point;
-          const type = this.model.device.id;
 
-          this.positionService.updataPosition(id, installZoneId, regionId, name, number, point, type).subscribe({
+          const body = {
+            'id': this.model.updataId,
+            'installZoneId': this.model.installZoneId,
+            'name': this.model.name,
+            'number': this.model.number,
+            'point': this.model.point,
+            'regionId': this.currentRegion && this.currentRegion.id,
+            'type': this.model.device.id,
+            'wayId': this.currentWay.wayId,
+            'customerId': this.currentCustomer.id || this.customerId,
+          };
+
+          this.positionService.updataPosition(body).subscribe({
             next: function (val) {
               that.alerts.push({
                 id: 1,
@@ -266,7 +398,6 @@ export class PositionComponent implements OnInit {
 
   // 删除位置弹框
   openDelPosi(content, item, i) {
-    const that = this;
     this.model.itemDelId = item.id;
     const modal = this.modalService.open(content, { size: 'sm' });
     this.mr = modal;
@@ -338,9 +469,21 @@ export class PositionComponent implements OnInit {
     });
   }
 
+
+
   // 分页
   pageChange() {
     this.getPosition(this.currentType.id, this.page, this.pagesize);
+  }
+
+  // 分页
+  pageChange1() {
+    this.getRoads();
+  }
+
+  // 分页
+  pageChange2() {
+    this.getCustomer();
   }
 
   // 获取位置类型列表
@@ -368,16 +511,28 @@ export class PositionComponent implements OnInit {
   }
 
   // 获取城市列表
-  getCity() {
+  getCity(...cusid) {
     const that = this;
-    this.positionService.getZoneDefault().subscribe({
+    this.positionService.getZoneDefault(cusid).subscribe({
       next: function (val) {
+        if (!val) {
+          that.cityList = [];
+          that.currentCity = null;
+          that.currentAreaList = [];
+          that.currentRegion = null;
+          that.alertsModal.push({
+            id: 1,
+            type: 'danger',
+            message: `该客户安装区域为空！`,
+          });
+          return;
+        }
         that.cityList = val.regions;
-        that.zoom = that.switchZone(val.zone.level);
-        that.currentCity = that.getNode(that.cityList, val.zone.region_id); // 当前城市
-        that.currentChildren = that.currentCity.children; // 当前城市下的区域列表
-        that.model.installZoneId = that.currentCity.installZoneId; // 安装区域
-        that.currentArea = that.currentChildren[0].children[0]; // 当前区域
+        that.node = null; // 用于递归查询JSON树 父子节点
+        that.currentCity = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
+        that.currentAreaList = that.currentCity.children; // 当前城市下的区域列表
+        that.currentRegion = that.currentAreaList && that.currentAreaList[0]
+          && that.currentAreaList[0].children && that.currentAreaList[0].children[0]; // 当前区域
 
       },
       complete: function () {
@@ -402,23 +557,15 @@ export class PositionComponent implements OnInit {
   }
 
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+
   // 添加地图实例
   addBaiduMap() {
     const map = this.map = new BMap.Map('position_map', {
       enableMapClick: true,
       // minZoom: 11
     }); // 创建地图实例
-    const point = new BMap.Point(113.922329, 22.49656); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
-    map.centerAndZoom(point, 19); // 设置中心和地图显示级别
+    const point = new BMap.Point(114.062769 , 22.477677); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+    map.centerAndZoom(point, 7); // 设置中心和地图显示级别
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
     map.setMapStyle({ style: 'normal' });
     this.mapClickOff(map);
@@ -547,12 +694,9 @@ export class PositionComponent implements OnInit {
     return that.node;
   }
   getPoint(baiduMap, city) {
-    const that = this;
-    // 创建地址解析器实例
-    const myGeo = new BMap.Geocoder();
-    const zoom = this.zoom = this.switchZone(city.level);
-    const fullName = city.full_name;
 
+    // 创建地址解析器实例
+    const zoom = this.zoom = this.switchZone(city.level);
     const pt = city.center;
     const point = new BMap.Point(pt.lng, pt.lat);
     baiduMap.centerAndZoom(point, zoom);
@@ -564,14 +708,25 @@ export class PositionComponent implements OnInit {
     this.model.point = { lng: '', lat: '' };
     this.currentCity = city;
     this.getPoint(this.map, city);  // 解析地址- 设置中心和地图显示级别
-    this.currentChildren = city.children;
-    this.currentArea = null;
+    this.currentAreaList = city.children;
+    this.currentRegion = null;
   }
 
+  // 选择街道
   selecteblock(block) {
-    this.currentArea = block;
+    this.currentRegion = block;
+    this.model.installZoneId = block.installZoneId; // 安装区域
+    console.log(block);
     this.model.point = { lng: '', lat: '' };
     this.getPoint(this.map, block);  // 解析地址- 设置中心和地图显示级别
+  }
+
+  nolimt() {
+    this.model.installZoneId = this.currentCity.installZoneId; // 安装区域
+    this.currentRegion.id = this.currentCity.id;
+    this.currentRegion = {
+      name: '不限'
+    };
   }
 
   // 显示区域
@@ -582,9 +737,18 @@ export class PositionComponent implements OnInit {
   showCiyt() {
     this.cityshow = true;
   }
+
+  // 显示道路
+  showWay() {
+    this.wayshow = true;
+  }
+
+  // 显示客户
+  showCustomer() {
+    this.Customershow = true;
+  }
   // 选择区域
   arealistMouseover(area) {
-
     this.currentBlockList = area.children;
   }
   // 离开区域
@@ -595,6 +759,14 @@ export class PositionComponent implements OnInit {
   // 离开城市
   citylistMouseleave() {
     this.cityshow = false;
+  }
+  // 离开道路
+  waylistMouseleave() {
+    this.wayshow = false;
+  }
+  // 离开客户
+  CustomerlistMouseleave() {
+    this.Customershow = false;
   }
   arealistMouseNone() {
     this.areashow = true;

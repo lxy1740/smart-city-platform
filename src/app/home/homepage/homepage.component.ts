@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-// import { ROUTELIST } from './route-list';
+
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Component({
   selector: 'app-homepage',
@@ -9,25 +11,17 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
 
-  // routes = ROUTELIST;
-  constructor(public router: Router,  private elementRef: ElementRef) { }
+  customerId: any;
+  constructor(public router: Router,  private elementRef: ElementRef,
+      public jwtHelper: JwtHelperService,
+
+    ) {
+    const token = localStorage.getItem('token');
+    this.customerId = this.jwtHelper.decodeToken(token) && this.jwtHelper.decodeToken(token).customerid;
+  }
 
   flag = true;
 
-
-  // setChange() {
-  //   const styApp = this.elementRef.nativeElement.querySelector('.app');
-  //   const sty = this.elementRef.nativeElement.querySelector('.btn1');
-  //   if (styApp) {
-  //     sty.style.background = 'url(../../../assets/imgs/user-profile.png) no-repeat center';
-  //     this.elementRef.nativeElement.querySelector('.pp').remove();
-  //   } else {
-  //     sty.style.background = '#45939D';
-  //     const d1 = this.elementRef.nativeElement.querySelector('.btn1');
-  //     d1.insertAdjacentHTML('beforeend', '<div class="col-md-12 content pp"><p><span><i class="fa  nav-icon">
-  //         </i></span></p><p class="app">APP下载</p></div>');
-  //   }
-  //  }
 
   ngOnInit() {
   }
@@ -49,13 +43,19 @@ export class HomepageComponent implements OnInit {
 
   // 判断数组中是否存在值
   getture(str) {
+    let res = false;
     const Authorities = JSON.parse(localStorage.getItem('Authorities'));
     const Auth = Authorities ? Authorities.Authorities : [];
-    let res = false;
+    res = false;
     if (str === 'HP-000') {
       res = true;
       return res;
     }
+    if (this.customerId && str === 'DM-007') {
+      res = false;
+      return res;
+    }
+
     Auth.map(item => {
       if (item === str) {
         res = true;
@@ -64,6 +64,4 @@ export class HomepageComponent implements OnInit {
     });
     return res;
   }
-
-
 }

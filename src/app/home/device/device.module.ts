@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FileUploadModule } from 'ng2-file-upload';
 import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { DevicerRoutingModule } from './device-routing.module';
 import { DeviceComponent } from './device.component';
 import { PositionComponent } from './position/position.component';
-import { ProductComponent } from './product/product.component';
-import { DevicesComponent } from './devices/devices.component';
+import { RoadComponent } from './road/road.component';
+import { InstallComponent } from './install/install.component';
+
+
+
+
 
 @NgModule({
     imports: [
@@ -17,12 +22,14 @@ import { DevicesComponent } from './devices/devices.component';
         SharedModule,
         DevicerRoutingModule,
         NgbModule.forRoot(),
+        FileUploadModule
     ],
     declarations: [
         DeviceComponent,
         PositionComponent,
-        ProductComponent,
-        DevicesComponent
+        RoadComponent,
+        InstallComponent,
+
 
     ],
     schemas: [

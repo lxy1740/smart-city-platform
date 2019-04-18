@@ -4,12 +4,13 @@ import { AuthGuard } from '../../guard/auth-guard.service';
 import { CoverComponent } from './cover/cover.component';
 import { CalamityComponent } from './calamity/calamity.component';
 import { ApplicationComponent } from './application.component';
-import { LightComponent } from './light/light.component';
-import { SecurityComponent } from './security/security.component';
+// import { LightComponent } from './light/light.component';
+// import { SecurityComponent } from './security/security.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { WaterComponent } from './water/water.component';
-import { AirComponent } from './air/air.component';
+// import { AirComponent } from './air/air.component';
 import { ElectricalComponent } from './electrical/electrical.component';
+import { LedComponent } from './led/led.component';
 
 
 const routes: Routes = [
@@ -24,15 +25,16 @@ const routes: Routes = [
         // canActivateChild: [AuthGuard],
         children: [
           { path: '', redirectTo: 'cover', pathMatch: 'full' },
+          { path: 'air', loadChildren: './air/air.module#AirModule' },
+          { path: 'light', loadChildren: './light/light.module#LightModule' },
+          { path: 'issuedata', loadChildren: './issuedata/issuedata.module#IssuedataModule' },
           { path: 'cover', component: CoverComponent },
           { path: 'calamity', component: CalamityComponent },
-          { path: 'light', component: LightComponent },
-          { path: 'security', component: SecurityComponent },
+          // { path: 'security', component: SecurityComponent },
           { path: 'traffic', component: TrafficComponent },
           { path: 'water', component: WaterComponent },
-          { path: 'air', component: AirComponent },
-          { path: 'electrical', component: ElectricalComponent }
-
+          { path: 'electrical', component: ElectricalComponent },
+          { path: 'led', component: LedComponent }
         ]
       }
     ]

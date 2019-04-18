@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { CircleOverlarAirService } from '../../../service/circle-overlay-air.service';
 // baidu map
 declare let BMap;
-declare let BMAP_ANCHOR_TOP_LEFT;
+declare let BMAP_ANCHOR_TOP_LEFT; // 控件定位于地图的左上角
 
 // 装饰器函数
 @Component({
@@ -47,6 +47,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
   map_model: any = {}; // 存储数据
 
   map: any; // 地图对象
+  zone: any; // 安装区域
   timer: any; // 定时器
 
   areashow = false; // 默认区域列表不显示
@@ -61,6 +62,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
   showunstartedlist = false; // 默认不显示“未处理”的异常消息
   showonprogresslist = false; // 默认不显示“处理中”的异常消息
   showfinishedlist = false; // 默认不显示“已处理”的异常消息
+
+  deviceTypeId = 8; // 灾害预警
 
   constructor(private monitorService: MonitorService, private videoService: VideoService,
     public router: Router) {
@@ -152,8 +155,8 @@ export class CalamityComponent implements OnInit, OnDestroy {
     map.centerAndZoom(point, 16); // 设置中心和地图显示级别
 
     map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
-
-
+    // 地图类型控件
+    map.addControl(new BMap.MapTypeControl());
 
     map.setMapStyle({ style: 'normal' });   // dark
 
@@ -181,7 +184,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
   }
 
-    // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
+    // 监控- -显示用户拖动地图后地图中心的经纬度信息。
     dragendOff(baiduMap) {
       const that = this;
       baiduMap.addEventListener('dragend', function () {
@@ -559,17 +562,21 @@ export class CalamityComponent implements OnInit, OnDestroy {
   getCity() {
     const that = this;
 
-    this.monitorService.getZoneDefault().subscribe({
+    this.monitorService.getZoneDefault(this.deviceTypeId).subscribe({
       next: function (val) {
         that.map_model.cityList = val.regions;
         // that.zoom = that.switchZone(val.zone.level);
-        that.node = that.getNode(val.regions, val.zone.region_id);
+        that.zone = val.zone;
+        that.node = that.getNode(val.regions, val.regions[0].children[0].id); // 当前城市
+        // that.node = that.getNode(val.regions, val.zone.region_id);
         that.map_model.currentCity = that.node;
         that.map_model.currentChildren = that.node.children;
 
       },
       complete: function () {
-
+        const zoom = that.map.getZoom();
+        const point =  new BMap.Point(that.zone.center.lng, that.zone.center.lat); // 坐标可以通过百度地图坐标拾取器获取 --万融大厦
+        that.map.centerAndZoom(point, zoom);
       },
       error: function (error) {
         console.log(error);
@@ -663,7 +670,7 @@ export class CalamityComponent implements OnInit, OnDestroy {
 
 // 进入数据监控页面
 jumpHandle() {
-  this.router.navigate([`home/issuedata`]);
+  this.router.navigate([`home/application/issuedata`]);
 
 }
   // 进入全屏

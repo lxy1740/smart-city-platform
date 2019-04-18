@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'; // 1.引入HTTP模块
 import { Observable } from 'rxjs/';
 import { map } from 'rxjs/operators';
 
@@ -9,19 +9,18 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class DeviceService {
     public url: string;
+    // 2.在组件的构造函数中实例化 HttpClient
     constructor(private http: HttpClient) {
 
     }
     // 城市列表
-    getZoneDefault(): Observable<any> {
-        // return Observable.of(ARTICLESTYPE);
+    getZoneDefault(...cusid): Observable<any> {
+        const url = cusid && cusid[0] ? `/api/zone/default?cusid=${cusid}` : `/api/zone/default`;
 
-        return this.http.get('/api/zone/default')
+
+        return this.http.get(url)
             .pipe(map((res: Response) => {
-                const data = res;
-                // data.regions[0].open = true;
-                return data;
-
+                return res;
             }));
     }
 
@@ -36,10 +35,15 @@ export class DeviceService {
     }
 
     // 获取指定型号设备-分页
-    getAllDeviceByModel(queryStr: String, model: number, page: number, pageSize: number): Observable<any> {
+    getAllDeviceByModel(queryStr: String, model: number, page: number, pageSize: number, parentId): Observable<any> {
         // return Observable.of(ARTICLESTYPE);
-
-        return this.http.get(`/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}`)
+        let url;
+        if (parentId === undefined) {
+            url = `/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}`;
+        } else {
+            url = `/api/device?queryStr=${queryStr}&model=${model}&page=${page}&pageSize=${pageSize}&parentId=${parentId}`;
+        }
+        return this.http.get(url)
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -54,17 +58,9 @@ export class DeviceService {
     }
 
     // 新增设备
-    addNewDevice(name: String, modelId: Number, descr: String, positionId: Number, lng: Number, lat: Number): Observable<any> {
-        return this.http.post('/api/device', {
-            'name': name,
-            'modelId': modelId,
-            'description': descr,
-            'positionId': positionId,
-            'point': {
-                'lat': lat,
-                'lng': lng
-            }
-        })
+    addNewDevice(body): Observable<any> {
+        return this.http.post('/api/device', body
+        )
             .pipe(map((res: Response) => {
                 return res;
             }));
@@ -80,18 +76,8 @@ export class DeviceService {
     }
 
     // 修改设备
-    updateDevice(id: Number, name: String, modelId: Number, descr: String, positionId: Number, lng: Number, lat: Number): Observable<any> {
-        return this.http.put(`/api/device`, {
-            'id': id,
-            'name': name,
-            'modelId': modelId,
-            'description': descr,
-            'positionId': positionId,
-            'point': {
-                'lat': lat,
-                'lng': lng
-            }
-        })
+    updateDevice(body): Observable<any> {
+        return this.http.put(`/api/device`, body)
             .pipe(map((res: Response) => {
                 const data = { status: 200 };
                 return data;
@@ -108,6 +94,26 @@ export class DeviceService {
 
     // 获取指定位置点
     getPosiById(id: number): Observable<any> {
+        return this.http.get(`/api/position/${id}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
+    // 获取所有Customer
+    getCustomer(page, pageSize, queryStr): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
+        return this.http.get(`/api/customer?page=${page}&pageSize=${pageSize}&queryStr=${queryStr}`)
+            .pipe(map((res: Response) => {
+                return res;
+            }));
+    }
+
+    // 获取位置信息
+    getPositionById(id): Observable<any> {
+        // return Observable.of(ARTICLESTYPE);
+
         return this.http.get(`/api/position/${id}`)
             .pipe(map((res: Response) => {
                 return res;

@@ -16,6 +16,7 @@ export class LightService {
 
     // 获取策略表
     getLightByDeviceName(lightName: String): Observable<any> {
+        console.log(lightName);
         return this.http.get(`/api/streetlight?lightName=${lightName}`)
             .pipe(map((res: Response) => {
                 return res;
@@ -26,7 +27,7 @@ export class LightService {
     // 获取详细的位置数据
     getLights(ne: any, sw: any): Observable<any> {
         // 获取接口数据
-        return this.http.post('/api/streetlight/inbounds', {
+        return this.http.post('/api/streetlight/inbounds/all', {
             'ne': ne,
             'sw': sw
         })

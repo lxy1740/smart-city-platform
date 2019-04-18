@@ -47,7 +47,7 @@
               </li>
     
             </ul>
-            <div class="blocklist-wrap" *ngIf="map_model.currentBlock.length > 0">
+            <div class="blocklist-wrap" *ngIf="map_model.currentBlock && map_model.currentBlock.length > 0">
               <ul class="blocklist" data-type="block">
                 <!-- <li data-val="0">不限</li> -->
                 <li *ngFor="let block of map_model.currentBlock" (click)="selecteblock(block)">{{block.name}}</li>
@@ -84,7 +84,6 @@
                       </li>
                   </ul>
               </div>
-
           </div>
       </div>
       <!-- 处理中 -->

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CookieModule } from 'ngx-cookie';
 import { HttpClientModule } from '@angular/common/http'; // HTTP_INTERCEPTORS,
+import { FileUploadModule } from 'ng2-file-upload';
 import { JwtModule } from '@auth0/angular-jwt';
 import { httpInterceptorProviders } from './interceptor/index';
 import { ServiceModule } from './service/service.module';
@@ -10,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './guard/auth-guard.service';
 import { AuthService } from './guard/auth.service';
 import { PageNotFoundComponent } from './not-found.component';
+import { PipesModule } from './pipes/pipes.module';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -25,11 +27,13 @@ export function tokenGetter() {
     AppRoutingModule,
     ServiceModule,
     HttpClientModule,
+    FileUploadModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter
       }
-    })
+    }),
+    PipesModule
 
   ],
   exports: [],
