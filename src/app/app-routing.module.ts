@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CanDeactivateGuard } from './guard/can-deactivate-guard.service';
-import { SelectivePreloadingStrategy } from './selective-preloading-strategy'; // 预加载
+// import { SelectivePreloadingStrategy } from './selective-preloading-strategy'; // 预加载
 import { PageNotFoundComponent } from './not-found.component';
 
 const appRoutes: Routes = [
@@ -17,7 +17,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                preloadingStrategy: SelectivePreloadingStrategy // 预加载
+                // preloadingStrategy: SelectivePreloadingStrategy // 预加载
 
             }
         )
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     ],
     providers: [
         CanDeactivateGuard,
-        SelectivePreloadingStrategy
+        // SelectivePreloadingStrategy
     ]
 })
 export class AppRoutingModule { }

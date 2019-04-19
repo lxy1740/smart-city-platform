@@ -40,7 +40,7 @@
   </form>
 </div>
 </div> -->
-<div >
+<div>
     <div style="width:300px;" class="content">
         <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form" >
           <div class="login-img">
@@ -83,10 +83,11 @@
       <div class="vedio-block">
 
       </div>
-      <video id="video1" poster="../../assets/imgs/loginbcg.png"  #video1 class="video" videoplayer autoplay="autoplay" muted="muted">
+      <img src="../../assets/imgs/loginbcg.jpg" class="fullscreen-img">
+      <video #video1 poster="../../assets/imgs/loginbcg.jpg"  #video1 class="video" videoplayer autoplay muted="muted">
         <source src="../../assets/imgs/login1.mp4" type="video/mp4">
       </video>
-      <video id="video2" class="video" autoplay="autoplay" muted="muted"  preload="auto" loop="loop" >
+      <video #video2 class="video" autoplay muted="muted"  preload="auto" loop="loop" >
           <source src="../../assets/imgs/login2.mp4" type="video/mp4">
       </video>
 </div>
