@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 import { MonitorService } from '../../../../service/monitor.service';
 import { LightService } from '../../../../service/light.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { RabbitmqService } from '../../../../service/rabbitmq.service';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import { Local } from 'protractor/built/driverProviders';
 
 // baidu map
 declare let BMap;
@@ -21,7 +25,7 @@ declare let BMAP_ANCHOR_TOP_LEFT;
   selector: 'app-light',
   templateUrl: './light-home.component.html',
   styleUrls: ['./light-home.component.scss'],
-  providers: [NgbTimepickerConfig] // add NgbTimepickerConfig to the component providers
+  providers: [NgbTimepickerConfig, RabbitmqService] // add NgbTimepickerConfig to the component providers
 })
 export class LightHomeComponent implements OnInit, OnDestroy  {
 
@@ -90,15 +94,21 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
   deviceTypeId = 2; // 路灯
   @Input()
   public alerts: Array<IAlert> = [];
+  queueArgs: any = {};
+  queueName : string;
+  client : any;
+  ws : any;
+  amqp : any;
 
 
-  constructor(private monitorService: MonitorService, private lightService: LightService, public router: Router,
+  constructor(private monitorService: MonitorService, private lightService: LightService,private rabbitmqService: RabbitmqService, public router: Router,
     config: NgbTimepickerConfig ) {
     config.spinners = false; // 时间控制
 
   }
 
   ngOnInit() {
+    
     this.getCity(); // 获取城市列表
     this.getStrategy(); // 获取策略表
     this.addBeiduMap();
@@ -106,7 +116,8 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
     }, 10000);
-
+    this.createQueue();
+    this.subscribeInfo();
   }
 
   public closeAlert(alert: IAlert) {
@@ -114,6 +125,50 @@ export class LightHomeComponent implements OnInit, OnDestroy  {
     this.alerts.splice(index, 1);
   }
 
+  //2019-04-30 lanseer : create queue dynamically
+  createQueue(){
+    const that=this;
+    let consumerId = Math.round(Math.random()*10);
+    const body = {
+      'infoType' : 'light',
+      'consumerId' : consumerId
+    };
+    
+    that.rabbitmqService.createQueue(body)
+    .subscribe(p => {
+      that.queueName = p.queueName;
+      console.log(that.queueName);
+    });
+  }
+
+  //2019-4-30 lanseer : subscribe info from queue
+  subscribeInfo(){
+    const that=this;
+    const url = 'ws://172.18.1.88:15674/ws';
+    that.ws = new WebSocket(url);
+    that.client = Stomp.over(that.ws);
+    console.log(that.client);
+    that.client.heartbeat.incoming=100;
+
+    const connectCallback = function() {
+      console.log(">>>connected success!");
+      const subscribeCallback = function(data){
+        if(data ! = null){
+          console.log("[x] Received %s",JSON.parse(data));
+          data.ack({ receipt: 'my-receipt' });
+        }
+      };
+    that.client.subscribe('/amq/queue/'+that.queueName, subscribeCallback);
+    };
+
+    const errorCallback =  function(error) {
+      console.log(error);
+    };
+
+    that.client.connect('guest', 'guest', connectCallback, errorCallback,'siid');
+  
+
+  }
 
   execQuery() {
     let str_name = '';

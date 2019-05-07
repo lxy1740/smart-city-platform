@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var can_deactivate_guard_service_1 = require("./guard/can-deactivate-guard.service");
-var selective_preloading_strategy_1 = require("./selective-preloading-strategy"); // 预加载
+// import { SelectivePreloadingStrategy } from './selective-preloading-strategy'; // 预加载
 var not_found_component_1 = require("./not-found.component");
 var appRoutes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,16 +23,13 @@ var AppRoutingModule = /** @class */ (function () {
     AppRoutingModule = __decorate([
         core_1.NgModule({
             imports: [
-                router_1.RouterModule.forRoot(appRoutes, {
-                    preloadingStrategy: selective_preloading_strategy_1.SelectivePreloadingStrategy // 预加载
-                })
+                router_1.RouterModule.forRoot(appRoutes, {})
             ],
             exports: [
                 router_1.RouterModule
             ],
             providers: [
                 can_deactivate_guard_service_1.CanDeactivateGuard,
-                selective_preloading_strategy_1.SelectivePreloadingStrategy
             ]
         })
     ], AppRoutingModule);

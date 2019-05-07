@@ -27,7 +27,7 @@ var LightService = /** @class */ (function () {
     // 获取详细的位置数据
     LightService.prototype.getLights = function (ne, sw) {
         // 获取接口数据
-        return this.http.post('/api/streetlight/inbounds', {
+        return this.http.post('/api/streetlight/inbounds/all', {
             'ne': ne,
             'sw': sw
         })

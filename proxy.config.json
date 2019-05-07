@@ -1,9 +1,16 @@
 {
     "/api": {
-        "target": "http://test1.siid.com.cn"
+        "target": "http://localhost:10002"
+    },
+    "/msg_api": {
+        "target": "http://localhost:10004"
     },
     "/security": {
         "target": "http://test1.siid.com.cn"
+    },
+    "/websocket":{
+        "target":"http://172.18.1.88:15674",
+        "secure":false
     },
     "/led-api": {
         "target": "http://test1.siid.com.cn",

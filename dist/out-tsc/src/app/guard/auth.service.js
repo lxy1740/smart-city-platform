@@ -30,12 +30,13 @@ var AuthService = /** @class */ (function () {
         return this.http.post('/security/login', { 'userName': userName, 'password': password }, { responseType: 'text' })
             .pipe(operators_1.map(function (res) {
             var token = res;
+            console.log(res);
             if (token) {
                 _this.token = token;
                 // 设置全局变量
                 // this.winRef.nativeWindow.userId = this.userId;
                 _this._cookieService.putObject('currentUser', JSON.stringify({ loginName: userName, token: token }));
-                _this.getAuthorities(token);
+                // this.getAuthorities(token);
                 localStorage.setItem('token', token);
                 _this.isLoggedIn = true;
                 return true;

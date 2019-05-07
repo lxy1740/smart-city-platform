@@ -22,10 +22,14 @@ var router_1 = require("@angular/router");
 var monitor_service_1 = require("../../../../service/monitor.service");
 var light_service_1 = require("../../../../service/light.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var rabbitmq_service_1 = require("../../../../service/rabbitmq.service");
+var Stomp = require("stompjs");
+var SockJS = require("sockjs-client");
 var LightHomeComponent = /** @class */ (function () {
-    function LightHomeComponent(monitorService, lightService, router, config) {
+    function LightHomeComponent(monitorService, lightService, rabbitmqService, router, config) {
         this.monitorService = monitorService;
         this.lightService = lightService;
+        this.rabbitmqService = rabbitmqService;
         this.router = router;
         this.model = {}; // 存储数据
         this.areashow = false; // 默认区域列表不显示
@@ -57,10 +61,12 @@ var LightHomeComponent = /** @class */ (function () {
         this.allCheck = false;
         this.deviceTypeId = 2; // 路灯
         this.alerts = [];
+        this.queueArgs = {};
         config.spinners = false; // 时间控制
     }
     LightHomeComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.createQueue();
         this.getCity(); // 获取城市列表
         this.getStrategy(); // 获取策略表
         this.addBeiduMap();
@@ -73,6 +79,45 @@ var LightHomeComponent = /** @class */ (function () {
         var index = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
     };
+    LightHomeComponent.prototype.createQueue = function () {
+        var that = this;
+        var consumerId = Math.round(Math.random() * 10 + 1);
+        console.log(this.queueArgs);
+        var body = {
+            'infoType': 'light',
+            'consumerId': consumerId
+        };
+        var ws = new SockJS('http://172.18.1.88:5670/web-stomp-examples');
+        that.client = Stomp.over(ws);
+        that.client.heartbeat.incoming = 0;
+        that.rabbitmqService.createQueue(body).subscribe({
+            next: function (val) {
+                that.queueName = val;
+                console.log(that.queueName);
+            },
+            complete: function () {
+                var on_connect = function () {
+                    console.log('connected');
+                    that.client.subscribe('/queue/' + that.queueName + '/', function (data) {
+                        if (data = null) {
+                            console.log("[x] Received %s", JSON.parse(data.body));
+                            var tx = that.client.begin();
+                            data.ack({ transaction: tx.id, receipt: 'my-receipt' });
+                            tx.commit();
+                        }
+                    });
+                };
+                var on_error = function (error) {
+                    console.log(error.headers.message);
+                };
+                that.client.connect('guest', 'guest', on_connect, on_error, 'siid');
+                console.log(">>>连接上http://localhost:15670");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
     LightHomeComponent.prototype.execQuery = function () {
         var _this = this;
         var str_name = '';
@@ -82,12 +127,17 @@ var LightHomeComponent = /** @class */ (function () {
         this.lightListRes = [];
         this.lightList.filter(function (item, i) {
             str_name = item.name;
+            if (item.description === null) {
+                item.description = '';
+            }
             str_descr = item.description;
             str_posi = item.positionNumber;
-            if (str_name.includes(queryString) || str_descr.includes(queryString) || str_posi.includes(queryString)) {
+            if (str_posi.includes(queryString) || str_name.includes(queryString) || str_descr.includes(queryString)) {
                 _this.lightListRes.push(item);
             }
         });
+        console.log(this.lightListRes);
+        this.clearSelected();
     };
     // 点击搜索
     LightHomeComponent.prototype.execQueryId = function () {
@@ -100,8 +150,6 @@ var LightHomeComponent = /** @class */ (function () {
     LightHomeComponent.prototype.getLightByDeviceName = function () {
         var that = this;
         var posNum = this.queryStr;
-        console.log('typeof (posNum)');
-        console.log(typeof (posNum));
         that.lightService.getLightByDeviceName(posNum).subscribe({
             next: function (val) {
                 var point = new BMap.Point(val.point.lng, val.point.lat);
@@ -219,7 +267,7 @@ var LightHomeComponent = /** @class */ (function () {
                 compar = that.comparison(that.lightList, val);
                 value = that.judgeChange(compar.a_arr, compar.b_arr);
                 // console.log('value');
-                // console.log(value);
+                // console.log(val);
                 that.changeMarker(value); // 替换
                 that.deleMarker(compar.a_surplus); // 删除
                 // that.deleMarker(value); // 删除
@@ -244,12 +292,14 @@ var LightHomeComponent = /** @class */ (function () {
         var a_arr = [];
         var i = 0;
         for (var j = 0; j < b.length; j++) {
-            while (i < a.length && a[i].id < b[j].id) {
-                i++;
-            }
-            if (a[i].id === b[j].id) {
-                a_arr.push(a[i]);
-                i++;
+            if (a.length > 0) {
+                while (i < a.length && a[i].id < b[j].id) {
+                    i++;
+                }
+                if (a[i].id === b[j].id) {
+                    a_arr.push(a[i]);
+                    i++;
+                }
             }
         }
         return a_arr;
@@ -462,34 +512,40 @@ var LightHomeComponent = /** @class */ (function () {
             }
         });
     };
+    // 清除选中的状态
+    LightHomeComponent.prototype.clearSelected = function () {
+        this.lightList_check.map(function (item, i) {
+            item.check = false;
+        });
+    };
     // 多选框 - 单选：选择需要统一分配策略的路灯
     LightHomeComponent.prototype.addLightstoCtrl = function () {
         var _this = this;
         this.selectedLightList = [];
         this.lightList_check.map(function (item, i) {
             if (item.check === true) {
-                var item1 = _this.lightList[i];
+                var item1 = _this.lightListRes[i];
                 if (item1) {
                     _this.selectedLightList.push(item1);
                 }
             }
         });
-        // console.log(this.selectedLightList);
+        console.log(this.selectedLightList);
     };
     // 多选框 - 全选
     LightHomeComponent.prototype.allCheckMe = function () {
         var _this = this;
-        if (this.allCheck) {
-            this.selectedLightList = [];
-            this.lightList_check.map(function (item, i) {
-                _this.lightList_check[i].check = true;
-                var item1 = _this.lightList[i];
+        this.selectedLightList = [];
+        this.lightList_check.map(function (item, i) {
+            _this.lightList_check[i].check = _this.allCheck;
+            if (_this.allCheck) {
+                var item1 = _this.lightListRes[i];
                 if (item1) {
                     _this.selectedLightList.push(item1);
                 }
-            });
-        }
-        // console.log(this.selectedLightList);
+            }
+        });
+        console.log(this.selectedLightList);
     };
     LightHomeComponent.prototype.addArr = function (arr) { };
     // 点击关闭操作详情
@@ -875,9 +931,9 @@ var LightHomeComponent = /** @class */ (function () {
             selector: 'app-light',
             templateUrl: './light-home.component.html',
             styleUrls: ['./light-home.component.scss'],
-            providers: [ng_bootstrap_1.NgbTimepickerConfig] // add NgbTimepickerConfig to the component providers
+            providers: [ng_bootstrap_1.NgbTimepickerConfig, rabbitmq_service_1.RabbitmqService] // add NgbTimepickerConfig to the component providers
         }),
-        __metadata("design:paramtypes", [monitor_service_1.MonitorService, light_service_1.LightService, router_1.Router,
+        __metadata("design:paramtypes", [monitor_service_1.MonitorService, light_service_1.LightService, rabbitmq_service_1.RabbitmqService, router_1.Router,
             ng_bootstrap_1.NgbTimepickerConfig])
     ], LightHomeComponent);
     return LightHomeComponent;
