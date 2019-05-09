@@ -300,7 +300,7 @@ export class AdministrationComponent implements OnInit {
     const ids = [];
     ids.push(id);
     const body = {
-      ids: ids
+      id: id
     };
     this.roadService.delRegions(body)
       .subscribe({
